@@ -1,19 +1,26 @@
 ;;;; Plugins
-;;; Emacs Application Framework
+;;; Third-party
+;; Emacs Application Framework
 (add-to-list 'load-path "~/.emacs.d/emacs-application-framework")
 (require 'eaf)
-;;; Vterm
+;; Vterm
 (add-to-list 'load-path "~/.emacs.d/emacs-libvterm")
 (require 'vterm)
-;;; Atom-One
+;; Atom-One
 (add-to-list 'custom-theme-load-path "~/.emacs.d/theme")
 (load-theme 'atom-one-dark t)
+;;; Locale
+(require 'org)
+(setq org-src-fontify-natively t) ; Org code highlight
 
 ;;; Basic things
 (menu-bar-mode -1) ; Close the menu bar
 (tool-bar-mode -1) ; Close the tool bar
 (scroll-bar-mode -1) ; Close Scroll bar
 (global-linum-mode 1) ; Show the line number
+(delete-selection-mode 1) ; Delete the seleceted text
+(global-hl-line-mode 1) ; Highlight the current line
+(setq make-backup-file nil) ; Don't let Emacs make up backup file
 (setq cursor-type 'bar) ; Cursor Shape
 (setq inhibit-splash-screen 1) ; Close the start flash
 ;;(setq fonts '("Source Code Pro"))
