@@ -90,8 +90,8 @@
 
 
 ;; Keybindings
-(define-prefix-command 'ctl-z-map) ; Create the C-z map
-(global-set-key (kbd "C-z") 'ctl-z-map) ; Set the C-z
+(define-prefix-command 'ctl-z-map)		 ; Create the C-z map
+(global-set-key (kbd "C-z") 'ctl-z-map)		 ; Set the C-z
 (global-set-key (kbd "C-z i") 'open-config-file) ; Open the init.el
 (global-set-key (kbd "C-z p") 'package-list-packages) ; Open the package interface
 (global-set-key (kbd "C-z C-b") 'buffer-menu) ; Open the buffer menu
@@ -99,6 +99,8 @@
 (global-set-key (kbd "C-z C-w") 'eaf-open-browser) ; Open the eaf browser
 (global-set-key (kbd "C-z C-m") 'eaf-open-bookmark) ; Open the eaf browser by bookmarks
 (global-set-key (kbd "C-z C-t") 'open-vterm) ; Open vterm
+(global-set-key (kbd "C-z C-p") 'previous-buffer) ; Goto previous buffer
+(global-set-key (kbd "C-z C-n") 'next-buffer)	  ;Goto Next buffer
 (define-key global-map [C-return] 'set-mark-command) ; The mark key map
 
 
