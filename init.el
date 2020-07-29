@@ -12,6 +12,21 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/theme")
 (load-theme 'atom-one-dark t)
 ;;; In Mirror
+;; Packages Installation
+(defvar my/packages '(
+			  ;; Org
+			  org
+			  ;; Terminal
+			  vterm
+			  ;; Nice Plugin
+			  counsel
+			  ivy
+			  iedit
+			  ;; mode-line
+			  spaceline
+			  ;; More
+			  all-the-icons) "Default packages")
+
 ;; Org
 (require 'org)
 (setq org-src-fontify-natively t) ; Org code highlight
@@ -28,28 +43,42 @@
 (require 'ivy)
 (ivy-mode 1)
 ;; GitHub
-(load "~/.emacs.d/token.el")
+(load-file "~/.emacs.d/token.el")
 (require 'github-token)
 
 ;;; Basic things
+;; UI
 (menu-bar-mode -1) ; Close the menu bar
 (tool-bar-mode -1) ; Close the tool bar
 (scroll-bar-mode -1) ; Close Scroll bar
 (global-linum-mode 1) ; Show the line number
-(delete-selection-mode 1) ; Delete the seleceted text
 (global-hl-line-mode 1) ; Highlight the current line
 (toggle-frame-fullscreen) ; Set fullscreen
-(setq make-backup-files nil) ; Don't let Emacs make up backup file
-(setq auto-save-default nil) ; Don't auto save the file
 (setq cursor-type 'bar) ; Cursor Shape
 (setq inhibit-splash-screen 1) ; Close the start flash
-(fset 'yes-or-no-p 'y-or-n-p) ; Change the asking's answer way
 (set-face-attribute 'default nil
 		    :height 160
 		    :family "Source Code Pro"
 		    :weight 'normal
 		    :width 'normal) ; Set the font size
-;; (set-default-font "Source Code Pro-24") ; Set font
+
+;; Functions
+(delete-selection-mode 1) ; Delete the seleceted text
+(setq make-backup-files nil) ; Don't let Emacs make up backup file
+(setq auto-save-default nil) ; Don't auto save the file
+(fset 'yes-or-no-p 'y-or-n-p) ; Change the asking's answer way
+
+;; Dired-mode
+(require 'dired-x) ; Use dired-x to add the `C-x C-j` keymap
+(put 'dired-find-alternate-file 'disabled nil) ; Don't let dired-mode create a new buffer for the dir
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
+
+;; Abbrev-mode
+(setq-default abbrev-mode t) ; Open abbrev-mode
+(define-abbrev-table 'global-abbrev-table '(
+					    ("MyName" "SpringHan")))
+
 ;; Open the configuration quickly (Function)
 (defun open-config-file()
   (interactive)
@@ -84,6 +113,8 @@
 (global-set-key (kbd "M-x") 'counsel-M-x)
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-z a") 'counsel-linux-app)
+;;; Iedit
+(global-set-key (kbd "C-z e") 'iedit-mode)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
