@@ -3,7 +3,6 @@
 			("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (package-initialize)
 
-
 ;;;; Plugins
 ;;; Third-party
 ;; Emacs Application Framework
@@ -22,6 +21,12 @@
 (require 'counsel)
 ;; Icons
 (require 'all-the-icons)
+;; Spaceline
+(require 'spaceline-config)
+(spaceline-spacemacs-theme)
+;; ivy
+(require 'ivy)
+(ivy-mode 1)
 
 ;;; Basic things
 (menu-bar-mode -1) ; Close the menu bar
@@ -30,11 +35,10 @@
 (global-linum-mode 1) ; Show the line number
 (delete-selection-mode 1) ; Delete the seleceted text
 (global-hl-line-mode 1) ; Highlight the current line
-(setq initial-frame-alist '((fullscreen . maximized))) ; Initial fullscreen
-(setq make-backup-file nil) ; Don't let Emacs make up backup file
+(toggle-frame-fullscreen) ; Set fullscreen
+(setq make-backup-files nil) ; Don't let Emacs make up backup file
 (setq cursor-type 'bar) ; Cursor Shape
 (setq inhibit-splash-screen 1) ; Close the start flash
-;;(setq fonts '("Source Code Pro"))
 (set-face-attribute 'default nil
 		    :height 160
 		    :family "Source Code Pro"
@@ -68,17 +72,22 @@
 ;; Plugin Setting
 ;;; Emacs Application Framework
 (eaf-setq eaf-browser-remember-history "true")
-(setq eaf-browser-default-search-engine 'Bing)
+;; (setq eaf-browser-default-search-engine 'Bing)
+(eaf-setq eaf-browser-default-zoom "1.0")
 (eaf-setq eaf-browse-blank-page-url "https://cn.bing.com/")
+(setq eaf-grip-token "4cf74d7b5d04c83fb73c3be1e3b1dced82ecee5d")
+(eaf-setq eaf-browser-dark-mode "true")
 ;;; Counsel
 (global-set-key (kbd "M-x") 'counsel-M-x)
+(global-set-key (kbd "C-x C-f") 'counsel-find-file)
+(global-set-key (kbd "C-z a") 'counsel-linux-app)
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(all-the-icons counsel vterm)))
+ '(package-selected-packages '(spaceline all-the-icons counsel vterm)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
