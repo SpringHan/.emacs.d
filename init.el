@@ -27,6 +27,9 @@
 ;; ivy
 (require 'ivy)
 (ivy-mode 1)
+;; GitHub
+(load "~/.emacs.d/token.el")
+(require 'github-token)
 
 ;;; Basic things
 (menu-bar-mode -1) ; Close the menu bar
@@ -37,8 +40,10 @@
 (global-hl-line-mode 1) ; Highlight the current line
 (toggle-frame-fullscreen) ; Set fullscreen
 (setq make-backup-files nil) ; Don't let Emacs make up backup file
+(setq auto-save-default nil) ; Don't auto save the file
 (setq cursor-type 'bar) ; Cursor Shape
 (setq inhibit-splash-screen 1) ; Close the start flash
+(fset 'yes-or-no-p 'y-or-n-p) ; Change the asking's answer way
 (set-face-attribute 'default nil
 		    :height 160
 		    :family "Source Code Pro"
@@ -52,7 +57,6 @@
 (defun open-vterm()
   (interactive)
   (vterm)
-  (hl-line-mode -1)
   (linum-mode -1))
 
 
@@ -75,7 +79,6 @@
 ;; (setq eaf-browser-default-search-engine 'Bing)
 (eaf-setq eaf-browser-default-zoom "1.0")
 (eaf-setq eaf-browse-blank-page-url "https://cn.bing.com/")
-(setq eaf-grip-token "4cf74d7b5d04c83fb73c3be1e3b1dced82ecee5d")
 (eaf-setq eaf-browser-dark-mode "true")
 ;;; Counsel
 (global-set-key (kbd "M-x") 'counsel-M-x)
