@@ -65,70 +65,37 @@
 (add-to-list 'load-path "~/.emacs.d/etc/")
 ;; Org-mode
 (require 'init-org)
+;; UI
+(require 'init-ui)
+;; Keymaps
+(require 'init-keymaps)
+;; Other mode settings
+(require 'init-modes)
 
 
 ;;;; Basic things
-;;; UI
-(menu-bar-mode -1) ; Close the menu bar
-(tool-bar-mode -1) ; Close the tool bar
-(scroll-bar-mode -1) ; Close Scroll bar
-(global-linum-mode 1) ; Show the line number
-(global-hl-line-mode 1) ; Highlight the current line
-(toggle-frame-fullscreen) ; Set fullscreen
-(setq cursor-type 'bar) ; Cursor Shape
-(setq inhibit-splash-screen 1) ; Close the start flash
-(set-face-attribute 'default nil
-		    :height 160
-		    :family "Source Code Pro"
-		    :weight 'normal
-		    :width 'normal) ; Set the font size
-
 ;;; Functions
 (delete-selection-mode 1) ; Delete the seleceted text
 (setq make-backup-files nil) ; Don't let Emacs make up backup file
 (setq auto-save-default nil) ; Don't auto save the file
 (fset 'yes-or-no-p 'y-or-n-p) ; Change the asking's answer way
 (setq default-tab-width 2) ; The tab width
-
-;; Dired-mode
-(require 'dired-x) ; Use dired-x to add the `C-x C-j` keymap
-(put 'dired-find-alternate-file 'disabled nil) ; Don't let dired-mode create a new buffer for the dir
-(with-eval-after-load 'dired
-  (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
-
-;; Abbrev-mode
-(setq-default abbrev-mode t) ; Open abbrev-mode
-(define-abbrev-table 'global-abbrev-table '(
-					    ("MyName" "SpringHan")))
-
 ;; Open the configuration quickly (Function)
 (defun open-config-file()
   (interactive)
   (find-file "~/.emacs.d/init.el"))
+
+(defun open-etc-config()
+  (interactive)
+  (find-file "~/.emacs.d/etc/"))
+
 (defun open-vterm()
   (interactive)
   (vterm)
   (linum-mode -1))
 
 
-;; Keybindings
-(define-prefix-command 'ctl-z-map)		 ; Create the C-z map
-(global-set-key (kbd "C-z") 'ctl-z-map)		 ; Set the C-z
-(global-set-key (kbd "C-z i") 'open-config-file) ; Open the init.el
-(global-set-key (kbd "C-z p") 'package-list-packages) ; Open the package interface
-(global-set-key (kbd "C-z d") 'auto-download-plugins) ; Auto download plugins
-(global-set-key (kbd "C-z C-b") 'buffer-menu) ; Open the buffer menu
-(global-set-key (kbd "C-z C-i") 'erc) ;Open the erc
-(global-set-key (kbd "C-z C-w") 'eaf-open-browser) ; Open the eaf browser
-(global-set-key (kbd "C-z C-m") 'eaf-open-bookmark) ; Open the eaf browser by bookmarks
-(global-set-key (kbd "C-z C-t") 'open-vterm) ; Open vterm
-(global-set-key (kbd "C-z C-p") 'previous-buffer) ; Goto previous buffer
-(global-set-key (kbd "C-z C-n") 'next-buffer)	  ;Goto Next buffer
-(global-set-key (kbd "C-z m") 'set-mark-command) ; The mark key map
-(global-set-key (kbd "<f12>") 'tab-bar-mode) ; Open or close the tab-bar-mode
-
-
-;; Plugin Setting
+;;; Plugin Setting
 ;;; Emacs Application Framework
 (eaf-setq eaf-browser-remember-history "true")
 ;; (setq eaf-browser-default-search-engine 'Bing)
