@@ -26,6 +26,19 @@
 			  spaceline
 			  ;; More
 			  all-the-icons) "Default packages")
+(setq package-selected-packages my/packages) ; Set the packages need to install
+(require 'cl) ; The Lisp Extension
+(defun my/packages-installed-p()
+  (loop for pkg in my/packages
+	when (not (package-installed-p pkg)) do (return nil)
+	(finally (return t)))) ; Define function to return whether package installed
+(defun auto-download-plugins()
+  (unless (my/packages-installed-p)
+    (message "%s" "Refreshing package database")
+    (package-refresh-contents)
+    (dolist (pkg my/packages)
+      (when (not (package-installed-p pkg))
+	(package-install pkg))))) ; Install the packages haven't installed
 
 ;; Org
 (require 'org)
@@ -42,12 +55,20 @@
 ;; ivy
 (require 'ivy)
 (ivy-mode 1)
-;; GitHub
+
+
+;;;; Other config files
+;;; GitHub
 (load-file "~/.emacs.d/token.el")
 (require 'github-token)
+;;; Other files
+(add-to-list 'load-path "~/.emacs.d/etc/")
+;; Org-mode
+(require 'init-org)
 
-;;; Basic things
-;; UI
+
+;;;; Basic things
+;;; UI
 (menu-bar-mode -1) ; Close the menu bar
 (tool-bar-mode -1) ; Close the tool bar
 (scroll-bar-mode -1) ; Close Scroll bar
@@ -62,11 +83,12 @@
 		    :weight 'normal
 		    :width 'normal) ; Set the font size
 
-;; Functions
+;;; Functions
 (delete-selection-mode 1) ; Delete the seleceted text
 (setq make-backup-files nil) ; Don't let Emacs make up backup file
 (setq auto-save-default nil) ; Don't auto save the file
 (fset 'yes-or-no-p 'y-or-n-p) ; Change the asking's answer way
+(setq default-tab-width 2) ; The tab width
 
 ;; Dired-mode
 (require 'dired-x) ; Use dired-x to add the `C-x C-j` keymap
@@ -94,6 +116,7 @@
 (global-set-key (kbd "C-z") 'ctl-z-map)		 ; Set the C-z
 (global-set-key (kbd "C-z i") 'open-config-file) ; Open the init.el
 (global-set-key (kbd "C-z p") 'package-list-packages) ; Open the package interface
+(global-set-key (kbd "C-z d") 'auto-download-plugins) ; Auto download plugins
 (global-set-key (kbd "C-z C-b") 'buffer-menu) ; Open the buffer menu
 (global-set-key (kbd "C-z C-i") 'erc) ;Open the erc
 (global-set-key (kbd "C-z C-w") 'eaf-open-browser) ; Open the eaf browser
@@ -101,7 +124,8 @@
 (global-set-key (kbd "C-z C-t") 'open-vterm) ; Open vterm
 (global-set-key (kbd "C-z C-p") 'previous-buffer) ; Goto previous buffer
 (global-set-key (kbd "C-z C-n") 'next-buffer)	  ;Goto Next buffer
-(define-key global-map [C-return] 'set-mark-command) ; The mark key map
+(global-set-key (kbd "C-z m") 'set-mark-command) ; The mark key map
+(global-set-key (kbd "<f12>") 'tab-bar-mode) ; Open or close the tab-bar-mode
 
 
 ;; Plugin Setting
@@ -130,3 +154,10 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+;;;; Check if the plugins have installed
+(if (file-exists-p "~/.emacs.d/initialized")
+    (message "The Plugins have already installed.")
+  (auto-download-plugins)
+  (make-empty-file "~/.emacs.d/initialized")
+  (message "The Plugins have already installed."))

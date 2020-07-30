@@ -1,0 +1,20 @@
+* My Emacs Configuration
+
+This is my emacs configuration repository.
+
+** Dependences
+   - libvterm
+     It's used for the vterm.
+     If you are an Arch user, you can install it by:
+     #+begin_src shell
+       sudo pacman -S libvterm
+     #+end_src
+   - The dependences in [[https://github.com/manateelazycat/emacs-application-framework][Emacs Application Framework]].(To use EAF)
+
+** Installation
+   To use my configuration, you should run ~make install~ to download the EAF.And then you can open emacs.
+
+** Last
+   I'm new in emasc, I'll continue to update my configuration everyday.
+
+   You can also see my [[https://github.com/SpringHan/nvim][NeoVim Configuration]].
