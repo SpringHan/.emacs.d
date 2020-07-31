@@ -2,7 +2,12 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("nbnhhsh"
+(("org-capture-last-stored"
+ (filename . "~/.emacs.d/gtd/tasks.org")
+ (front-context-string . "*** TODO Test - ")
+ (rear-context-string)
+ (position . 8))
+("nbnhhsh"
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")
  (filename . "https://lab.magiconch.com/nbnhhsh/"))
