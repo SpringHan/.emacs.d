@@ -1,10 +1,11 @@
 ;;;; Mirror Config
 (require 'package)
+(require 'cl) ; The Lisp Extension
 (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
 			("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (package-initialize)
 
-;;;; Plugins
+;;;; Plugins Statement
 ;;; Third-party
 ;; Emacs Application Framework
 (add-to-list 'load-path "~/.emacs.d/third-party/emacs-application-framework")
@@ -30,47 +31,10 @@
 			  ;; More
 			  all-the-icons
 			  bongo
-			  cal-china-x) "Default packages")
+			  cal-china-x
+			  dashboard
+			  hungry-delete) "My packages")
 (setq package-selected-packages my/packages) ; Set the packages need to install
-(require 'cl) ; The Lisp Extension
-(defun my/packages-installed-p()
-  (loop for pkg in my/packages
-	when (not (package-installed-p pkg)) do (return nil)
-	(finally (return t)))) ; Define function to return whether package installed
-(defun auto-download-plugins()
-  (interactive)
-  (unless (my/packages-installed-p)
-    (message "%s" "Refreshing package database")
-    (package-refresh-contents)
-    (dolist (pkg my/packages)
-      (when (not (package-installed-p pkg))
-	(package-install pkg))))) ; Install the packages haven't installed
-
-;; Org
-(require 'org)
-(setq org-src-fontify-natively t) ; Org code highlight
-;; Vterm
-(require 'vterm)
-;; Counsel
-(require 'counsel)
-;; Icons
-(require 'all-the-icons)
-;; Spaceline
-(require 'spaceline-config)
-(spaceline-spacemacs-theme)
-;; ivy
-(require 'ivy)
-(ivy-mode 1)
-;; Bongo
-(require 'bongo)
-;; Which Key
-(require 'which-key)
-(which-key-mode 1)
-;; ace window
-(require 'ace-window)
-;; Calendar-China
-(require 'cal-china-x)
-
 
 ;;;; Other config files
 ;;; GitHub
@@ -86,6 +50,8 @@
 (require 'init-keymaps)
 ;; Other mode settings
 (require 'init-modes)
+;; Require Packages
+(require 'init-require-package)
 
 
 ;;;; Basic things
@@ -121,6 +87,12 @@
   (interactive)
   (find-file "~/.emacs.d/gtd"))
 
+(defun set-alpha(var)
+  (interactive "sAlpha or not(y-or-n): ")
+  (pcase var
+    ("y" (set-frame-parameter nil 'alpha '(90 . 100)))
+    ("n" (set-frame-parameter nil 'alpha '(100 . 100)))))
+
 (defun window-move(way)
   (interactive "sEnter the way(n-e-u-i): ")
   (let ((current-window-buffer (window-buffer))
@@ -137,19 +109,14 @@
 	  (set-window-buffer (get-buffer-window) current-window-buffer))))) ; Move the window
 
 
-;;; Plugin Setting
+;;; Third Party's config
 ;;; Emacs Application Framework
 (eaf-setq eaf-browser-remember-history "true")
 ;; (setq eaf-browser-default-search-engine 'Bing)
 (eaf-setq eaf-browser-default-zoom "1.0")
 (eaf-setq eaf-browse-blank-page-url "https://cn.bing.com/")
 (eaf-setq eaf-browser-dark-mode "true")
-;;; Counsel
-(global-set-key (kbd "M-x") 'counsel-M-x)
-(global-set-key (kbd "C-x C-f") 'counsel-find-file)
-(global-set-key (kbd "C-z a") 'counsel-linux-app)
-;;; Iedit
-(global-set-key (kbd "C-z e") 'iedit-mode)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -157,7 +124,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(cal-china-x ace-window which-key bongo spaceline all-the-icons counsel vterm)))
+   '(hungry-delete dashboard cal-china-x ace-window which-key bongo spaceline all-the-icons counsel vterm)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -171,3 +138,57 @@
   (auto-download-plugins)
   (make-empty-file "~/.emacs.d/initialized")
   (message "The Plugins have already installed."))
+
+;;;; Plugin requires
+;;; Org
+(package-require
+ 'org
+ '(
+   ("C-z g" org-agenda)
+   ("C-z C-c c" org-capture))
+ (progn
+   (setq org-src-fontify-natively t)))
+;; Vterm
+(package-require
+ 'vterm
+ '(("C-z C-t" open-vterm)))
+;; Counsel
+(package-require
+ 'counsel
+ '(
+   ("M-x" counsel-M-x)
+   ("C-x C-f" counsel-find-file)
+   ("C-z a" counsel-linux-app)))
+;; Icons
+(package-require 'all-the-icons)
+;; Spaceline
+(package-require 'spaceline-config)
+(spaceline-spacemacs-theme)
+;; ivy
+(package-require
+ 'ivy
+ :keymaps
+ (progn
+   (ivy-mode 1)))
+;; Bongo
+(package-require 'bongo)
+;; Which Key
+(package-require
+ 'which-key
+ :keymaps
+ (progn
+   (which-key-mode 1)))
+;; ace window
+(package-require 'ace-window)
+;; Calendar-China
+(package-require 'cal-china-x)
+;; Dascboard
+(package-require 'dashboard)
+;; Iedit
+(package-require
+ 'iedit
+ '(("C-z e" iedit-mode)))
+;; hungry-delete
+(package-require
+ 'hungry-delete
+ '(("C-z h" hungry-delete-mode)))

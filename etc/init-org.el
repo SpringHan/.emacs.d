@@ -27,4 +27,5 @@
 	 "* %^{Inspiration Mainly Content} \n  %?")
 	("n" "Note" entry (file+headline org-agenda-file-note "Note")
 	 "* %^{Note Mainly Content} \n  %?")))
+
 (provide 'init-org)
