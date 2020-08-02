@@ -1,3 +1,5 @@
+;;;;; SpringHan's Emacs Configuration
+
 ;;;; Mirror Config
 (require 'package)
 (require 'cl) ; The Lisp Extension
@@ -53,7 +55,8 @@
     ("org" (find-file "~/.emacs.d/etc/init-org.el"))
     ("keymap" (find-file "~/.emacs.d/etc/init-keymaps.el"))
     ("mode" (find-file "~/.emacs.d/etc/init-modes.el"))
-    ("package" (find-file "~/.emacs.d/etc/init-require-package.el"))))
+    ("package" (find-file "~/.emacs.d/etc/init-require-package.el"))
+    ("packages" (find-file "~/.emacs.d/etc/init-package.el"))))
 
 (defun open-vterm()
   (interactive)
@@ -101,7 +104,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(js2-mode hungry-delete dashboard cal-china-x ace-window which-key bongo spaceline all-the-icons counsel vterm)))
+   '(company-c-headers company-lsp ccls auto-yasnippet lsp-mode company web-mode js2-mode hungry-delete dashboard cal-china-x ace-window which-key bongo spaceline all-the-icons counsel vterm)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -110,64 +113,4 @@
  )
 
 ;;;; Plugin requires
-;;; Org
-(package-require
- 'org
- '(
-   ("C-z g" org-agenda)
-   ("C-z C-c c" org-capture))
- (progn
-   (setq org-src-fontify-natively t)
-   (require 'init-org)))
-;; Vterm
-(package-require
- 'vterm
- '(("C-z C-t" open-vterm)))
-;; Counsel
-(package-require
- 'counsel
- '(
-   ("M-x" counsel-M-x)
-   ("C-x C-f" counsel-find-file)
-   ("C-z a" counsel-linux-app)))
-;; Icons
-(package-require 'all-the-icons)
-;; Spaceline
-(package-require
- 'spaceline-config
- :keymaps
- (spaceline-spacemacs-theme))
-;; ivy
-(package-require
- 'ivy
- :keymaps
- (ivy-mode 1))
-;; Bongo
-(package-require 'bongo)
-;; Which Key
-(package-require
- 'which-key
- :keymaps
- (which-key-mode 1))
-;; ace window
-(package-require 'ace-window)
-;; Calendar-China
-(package-require 'cal-china-x)
-;; Dascboard
-(package-require 'dashboard)
-;; Iedit
-(package-require
- 'iedit
- '(("C-z e" iedit-mode)))
-;; hungry-delete
-(package-require
- 'hungry-delete
- '(("C-z h" hungry-delete-mode)))
-;; js2-mode
-(package-require
- 'js2-mode
- :keymaps
- (setq auto-mode-alist
-       (append
-	'(("//.js//'" . js2-mode))
-	auto-mode-alist)))
+(require 'init-package)
