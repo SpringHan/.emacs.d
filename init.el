@@ -13,28 +13,6 @@
 ;; Atom-One
 (add-to-list 'custom-theme-load-path "~/.emacs.d/theme")
 (load-theme 'atom-one-dark t)
-;;; In Mirror
-;; Packages Installation
-(defconst my/packages '(
-			  ;; Org
-			  org
-			  ;; Terminal
-			  vterm
-			  ;; Nice Plugin
-			  counsel
-			  ivy
-			  iedit
-			  which-key
-			  ace-window
-			  ;; mode-line
-			  spaceline
-			  ;; More
-			  all-the-icons
-			  bongo
-			  cal-china-x
-			  dashboard
-			  hungry-delete) "My packages")
-(setq package-selected-packages my/packages) ; Set the packages need to install
 
 ;;;; Other config files
 ;;; GitHub
@@ -42,8 +20,6 @@
 (require 'github-token)
 ;;; Other files
 (add-to-list 'load-path "~/.emacs.d/etc/")
-;; Org-mode
-(require 'init-org)
 ;; UI
 (require 'init-ui)
 ;; Keymaps
@@ -76,7 +52,8 @@
     ("ui" (find-file "~/.emacs.d/etc/init-ui.el"))
     ("org" (find-file "~/.emacs.d/etc/init-org.el"))
     ("keymap" (find-file "~/.emacs.d/etc/init-keymaps.el"))
-    ("mode" (find-file "~/.emacs.d/etc/init-modes.el"))))
+    ("mode" (find-file "~/.emacs.d/etc/init-modes.el"))
+    ("package" (find-file "~/.emacs.d/etc/init-require-package.el"))))
 
 (defun open-vterm()
   (interactive)
@@ -124,20 +101,13 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(hungry-delete dashboard cal-china-x ace-window which-key bongo spaceline all-the-icons counsel vterm)))
+   '(js2-mode hungry-delete dashboard cal-china-x ace-window which-key bongo spaceline all-the-icons counsel vterm)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-;;;; Check if the plugins have installed
-(if (file-exists-p "~/.emacs.d/initialized")
-    (message "The Plugins have already installed.")
-  (auto-download-plugins)
-  (make-empty-file "~/.emacs.d/initialized")
-  (message "The Plugins have already installed."))
 
 ;;;; Plugin requires
 ;;; Org
@@ -147,7 +117,8 @@
    ("C-z g" org-agenda)
    ("C-z C-c c" org-capture))
  (progn
-   (setq org-src-fontify-natively t)))
+   (setq org-src-fontify-natively t)
+   (require 'init-org)))
 ;; Vterm
 (package-require
  'vterm
@@ -162,22 +133,22 @@
 ;; Icons
 (package-require 'all-the-icons)
 ;; Spaceline
-(package-require 'spaceline-config)
-(spaceline-spacemacs-theme)
+(package-require
+ 'spaceline-config
+ :keymaps
+ (spaceline-spacemacs-theme))
 ;; ivy
 (package-require
  'ivy
  :keymaps
- (progn
-   (ivy-mode 1)))
+ (ivy-mode 1))
 ;; Bongo
 (package-require 'bongo)
 ;; Which Key
 (package-require
  'which-key
  :keymaps
- (progn
-   (which-key-mode 1)))
+ (which-key-mode 1))
 ;; ace window
 (package-require 'ace-window)
 ;; Calendar-China
@@ -192,3 +163,11 @@
 (package-require
  'hungry-delete
  '(("C-z h" hungry-delete-mode)))
+;; js2-mode
+(package-require
+ 'js2-mode
+ :keymaps
+ (setq auto-mode-alist
+       (append
+	'(("//.js//'" . js2-mode))
+	auto-mode-alist)))

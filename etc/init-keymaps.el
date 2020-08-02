@@ -3,7 +3,6 @@
 (global-set-key (kbd "C-z") 'ctl-z-map)		 ; Set the C-z
 (global-set-key (kbd "C-z i") 'open-config-file) ; Open the init.el
 (global-set-key (kbd "C-z p") 'package-list-packages) ; Open the package interface
-(global-set-key (kbd "C-z d") 'auto-download-plugins) ; Auto download plugins
 (global-set-key (kbd "C-z C-b") 'buffer-menu) ; Open the buffer menu
 (global-set-key (kbd "C-z C-i") 'erc) ;Open the erc
 (global-set-key (kbd "C-z C-w l") 'eaf-open-browser) ; Open the eaf browser
