@@ -16,11 +16,20 @@
 	      only-hook (nth 1 hooks))
 	(if (listp other-hooks)
 	    (dolist (other-hook other-hooks)
-	      (add-hook other-hook only-hook)
-	      (print other-hook) (print only-hook))
+	      (add-hook other-hook only-hook))
 	  (add-hook other-hooks only-hook)))))
 
-(defun package-require(package-name &optional keymaps hooks others)
+(defun package-others(others)
+  (when (listp others)
+      (dolist (other others)
+	(when (and (symbolp other) (eq other :hook))
+	  (let ((hook
+		 (nth
+		  (+ 1 (cl-position other others))
+		  others)))
+	    (package-setting :keymaps hook))))))
+
+(defun package-require(package-name &optional keymaps hooks s-ex &rest others)
   (if
       (not
        (require package-name nil 't))
@@ -28,6 +37,8 @@
        (message
 	(format "The %s package is not exists.And now it'll be installed." 'package-name))
        (package-download package-name)))
-  (package-setting keymaps hooks))
+  (package-setting keymaps hooks)
+  (if others
+      (package-others others)))
 
 (provide 'init-require-package)

@@ -38,7 +38,6 @@
  'ivy
  :keymaps
  '(after-init-hook ivy-mode))
-;; (add-hook 'after-init-hook 'ivy-mode))
 
 ;; Bongo
 (package-require 'bongo)
@@ -95,7 +94,7 @@
 ;; Company (Complete Anything)
 (package-require
  'company
- '(("C-z C-c c" global-company-mode))
+ :keymaps
  '(after-init-hook global-company-mode)
  (progn
    (setq company-idle-delay 0)
@@ -113,14 +112,27 @@
 (package-require
  'lsp-mode
  :keymaps
- '((c-mode python-mode c++-mode lisp-mode js-mode web-mode elisp-mode) lsp-mode))
+ '((c-mode-hook python-mode c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook emacs-lisp-mode-hook) lsp-mode))
+
 ;; ccls (For lsp-mode)
 (package-require 'ccls)
+
 
 ;; Auto-yasnippet
 (package-require
  'auto-yasnippet
  '(("M-n" aya-create)
    ("M-p" aya-expand)))
+
+;;FlyMake
+(package-require
+ 'flymake
+ '(("C-z f" flymake-mode)))
+
+;; rainbow-delimiters
+(package-require
+ 'rainbow-delimiters
+ :keymaps
+ '((lisp-mode-hook emacs-lisp-mode-hook) rainbow-delimiters-mode))
 
 (provide 'init-package)

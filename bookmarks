@@ -5,8 +5,8 @@
 (("org-capture-last-stored"
  (filename . "~/.emacs.d/gtd/tasks.org")
  (front-context-string . "*** TODO [2020-0")
- (rear-context-string . " This is a test\n")
- (position . 809))
+ (rear-context-string . "0>\n    写九年级自我评价\n")
+ (position . 971))
 ("nbnhhsh"
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")

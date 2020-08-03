@@ -42,6 +42,7 @@
       auto-save-default nil ; Don't auto save the file
       )
 (setq default-tab-width 2) ; The tab width
+(setq indent-tabs-mode t) ; Use tab indent
 (setq user-emacs-directory "~/.emacs.d/var")
 ;; Open the configuration quickly (Function)
 (defun open-config-file()
@@ -98,13 +99,13 @@
 (eaf-setq eaf-browser-dark-mode "true")
 
 
-(custom-set-variables
+;(custom-set-variables)
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(company-c-headers company-lsp ccls auto-yasnippet lsp-mode company web-mode js2-mode hungry-delete dashboard cal-china-x ace-window which-key bongo spaceline all-the-icons counsel vterm)))
+; '(package-selected-packages
+;   '(rainbow-delimiters company-c-headers company-lsp ccls auto-yasnippet lsp-mode company web-mode js2-mode hungry-delete dashboard cal-china-x ace-window which-key bongo spaceline all-the-icons counsel vterm)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -114,3 +115,10 @@
 
 ;;;; Plugin requires
 (require 'init-package)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(which-key web-mode vterm visual-fill-column spaceline rainbow-identifiers rainbow-delimiters js2-mode iedit hungry-delete counsel company-lsp company-c-headers ccls cal-china-x bongo auto-yasnippet all-the-icons ace-window)))
