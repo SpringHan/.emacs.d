@@ -133,6 +133,6 @@
 (package-require
  'rainbow-delimiters
  :keymaps
- '((lisp-mode-hook emacs-lisp-mode-hook) rainbow-delimiters-mode))
+ '((lisp-mode-hook emacs-lisp-mode-hook org-mode-hook) rainbow-delimiters-mode))
 
 (provide 'init-package)

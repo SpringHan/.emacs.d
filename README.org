@@ -14,6 +14,24 @@ This is my emacs configuration repository.
 ** Installation
    To use my configuration, you should run ~make install~ to download the EAF.And then you can open emacs.
 
+** Functions
+   My package manager is ~package-require~ (A package manager written by me), and it's like ~use-package~.
+   This is the usage for it:
+   #+begin_src emacs-lisp
+     (package-require
+      'package-name
+      '(("key" function)
+	("Other key" function) ; ...
+	)
+      '(hook function/hook)
+      (progn
+	(func1)
+	(func2) ; ...
+	)
+      :hook '(other-hook other-function/hook))
+   #+end_src
+   You can read its code in [[https://github.com/SpringHan/.emacs.d/blob/master/etc/init-require-package.el][init-require-package.el]].
+
 ** Last
    I'm new in emasc, I'll continue to update my configuration everyday.
 
