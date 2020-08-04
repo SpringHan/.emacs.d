@@ -24,6 +24,8 @@
 (add-to-list 'load-path "~/.emacs.d/etc/")
 ;; UI
 (require 'init-ui)
+;; The functions
+(require 'init-functions)
 ;; Keymaps
 (require 'init-keymaps)
 ;; Other mode settings
@@ -41,54 +43,11 @@
       create-lockfiles nil ;Don't make lockfile
       auto-save-default nil ; Don't auto save the file
       )
-(setq default-tab-width 2) ; The tab width
-(setq indent-tabs-mode t) ; Use tab indent
+(setq-default tab-width 2) ; The tab width
+(setq-default indent-tabs-mode t) ; Use tab indent
+(setq backward-delete-char-untabify-method nil) ; Delete the tab by once
 (setq user-emacs-directory "~/.emacs.d/var")
 (setq user-init-file "~/.emacs.d/var/user-init.el")
-;; Open the configuration quickly (Function)
-(defun open-config-file()
-  (interactive)
-  (find-file "~/.emacs.d/init.el"))
-
-(defun open-etc-config(file)
-  (interactive "sEnter the filename: ")
-  (pcase file
-    ("ui" (find-file "~/.emacs.d/etc/init-ui.el"))
-    ("org" (find-file "~/.emacs.d/etc/init-org.el"))
-    ("keymap" (find-file "~/.emacs.d/etc/init-keymaps.el"))
-    ("mode" (find-file "~/.emacs.d/etc/init-modes.el"))
-    ("package" (find-file "~/.emacs.d/etc/init-require-package.el"))
-    ("packages" (find-file "~/.emacs.d/etc/init-package.el"))))
-
-(defun open-vterm()
-  (interactive)
-  (vterm)
-  (linum-mode -1))
-
-(defun open-gtd-dir()
-  (interactive)
-  (find-file "~/.emacs.d/gtd"))
-
-(defun set-alpha(var)
-  (interactive "sAlpha or not(y-or-n): ")
-  (pcase var
-    ("y" (set-frame-parameter nil 'alpha '(90 . 100)))
-    ("n" (set-frame-parameter nil 'alpha '(100 . 100)))))
-
-(defun window-move(way)
-  (interactive "sEnter the way(n-e-u-i): ")
-  (let ((current-window-buffer (window-buffer))
-	(current-window (get-buffer-window)))
-    (pcase way
-      ("n" (windmove-left))
-      ("e" (windmove-down))
-      ("u" (windmove-up))
-      ("i" (windmove-right)))
-    (setq another-window-buffer (get-buffer-window))
-    (if (not (eql current-window-buffer another-window-buffer))
-	(progn
-	  (set-window-buffer current-window (window-buffer))
-	  (set-window-buffer (get-buffer-window) current-window-buffer))))) ; Move the window
 
 
 ;;; Third Party's config
@@ -98,21 +57,6 @@
 (eaf-setq eaf-browser-default-zoom "1.0")
 (eaf-setq eaf-browse-blank-page-url "https://cn.bing.com/")
 (eaf-setq eaf-browser-dark-mode "true")
-
-
-;(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
-; '(package-selected-packages
-;   '(dashboard which-key web-mode vterm visual-fill-column spaceline rainbow-identifiers rainbow-delimiters js2-mode iedit hungry-delete counsel company-lsp company-c-headers ccls cal-china-x bongo auto-yasnippet all-the-icons ace-window)))
-;(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
-; )
 
 ;;;; Plugin requires
 (require 'init-package)

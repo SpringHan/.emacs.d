@@ -20,12 +20,22 @@
       '(
 	("t" "Task")
 	("tw" "Work Task" entry (file+headline org-agenda-file-task "Work")
-	 "* TODO %U - %^{Work Mainly Content} %^g\n  %?" :clock-in t :clock-keep t)
+	 "* TODO %T - %^{Work Mainly Content} %^g\n  %?" :clock-in t :clock-keep t)
 	("ts" "Study Task" entry (file+headline org-agenda-file-task "Study")
-	 "* STUDY %U - %^{Study Mainly Content} %^g\n  %?" :clock-in t :clock-keep t)
+	 "* STUDY %T - %^{Study Mainly Content} %^g\n  %?" :clock-in t :clock-keep t)
 	("i" "inspiration" entry (file+headline org-agenda-file-insp "Inspiration")
 	 "* %^{Inspiration Mainly Content} \n  %?")
 	("n" "Note" entry (file+headline org-agenda-file-note "Note")
 	 "* %^{Note Mainly Content} \n  %?")))
+
+;; PDF & Latex
+(setq org-latex-pdf-process '("xelatex -file-line-error -interaction nonstopmode %f"
+			      "bibtex %b"
+			      "xelatex -file-line-error -interaction nonstopmode %f"
+			      "xelatex -file-line-error -interaction nonstopmode %f"))
+(setq org-latex-logfiles-extensions
+      '("lof" "lot" "tex" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg""brf" "fls" "entoc" "ps" "spl" "bbl" "xdv"))
+(setq org-image-actual-width '(300))
+(setq org-export-with-sub-superscripts nil)
 
 (provide 'init-org)

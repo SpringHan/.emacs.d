@@ -1,19 +1,28 @@
 ;;;; This file is used for packages configuration and more
+;; Set the plugin keybinding
+(define-prefix-command 'plugin-key)
+(global-set-key (kbd "C-'") 'plugin-key)
+
 ;; Org
 (package-require
  'org
  '(
    ("C-z g" org-agenda)
-   ("C-z C-c c" org-capture))
+   ("C-z C-c" org-capture))
  :hooks
  (progn
    (setq org-src-fontify-natively t)
-   (require 'init-org)))
+   (require 'init-org)
+   (package-require
+    'org-bullets
+    :keymaps
+    '(org-mode-hook org-bullets-mode)
+    (setq org-bullets-bullet-list '("" "☯" "" "" )))))
 
 ;; Vterm
 (package-require
  'vterm
- '(("C-z C-t" open-vterm)))
+ '(("C-' C-t" open-vterm)))
 
 ;; Counsel
 (package-require
@@ -24,7 +33,9 @@
    ("C-z a" counsel-linux-app)))
 
 ;; Icons
-(package-require 'all-the-icons)
+(package-require
+ 'all-the-icons
+ '(("C-' C-i" all-the-icons-insert)))
 
 ;; Spaceline
 (package-require
@@ -60,12 +71,12 @@
 ;; Iedit
 (package-require
  'iedit
- '(("C-z e" iedit-mode)))
+ '(("C-' C-e" iedit-mode)))
 
 ;; hungry-delete
 (package-require
  'hungry-delete
- '(("C-z h" hungry-delete-mode)))
+ '(("C-' C-h" hungry-delete-mode)))
 
 ;; js2-mode
 (package-require
@@ -84,7 +95,7 @@
 	  '(("\\.html\\'" . web-mode))
 	  auto-mode-alist))
    (defun web-mode-indent-setup()
-     (setq web-mode-markup-indent-offset 2
+     (setq web-mode-markup-indent-offset 2 ; Indent of HTML
 	   web-mode-css-indent-offset 2
 	   web-mode-code-indent-offset 2) ; Indent of JavaScript in HTML
      )))
@@ -121,18 +132,31 @@
 ;; Auto-yasnippet
 (package-require
  'auto-yasnippet
- '(("M-n" aya-create)
-   ("M-p" aya-expand)))
+ '(("C-' C-a c" aya-create)
+   ("C-' C-a e" aya-expand)))
 
 ;;FlyMake
 (package-require
  'flymake
- '(("C-z f" flymake-mode)))
+ '(("C-' C-f" flymake-mode)))
 
 ;; rainbow-delimiters
 (package-require
  'rainbow-delimiters
  :keymaps
  '((lisp-mode-hook emacs-lisp-mode-hook org-mode-hook) rainbow-delimiters-mode))
+
+;; Highlight indent guides
+;(package-require
+; 'highlight-indent-guides
+; :keymaps
+; '(after-init-hook highlight-indent-guides-mode))
+
+;; indent guide
+(package-require
+ 'indent-guide
+ :keymaps
+ '(after-init-hook indent-guide-global-mode))
+ ;(set-face-background 'indent-guide-face "cray"))
 
 (provide 'init-package)

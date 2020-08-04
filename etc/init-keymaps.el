@@ -14,7 +14,7 @@
 (global-set-key (kbd "<f12>") 'tab-bar-mode) ; Open or close the tab-bar-mode
 (global-set-key (kbd "C-z c") 'open-etc-config) ; Open the etc config dir
 (global-set-key (kbd "C-z C-m w") 'window-move) ; Move the window
-(global-set-key (kbd "C-z C-c g") 'open-gtd-dir) ; Open the get things done directory
 (global-set-key (kbd "C-z C-a") 'set-alpha) ; Set the emacs' alpha
+(global-set-key (kbd "C-z C-o") 'open-the-dir) ; Open the gtd/github directory
 
 (provide 'init-keymaps)
