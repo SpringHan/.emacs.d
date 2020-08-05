@@ -88,17 +88,16 @@
 (package-require
  'web-mode
  :keymaps
- '(web-mode web-mode-indent-setup)
+ :hooks
  (progn
    (setq auto-mode-alist
 	 (append
 	  '(("\\.html\\'" . web-mode))
 	  auto-mode-alist))
-   (defun web-mode-indent-setup()
-     (setq web-mode-markup-indent-offset 2 ; Indent of HTML
-	   web-mode-css-indent-offset 2
-	   web-mode-code-indent-offset 2) ; Indent of JavaScript in HTML
-     )))
+     (setq-default web-mode-markup-indent-offset 2 ; Indent of HTML
+									 web-mode-css-indent-offset 2
+									 web-mode-code-indent-offset 2) ; Indent of JavaScript in HTML
+     ))
 
 
 ;;; Auto Completion
