@@ -16,5 +16,12 @@
 (global-set-key (kbd "C-z C-m w") 'window-move) ; Move the window
 (global-set-key (kbd "C-z C-a") 'set-alpha) ; Set the emacs' alpha
 (global-set-key (kbd "C-z C-o") 'open-the-dir) ; Open the gtd/github directory
+(global-set-key (kbd "C-z u") 'undo-only) ; Undo without redo
+(global-set-key (kbd "C-z r") 'undo-redo) ; Redo
+(global-set-key (kbd "C-z t") 'make-empty-file) ; Touch file
+
+;; Macros
+(global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder
+(global-set-key (kbd "C-z C-k r") 'replace-placeholder) ; Replace Placeholder
 
 (provide 'init-keymaps)

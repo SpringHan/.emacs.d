@@ -38,11 +38,11 @@
  '(("C-' C-i" all-the-icons-insert)))
 
 ;; Spaceline
-(package-require
- 'spaceline-config
- :keymaps
- :hooks
- (spaceline-spacemacs-theme))
+;; (package-require
+;;  'spaceline-config
+;;  :keymaps
+;;  :hooks
+;;  (spaceline-spacemacs-theme))
 
 ;; ivy
 (package-require
@@ -127,12 +127,32 @@
 ;; ccls (For lsp-mode)
 (package-require 'ccls)
 
+;; emmet-mode
+(package-require
+ 'emmet-mode
+ :keymaps
+ '(web-mode-hook emmet-mode)
+ (progn
+	 (setq emmet-self-closing-tag-style " /")))
+
 
 ;; Auto-yasnippet
+;; (package-require
+;;  'auto-yasnippet
+;;  '(("C-' C-a c" aya-create)
+;;    ("C-' C-a e" aya-expand)))
+
+;; Snippet
 (package-require
- 'auto-yasnippet
- '(("C-' C-a c" aya-create)
-   ("C-' C-a e" aya-expand)))
+ 'yasnippet
+ :keymaps
+ '(after-init-hook yas-global-mode)
+ (progn
+	 (package-require
+		'yasnippet-snippets)
+	 (setq yas-snippet-dirs '(
+														"~/.emacs.d/snippets"
+														"~/.emacs.d/elpa/yasnippet-snippets-20200802.1658/snippets"))))
 
 ;;FlyMake
 (package-require
@@ -145,17 +165,16 @@
  :keymaps
  '((lisp-mode-hook emacs-lisp-mode-hook org-mode-hook) rainbow-delimiters-mode))
 
-;; Highlight indent guides
-;(package-require
-; 'highlight-indent-guides
-; :keymaps
-; '(after-init-hook highlight-indent-guides-mode))
-
 ;; indent guide
 (package-require
  'indent-guide
  :keymaps
  '(after-init-hook indent-guide-global-mode))
- ;(set-face-background 'indent-guide-face "cray"))
+
+;; doom-modeline
+(package-require
+ 'doom-modeline
+ :keymaps
+ '(after-init-hook doom-modeline-mode))
 
 (provide 'init-package)

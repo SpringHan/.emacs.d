@@ -17,6 +17,8 @@
 (load-theme 'atom-one-dark t)
 
 ;;;; Other config files
+;; Macros
+(load-file "~/.emacs.d/macros.el")
 ;;; GitHub
 (load-file "~/.emacs.d/token.el")
 (require 'github-token)
@@ -39,6 +41,7 @@
 (fset 'yes-or-no-p 'y-or-n-p) ; Change the asking's answer way
 (delete-selection-mode 1) ; Delete the seleceted text
 (show-paren-mode 1) ; Highlight the ()
+(electric-pair-mode 1) ; Auto complete the ()
 (setq make-backup-files nil ; Don't let Emacs make up backup file
       create-lockfiles nil ;Don't make lockfile
       auto-save-default nil ; Don't auto save the file
