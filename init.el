@@ -4,7 +4,7 @@
 (require 'package)
 (require 'cl) ; The Lisp Extension
 (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-			("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+												 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (package-initialize)
 
 ;;;; Plugins Statement
@@ -12,6 +12,12 @@
 ;; Emacs Application Framework
 (add-to-list 'load-path "~/.emacs.d/third-party/emacs-application-framework")
 (require 'eaf)
+;; (package-require
+;; 'eaf
+;; :keymaps
+;; :hooks
+;; :config
+;; :path "~/.emacs.d/third-party/emacs-application-framework")
 ;; Atom-One
 (add-to-list 'custom-theme-load-path "~/.emacs.d/theme")
 (load-theme 'atom-one-dark t)
@@ -32,7 +38,7 @@
 (require 'init-keymaps)
 ;; Other mode settings
 (require 'init-modes)
-;; Require Packages
+;; Packages
 (require 'init-require-package)
 
 

@@ -60,7 +60,9 @@
  '(after-init-hook which-key-mode))
 
 ;; ace window
-(package-require 'ace-window)
+(package-require
+ 'ace-window
+ '(("C-' C-c" ace-window)))
 
 ;; Calendar-China
 (package-require 'cal-china-x)
@@ -76,7 +78,8 @@
 ;; hungry-delete
 (package-require
  'hungry-delete
- '(("C-' C-h" hungry-delete-mode)))
+ '(("C-' C-h" hungry-delete-mode)) 
+ '((emacs-lisp-mode-hook lisp-mode-hook) hungry-delete-mode))
 
 ;; js2-mode
 (package-require
@@ -115,8 +118,7 @@
      (define-key company-active-map (kbd "C-n") #'company-select-next)
      (define-key company-active-map (kbd "C-p") #'company-select-previous))
    (package-require 'company-lsp)
-   (package-require 'company-c-headers)
-   (push 'company-lsp company-backends)))
+   (package-require 'company-c-headers)))
 
 ;; Lsp-mode
 (package-require
@@ -175,6 +177,16 @@
 (package-require
  'doom-modeline
  :keymaps
- '(after-init-hook doom-modeline-mode))
+ '(after-init-hook doom-modeline-mode)
+ (setq-default doom-modeline-height 18))
+
+;; magit
+(package-require
+ 'magit
+ '(("C-' C-m" magit-status)))
+
+(package-require
+ 'windresize
+ '(("C-' C-r" windresize)))
 
 (provide 'init-package)

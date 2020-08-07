@@ -19,6 +19,7 @@
 (global-set-key (kbd "C-z u") 'undo-only) ; Undo without redo
 (global-set-key (kbd "C-z r") 'undo-redo) ; Redo
 (global-set-key (kbd "C-z t") 'make-empty-file) ; Touch file
+(global-set-key (kbd "C-z C-s") 'eaf-stop-process) ; Stop the EAF
 
 ;; Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder
