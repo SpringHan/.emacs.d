@@ -54,6 +54,7 @@
       )
 (setq-default tab-width 2) ; The tab width
 (setq-default indent-tabs-mode t) ; Use tab indent
+(setq-default css-indent-offset 2) ; Set css indent width
 (setq backward-delete-char-untabify-method nil) ; Delete the tab by once
 (setq user-emacs-directory "~/.emacs.d/var")
 (setq user-init-file "~/.emacs.d/var/user-init.el")

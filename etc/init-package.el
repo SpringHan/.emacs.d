@@ -68,7 +68,17 @@
 (package-require 'cal-china-x)
 
 ;; Dascboard
-(package-require 'dashboard)
+(package-require
+ 'dashboard
+ :keymaps
+ :hooks
+ (progn
+	 (dashboard-setup-startup-hook)
+	 (setq dashboard-banner-logo-title "Live in Emacs!")
+	 (setq dashboard-startup-banner 'logo)
+	 (setq dashboard-center-content t
+				 dashboard-set-heading-icons t
+				 dashboard-set-navigator t)))
 
 ;; Iedit
 (package-require
@@ -137,17 +147,11 @@
  (progn
 	 (setq emmet-self-closing-tag-style " /")))
 
-
-;; Auto-yasnippet
-;; (package-require
-;;  'auto-yasnippet
-;;  '(("C-' C-a c" aya-create)
-;;    ("C-' C-a e" aya-expand)))
-
 ;; Snippet
 (package-require
  'yasnippet
- :keymaps
+ '(("C-' i" yas-insert-snippet)
+	 ("C-' C-y" yas-expand-from-trigger-key))
  '(after-init-hook yas-global-mode)
  (progn
 	 (package-require
@@ -183,10 +187,20 @@
 ;; magit
 (package-require
  'magit
- '(("C-' C-m" magit-status)))
+ '(("C-' m" magit-status)))
 
+;; Window Resize
 (package-require
  'windresize
- '(("C-' C-r" windresize)))
+ '(("C-' C-r" windresize)
+	 ("C-' SPC" windresize-exit)))
+
+;; multiple cursor
+(package-require
+ 'multiple-cursors
+ '(("C-M-l" mc/edit-lines)
+	 ("C->" mc/mark-next-like-this)
+	 ("C-<" mc/mark-previous-like-this)
+	 ("M-m" newline)))
 
 (provide 'init-package)
