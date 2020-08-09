@@ -48,6 +48,7 @@
 (delete-selection-mode 1) ; Delete the seleceted text
 (show-paren-mode 1) ; Highlight the ()
 (electric-pair-mode 1) ; Auto complete the ()
+(setq cursor-type 'box) ; Set the cursor as a box
 (setq make-backup-files nil ; Don't let Emacs make up backup file
       create-lockfiles nil ;Don't make lockfile
       auto-save-default nil ; Don't auto save the file
@@ -55,6 +56,8 @@
 (setq-default tab-width 2) ; The tab width
 (setq-default indent-tabs-mode t) ; Use tab indent
 (setq-default css-indent-offset 2) ; Set css indent width
+(setq-default display-time-24hr-format t
+							display-time-day-and-date t) ; Display the time and date on modeline
 (setq backward-delete-char-untabify-method nil) ; Delete the tab by once
 (setq user-emacs-directory "~/.emacs.d/var")
 (setq user-init-file "~/.emacs.d/var/user-init.el")

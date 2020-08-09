@@ -203,4 +203,9 @@
 	 ("C-<" mc/mark-previous-like-this)
 	 ("M-m" newline)))
 
+;; youdao translate
+(package-require
+ 'youdao-dictionary
+ '(("C-' t" youdao-dictionary-search-at-point)))
+
 (provide 'init-package)
