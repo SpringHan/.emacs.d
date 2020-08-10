@@ -8,9 +8,9 @@
  (filename . "https://bz.zzzmh.cn/#anime"))
 ("org-capture-last-stored"
  (filename . "~/.emacs.d/gtd/tasks.org")
- (front-context-string . "*** STUDY <2020-")
- (rear-context-string . "关闭的hook\n* Study\n")
- (position . 1272))
+ (front-context-string . "*** TODO <2020-0")
+ (rear-context-string . "browser就关闭的hook\n")
+ (position . 1264))
 ("nbnhhsh"
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")

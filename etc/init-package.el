@@ -3,6 +3,22 @@
 (define-prefix-command 'plugin-key)
 (global-set-key (kbd "C-'") 'plugin-key)
 
+;; Third-party
+;; Emacs Application Framework
+(add-to-list 'load-path "~/.emacs.d/third-party/emacs-application-framework")
+(package-require
+ 'eaf
+ '(("C-z C-w l" eaf-open-browser)
+	 ("C-z C-w h" eaf-open-browser-with-history)
+	 ("C-z C-m b" eaf-open-bookmark))
+ :hooks
+ :config
+ :outside)
+(progn
+	(eaf-setq eaf-browser-remember-history "true")
+	(eaf-setq eaf-browser-default-zoom "1.0")
+	(eaf-setq eaf-browser-dark-mode "true"))
+
 ;; Org
 (package-require
  'org
@@ -128,7 +144,11 @@
      (define-key company-active-map (kbd "C-n") #'company-select-next)
      (define-key company-active-map (kbd "C-p") #'company-select-previous))
    (package-require 'company-lsp)
-   (package-require 'company-c-headers)))
+   (package-require
+		'company-c-headers
+		:keymaps
+		:hooks
+		(add-to-list 'company-backends 'company-c-headers))))
 
 ;; Lsp-mode
 (package-require
@@ -207,5 +227,10 @@
 (package-require
  'youdao-dictionary
  '(("C-' t" youdao-dictionary-search-at-point)))
+
+;; Treemacs : File explore
+(package-require
+ 'treemacs
+ '(("C-' e" treemacs)))
 
 (provide 'init-package)

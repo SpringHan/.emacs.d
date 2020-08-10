@@ -29,7 +29,8 @@
   (pcase dir-name
     ("gtd" (find-file "~/.emacs.d/gtd"))
     ("github" (find-file "~/Github"))
-    ("emacs" (find-file "~/.emacs.d"))))
+    ("emacs" (find-file "~/.emacs.d"))
+		("C" (find-file "~/Code/C/src/Study"))))
 
 (defun set-alpha(var)
   (interactive "sAlpha or not(y-or-n): ")

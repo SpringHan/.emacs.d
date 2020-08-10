@@ -5,9 +5,6 @@
 (global-set-key (kbd "C-z p") 'package-list-packages) ; Open the package interface
 (global-set-key (kbd "C-z C-b") 'buffer-menu) ; Open the buffer menu
 (global-set-key (kbd "C-z C-i") 'erc) ;Open the erc
-(global-set-key (kbd "C-z C-w l") 'eaf-open-browser) ; Open the eaf browser
-(global-set-key (kbd "C-z C-w h") 'eaf-open-browser-with-history) ; Open the eaf browser by history
-(global-set-key (kbd "C-z C-m b") 'eaf-open-bookmark) ; Open the eaf browser by bookmarks
 (global-set-key (kbd "C-z C-p") 'previous-buffer) ; Goto previous buffer
 (global-set-key (kbd "C-z C-n") 'next-buffer)	  ;Goto Next buffer
 (global-set-key (kbd "C-z m") 'set-mark-command) ; The mark key map
@@ -19,7 +16,6 @@
 (global-set-key (kbd "C-z u") 'undo-only) ; Undo without redo
 (global-set-key (kbd "C-z r") 'undo-redo) ; Redo
 (global-set-key (kbd "C-z t") 'make-empty-file) ; Touch file
-(global-set-key (kbd "C-z C-s") 'eaf-stop-process) ; Stop the EAF
 (global-set-key (kbd "C-z s") 'sudo-save) ; Use sudo permission to save the file
 
 ;; Macros
