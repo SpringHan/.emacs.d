@@ -17,6 +17,7 @@
 (global-set-key (kbd "C-z r") 'undo-redo) ; Redo
 (global-set-key (kbd "C-z t") 'make-empty-file) ; Touch file
 (global-set-key (kbd "C-z s") 'sudo-save) ; Use sudo permission to save the file
+(global-set-key (kbd "C-z w") 'write-scratch) ; New a write scratch buffer
 
 ;; Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder

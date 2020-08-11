@@ -19,14 +19,27 @@
 	(eaf-setq eaf-browser-default-zoom "1.0")
 	(eaf-setq eaf-browser-dark-mode "true"))
 
+;; English Teacher
+(add-to-list 'load-path "~/.emacs.d/third-party/english-teacher.el")
+(package-require
+ 'english-teacher
+ '(("C-' C-l" english-teacher-smart-translation))
+ :hooks
+ (setq english-teacher-backend 'baidu)
+ :outside)
+
 ;; Org
 (package-require
  'org
- '(
-   ("C-z g" org-agenda)
-   ("C-z C-c" org-capture))
+ '(("C-z C-c g" org-agenda)
+   ("C-z C-c c" org-capture)
+	 ("C-z C-c s" org-timer-start)
+	 ("C-z C-c SPC" org-timer-pause-or-continue)
+	 ("C-z C-c e" org-timer-stop))
  :hooks
  (progn
+	 (define-prefix-command 'org-key-map)
+	 (global-set-key (kbd "C-z C-c") 'org-key-map)
    (setq org-src-fontify-natively t)
    (require 'init-org)
    (package-require

@@ -2,15 +2,23 @@
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("Wallpapers"
+(("zhihu"
+ (handler . eaf--bookmark-restore)
+ (eaf-app . "browser")
+ (filename . "https://www.zhihu.com/"))
+("Yingtao"
+ (handler . eaf--bookmark-restore)
+ (eaf-app . "browser")
+ (filename . "https://space.bilibili.com/27137545?from=search&seid=2741825724149172775"))
+("Wallpapers"
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")
  (filename . "https://bz.zzzmh.cn/#anime"))
 ("org-capture-last-stored"
  (filename . "~/.emacs.d/gtd/tasks.org")
- (front-context-string . "*** TODO <2020-0")
- (rear-context-string . "browser就关闭的hook\n")
- (position . 1264))
+ (front-context-string . "*** STUDY <2020-")
+ (rear-context-string . "	看C Primer Plus\n")
+ (position . 1830))
 ("nbnhhsh"
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")

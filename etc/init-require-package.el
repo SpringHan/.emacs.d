@@ -40,7 +40,7 @@
 								 (format "The %s package is not exists.And now it'll be installed." 'package-name))
 								(package-download package-name))))
   (package-setting keymaps hooks)
-  (if others
+  (when others
       (package-others others)))
 
 (provide 'init-require-package)

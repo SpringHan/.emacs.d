@@ -47,11 +47,12 @@
 (setq-default tab-width 2) ; The tab width
 (setq-default indent-tabs-mode t) ; Use tab indent
 (setq-default css-indent-offset 2) ; Set css indent width
-(display-time-mode t) ; Display the time
 (setq display-time-24hr-format t) ; Display the time and date on modeline
+(display-time-mode t) ; Display the time
 (setq backward-delete-char-untabify-method nil) ; Delete the tab by once
 (setq user-emacs-directory "~/.emacs.d/var")
 (setq user-init-file "~/.emacs.d/var/user-init.el")
+(add-hook 'markdown-mode-hook #'markdown-table-keymap)
 
 ;;;; Plugin requires
 (require 'init-package)

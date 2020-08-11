@@ -59,4 +59,13 @@
 			(write-file (concat "/sudo:root@localhost:" (ido-read-file-name "File:")))
 		(write-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
+(defun write-scratch()
+	(interactive)
+	(switch-to-buffer "*Write-Scratch*")
+	(markdown-mode))
+
+(defun markdown-table-keymap()
+	(interactive)
+	(define-key markdown-mode-map (kbd "C-c C-c TAB") 'markdown-table-align))
+
 (provide 'init-functions)
