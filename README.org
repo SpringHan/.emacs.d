@@ -17,20 +17,20 @@ This is my emacs configuration repository.
 ** Functions
    My package manager is ~package-require~ (A package manager written by me), and it's like ~use-package~.
    This is the usage for it:
-   #+begin_src emacs-lisp
-		 ;; This is a demo of EAF
-		 (package-require
-			'eaf
-			:outside
-			:before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/emacs-application-framework")
-			:keymap '(("C-z C-w l" eaf-open-browser)
-								("C-z C-w h" eaf-open-browser-with-history)
-								("C-z C-m b" eaf-open-bookmark))
-			:delay-eval '(progn
-										 (eaf-setq eaf-browser-remember-history "true")
-										 (eaf-setq eaf-browser-default-zoom "1.0")
-										 (eaf-setq eaf-browser-dark-mode "true")))
-   #+end_src
+#+begin_src emacs-lisp
+	;; This is a demo of eaf
+	(package-require
+	 'eaf
+	 :outside
+	 :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/emacs-application-framework")
+	 :keymap '(("C-z C-w l" eaf-open-browser)
+						 ("C-z C-w h" eaf-open-browser-with-history)
+						 ("C-z C-m b" eaf-open-bookmark))
+	 :delay-eval '(progn
+									(eaf-setq eaf-browser-remember-history "true")
+									(eaf-setq eaf-browser-default-zoom "1.0")
+									(eaf-setq eaf-browser-dark-mode "true")))
+#+end_src
    You can read its code in [[https://github.com/SpringHan/.emacs.d/blob/master/etc/init-require-package.el][init-require-package.el]].
 
 ** Last
