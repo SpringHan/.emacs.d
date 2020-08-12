@@ -10,6 +10,7 @@ This is my emacs configuration repository.
        sudo pacman -S libvterm
      #+end_src
    - The dependences in [[https://github.com/manateelazycat/emacs-application-framework][Emacs Application Framework]].(To use EAF)
+   - The dependences in [[https://github.com/loyalpartner/english-teacher.el][english-teacher.el]].(To use english-teacher)
 
 ** Installation
    To use my configuration, you should run ~make install~ to download the EAF.And then you can open emacs.

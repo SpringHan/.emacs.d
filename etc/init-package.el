@@ -23,7 +23,9 @@
  :outside
  :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/english-teacher.el")
  :keymap '(("C-' C-l" english-teacher-smart-translation))
- :delay-eval '(setq english-teacher-backend 'baidu))
+ :delay-eval '(setq english-teacher-backend 'baidu
+										english-teacher-show-result-function 'english-teacher-eldoc-show-result-function)
+ :hook '((Info-mode-hook eww-mode-hook help-mode-hook) english-teacher-follow-mode))
 
 ;; Org
 (package-require
@@ -34,6 +36,7 @@
  :keymap '(("C-z C-c g" org-agenda)
 					 ("C-z C-c c" org-capture)
 					 ("C-z C-c s" org-timer-start)
+					 ("C-z C-c S" org-timer-set-timer)
 					 ("C-z C-c SPC" org-timer-pause-or-continue)
 					 ("C-z C-c e" org-timer-stop))
  :delay-eval '(progn
@@ -43,7 +46,8 @@
 								(package-require
 								 'org-bullets
 								 :hook '(org-mode-hook org-bullets-mode)
-								 :delay-eval '(setq org-bullets-bullet-list '("" "☯" "" "" )))))
+								 :delay-eval '(setq org-bullets-bullet-list '("" "☯" "" "" ))))
+ :hook '(org-mode-hook (lambda() (setq indent-tabs-mode nil))))
 
 ;; Vterm
 (package-require

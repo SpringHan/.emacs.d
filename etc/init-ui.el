@@ -8,10 +8,11 @@
 (set-frame-parameter nil 'alpha '(90 . 100))
 (setq cursor-type 'bar) ; Cursor Shape
 (setq inhibit-splash-screen t) ; Close the start flash
-(set-face-attribute 'default nil
-		    :height 160
-		    :family "Source Code Pro"
-		    :weight 'normal
-		    :width 'normal) ; Set the font size
+(set-face-attribute
+ 'default nil
+ :height 160
+ :family "Source Code Pro"
+ :weight 'normal
+ :width 'normal) ; Set the font size
 
 (provide 'init-ui)
