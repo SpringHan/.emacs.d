@@ -5,79 +5,70 @@
 
 ;; Third-party
 ;; Emacs Application Framework
-(add-to-list 'load-path "~/.emacs.d/third-party/emacs-application-framework")
 (package-require
  'eaf
- '(("C-z C-w l" eaf-open-browser)
-	 ("C-z C-w h" eaf-open-browser-with-history)
-	 ("C-z C-m b" eaf-open-bookmark))
- :hooks
- :config
- :outside)
-(progn
-	(eaf-setq eaf-browser-remember-history "true")
-	(eaf-setq eaf-browser-default-zoom "1.0")
-	(eaf-setq eaf-browser-dark-mode "true"))
+ :outside
+ :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/emacs-application-framework")
+ :keymap '(("C-z C-w l" eaf-open-browser)
+					 ("C-z C-w h" eaf-open-browser-with-history)
+					 ("C-z C-m b" eaf-open-bookmark))
+ :delay-eval '(progn
+								(eaf-setq eaf-browser-remember-history "true")
+								(eaf-setq eaf-browser-default-zoom "1.0")
+								(eaf-setq eaf-browser-dark-mode "true")))
 
 ;; English Teacher
-(add-to-list 'load-path "~/.emacs.d/third-party/english-teacher.el")
 (package-require
  'english-teacher
- '(("C-' C-l" english-teacher-smart-translation))
- :hooks
- (setq english-teacher-backend 'baidu)
- :outside)
+ :outside
+ :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/english-teacher.el")
+ :keymap '(("C-' C-l" english-teacher-smart-translation))
+ :delay-eval '(setq english-teacher-backend 'baidu))
 
 ;; Org
 (package-require
  'org
- '(("C-z C-c g" org-agenda)
-   ("C-z C-c c" org-capture)
-	 ("C-z C-c s" org-timer-start)
-	 ("C-z C-c SPC" org-timer-pause-or-continue)
-	 ("C-z C-c e" org-timer-stop))
- :hooks
- (progn
-	 (define-prefix-command 'org-key-map)
-	 (global-set-key (kbd "C-z C-c") 'org-key-map)
-   (setq org-src-fontify-natively t)
-   (require 'init-org)
-   (package-require
-    'org-bullets
-    :keymaps
-    '(org-mode-hook org-bullets-mode)
-    (setq org-bullets-bullet-list '("" "☯" "" "" )))))
+ :before-load-eval '(progn
+											(define-prefix-command 'org-key-map)
+											(global-set-key (kbd "C-z C-c") 'org-key-map))
+ :keymap '(("C-z C-c g" org-agenda)
+					 ("C-z C-c c" org-capture)
+					 ("C-z C-c s" org-timer-start)
+					 ("C-z C-c SPC" org-timer-pause-or-continue)
+					 ("C-z C-c e" org-timer-stop))
+ :delay-eval '(progn
+
+								(setq org-src-fontify-natively t)
+								(require 'init-org)
+								(package-require
+								 'org-bullets
+								 :hook '(org-mode-hook org-bullets-mode)
+								 :delay-eval '(setq org-bullets-bullet-list '("" "☯" "" "" )))))
 
 ;; Vterm
 (package-require
  'vterm
- '(("C-' C-t" open-vterm)))
+ :keymap '(("C-' C-t" open-vterm))
+ :delay-eval '(progn
+								(define-key vterm-mode-map (kbd "C-c p") 'previous-buffer)
+								(define-key vterm-mode-map (kbd "C-c n") 'next-buffer)))
 
 ;; Counsel
 (package-require
  'counsel
- '(
-   ("M-x" counsel-M-x)
-   ("C-x C-f" counsel-find-file)
-   ("C-z a" counsel-linux-app)))
+ :keymap '(("M-x" counsel-M-x)
+					 ("C-x C-f" counsel-find-file)
+					 ("C-z a" counsel-linux-app)))
 
 ;; Icons
 (package-require
  'all-the-icons
- '(("C-' C-i" all-the-icons-insert)))
-
-;; Spaceline
-;; (package-require
-;;  'spaceline-config
-;;  :keymaps
-;;  :hooks
-;;  (spaceline-spacemacs-theme))
+ :keymap '(("C-' C-i" all-the-icons-insert)))
 
 ;; ivy
 (package-require
  'ivy
- :keymaps
- '(after-init-hook ivy-mode))
+ :hook '(after-init-hook ivy-mode))
 
 ;; Bongo
 (package-require 'bongo)
@@ -85,13 +76,12 @@
 ;; Which Key
 (package-require
  'which-key
- :keymaps
- '(after-init-hook which-key-mode))
+ :hook '(after-init-hook which-key-mode))
 
 ;; ace window
 (package-require
  'ace-window
- '(("C-' C-c" ace-window)))
+ :keymap '(("C-' C-c" ace-window)))
 
 ;; Calendar-China
 (package-require 'cal-china-x)
@@ -99,75 +89,64 @@
 ;; Dascboard
 (package-require
  'dashboard
- :keymaps
- :hooks
- (progn
-	 (dashboard-setup-startup-hook)
-	 (setq dashboard-banner-logo-title "Live in Emacs!")
-	 (setq dashboard-startup-banner 'logo)
-	 (setq dashboard-center-content t
-				 dashboard-set-heading-icons t
-				 dashboard-set-navigator t)))
+ :delay-eval '(progn
+								(dashboard-setup-startup-hook)
+								(setq dashboard-banner-logo-title "Live in Emacs!")
+								(setq dashboard-startup-banner 'logo)
+								(setq dashboard-center-content t
+											dashboard-set-heading-icons t
+											dashboard-set-navigator t)))
 
 ;; Iedit
 (package-require
  'iedit
- '(("C-' C-e" iedit-mode)))
+ :keymap '(("C-' C-e" iedit-mode)))
 
 ;; hungry-delete
 (package-require
  'hungry-delete
- '(("C-' C-h" hungry-delete-mode)) 
- '((emacs-lisp-mode-hook lisp-mode-hook) hungry-delete-mode))
+ :keymap '(("C-' C-h" hungry-delete-mode)) 
+ :hook '((emacs-lisp-mode-hook lisp-mode-hook) hungry-delete-mode))
 
 ;; js2-mode
 (package-require
  'js2-mode
- :keymaps
- '(js-mode js2-mode))
+ :hook '(js-mode js2-mode))
 
 ;; Web-mode
 (package-require
  'web-mode
- :keymaps
- :hooks
- (progn
-   (setq auto-mode-alist
-	 (append
-	  '(("\\.html\\'" . web-mode))
-	  auto-mode-alist))
-     (setq-default web-mode-markup-indent-offset 2 ; Indent of HTML
-									 web-mode-css-indent-offset 2
-									 web-mode-code-indent-offset 2) ; Indent of JavaScript in HTML
-     ))
+ :delay-eval '(progn
+								(setq auto-mode-alist
+											(append '(("\\.html\\'" . web-mode)) auto-mode-alist))
+								(setq-default web-mode-markup-indent-offset 2 ; Indent of HTML
+															web-mode-css-indent-offset 2
+															web-mode-code-indent-offset 2) ; Indent of JavaScript in HTML
+								))
 
 
 ;;; Auto Completion
 ;; Company (Complete Anything)
 (package-require
  'company
- :keymaps
- '(after-init-hook global-company-mode)
- (progn
-   (setq company-idle-delay 0)
-   (with-eval-after-load
-       'company
-     (define-key company-active-map (kbd "M-p") nil)
-     (define-key company-active-map (kbd "M-n") nil)
-     (define-key company-active-map (kbd "C-n") #'company-select-next)
-     (define-key company-active-map (kbd "C-p") #'company-select-previous))
-   (package-require 'company-lsp)
-   (package-require
-		'company-c-headers
-		:keymaps
-		:hooks
-		(add-to-list 'company-backends 'company-c-headers))))
+ :hook '(after-init-hook global-company-mode)
+ :delay-eval '(progn
+								(setq company-idle-delay 0)
+								(with-eval-after-load
+										'company
+									(define-key company-active-map (kbd "M-p") nil)
+									(define-key company-active-map (kbd "M-n") nil)
+									(define-key company-active-map (kbd "C-n") #'company-select-next)
+									(define-key company-active-map (kbd "C-p") #'company-select-previous))
+								(package-require 'company-lsp)
+								(package-require
+								 'company-c-headers
+								 :delay-eval '(add-to-list 'company-backends 'company-c-headers))))
 
 ;; Lsp-mode
 (package-require
  'lsp-mode
- :keymaps
- '((c-mode-hook python-mode c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook emacs-lisp-mode-hook) lsp-mode))
+ :hook '((c-mode-hook python-mode c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook emacs-lisp-mode-hook) lsp-mode))
 
 ;; ccls (For lsp-mode)
 (package-require 'ccls)
@@ -175,75 +154,68 @@
 ;; emmet-mode
 (package-require
  'emmet-mode
- :keymaps
- '(web-mode-hook emmet-mode)
- (progn
-	 (setq emmet-self-closing-tag-style " /")))
+ :hook '(web-mode-hook emmet-mode)
+ :delay-eval '(progn (setq emmet-self-closing-tag-style " /")))
 
 ;; Snippet
 (package-require
  'yasnippet
- '(("C-' i" yas-insert-snippet)
-	 ("C-' C-y" yas-expand-from-trigger-key))
- '(after-init-hook yas-global-mode)
- (progn
-	 (package-require
-		'yasnippet-snippets)
-	 (setq yas-snippet-dirs '(
-														"~/.emacs.d/snippets"
-														"~/.emacs.d/elpa/yasnippet-snippets-20200802.1658/snippets"))))
+ :keymap '(("C-' i" yas-insert-snippet)
+					 ("C-' C-y" yas-expand-from-trigger-key))
+ :hook '(after-init-hook yas-global-mode)
+ :delay-eval '(progn
+								(package-require 'yasnippet-snippets)
+								(setq yas-snippet-dirs '("~/.emacs.d/snippets"
+																				 "~/.emacs.d/elpa/yasnippet-snippets-20200802.1658/snippets"))))
 
 ;;FlyMake
 (package-require
  'flymake
- '(("C-' C-f" flymake-mode)))
+ :keymap '(("C-' C-f" flymake-mode)))
 
 ;; rainbow-delimiters
 (package-require
  'rainbow-delimiters
- :keymaps
- '((lisp-mode-hook emacs-lisp-mode-hook org-mode-hook) rainbow-delimiters-mode))
+ :hook '((lisp-mode-hook emacs-lisp-mode-hook org-mode-hook) rainbow-delimiters-mode))
 
 ;; indent guide
 (package-require
  'indent-guide
- :keymaps
- '(after-init-hook indent-guide-global-mode))
+ :hook '(after-init-hook indent-guide-global-mode))
 
 ;; doom-modeline
 (package-require
  'doom-modeline
- :keymaps
- '(after-init-hook doom-modeline-mode)
- (setq-default doom-modeline-height 18))
+ :hook '(after-init-hook doom-modeline-mode)
+ :delay-eval '(setq-default doom-modeline-height 18))
 
 ;; magit
 (package-require
  'magit
- '(("C-' m" magit-status)))
+ :keymap '(("C-' m" magit-status)))
 
 ;; Window Resize
 (package-require
  'windresize
- '(("C-' C-r" windresize)
-	 ("C-' SPC" windresize-exit)))
+ :keymap '(("C-' C-r" windresize)
+					 ("C-' SPC" windresize-exit)))
 
 ;; multiple cursor
 (package-require
  'multiple-cursors
- '(("C-M-l" mc/edit-lines)
-	 ("C->" mc/mark-next-like-this)
-	 ("C-<" mc/mark-previous-like-this)
-	 ("M-m" newline)))
+ :keymap '(("C-M-l" mc/edit-lines)
+					 ("C->" mc/mark-next-like-this)
+					 ("C-<" mc/mark-previous-like-this)
+					 ("M-m" newline)))
 
 ;; youdao translate
 (package-require
  'youdao-dictionary
- '(("C-' t" youdao-dictionary-search-at-point)))
+ :keymap '(("C-' t" youdao-dictionary-search-at-point)))
 
 ;; Treemacs : File explore
 (package-require
  'treemacs
- '(("C-' e" treemacs)))
+ :keymap '(("C-' e" treemacs)))
 
 (provide 'init-package)
