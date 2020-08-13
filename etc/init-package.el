@@ -3,7 +3,10 @@
 (define-prefix-command 'plugin-key)
 (global-set-key (kbd "C-'") 'plugin-key)
 
-;; Third-party
+;;; Themes
+(load-the-theme)
+
+;;; Third-party
 ;; Emacs Application Framework
 (package-require
  'eaf
@@ -15,7 +18,9 @@
  :delay-eval '(progn
 								(eaf-setq eaf-browser-remember-history "true")
 								(eaf-setq eaf-browser-default-zoom "1.0")
-								(eaf-setq eaf-browser-dark-mode "true")))
+								(if (day-or-night)
+										(eaf-setq eaf-browser-dark-mode "false")
+									(eaf-setq eaf-browser-dark-mode "true"))))
 
 ;; English Teacher
 (package-require
@@ -180,7 +185,7 @@
 ;; rainbow-delimiters
 (package-require
  'rainbow-delimiters
- :hook '((lisp-mode-hook emacs-lisp-mode-hook org-mode-hook) rainbow-delimiters-mode))
+ :hook '((lisp-mode-hook emacs-lisp-mode-hook org-mode-hooke eshell-mode-hook) rainbow-delimiters-mode))
 
 ;; indent guide
 (package-require

@@ -24,10 +24,16 @@
     (dolist (other others)
 			(when (symbolp other)
 				(if avg
-						(when (eq other :before-load-eval)
-							(eval (nth (+ 1
-														(cl-position other others))
-												 others)))
+						(pcase avg
+							(:before-load-eval (when (eq other :before-load-eval)
+																	 (eval (nth (+ 1
+																								 (cl-position other others))
+																							others))))
+							(:load-theme (when (eq other :load-theme)
+														 (load-theme (nth (+ 1
+																								 (cl-position other others))
+																							others)
+																				 t))))
 					(pcase other
 						(:hook (let ((hook (nth (+ 1
 																			 (cl-position other others))
@@ -44,7 +50,8 @@
 
 (defun package-require(package-name &optional &rest others)
 	(when others
-		(package-others others :load-outside))
+		(package-others others :before-load-eval)
+		(package-others others :load-theme))
   (if (not (require package-name nil 't))
 			(if (and others (or (and (listp others) (eq (car others) :outside))
 													(and (symbolp others) (eq others :outside))))

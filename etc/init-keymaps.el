@@ -19,6 +19,8 @@
 (global-set-key (kbd "C-z s") 'sudo-save) ; Use sudo permission to save the file
 (global-set-key (kbd "C-z w") 'write-scratch) ; New a write scratch buffer
 (global-set-key (kbd "C-z f") 'mark-defun) ; Mark the function SAME LIKE C-M-h
+(global-set-key (kbd "C-z e") 'eshell) ; Open eshell
+(global-set-key (kbd "C-z C-t") 'load-the-theme) ; Load theme
 
 ;; Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder

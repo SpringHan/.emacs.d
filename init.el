@@ -9,8 +9,8 @@
 
 ;;; Third-party
 ;; Atom-One
-(add-to-list 'custom-theme-load-path "~/.emacs.d/theme")
-(load-theme 'atom-one-dark t)
+;; (add-to-list 'custom-theme-load-path "~/.emacs.d/theme")
+;; (load-theme 'atom-one-dark t)
 
 
 ;;;; Other config files
@@ -23,14 +23,14 @@
 (add-to-list 'load-path "~/.emacs.d/etc/")
 ;; UI
 (require 'init-ui)
+;; Packages
+(require 'init-require-package)
 ;; The functions
 (require 'init-functions)
 ;; Keymaps
 (require 'init-keymaps)
 ;; Other mode settings
 (require 'init-modes)
-;; Packages
-(require 'init-require-package)
 
 
 ;;;; Basic things
