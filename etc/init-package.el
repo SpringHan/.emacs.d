@@ -18,9 +18,12 @@
  :delay-eval '(progn
 								(eaf-setq eaf-browser-remember-history "true")
 								(eaf-setq eaf-browser-default-zoom "1.0")
-								(if (day-or-night)
-										(eaf-setq eaf-browser-dark-mode "false")
-									(eaf-setq eaf-browser-dark-mode "true"))))
+								(defun eaf-browser-set()
+									(interactive)
+									(if (day-or-night)
+											(eaf-setq eaf-browser-dark-mode "false")
+										(eaf-setq eaf-browser-dark-mode "true")))
+								(eaf-browser-set)))
 
 ;; English Teacher
 (package-require
@@ -31,6 +34,7 @@
  :delay-eval '(setq english-teacher-backend 'baidu
 										english-teacher-show-result-function 'english-teacher-eldoc-show-result-function)
  :hook '((Info-mode-hook eww-mode-hook help-mode-hook) english-teacher-follow-mode))
+
 
 ;; Org
 (package-require
@@ -51,7 +55,7 @@
 								(package-require
 								 'org-bullets
 								 :hook '(org-mode-hook org-bullets-mode)
-								 :delay-eval '(setq org-bullets-bullet-list '("" "☯" "" "" ))))
+								 :delay-eval '(setq org-bullets-bullet-list '("" "☯" "❀" "✿"))))
  :hook '(org-mode-hook (lambda() (setq indent-tabs-mode nil))))
 
 ;; Vterm
@@ -140,7 +144,8 @@
  'company
  :hook '(after-init-hook global-company-mode)
  :delay-eval '(progn
-								(setq company-idle-delay 0)
+								(setq company-idle-delay 0
+											company-minimum-prefix-length 2)
 								(with-eval-after-load
 										'company
 									(define-key company-active-map (kbd "M-p") nil)
@@ -196,7 +201,9 @@
 (package-require
  'doom-modeline
  :hook '(after-init-hook doom-modeline-mode)
- :delay-eval '(setq-default doom-modeline-height 18))
+ :delay-eval '(progn
+								(setq-default doom-modeline-height 18)
+								(setq-default doom-modeline-bar-width 3)))
 
 ;; magit
 (package-require

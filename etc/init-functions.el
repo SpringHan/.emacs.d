@@ -15,14 +15,12 @@
 		("functions" (find-file "~/.emacs.d/etc/init-functions.el"))))
 
 (defun open-vterm(&optional dir)
-	(interactive "sInput the directory: ")
-	(if dir
-			(progn
-				(find-file dir)
-				(let ((current-buffer-name (buffer-name)))
-					(vterm)
-					(linum-mode -1)
-					(kill-buffer current-buffer-name)))))
+	(interactive "DInput the directory: ")
+	(find-file dir)
+	(let ((current-buffer-name (buffer-name)))
+		(vterm)
+		(linum-mode -1)
+		(kill-buffer current-buffer-name)))
 
 (defun open-the-dir(dir-name)
 	(interactive "sThe directory's name: ")
@@ -73,7 +71,7 @@
 If it's daytime now,return t.Otherwise return nil."
 	(let ((now-time
 				 (string-to-number (subseq (current-time-string) 11 13))))
-		(if (and (>= now-time 6) (<= now-time 19))
+		(if (and (>= now-time 6) (< now-time 19))
 				t
 			nil)))
 

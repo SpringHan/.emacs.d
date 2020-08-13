@@ -1,25 +1,31 @@
 ;;;; This file is used for the `package-require` function
+;;;###autoload
 (defun package-download(package)
+	"Check whether the PACKAGE downloaded.
+If not,download it."
 	(interactive)
 	(unless (package-installed-p package)
 		(message "%s" "Refreshing package database")
 		(package-refresh-contents)
 		(package-install package))) ; Install the packages haven't installed
 
+;;;###autoload
 (defun package-setting(keymaps hooks)
-	(if (listp keymaps)
-			(dolist (keymap keymaps)
-				(global-set-key (kbd (nth 0 keymap)) (nth 1 keymap))))
-	(if (listp hooks)
-			(progn
-				(setq other-hooks (nth 0 hooks)
-							only-hook (nth 1 hooks))
-				(if (listp other-hooks)
-						(dolist (other-hook other-hooks)
-							(add-hook other-hook only-hook))
-					(add-hook other-hooks only-hook)))))
+	"Setting the KEYMAPS and HOOKS."
+	(when (listp keymaps)
+		(dolist (keymap keymaps)
+			(global-set-key (kbd (nth 0 keymap)) (nth 1 keymap))))
+	(when (listp hooks)
+		(let ((other-hooks (nth 0 hooks))
+					(only-hook (nth 1 hooks)))
+			(if (listp other-hooks)
+					(dolist (other-hook other-hooks)
+						(add-hook other-hook only-hook))
+				(add-hook other-hooks only-hook)))))
 
+;;;###autoload
 (defun package-others(others &optional avg)
+	"Check the OTHERS and do the corresponding actions."
   (when (listp others)
     (dolist (other others)
 			(when (symbolp other)
@@ -49,6 +55,7 @@
 											 (package-setting keymaps :hook)))))))))
 
 (defun package-require(package-name &optional &rest others)
+	"Require the PACKAGE-NAME and its configurations."
 	(when others
 		(package-others others :before-load-eval)
 		(package-others others :load-theme))
@@ -56,9 +63,9 @@
 			(if (and others (or (and (listp others) (eq (car others) :outside))
 													(and (symbolp others) (eq others :outside))))
 					(ignore (message
-									 (format "The %s package from third-party is not installed." 'package-name)))
+									 (format "The %s package from third-party is not installed." package-name)))
 				(ignore (message
-								 (format "The %s package is not exists.And now it'll be installed." 'package-name))
+								 (format "The %s package is not exists.And now it'll be installed." package-name))
 								(package-download package-name))))
 	(when others
 		(package-others others)))
