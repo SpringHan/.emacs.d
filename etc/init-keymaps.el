@@ -21,6 +21,7 @@
 (global-set-key (kbd "C-z f") 'mark-defun) ; Mark the function SAME LIKE C-M-h
 (global-set-key (kbd "C-z e") 'eshell) ; Open eshell
 (global-set-key (kbd "C-z C-t") 'load-the-theme) ; Load theme
+(global-set-key (kbd "C-x t O") 'tab-bar-switch-to-prev-tab) ; tab-previous
 
 ;; Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder

@@ -145,7 +145,7 @@
  :hook '(after-init-hook global-company-mode)
  :delay-eval '(progn
 								(setq company-idle-delay 0
-											company-minimum-prefix-length 2)
+											company-minimum-prefix-length 1)
 								(with-eval-after-load
 										'company
 									(define-key company-active-map (kbd "M-p") nil)
@@ -202,7 +202,7 @@
  'doom-modeline
  :hook '(after-init-hook doom-modeline-mode)
  :delay-eval '(progn
-								(setq-default doom-modeline-height 18)
+								(setq-default doom-modeline-height 13)
 								(setq-default doom-modeline-bar-width 3)))
 
 ;; magit

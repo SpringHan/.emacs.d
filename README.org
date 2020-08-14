@@ -3,6 +3,8 @@
 This is my emacs configuration repository.
 
 ** Dependences
+   - cmake
+   - git
    - libvterm
      It's used for the vterm.
      If you are an Arch user, you can install it by:
@@ -20,6 +22,6 @@ This is my emacs configuration repository.
    You can read its code in [[https://github.com/SpringHan/.emacs.d/blob/master/etc/init-require-package.el][init-require-package.el]].
 
 ** Last
-   I'm new in emasc, I'll continue to update my configuration everyday.
+   I'm new in emacs, I'll continue to update my configuration everyday.
 
    You can also see my [[https://github.com/SpringHan/nvim][NeoVim Configuration]].

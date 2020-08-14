@@ -54,6 +54,19 @@ If not,download it."
 																				 others)))
 											 (package-setting keymaps :hook)))))))))
 
+;;;###autoload
+(defun package-themep(others)
+	"Check if the package is a theme.
+If it's, return t. Otherwise return nil."
+	(cond ((listp others)
+				 (dolist (other others)
+					 (when (eq other :load-theme)
+						 (return t))))
+				((and (symbolp others))
+				 (if (eq others :load-theme)
+						 t
+					 nil))))
+
 (defun package-require(package-name &optional &rest others)
 	"Require the PACKAGE-NAME and its configurations."
 	(when others
@@ -62,8 +75,10 @@ If not,download it."
   (if (not (require package-name nil 't))
 			(if (and others (or (and (listp others) (eq (car others) :outside))
 													(and (symbolp others) (eq others :outside))))
-					(ignore (message
-									 (format "The %s package from third-party is not installed." package-name)))
+					(ignore
+					 (when (not (package-themep others))
+						 (message
+							(format "The %s package from third-party is not installed." package-name))))
 				(ignore (message
 								 (format "The %s package is not exists.And now it'll be installed." package-name))
 								(package-download package-name))))
