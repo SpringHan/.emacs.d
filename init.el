@@ -1,24 +1,22 @@
 ;;;;; SpringHan's Emacs Configuration
-
 ;;;; Mirror Config
 (require 'package)
-(require 'cl) ; The Lisp Extension
+(require 'cl) ; Common Lisp
 (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
 												 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (package-initialize)
 
-;;; Third-party
-;; Atom-One
-;; (add-to-list 'custom-theme-load-path "~/.emacs.d/theme")
-;; (load-theme 'atom-one-dark t)
-
 
 ;;;; Other config files
+;; Error Capture
+(load-file "~/.emacs.d/init-error-manager.el")
+(require 'init-error-manager)
 ;; Macros
 (load-file "~/.emacs.d/macros.el")
 ;;; GitHub
-(load-file "~/.emacs.d/token.el")
-(require 'github-token)
+(when (spring/error-check '("~/.emacs.d/init.el::17" "init.el") :file-exists "~/.emacs.d/token.el")
+	(load-file "~/.emacs.d/token.el")
+	(require 'github-token))
 ;;; Other files
 (add-to-list 'load-path "~/.emacs.d/etc/")
 ;; UI
@@ -39,6 +37,11 @@
 (delete-selection-mode t) ; Delete the seleceted text
 (show-paren-mode t) ; Highlight the ()
 (electric-pair-mode t) ; Auto complete the ()
+(setq electric-pair-pairs
+			'((?\" . ?\")
+				(?\( . ?\))
+				(?\< . ?\>)
+				(?\{ . ?\}))) ; Set the electric-pair-mode's pair keywords
 (setq cursor-type 'box) ; Set the cursor as a box
 (setq make-backup-files nil ; Don't let Emacs make up backup file
       create-lockfiles nil ;Don't make lockfile
@@ -52,7 +55,7 @@
 (setq backward-delete-char-untabify-method nil) ; Delete the tab by once
 (setq user-emacs-directory "~/.emacs.d/var")
 (setq user-init-file "~/.emacs.d/var/user-init.el")
-(add-hook 'markdown-mode-hook #'markdown-table-keymap)
+(add-hook 'markdown-mode-hook #'markdown-table-keymap) ; Add the markdown table align keymap
 
 ;;;; Plugin requires
 (require 'init-package)

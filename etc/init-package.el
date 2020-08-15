@@ -46,7 +46,6 @@
 					 ("C-z C-c c" org-capture)
 					 ("C-z C-c s" org-timer-start)
 					 ("C-z C-c S" org-timer-set-timer)
-					 ("C-z C-c SPC" org-timer-pause-or-continue)
 					 ("C-z C-c e" org-timer-stop))
  :delay-eval '(progn
 
@@ -233,5 +232,12 @@
 (package-require
  'treemacs
  :keymap '(("C-' e" treemacs)))
+
+;; Dap-mode
+(package-require
+ 'dap-mode
+ :keymap '(("C-' d" dap-debug)
+					 ("<F5>" dap-breakpoint-toggle)
+					 ("<F6>" dap-continue)))
 
 (provide 'init-package)
