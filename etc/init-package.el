@@ -35,6 +35,16 @@
 										english-teacher-show-result-function 'english-teacher-eldoc-show-result-function)
  :hook '((Info-mode-hook eww-mode-hook help-mode-hook) english-teacher-follow-mode))
 
+;; Dashboard
+(package-require
+ 'dashboard
+ :delay-eval '(progn
+								(dashboard-setup-startup-hook)
+								(setq dashboard-banner-logo-title "Live in Emacs!")
+								(setq dashboard-startup-banner 'logo)
+								(setq dashboard-center-content t
+											dashboard-set-heading-icons t
+											dashboard-set-navigator t)))
 
 ;; Org
 (package-require
@@ -97,17 +107,6 @@
 
 ;; Calendar-China
 (package-require 'cal-china-x)
-
-;; Dascboard
-(package-require
- 'dashboard
- :delay-eval '(progn
-								(dashboard-setup-startup-hook)
-								(setq dashboard-banner-logo-title "Live in Emacs!")
-								(setq dashboard-startup-banner 'logo)
-								(setq dashboard-center-content t
-											dashboard-set-heading-icons t
-											dashboard-set-navigator t)))
 
 ;; Iedit
 (package-require
