@@ -37,6 +37,7 @@
 (delete-selection-mode t) ; Delete the seleceted text
 (show-paren-mode t) ; Highlight the ()
 (electric-pair-mode t) ; Auto complete the ()
+(save-place-mode t) ; Save the point place
 (setq electric-pair-pairs
 			'((?\" . ?\")
 				(?\( . ?\))

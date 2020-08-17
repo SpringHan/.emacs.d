@@ -31,28 +31,39 @@ If not,download it."
 			(when (symbolp other)
 				(if avg
 						(pcase avg
-							(:before-load-eval (when (eq other :before-load-eval)
-																	 (eval (nth (+ 1
-																								 (cl-position other others))
-																							others))))
-							(:load-theme (when (eq other :load-theme)
-														 (load-theme (nth (+ 1
-																								 (cl-position other others))
-																							others)
-																				 t))))
+							(:before-load-eval
+							 (when (eq other :before-load-eval)
+								 (eval (nth (+ 1
+															 (cl-position other others))
+														others))))
+							(:load-theme
+							 (when (eq other :load-theme)
+								 (load-theme (nth (+ 1
+																		 (cl-position other others))
+																	others)
+														 t)))
+							(:require-name
+							 (when (eq other :require-name)
+								 (require (nth (+ 1
+																	(cl-position other others))
+															 others))
+								 t)))
 					(pcase other
-						(:hook (let ((hook (nth (+ 1
-																			 (cl-position other others))
-																		others)))
-										 (package-setting :keymaps hook)))
-						(:delay-eval (let ((eval-s (nth (+ 1
-																							 (cl-position other others))
-																						others)))
-													 (eval eval-s)))
-						(:keymap (let ((keymaps (nth (+ 1
-																						(cl-position other others))
-																				 others)))
-											 (package-setting keymaps :hook)))))))))
+						(:hook
+						 (let ((hook (nth (+ 1
+																 (cl-position other others))
+															others)))
+							 (package-setting :keymaps hook)))
+						(:delay-eval
+						 (let ((eval-s (nth (+ 1
+																	 (cl-position other others))
+																others)))
+							 (eval eval-s)))
+						(:keymap
+						 (let ((keymaps (nth (+ 1
+																		(cl-position other others))
+																 others)))
+							 (package-setting keymaps :hook)))))))))
 
 ;;;###autoload
 (defun package-themep(others)
@@ -67,6 +78,7 @@ If it's, return t. Otherwise return nil."
 						 t
 					 nil))))
 
+;;;###autoload
 (defun package-require(package-name &optional &rest others)
 	"Require the PACKAGE-NAME and its configurations."
 	(when others
@@ -75,10 +87,11 @@ If it's, return t. Otherwise return nil."
   (if (not (require package-name nil 't))
 			(if (and others (or (and (listp others) (eq (car others) :outside))
 													(and (symbolp others) (eq others :outside))))
-					(ignore
-					 (when (not (package-themep others))
-						 (message
-							(format "The %s package from third-party is not installed." package-name))))
+					(unless (package-others others :require-name)
+						(ignore
+						 (when (not (package-themep others))
+							 (message
+								(format "The %s package from third-party is not installed." package-name)))))
 				(ignore (message
 								 (format "The %s package is not exists.And now it'll be installed." package-name))
 								(package-download package-name))))

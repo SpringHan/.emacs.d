@@ -21,6 +21,9 @@ This is my emacs configuration repository.
    My package manager is ~package-require~ (A package manager written by me), and it's like ~use-package~.
    You can read its code in [[https://github.com/SpringHan/.emacs.d/blob/master/etc/init-require-package.el][init-require-package.el]].
 
+** Transparent Background
+   The transparent background is off by default.You can use ~C-z C-a~ to change it.Or if you want it to open by default, you can delete the ~not-alpha~ file.
+
 ** Last
    I'm new in emacs, I'll continue to update my configuration everyday.
 
