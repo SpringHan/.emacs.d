@@ -65,6 +65,7 @@ Otherwise it's nil.")
 (require 'init-package)
 
 ;;;; Enable Disbaled command
+(require 'novice)
 (load-file "~/.emacs.d/init-enable-disabled-commands.el")
 (require 'init-enable-disabled-commands)
 (enable-commands-init)

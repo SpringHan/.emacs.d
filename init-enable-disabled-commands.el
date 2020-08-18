@@ -21,10 +21,14 @@
 ;;;###autoload
 (defun enable-commands-init()
 	"Enable some commands."
-	(when (not (file-exists-p "~/.emacs.d/enable-commands"))
-		(let ((y-or-n (read-minibuffer "Do you want to enable some disabled commands?It's a bit Dangerous!(y-n)" "n")))
-			(make-empty-file "~/.emacs.d/enable-commands")
-			(when (string= y-or-n "y")
-				(enable-commands spring/enable-commands)))))
+	(if (and (not (file-exists-p "~/.emacs.d/enable-commands")) (not (file-exists-p "~/.emacs.d/disable-commands")))
+			(let ((y-or-n (read-minibuffer "Do you want to enable some disabled commands?It's a bit Dangerous!(y-n)" "n")))
+				(if (string= y-or-n "y")
+						(progn
+							(enable-commands spring/enable-commands)
+							(make-empty-file "~/.emacs.d/enable-commands"))
+					(make-empty-file "~/.emacs.d/disable-commands")))
+		(when (file-exists-p "~/.emacs.d/enable-commands")
+			(enable-commands spring/enable-commands))))
 
 (provide 'init-enable-disabled-commands)
