@@ -5,3 +5,4 @@ token.el
 var
 gtd
 third-party
+enable-commands

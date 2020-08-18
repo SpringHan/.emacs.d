@@ -18,7 +18,7 @@ This is my emacs configuration repository.
    To use my configuration, you should run ~make install~ to download the EAF.And then you can open emacs.
 
 ** Functions
-   My package manager is ~package-require~ (A package manager written by me), and it's like ~use-package~.
+   My package manager is ~package-require~ (A package manager written by me).
    You can read its code in [[https://github.com/SpringHan/.emacs.d/blob/master/etc/init-require-package.el][init-require-package.el]].
 
 ** Transparent Background

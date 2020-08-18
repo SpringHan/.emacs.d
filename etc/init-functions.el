@@ -78,15 +78,22 @@ If it's daytime now,return t.Otherwise return nil."
 (defun load-the-theme()
 	(interactive)
 	(if (day-or-night)
-			(package-require
-			 'atom-one-light
-			 :outside
-			 :before-load-eval '(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-			 :load-theme 'atom-one-light)
+			(progn
+				(package-require
+				 'atom-one-light
+				 :outside
+				 :before-load-eval '(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+				 :load-theme 'atom-one-light)
+				(when (string= spring/time-block "night")
+					(eaf-browser-set))
+				(setq spring/time-block "daytime"))
 		(package-require
 		 'atom-one-dark
 		 :outside
 		 :before-load-eval '(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-		 :load-theme 'atom-one-dark)))
+		 :load-theme 'atom-one-dark)
+		(when (string= spring/time-block "daytime")
+			(eaf-browser-set))
+		(setq spring/time-block "night")))
 
 (provide 'init-functions)

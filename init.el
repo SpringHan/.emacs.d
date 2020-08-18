@@ -6,6 +6,10 @@
 												 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (package-initialize)
 
+;;;; Variables
+(defvar spring/time-block nil
+	"If the the time-block changed, it is t.
+Otherwise it's nil.")
 
 ;;;; Other config files
 ;; Error Capture
@@ -37,7 +41,6 @@
 (delete-selection-mode t) ; Delete the seleceted text
 (show-paren-mode t) ; Highlight the ()
 (electric-pair-mode t) ; Auto complete the ()
-(save-place-mode t) ; Save the point place
 (setq electric-pair-pairs
 			'((?\" . ?\")
 				(?\( . ?\))
@@ -60,3 +63,8 @@
 
 ;;;; Plugin requires
 (require 'init-package)
+
+;;;; Enable Disbaled command
+(load-file "~/.emacs.d/init-enable-disabled-commands.el")
+(require 'init-enable-disabled-commands)
+(enable-commands-init)
