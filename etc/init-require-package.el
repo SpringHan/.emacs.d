@@ -41,13 +41,14 @@ If not,download it."
 								 (load-theme (nth (+ 1
 																		 (cl-position other others))
 																	others)
-														 t)))
+														 t)
+								 (return t)))
 							(:require-name
 							 (when (eq other :require-name)
 								 (require (nth (+ 1
 																	(cl-position other others))
 															 others))
-								 t)))
+								 (return t))))
 					(pcase other
 						(:hook
 						 (let ((hook (nth (+ 1
@@ -94,7 +95,8 @@ If it's, return t. Otherwise return nil."
 								(format "The %s package from third-party is not installed." package-name)))))
 				(ignore (message
 								 (format "The %s package is not exists.And now it'll be installed." package-name))
-								(package-download package-name))))
+								(package-download package-name)
+								(require package-name))))
 	(when others
 		(package-others others)))
 
