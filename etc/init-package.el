@@ -42,7 +42,7 @@
  :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/WangyiMusic")
  :require-name 'wangyi-music
  :keymap '(("C-' C-m" wangyi-music))
- :delay-eval '(setq wangyi-music-cache-directory "~/.emacs.d/var/wangyi-music"))
+ :hook '(wangyi-music-mode-hook (lambda() (linum-mode -1))))
 
 
 ;; Dashboard
