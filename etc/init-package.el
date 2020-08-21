@@ -66,7 +66,8 @@
 					 ("C-z C-c c" org-capture)
 					 ("C-z C-c s" org-timer-start)
 					 ("C-z C-c S" org-timer-set-timer)
-					 ("C-z C-c e" org-timer-stop))
+					 ("C-z C-c e" org-timer-stop)
+					 ("C-z C-c SPC" org-timer-pause-or-continue))
  :delay-eval '(progn
 
 								(setq org-src-fontify-natively t)

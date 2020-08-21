@@ -96,4 +96,12 @@ If it's daytime now,return t.Otherwise return nil."
 			(eaf-browser-set))
 		(setq spring/time-block "night")))
 
+(defun kill-unwanted-buffer()
+	"Kill the unwanted buffers."
+	(interactive)
+	(kill-buffer "*dashboard*")
+	(kill-buffer "notes.org")
+	(kill-buffer "tasks.org")
+	(kill-buffer "user-init.el"))
+
 (provide 'init-functions)

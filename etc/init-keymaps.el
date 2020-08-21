@@ -23,6 +23,7 @@
 (global-set-key (kbd "C-z C-t") 'load-the-theme) ; Load theme
 (global-set-key (kbd "C-x t O") 'tab-bar-switch-to-prev-tab) ; tab-previous
 (global-set-key (kbd "C-z C-s") 'spring/error-show) ; Show the all-the-config-errors
+(global-set-key (kbd "C-z k") 'kill-unwanted-buffer) ; Kill the unwanted buffers made in init load
 
 ;; Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder
