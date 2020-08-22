@@ -2,4 +2,4 @@
 (fset 'insert-placeholder
 			(kmacro-lambda-form [?< ?+ ?+ ?+ ?>] 0 "%d"))
 (fset 'replace-placeholder
-			(kmacro-lambda-form [?\M-% ?< ?+ ?+ ?+ ?> return return ?y] 0 "%d"))
+			(kmacro-lambda-form [?\M-% ?< ?+ ?+ ?+ ?> return return ?.] 0 "%d"))

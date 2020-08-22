@@ -12,7 +12,7 @@ If it's a list, all the items of list are the error contents.")
 	"The error-from strings")
 
 ;;;###autoload
-(defun spring/error-check(origin &rest options)
+(cl-defun spring/error-check (origin &rest options)
 	"Check if the code of ORIGIN's position is error with OPTIONS."
 	(when (listp options)
 		(dolist (option options)
@@ -28,22 +28,22 @@ If it's a list, all the items of list are the error contents.")
 								 (setf spring/all-the-config-errors
 											 (append spring/all-the-config-errors
 															 (list
-																(concatenate 'string "File does not exist: '" file-path "', "
+																(cl-concatenate 'string "File does not exist: '" file-path "', "
 																						 (car spring/error-from) (car origin) (cadr spring/error-from)
 																						 (cadr origin) (caddr spring/error-from)))))
 								 (message "The %s file is not exists." file-path))
-						 (return t)))))))
+						 (cl-return-from spring/error-check t)))))))
 	nil)
 
 ;;;###autoload
-(defun spring/error-close()
+(defun spring/error-close ()
 	"Close the error buffer & window."
 	(interactive)
 	(local-unset-key (kbd "q"))
 	(kill-buffer-and-window))
 
 ;;;###autoload
-(defun spring/error-show()
+(defun spring/error-show ()
 	"Show all the errors in the while of starting emacs."
 	(interactive)
 	(if (null spring/all-the-config-errors)

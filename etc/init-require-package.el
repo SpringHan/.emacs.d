@@ -1,6 +1,6 @@
 ;;;; This file is used for the `package-require` function
 ;;;###autoload
-(defun package-download(package)
+(defun package-download (package)
 	"Check whether the PACKAGE downloaded.
 If not,download it."
 	(interactive)
@@ -10,7 +10,7 @@ If not,download it."
 		(package-install package))) ; Install the packages haven't installed
 
 ;;;###autoload
-(defun package-setting(keymaps hooks)
+(defun package-setting (keymaps hooks)
 	"Setting the KEYMAPS and HOOKS."
 	(when (listp keymaps)
 		(dolist (keymap keymaps)
@@ -24,7 +24,7 @@ If not,download it."
 				(add-hook other-hooks only-hook)))))
 
 ;;;###autoload
-(defun package-others(others &optional avg)
+(cl-defun package-others (others &optional avg)
 	"Check the OTHERS and do the corresponding actions."
   (when (listp others)
     (dolist (other others)
@@ -42,13 +42,13 @@ If not,download it."
 																		 (cl-position other others))
 																	others)
 														 t)
-								 (return t)))
+								 (cl-return-from package-others t)))
 							(:require-name
 							 (when (eq other :require-name)
 								 (require (nth (+ 1
 																	(cl-position other others))
 															 others))
-								 (return t))))
+								 (cl-return-from package-others t))))
 					(pcase other
 						(:hook
 						 (let ((hook (nth (+ 1
@@ -67,20 +67,20 @@ If not,download it."
 							 (package-setting keymaps :hook)))))))))
 
 ;;;###autoload
-(defun package-themep(others)
+(cl-defun package-themep (others)
 	"Check if the package is a theme.
 If it's, return t. Otherwise return nil."
 	(cond ((listp others)
 				 (dolist (other others)
 					 (when (eq other :load-theme)
-						 (return t))))
+						 (cl-return-from package-themep t))))
 				((and (symbolp others))
 				 (if (eq others :load-theme)
 						 t
 					 nil))))
 
 ;;;###autoload
-(defun package-require(package-name &optional &rest others)
+(defun package-require (package-name &optional &rest others)
 	"Require the PACKAGE-NAME and its configurations."
 	(when others
 		(package-others others :before-load-eval)

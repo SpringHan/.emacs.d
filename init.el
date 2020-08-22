@@ -1,7 +1,7 @@
 ;;;;; SpringHan's Emacs Configuration
 ;;;; Mirror Config
 (require 'package)
-(require 'cl) ; Common Lisp
+(require 'cl-lib) ; Common Lisp
 (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
 												 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 (package-initialize)

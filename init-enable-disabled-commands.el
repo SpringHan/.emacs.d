@@ -5,21 +5,21 @@
 	"The disabled commands that I want to enable.")
 
 ;;;###autoload
-(defun enable-commands(commands)
+(defun enable-commands (commands)
 	"Enable the disbaled command like `enable-command', but it can enable more than one command at once."
 	(dolist (command commands)
 		(when command
 			(en/disable-command command nil))))
 
 ;;;###autoload
-(defun disable-commands(commands)
+(defun disable-commands (commands)
 	"Disable command like `disable-command', but it can disbale more than one command at once."
 	(dolist (command commands)
 		(when command
 			(en/disable-command command t))))
 
 ;;;###autoload
-(defun enable-commands-init()
+(defun enable-commands-init ()
 	"Enable some commands."
 	(if (and (not (file-exists-p "~/.emacs.d/enable-commands")) (not (file-exists-p "~/.emacs.d/disable-commands")))
 			(let ((y-or-n (read-minibuffer "Do you want to enable some disabled commands?It's a bit Dangerous!(y-n)" "n")))

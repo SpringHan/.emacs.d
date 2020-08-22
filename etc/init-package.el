@@ -18,7 +18,7 @@
  :delay-eval '(progn
 								(eaf-setq eaf-browser-remember-history "true")
 								(eaf-setq eaf-browser-default-zoom "1.0")
-								(defun eaf-browser-set()
+								(defun eaf-browser-set ()
 									(interactive)
 									(if (day-or-night)
 											(eaf-setq eaf-browser-dark-mode "false")
@@ -34,15 +34,6 @@
  :delay-eval '(setq english-teacher-backend 'baidu
 										english-teacher-show-result-function 'english-teacher-eldoc-show-result-function)
  :hook '((Info-mode-hook eww-mode-hook help-mode-hook) english-teacher-follow-mode))
-
-;; Netease-music
-(package-require
- 'WanyiMusic
- :outside
- :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/WangyiMusic")
- :require-name 'wangyi-music
- :keymap '(("C-' C-m" wangyi-music))
- :hook '(wangyi-music-mode-hook (lambda() (linum-mode -1))))
 
 
 ;; Dashboard

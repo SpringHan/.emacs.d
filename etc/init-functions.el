@@ -1,9 +1,9 @@
 ;;;; This file is used for the useful functions
-(defun open-config-file()
+(defun open-config-file ()
 	(interactive)
 	(find-file "~/.emacs.d/init.el"))
 
-(defun open-etc-config(file)
+(defun open-etc-config (file)
 	(interactive "sEnter the filename: ")
 	(pcase file
 		("ui" (find-file "~/.emacs.d/etc/init-ui.el"))
@@ -14,7 +14,7 @@
 		("packages" (find-file "~/.emacs.d/etc/init-package.el"))
 		("functions" (find-file "~/.emacs.d/etc/init-functions.el"))))
 
-(defun open-vterm(&optional dir)
+(defun open-vterm (&optional dir)
 	(interactive "DInput the directory: ")
 	(find-file dir)
 	(let ((current-buffer-name (buffer-name)))
@@ -22,21 +22,21 @@
 		(linum-mode -1)
 		(kill-buffer current-buffer-name)))
 
-(defun open-the-dir(dir-name)
+(defun open-the-dir (dir-name)
 	(interactive "sThe directory's name: ")
 	(pcase dir-name
 		("gtd" (find-file "~/.emacs.d/gtd"))
-		("github" (find-file "~/Github"))
+		("git" (find-file "~/Github"))
 		("emacs" (find-file "~/.emacs.d"))
 		("C" (find-file "~/Code/C/src/Study"))))
 
-(defun set-alpha(var)
+(defun set-alpha (var)
 	(interactive "sAlpha or not(y-or-n): ")
 	(pcase var
 		("y" (set-frame-parameter nil 'alpha '(90 . 100)))
 		("n" (set-frame-parameter nil 'alpha '(100 . 100)))))
 
-(defun window-move(way)
+(defun window-move (way)
 	(interactive "sEnter the way(n-e-u-i): ")
 	(let ((current-window-buffer (window-buffer))
 				(current-window (get-buffer-window)))
@@ -51,31 +51,31 @@
 					(set-window-buffer current-window (window-buffer))
 					(set-window-buffer (get-buffer-window) current-window-buffer))))) ; Move the window
 
-(defun sudo-save()
+(defun sudo-save ()
 	(interactive)
 	(if (not buffer-file-name)
 			(write-file (concat "/sudo:root@localhost:" (ido-read-file-name "File:")))
 		(write-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
-(defun write-scratch()
+(defun write-scratch ()
 	(interactive)
 	(switch-to-buffer "*Write-Scratch*")
 	(markdown-mode))
 
-(defun markdown-table-keymap()
+(defun markdown-table-keymap ()
 	(interactive)
 	(define-key markdown-mode-map (kbd "C-c C-c TAB") 'markdown-table-align))
 
-(defun day-or-night()
+(defun day-or-night ()
 	"Return t/nil.
 If it's daytime now,return t.Otherwise return nil."
 	(let ((now-time
-				 (string-to-number (subseq (current-time-string) 11 13))))
+				 (string-to-number (cl-subseq (current-time-string) 11 13))))
 		(if (and (>= now-time 6) (< now-time 19))
 				t
 			nil)))
 
-(defun load-the-theme()
+(defun load-the-theme ()
 	(interactive)
 	(if (day-or-night)
 			(progn
@@ -96,7 +96,7 @@ If it's daytime now,return t.Otherwise return nil."
 			(eaf-browser-set))
 		(setq spring/time-block "night")))
 
-(defun kill-unwanted-buffer()
+(defun kill-unwanted-buffer ()
 	"Kill the unwanted buffers."
 	(interactive)
 	(kill-buffer "*dashboard*")

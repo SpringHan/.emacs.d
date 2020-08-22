@@ -10,6 +10,7 @@
 (define-abbrev-table
 	'global-abbrev-table
 	'(("MyName" "SpringHan")
-		("MyEmail" "<springchohaku@qq.com>")))
+		("MyEmail" "<springchohaku@qq.com>")
+		("Copyright" "Copyright (C) <+++> SpringHan")))
 
 (provide 'init-modes)
