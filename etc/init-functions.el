@@ -104,4 +104,10 @@ If it's daytime now,return t.Otherwise return nil."
 	(kill-buffer "tasks.org")
 	(kill-buffer "user-init.el"))
 
+(defun tab-bar-new-with-buffer (buffer-name)
+	"Create a new tab then select a buffer."
+	(interactive "bBuffer Name: ")
+	(tab-bar-new-tab)
+	(switch-to-buffer buffer-name))
+
 (provide 'init-functions)

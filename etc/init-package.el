@@ -241,4 +241,14 @@
 					 ("<F5>" dap-breakpoint-toggle)
 					 ("<F6>" dap-continue)))
 
+;; avy-mode
+(package-require
+ 'avy
+ :keymap '(("C-' a c" avy-goto-char)
+					 ("C-' a C" avy-goto-char-2)
+					 ("C-' a l" avy-goto-line)
+					 ("C-' a w" avy-goto-word-0)
+					 ("C-' a W" avy-goto-word-1)
+					 ("C-' a r" avy-resume)))
+
 (provide 'init-package)

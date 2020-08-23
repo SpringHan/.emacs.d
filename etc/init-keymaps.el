@@ -24,6 +24,7 @@
 (global-set-key (kbd "C-x t O") 'tab-bar-switch-to-prev-tab) ; tab-previous
 (global-set-key (kbd "C-z C-s") 'spring/error-show) ; Show the all-the-config-errors
 (global-set-key (kbd "C-z k") 'kill-unwanted-buffer) ; Kill the unwanted buffers made in init load
+(global-set-key (kbd "C-x t 3") 'tab-bar-new-with-buffer) ; Create a new tab then select a buffer
 
 ;; Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder
