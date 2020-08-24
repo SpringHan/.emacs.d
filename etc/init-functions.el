@@ -12,7 +12,7 @@
 		("mode" (find-file "~/.emacs.d/etc/init-modes.el"))
 		("package" (find-file "~/.emacs.d/etc/init-require-package.el"))
 		("packages" (find-file "~/.emacs.d/etc/init-package.el"))
-		("functions" (find-file "~/.emacs.d/etc/init-functions.el"))))
+		("function" (find-file "~/.emacs.d/etc/init-functions.el"))))
 
 (defun open-vterm (&optional dir)
 	(interactive "DInput the directory: ")
@@ -109,5 +109,13 @@ If it's daytime now,return t.Otherwise return nil."
 	(interactive "bBuffer Name: ")
 	(tab-bar-new-tab)
 	(switch-to-buffer buffer-name))
+
+(defun spring/copy-license (license-name)
+	"Copy the license file to current directory."
+	(interactive "sLincense name: ")
+	(pcase license-name
+		("MIT"
+		 (copy-file "~/.emacs.d/license/MIT" "./LICENSE")
+		 (message "Copy license action done."))))
 
 (provide 'init-functions)
