@@ -13,4 +13,7 @@
 		("MyEmail" "<springchohaku@qq.com>")
 		("Copyright" "Copyright (C) <+++> SpringHan")))
 
+;; Eshell-mode
+(add-hook 'eshell-mode-hook (lambda () (linum-mode -1)))
+
 (provide 'init-modes)
