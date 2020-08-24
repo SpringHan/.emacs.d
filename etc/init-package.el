@@ -247,8 +247,13 @@
  :keymap '(("C-' a c" avy-goto-char)
 					 ("C-' a C" avy-goto-char-2)
 					 ("C-' a l" avy-goto-line)
-					 ("C-' a w" avy-goto-word-0)
-					 ("C-' a W" avy-goto-word-1)
+					 ("C-' a w" avy-goto-word-1)
+					 ("C-' a W" avy-goto-word-0)
 					 ("C-' a r" avy-resume)))
+
+;; Caps_Lock
+(package-require
+ 'caps-lock
+ :keymap '(("C-' g" caps-lock-mode)))
 
 (provide 'init-package)
