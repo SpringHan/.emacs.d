@@ -122,6 +122,17 @@ If it's daytime now,return t.Otherwise return nil."
 	(pcase license-name
 		("MIT"
 		 (copy-file "~/.emacs.d/license/MIT" "./LICENSE")
+		 (message "Copy license action done."))
+		("GPL-3.0"
+		 (copy-file "~/.emacs.d/license/GPL-3.0" "./LICENSE")
+		 (find-file "./LICENSE")
 		 (message "Copy license action done."))))
+
+(defun spring/open-scratch ()
+	"Open the scratch buffer after closing it."
+	(interactive)
+	(switch-to-buffer "*scratch*")
+	(insert initial-scratch-message)
+	(message "Open the scratch action done."))
 
 (provide 'init-functions)

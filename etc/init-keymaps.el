@@ -27,8 +27,9 @@
 (global-set-key (kbd "C-x t 3") 'tab-bar-new-with-buffer) ; Create a new tab then select a buffer
 (global-set-key (kbd "C-x t s") 'spring/tab-bar-new-scratch) ; Create a new tab then select scratch buffer
 (global-set-key (kbd "C-z C") 'spring/copy-license) ; Copy the license to current directory
+(global-set-key (kbd "C-z o") 'spring/open-scratch) ; Open the scratch buffer
 
-;; Macros
+;; Key Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder
 (global-set-key (kbd "C-z C-k r") 'replace-placeholder) ; Replace Placeholder
 
