@@ -1,4 +1,5 @@
 ;;;; This file is used for the `package-require` function
+
 ;;;###autoload
 (defun package-download (package)
 	"Check whether the PACKAGE downloaded.
@@ -10,14 +11,14 @@ If not,download it."
 		(package-install package))) ; Install the packages haven't installed
 
 ;;;###autoload
-(defun package-setting (keymaps hooks)
+(cl-defun package-setting (&key (keymaps nil) (hooks nil))
 	"Setting the KEYMAPS and HOOKS."
-	(when (listp keymaps)
+	(when (and keymaps (listp keymaps))
 		(dolist (keymap keymaps)
-			(global-set-key (kbd (nth 0 keymap)) (nth 1 keymap))))
-	(when (listp hooks)
-		(let ((other-hooks (nth 0 hooks))
-					(only-hook (nth 1 hooks)))
+			(global-set-key (kbd (car keymap)) (cdr keymap))))
+	(when (and hooks (listp hooks))
+		(let ((other-hooks (car hooks))
+					(only-hook (cdr hooks)))
 			(if (listp other-hooks)
 					(dolist (other-hook other-hooks)
 						(add-hook other-hook only-hook))
@@ -33,38 +34,37 @@ If not,download it."
 						(pcase avg
 							(:before-load-eval
 							 (when (eq other :before-load-eval)
-								 (eval (nth (+ 1
-															 (cl-position other others))
-														others))))
+								 (eval (nth
+												(+ 1 (cl-position other others))
+												others))))
 							(:load-theme
 							 (when (eq other :load-theme)
-								 (load-theme (nth (+ 1
-																		 (cl-position other others))
-																	others)
-														 t)
+								 (load-theme (nth
+															(+ 1 (cl-position other others))
+															others) t)
 								 (cl-return-from package-others t)))
 							(:require-name
 							 (when (eq other :require-name)
-								 (require (nth (+ 1
-																	(cl-position other others))
-															 others))
+								 (require (nth
+													 (+ 1 (cl-position other others))
+													 others))
 								 (cl-return-from package-others t))))
 					(pcase other
 						(:hook
-						 (let ((hook (nth (+ 1
-																 (cl-position other others))
-															others)))
-							 (package-setting :keymaps hook)))
+						 (let ((hook (nth
+													(+ 1 (cl-position other others))
+													others)))
+							 (package-setting :hooks hook)))
 						(:delay-eval
-						 (let ((eval-s (nth (+ 1
-																	 (cl-position other others))
-																others)))
+						 (let ((eval-s (nth
+														(+ 1 (cl-position other others))
+														others)))
 							 (eval eval-s)))
 						(:keymap
-						 (let ((keymaps (nth (+ 1
-																		(cl-position other others))
-																 others)))
-							 (package-setting keymaps :hook)))))))))
+						 (let ((keymaps (nth
+														 (+ 1 (cl-position other others))
+														 others)))
+							 (package-setting :keymaps keymaps)))))))))
 
 ;;;###autoload
 (cl-defun package-themep (others)

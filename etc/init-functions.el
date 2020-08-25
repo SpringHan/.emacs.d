@@ -110,6 +110,12 @@ If it's daytime now,return t.Otherwise return nil."
 	(tab-bar-new-tab)
 	(switch-to-buffer buffer-name))
 
+(defun spring/tab-bar-new-scratch ()
+	"Create a new tab then select the *Scratch* buffer."
+	(interactive)
+	(tab-bar-new-tab)
+	(switch-to-buffer "*scratch*"))
+
 (defun spring/copy-license (license-name)
 	"Copy the license file to current directory."
 	(interactive "sLincense name: ")

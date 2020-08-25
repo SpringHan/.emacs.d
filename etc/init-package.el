@@ -12,9 +12,9 @@
  'eaf
  :outside
  :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/emacs-application-framework")
- :keymap '(("C-z C-w l" eaf-open-browser)
-					 ("C-z C-w h" eaf-open-browser-with-history)
-					 ("C-z C-m b" eaf-open-bookmark))
+ :keymap '(("C-z C-w l" . eaf-open-browser)
+					 ("C-z C-w h" . eaf-open-browser-with-history)
+					 ("C-z C-m b" . eaf-open-bookmark))
  :delay-eval '(progn
 								(eaf-setq eaf-browser-remember-history "true")
 								(eaf-setq eaf-browser-default-zoom "1.0")
@@ -30,10 +30,10 @@
  'english-teacher
  :outside
  :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/english-teacher.el")
- :keymap '(("C-' C-l" english-teacher-smart-translation))
+ :keymap '(("C-' C-l" . english-teacher-smart-translation))
  :delay-eval '(setq english-teacher-backend 'baidu
 										english-teacher-show-result-function 'english-teacher-eldoc-show-result-function)
- :hook '((Info-mode-hook eww-mode-hook help-mode-hook) english-teacher-follow-mode))
+ :hook '((Info-mode-hook eww-mode-hook help-mode-hook) . english-teacher-follow-mode))
 
 
 ;; Dashboard
@@ -53,12 +53,12 @@
  :before-load-eval '(progn
 											(define-prefix-command 'org-key-map)
 											(global-set-key (kbd "C-z C-c") 'org-key-map))
- :keymap '(("C-z C-c g" org-agenda)
-					 ("C-z C-c c" org-capture)
-					 ("C-z C-c s" org-timer-start)
-					 ("C-z C-c S" org-timer-set-timer)
-					 ("C-z C-c e" org-timer-stop)
-					 ("C-z C-c SPC" org-timer-pause-or-continue))
+ :keymap '(("C-z C-c g" . org-agenda)
+					 ("C-z C-c c" . org-capture)
+					 ("C-z C-c s" . org-timer-start)
+					 ("C-z C-c S" . org-timer-set-timer)
+					 ("C-z C-c e" . org-timer-stop)
+					 ("C-z C-c SPC" . org-timer-pause-or-continue))
  :delay-eval '(progn
 
 								(setq org-src-fontify-natively t)
@@ -72,7 +72,7 @@
 ;; Vterm
 (package-require
  'vterm
- :keymap '(("C-' C-t" open-vterm))
+ :keymap '(("C-' C-t" . open-vterm))
  :delay-eval '(progn
 								(define-key vterm-mode-map (kbd "C-c p") 'previous-buffer)
 								(define-key vterm-mode-map (kbd "C-c n") 'next-buffer)))
@@ -80,19 +80,19 @@
 ;; Counsel
 (package-require
  'counsel
- :keymap '(("M-x" counsel-M-x)
-					 ("C-x C-f" counsel-find-file)
-					 ("C-z a" counsel-linux-app)))
+ :keymap '(("M-x" . counsel-M-x)
+					 ("C-x C-f" . counsel-find-file)
+					 ("C-z a" . counsel-linux-app)))
 
 ;; Icons
 (package-require
  'all-the-icons
- :keymap '(("C-' C-i" all-the-icons-insert)))
+ :keymap '(("C-' C-i" . all-the-icons-insert)))
 
 ;; ivy
 (package-require
  'ivy
- :hook '(after-init-hook ivy-mode))
+ :hook '(after-init-hook . ivy-mode))
 
 ;; Bongo
 (package-require 'bongo)
@@ -100,12 +100,12 @@
 ;; Which Key
 (package-require
  'which-key
- :hook '(after-init-hook which-key-mode))
+ :hook '(after-init-hook . which-key-mode))
 
 ;; ace window
 (package-require
  'ace-window
- :keymap '(("C-' C-c" ace-window)))
+ :keymap '(("C-' C-c" . ace-window)))
 
 ;; Calendar-China
 (package-require 'cal-china-x)
@@ -113,18 +113,18 @@
 ;; Iedit
 (package-require
  'iedit
- :keymap '(("C-' C-e" iedit-mode)))
+ :keymap '(("C-' C-e" . iedit-mode)))
 
 ;; hungry-delete
 (package-require
  'hungry-delete
- :keymap '(("C-' C-h" hungry-delete-mode)) 
- :hook '((emacs-lisp-mode-hook lisp-mode-hook) hungry-delete-mode))
+ :keymap '(("C-' C-h" . hungry-delete-mode)) 
+ :hook '((emacs-lisp-mode-hook lisp-mode-hook) . hungry-delete-mode))
 
 ;; js2-mode
 (package-require
  'js2-mode
- :hook '(js-mode js2-mode))
+ :hook '(js-mode . js2-mode))
 
 ;; Web-mode
 (package-require
@@ -142,7 +142,7 @@
 ;; Company (Complete Anything)
 (package-require
  'company
- :hook '(after-init-hook global-company-mode)
+ :hook '(after-init-hook . global-company-mode)
  :delay-eval '(progn
 								(setq company-idle-delay 0
 											company-minimum-prefix-length 1)
@@ -160,7 +160,7 @@
 ;; Lsp-mode
 (package-require
  'lsp-mode
- :hook '((c-mode-hook python-mode c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook emacs-lisp-mode-hook) lsp-mode))
+ :hook '((c-mode-hook python-mode c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook emacs-lisp-mode-hook) . lsp-mode))
 
 ;; ccls (For lsp-mode)
 (package-require 'ccls)
@@ -168,15 +168,15 @@
 ;; emmet-mode
 (package-require
  'emmet-mode
- :hook '(web-mode-hook emmet-mode)
+ :hook '(web-mode-hook . emmet-mode)
  :delay-eval '(progn (setq emmet-self-closing-tag-style " /")))
 
 ;; Snippet
 (package-require
  'yasnippet
- :keymap '(("C-' i" yas-insert-snippet)
-					 ("C-' C-y" yas-expand-from-trigger-key))
- :hook '(after-init-hook yas-global-mode)
+ :keymap '(("C-' i" . yas-insert-snippet)
+					 ("C-' C-y" . yas-expand-from-trigger-key))
+ :hook '(after-init-hook . yas-global-mode)
  :delay-eval '(progn
 								(package-require 'yasnippet-snippets)
 								(setq yas-snippet-dirs '("~/.emacs.d/snippets"
@@ -185,22 +185,22 @@
 ;;FlyMake
 (package-require
  'flymake
- :keymap '(("C-' C-f" flymake-mode)))
+ :keymap '(("C-' C-f" . flymake-mode)))
 
 ;; rainbow-delimiters
 (package-require
  'rainbow-delimiters
- :hook '((lisp-mode-hook emacs-lisp-mode-hook org-mode-hooke eshell-mode-hook) rainbow-delimiters-mode))
+ :hook '((lisp-mode-hook emacs-lisp-mode-hook org-mode-hooke eshell-mode-hook) . rainbow-delimiters-mode))
 
 ;; indent guide
 (package-require
  'indent-guide
- :hook '(after-init-hook indent-guide-global-mode))
+ :hook '(after-init-hook . indent-guide-global-mode))
 
 ;; doom-modeline
 (package-require
  'doom-modeline
- :hook '(after-init-hook doom-modeline-mode)
+ :hook '(after-init-hook . doom-modeline-mode)
  :delay-eval '(progn
 								(setq-default doom-modeline-height 13)
 								(setq-default doom-modeline-bar-width 3)))
@@ -208,52 +208,62 @@
 ;; magit
 (package-require
  'magit
- :keymap '(("C-' m" magit-status)))
+ :keymap '(("C-' m" . magit-status)))
 
 ;; Window Resize
 (package-require
  'windresize
- :keymap '(("C-' C-r" windresize)
-					 ("C-' SPC" windresize-exit)))
+ :keymap '(("C-' C-r" . windresize)
+					 ("C-' SPC" . windresize-exit)))
 
 ;; multiple cursor
 (package-require
  'multiple-cursors
- :keymap '(("C-M-l" mc/edit-lines)
-					 ("C->" mc/mark-next-like-this)
-					 ("C-<" mc/mark-previous-like-this)
-					 ("M-m" newline)))
+ :keymap '(("C-M-l" . mc/edit-lines)
+					 ("C->" . mc/mark-next-like-this)
+					 ("C-<" . mc/mark-previous-like-this)
+					 ("M-m" . newline)))
 
 ;; youdao translate
 (package-require
  'youdao-dictionary
- :keymap '(("C-' t" youdao-dictionary-search-at-point)))
+ :keymap '(("C-' t" . youdao-dictionary-search-at-point)))
 
 ;; Treemacs : File explore
 (package-require
  'treemacs
- :keymap '(("C-' e" treemacs)))
+ :keymap '(("C-' e" . treemacs)))
 
 ;; Dap-mode
 (package-require
  'dap-mode
- :keymap '(("C-' d" dap-debug)
-					 ("<F5>" dap-breakpoint-toggle)
-					 ("<F6>" dap-continue)))
+ :keymap '(("C-' d" . dap-debug)
+					 ("<F5>" . dap-breakpoint-toggle)
+					 ("<F6>" . dap-continue)))
 
 ;; avy-mode
 (package-require
  'avy
- :keymap '(("C-' a c" avy-goto-char)
-					 ("C-' a C" avy-goto-char-2)
-					 ("C-' a l" avy-goto-line)
-					 ("C-' a w" avy-goto-word-1)
-					 ("C-' a W" avy-goto-word-0)
-					 ("C-' a r" avy-resume)))
+ :keymap '(("C-' a c" . avy-goto-char)
+					 ("C-' a C" . avy-goto-char-2)
+					 ("C-' a l" . avy-goto-line)
+					 ("C-' a w" . avy-goto-word-1)
+					 ("C-' a W" . avy-goto-word-0)
+					 ("C-' a r" . avy-resume)))
 
 ;; Caps_Lock
 (package-require
  'caps-lock
- :keymap '(("C-' g" caps-lock-mode)))
+ :keymap '(("C-' g" . caps-lock-mode)))
+
+;; isolate-mode
+(package-require
+ 'isolate
+ :keymap '(("C-' C-a s" . isolate-quick-add)
+					 ("C-' C-a S" . isolate-long-add)
+					 ("C-' C-a d" . isolate-quick-delete)
+					 ("C-' C-a D" . isolate-long-delete)
+					 ("C-' C-a c" . isolate-quick-change)
+					 ("C-' C-a C" . isolate-long-change)))
 
 (provide 'init-package)
