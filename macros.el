@@ -3,3 +3,7 @@
 			(kmacro-lambda-form [?< ?+ ?+ ?+ ?>] 0 "%d"))
 (fset 'replace-placeholder
 			(kmacro-lambda-form [?\M-% ?< ?+ ?+ ?+ ?> return return ?.] 0 "%d"))
+(fset 'add-todo-in-code
+   (kmacro-lambda-form [?» ?T ?O ?D ?O ? ] 0 "%d"))
+(fset 'search-todo-in-code
+   (kmacro-lambda-form [?\C-s ?T ?O ?D ?O ?\C-a] 0 "%d"))

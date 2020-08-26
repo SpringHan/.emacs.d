@@ -116,6 +116,12 @@ If it's daytime now,return t.Otherwise return nil."
 	(tab-bar-new-tab)
 	(switch-to-buffer "*scratch*"))
 
+(defun spring/tab-bar-close-tab-kill-buffer ()
+	"Kill the current buffer and close the current tab."
+	(interactive)
+	(kill-buffer)
+	(tab-bar-close-tab))
+
 (defun spring/copy-license (license-name)
 	"Copy the license file to current directory."
 	(interactive "sLincense name: ")
@@ -134,5 +140,10 @@ If it's daytime now,return t.Otherwise return nil."
 	(switch-to-buffer "*scratch*")
 	(insert initial-scratch-message)
 	(message "Open the scratch action done."))
+
+(defun spring/use-space-indent ()
+	"Use the space indent in org-mode."
+	(interactive)
+	(setq indent-tabs-mode nil))
 
 (provide 'init-functions)

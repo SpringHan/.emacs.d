@@ -58,16 +58,15 @@
 					 ("C-z C-c s" . org-timer-start)
 					 ("C-z C-c S" . org-timer-set-timer)
 					 ("C-z C-c e" . org-timer-stop)
-					 ("C-z C-c SPC" . org-timer-pause-or-continue))
+					 ("C-z C-c SPC" . org-timer-pause-or-continue)
+					 ("C-z C-c C-i" . spring/use-space-indent))
  :delay-eval '(progn
-
 								(setq org-src-fontify-natively t)
 								(require 'init-org)
 								(package-require
 								 'org-bullets
 								 :hook '(org-mode-hook org-bullets-mode)
-								 :delay-eval '(setq org-bullets-bullet-list '("" "☯" "❀" "✿"))))
- :hook '(org-mode-hook (lambda() (setq indent-tabs-mode nil))))
+								 :delay-eval '(setq org-bullets-bullet-list '("" "☯" "❀" "✿")))))
 
 ;; Vterm
 (package-require
@@ -118,7 +117,8 @@
 ;; hungry-delete
 (package-require
  'hungry-delete
- :keymap '(("C-' C-h" . hungry-delete-mode)) 
+ :keymap '(("C-' C-h" . hungry-delete-mode)
+					 ("C-' DEL" . hungry-delete-backward))
  :hook '((emacs-lisp-mode-hook lisp-mode-hook) . hungry-delete-mode))
 
 ;; js2-mode
@@ -265,5 +265,11 @@
 					 ("C-' C-a D" . isolate-long-delete)
 					 ("C-' C-a c" . isolate-quick-change)
 					 ("C-' C-a C" . isolate-long-change)))
+
+;; paredit mode
+(package-require
+ 'paredit
+ :hook '((lisp-mode-hook emacs-lisp-mode-hook eshell-mode-hook lisp-interaction-mode-hook) . paredit-mode)
+ :keymap '(("C-' f" . paredit-focus-on-defun)))
 
 (provide 'init-package)

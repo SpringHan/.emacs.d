@@ -25,12 +25,17 @@
 (global-set-key (kbd "C-z C-s") 'spring/error-show) ; Show the all-the-config-errors
 (global-set-key (kbd "C-z k") 'kill-unwanted-buffer) ; Kill the unwanted buffers made in init load
 (global-set-key (kbd "C-x t 3") 'tab-bar-new-with-buffer) ; Create a new tab then select a buffer
+(global-set-key (kbd "C-x t 4") 'tab-bar-close-tab-by-name) ; Close the tab by its name
 (global-set-key (kbd "C-x t s") 'spring/tab-bar-new-scratch) ; Create a new tab then select scratch buffer
+(global-set-key (kbd "C-x t k") 'spring/tab-bar-close-tab-kill-buffer) ; Kill the current buffer and close the tab
 (global-set-key (kbd "C-z C") 'spring/copy-license) ; Copy the license to current directory
 (global-set-key (kbd "C-z o") 'spring/open-scratch) ; Open the scratch buffer
+(global-set-key (kbd "C-z C-d") 'delete-char) ; Delete the char
 
 ;; Key Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder
 (global-set-key (kbd "C-z C-k r") 'replace-placeholder) ; Replace Placeholder
+(global-set-key (kbd "C-z C-k t") 'add-todo-in-code) ; Add the todo thing in code
+(global-set-key (kbd "C-z C-k s") 'search-todo-in-code) ; Search the todo thing in code
 
 (provide 'init-keymaps)
