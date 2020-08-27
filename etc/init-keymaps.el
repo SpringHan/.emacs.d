@@ -31,6 +31,7 @@
 (global-set-key (kbd "C-z C") 'spring/copy-license) ; Copy the license to current directory
 (global-set-key (kbd "C-z o") 'spring/open-scratch) ; Open the scratch buffer
 (global-set-key (kbd "C-z C-d") 'delete-char) ; Delete the char
+(global-set-key (kbd "C-z C-r") 'revert-buffer) ; Revert current buffer
 
 ;; Key Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder
