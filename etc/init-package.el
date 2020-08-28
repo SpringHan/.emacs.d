@@ -41,6 +41,8 @@
  :outside
  :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/netease-cloud-music.el")
  :keymap '(("C-' C-m" . netease-cloud-music)))
+;; Child package
+(package-require 'request)
 
 
 ;; Dashboard
