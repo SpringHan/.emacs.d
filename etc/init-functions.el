@@ -171,4 +171,11 @@ If it's daytime now,return t.Otherwise return nil."
 		(unless (file-exists-p file-name)
 			(make-empty-file file-name))))
 
+(defun spring/change-netease-cloud-music-repeat-mode ()
+	"Change the Netease-Cloud-Music repeat mode."
+	(interactive)
+	(if netease-cloud-music-playlist-repeat-mode
+			(setq netease-cloud-music-playlist-repeat-mode nil)
+		(setq netease-cloud-music-playlist-repeat-mode t)))
+
 (provide 'init-functions)

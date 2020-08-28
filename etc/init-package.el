@@ -40,7 +40,8 @@
  'netease-cloud-music
  :outside
  :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/netease-cloud-music.el")
- :keymap '(("C-' C-m" . netease-cloud-music)))
+ :keymap '(("C-' C-m t" . netease-cloud-music)
+					 ("C-' C-m r" . spring/change-netease-cloud-music-repeat-mode)))
 ;; Child package
 (package-require 'request)
 
