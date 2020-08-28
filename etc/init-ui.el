@@ -15,7 +15,9 @@
  :family "Source Code Pro"
  :weight 'normal
  :width 'normal) ; Set the font size
-(when (not (file-exists-p "~/.emacs.d/not-alpha"))
+;; Set backgroup alpha
+(unless (file-exists-p
+				 (expand-file-name (locate-user-emacs-file "not-alpha")))
 	(set-frame-parameter nil 'alpha '(90 . 100)))
 
 (provide 'init-ui)

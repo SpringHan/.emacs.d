@@ -30,6 +30,7 @@
 (global-set-key (kbd "C-x t k") 'spring/tab-bar-close-tab-kill-buffer) ; Kill the current buffer and close the tab
 (global-set-key (kbd "C-z C") 'spring/copy-license) ; Copy the license to current directory
 (global-set-key (kbd "C-z o") 'spring/open-scratch) ; Open the scratch buffer
+(global-set-key (kbd "C-z n") 'spring/touch-not-alpha) ; Touch the not alpha file
 (global-set-key (kbd "C-z C-d") 'delete-char) ; Delete the char
 (global-set-key (kbd "C-z C-r") 'revert-buffer) ; Revert current buffer
 

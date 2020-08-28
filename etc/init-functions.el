@@ -1,9 +1,11 @@
 ;;;; This file is used for the useful functions
 (defun open-config-file ()
+	"Open the init.el file."
 	(interactive)
 	(find-file "~/.emacs.d/init.el"))
 
 (defun open-etc-config (file)
+	"Open the config file in the etc directory."
 	(interactive (list (completing-read "Enter the filename: "
 																 '("ui" "org" "keymap" "mode"
 																	 "package" "packages" "function"))))
@@ -17,6 +19,7 @@
 		("function" (find-file "~/.emacs.d/etc/init-functions.el"))))
 
 (defun open-vterm (&optional dir)
+	"Open the vterm by DIR"
 	(interactive "DInput the directory: ")
 	(find-file dir)
 	(let ((current-buffer-name (buffer-name)))
@@ -25,6 +28,7 @@
 		(kill-buffer current-buffer-name)))
 
 (defun open-the-dir (dir-name)
+	"Open some directory by the DIR-NAME."
 	(interactive (list
 								(completing-read "The directory's name: "
 																 '("emacs" "git" "gtd" "C"))))
@@ -35,12 +39,14 @@
 		("C" (find-file "~/Code/C/src/Study"))))
 
 (defun set-alpha (var)
+	"Set the backgroud alpha by VAR."
 	(interactive "sAlpha or not(y-or-n): ")
 	(pcase var
 		("y" (set-frame-parameter nil 'alpha '(90 . 100)))
 		("n" (set-frame-parameter nil 'alpha '(100 . 100)))))
 
 (defun window-move (way)
+	"Move the buffer window position by WAY."
 	(interactive "sEnter the way(n-e-u-i): ")
 	(let ((current-window-buffer (window-buffer))
 				(current-window (get-buffer-window)))
@@ -56,17 +62,20 @@
 					(set-window-buffer (get-buffer-window) current-window-buffer))))) ; Move the window
 
 (defun sudo-save ()
+	"Save the current buffer file with sudo."
 	(interactive)
 	(if (not buffer-file-name)
 			(write-file (concat "/sudo:root@localhost:" (ido-read-file-name "File:")))
 		(write-file (concat "/sudo:root@localhost:" buffer-file-name))))
 
 (defun write-scratch ()
+	"Open the write scratch buffer."
 	(interactive)
 	(switch-to-buffer "*Write-Scratch*")
 	(markdown-mode))
 
 (defun markdown-table-keymap ()
+	"Add table map in markdown mode."
 	(interactive)
 	(define-key markdown-mode-map (kbd "C-c C-c TAB") 'markdown-table-align))
 
@@ -80,6 +89,7 @@ If it's daytime now,return t.Otherwise return nil."
 			nil)))
 
 (defun load-the-theme ()
+	"Load the theme by time."
 	(interactive)
 	(if (day-or-night)
 			(progn
@@ -152,5 +162,13 @@ If it's daytime now,return t.Otherwise return nil."
 	"Use the space indent in org-mode."
 	(interactive)
 	(setq indent-tabs-mode nil))
+
+(defun spring/touch-not-alpha ()
+	"Make the not-alpha file."
+	(interactive)
+	(let ((file-name
+				 (expand-file-name (locate-user-emacs-file "not-alpha"))))
+		(unless (file-exists-p file-name)
+			(make-empty-file file-name))))
 
 (provide 'init-functions)

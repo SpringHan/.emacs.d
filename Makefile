@@ -4,6 +4,8 @@ install:
 	mkdir ~/.emacs.d/third-party
 	git clone https://github.com/loyalpartner/english-teacher.el ~/.emacs.d/third-party/english-teacher.el --depth=1
 	@echo "English-teacher.el downloaded"
+	git clone https://github.com/SpringHan/netease-cloud-music.el ~/.emacs.d/third-party/netease-cloud-music.el --depth=1
+	@echo "Netease-Cloud-Music downloaded"
 	mkdir ~/.emacs.d/var
 	ln -sf ~/.emacs.d/bookmarks ~/.emacs.d/var/bookmarks
 	@echo "Make successful"

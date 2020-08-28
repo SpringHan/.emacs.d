@@ -21,6 +21,8 @@ Otherwise it's nil.")
 (when (spring/error-check '("~/.emacs.d/init.el::17" "init.el") :file-exists "~/.emacs.d/token.el")
 	(load-file "~/.emacs.d/token.el")
 	(require 'github-token))
+;;; The cache directory
+(setq user-emacs-directory "~/.emacs.d/var")
 ;;; Other files
 (add-to-list 'load-path "~/.emacs.d/etc/")
 ;; UI
@@ -62,7 +64,6 @@ Otherwise it's nil.")
 (setq display-time-24hr-format t) ; Display the time and date on modeline
 (display-time-mode t) ; Display the time
 (setq backward-delete-char-untabify-method nil) ; Delete the tab by once
-(setq user-emacs-directory "~/.emacs.d/var")
 (setq user-init-file "~/.emacs.d/var/user-init.el")
 (add-hook 'markdown-mode-hook #'markdown-table-keymap) ; Add the markdown table align keymap
 
