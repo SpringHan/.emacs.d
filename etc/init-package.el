@@ -35,6 +35,13 @@
 										english-teacher-show-result-function 'english-teacher-eldoc-show-result-function)
  :hook '((Info-mode-hook eww-mode-hook help-mode-hook) . english-teacher-follow-mode))
 
+;; Netease Cloud Music
+(package-require
+ 'netease-cloud-music
+ :outside
+ :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/netease-cloud-music.el")
+ :keymap '(("C-' C-m" . netease-cloud-music)))
+
 
 ;; Dashboard
 (package-require
@@ -62,11 +69,13 @@
 					 ("C-z C-c C-i" . spring/use-space-indent))
  :delay-eval '(progn
 								(setq org-src-fontify-natively t)
-								(require 'init-org)
-								(package-require
-								 'org-bullets
-								 :hook '(org-mode-hook org-bullets-mode)
-								 :delay-eval '(setq org-bullets-bullet-list '("" "☯" "❀" "✿")))))
+								(require 'init-org))
+ :hook '(org-mode-hook . (lambda () (setq indent-tabs-mode nil))))
+;; Child package
+(package-require
+ 'org-bullets
+ :hook '(org-mode-hook . (lambda () (org-bullets-mode t)))
+ :delay-eval '(setq org-bullets-bullet-list '("" "☯" "❀" "✿")))
 
 ;; Vterm
 (package-require

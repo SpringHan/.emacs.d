@@ -19,6 +19,8 @@
 	 (shell . t)))
 
 ;; GTD
+(unless (file-exists-p "~/.emacs.d/gtd")
+	(make-directory "~/.emacs.d/gtd"))
 (setq org-agenda-files '("~/.emacs.d/gtd"))
 (defvar org-agenda-dir "" "gtd org files location")
 (setq-default org-agenda-dir "~/.emacs.d/gtd")

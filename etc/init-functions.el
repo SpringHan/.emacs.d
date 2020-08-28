@@ -4,7 +4,9 @@
 	(find-file "~/.emacs.d/init.el"))
 
 (defun open-etc-config (file)
-	(interactive "sEnter the filename: ")
+	(interactive (list (completing-read "Enter the filename: "
+																 '("ui" "org" "keymap" "mode"
+																	 "package" "packages" "function"))))
 	(pcase file
 		("ui" (find-file "~/.emacs.d/etc/init-ui.el"))
 		("org" (find-file "~/.emacs.d/etc/init-org.el"))
@@ -23,7 +25,9 @@
 		(kill-buffer current-buffer-name)))
 
 (defun open-the-dir (dir-name)
-	(interactive "sThe directory's name: ")
+	(interactive (list
+								(completing-read "The directory's name: "
+																 '("emacs" "git" "gtd" "C"))))
 	(pcase dir-name
 		("gtd" (find-file "~/.emacs.d/gtd"))
 		("git" (find-file "~/Github"))
@@ -102,7 +106,8 @@ If it's daytime now,return t.Otherwise return nil."
 	(kill-buffer "*dashboard*")
 	(kill-buffer "notes.org")
 	(kill-buffer "tasks.org")
-	(kill-buffer "user-init.el"))
+	(when (get-buffer "user-init.el")
+		(kill-buffer "user-init.el")))
 
 (defun tab-bar-new-with-buffer (buffer-name)
 	"Create a new tab then select a buffer."
@@ -124,7 +129,9 @@ If it's daytime now,return t.Otherwise return nil."
 
 (defun spring/copy-license (license-name)
 	"Copy the license file to current directory."
-	(interactive "sLincense name: ")
+	(interactive (list
+								(completing-read "sLincense name: "
+																 '("MIT" "GPL-3.0"))))
 	(pcase license-name
 		("MIT"
 		 (copy-file "~/.emacs.d/license/MIT" "./LICENSE")
