@@ -171,16 +171,6 @@ If it's daytime now,return t.Otherwise return nil."
 		(unless (file-exists-p file-name)
 			(make-empty-file file-name))))
 
-(defun spring/change-netease-cloud-music-repeat-mode ()
-	"Change the Netease-Cloud-Music repeat mode."
-	(interactive)
-	(if netease-cloud-music-repeat-mode
-			(progn
-				(setq netease-cloud-music-repeat-mode nil)
-				(message "Netease Cloud Music repeat mode closed."))
-		(setq netease-cloud-music-repeat-mode t)
-		(message "Netease Cloud Music repeat mode opened.")))
-
 (defun spring/open-erc ()
 	"Open the erc with only one time."
 	(interactive)
