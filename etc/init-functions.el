@@ -174,8 +174,39 @@ If it's daytime now,return t.Otherwise return nil."
 (defun spring/change-netease-cloud-music-repeat-mode ()
 	"Change the Netease-Cloud-Music repeat mode."
 	(interactive)
-	(if netease-cloud-music-playlist-repeat-mode
-			(setq netease-cloud-music-playlist-repeat-mode nil)
-		(setq netease-cloud-music-playlist-repeat-mode t)))
+	(if netease-cloud-music-repeat-mode
+			(progn
+				(setq netease-cloud-music-repeat-mode nil)
+				(message "Netease Cloud Music repeat mode closed."))
+		(setq netease-cloud-music-repeat-mode t)
+		(message "Netease Cloud Music repeat mode opened.")))
+
+(defun spring/open-erc ()
+	"Open the erc with only one time."
+	(interactive)
+	(let ((erc-file-path
+				 (expand-file-name (locate-user-emacs-file
+														"erc-userinfo"))))
+		(if (file-exists-p erc-file-path)
+				(let ((user-info
+							 (with-temp-buffer (insert-file-contents
+																	erc-file-path)
+																 (split-string (buffer-string)
+																							 "\n" t))))
+					(erc :nick (car user-info) :password (nth 1 user-info)))
+			(let ((user-name (read-string "ERC Nick: "))
+						(user-password (read-passwd "ERC Password: "))
+						save-y-or-n)
+				(if (or (string= user-name "")
+								(string= user-password ""))
+						(error "The user name or password can't be null!")
+					(setq save-y-or-n (read-minibuffer
+														 "Do you want to save your ERC user info?(y/n)"
+														 "y"))
+					(when (string= save-y-or-n "y")
+						(with-temp-file erc-file-path
+							(insert (format "%s\n" user-name))
+							(insert (format "%s" user-password))))
+					(erc :nick user-name :password user-password))))))
 
 (provide 'init-functions)

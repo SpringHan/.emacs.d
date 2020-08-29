@@ -66,6 +66,7 @@ Otherwise it's nil.")
 (setq backward-delete-char-untabify-method nil) ; Delete the tab by once
 (setq user-init-file "~/.emacs.d/var/user-init.el")
 (add-hook 'markdown-mode-hook #'markdown-table-keymap) ; Add the markdown table align keymap
+(add-hook 'erc-mode-hook #'(lambda () (linum-mode -1)))
 
 ;;;; Plugin requires
 (require 'init-package)

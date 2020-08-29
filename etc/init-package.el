@@ -73,7 +73,7 @@
  :delay-eval '(progn
 								(setq org-src-fontify-natively t)
 								(require 'init-org))
- :hook '(org-mode-hook . (lambda () (setq indent-tabs-mode nil))))
+ :hook '(org-mode-hook . (lambda () (setq indent-tabs-mode nil) (define-key org-mode-map (kbd "C-'") nil))))
 ;; Child package
 (package-require
  'org-bullets
@@ -225,8 +225,7 @@
 ;; Window Resize
 (package-require
  'windresize
- :keymap '(("C-' C-r" . windresize)
-					 ("C-' SPC" . windresize-exit)))
+ :keymap '(("C-' C-r" . windresize)))
 
 ;; multiple cursor
 (package-require

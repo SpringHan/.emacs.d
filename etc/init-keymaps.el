@@ -4,7 +4,7 @@
 (global-set-key (kbd "C-z i") 'open-config-file) ; Open the init.el
 (global-set-key (kbd "C-z p") 'package-list-packages) ; Open the package interface
 (global-set-key (kbd "C-z C-b") 'buffer-menu) ; Open the buffer menu
-(global-set-key (kbd "C-z C-i") 'erc) ;Open the erc
+(global-set-key (kbd "C-z C-i") 'spring/open-erc) ;Open the erc
 (global-set-key (kbd "C-z C-p") 'previous-buffer) ; Goto previous buffer
 (global-set-key (kbd "C-z C-n") 'next-buffer)	  ;Goto Next buffer
 (global-set-key (kbd "C-z m") 'set-mark-command) ; The mark key map
