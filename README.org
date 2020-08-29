@@ -2,6 +2,9 @@
 
 This is my emacs configuration repository.
 
+[[./demo.png]]
+
+[[./demo1.png]]
 ** Dependences
    - cmake
    - git

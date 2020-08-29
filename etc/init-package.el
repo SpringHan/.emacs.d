@@ -172,7 +172,7 @@
 ;;; Lsp-mode
 (package-require
  'lsp-mode
- :hook '((c-mode-hook python-mode c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook emacs-lisp-mode-hook) . lsp)
+ :hook '((c-mode-hook python-mode c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook) . lsp)
  :keymap '(("C-' F" . lsp-format-buffer))
  :delay-eval '(progn
 								(setq lsp-idle-delay 1200
