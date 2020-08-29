@@ -48,7 +48,6 @@ Otherwise it's nil.")
 				(?\( . ?\))
 				(?\< . ?\>)
 				(?\{ . ?\}))) ; Set the electric-pair-mode's pair keywords
-(setq cursor-type 'box) ; Set the cursor as a box
 (setq make-backup-files nil ; Don't let Emacs make up backup file
       create-lockfiles nil ;Don't make lockfile
       auto-save-default nil ; Don't auto save the file
@@ -63,6 +62,7 @@ Otherwise it's nil.")
 (setq-default css-indent-offset 2) ; Set css indent width
 (setq display-time-24hr-format t) ; Display the time and date on modeline
 (display-time-mode t) ; Display the time
+(column-number-mode t) ; Show the column number in the modeline
 (setq backward-delete-char-untabify-method nil) ; Delete the tab by once
 (setq user-init-file "~/.emacs.d/var/user-init.el")
 (add-hook 'markdown-mode-hook #'markdown-table-keymap) ; Add the markdown table align keymap

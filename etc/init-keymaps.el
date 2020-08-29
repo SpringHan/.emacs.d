@@ -33,11 +33,12 @@
 (global-set-key (kbd "C-z n") 'spring/touch-not-alpha) ; Touch the not alpha file
 (global-set-key (kbd "C-z C-d") 'delete-char) ; Delete the char
 (global-set-key (kbd "C-z C-r") 'revert-buffer) ; Revert current buffer
+(global-set-key (kbd "C-z M-c") 'spring/downcase-word-first-letter) ; Downcase the first letter in the word at point
+(global-set-key (kbd "C-z A") 'spring/add-todo-in-code)	; Add the todo in code
 
 ;; Key Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder
 (global-set-key (kbd "C-z C-k r") 'replace-placeholder) ; Replace Placeholder
-(global-set-key (kbd "C-z C-k t") 'add-todo-in-code) ; Add the todo thing in code
 (global-set-key (kbd "C-z C-k s") 'search-todo-in-code) ; Search the todo thing in code
 
 (provide 'init-keymaps)

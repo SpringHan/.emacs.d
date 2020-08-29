@@ -1,13 +1,13 @@
 ;;;; This file is used for packages configuration and more
-;; Set the plugin keybinding
+;;; Set the plugin keybinding
 (define-prefix-command 'plugin-key)
 (global-set-key (kbd "C-'") 'plugin-key)
 
-;;; Themes
+;;;; Themes
 (load-the-theme)
 
 ;;; Third-party
-;; Emacs Application Framework
+;;; Emacs Application Framework
 (package-require
  'eaf
  :outside
@@ -25,7 +25,7 @@
 										(eaf-setq eaf-browser-dark-mode "true")))
 								(eaf-browser-set)))
 
-;; English Teacher
+;;; English Teacher
 (package-require
  'english-teacher
  :outside
@@ -35,18 +35,18 @@
 										english-teacher-show-result-function 'english-teacher-eldoc-show-result-function)
  :hook '((Info-mode-hook eww-mode-hook help-mode-hook) . english-teacher-follow-mode))
 
-;; Netease Cloud Music
+;;; Netease Cloud Music
 (package-require
  'netease-cloud-music
  :outside
  :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/netease-cloud-music.el")
  :keymap '(("C-' C-m t" . netease-cloud-music)
 					 ("C-' C-m r" . netease-cloud-music-change-repeat-mode)))
-;; Child package
+;;; Child package
 (package-require 'request)
 
 
-;; Dashboard
+;;; Dashboard
 (package-require
  'dashboard
  :delay-eval '(progn
@@ -57,7 +57,7 @@
 											dashboard-set-heading-icons t
 											dashboard-set-navigator t)))
 
-;; Org
+;;; Org
 (package-require
  'org
  :before-load-eval '(progn
@@ -74,13 +74,13 @@
 								(setq org-src-fontify-natively t)
 								(require 'init-org))
  :hook '(org-mode-hook . (lambda () (setq indent-tabs-mode nil) (define-key org-mode-map (kbd "C-'") nil))))
-;; Child package
+;;; Child package
 (package-require
  'org-bullets
  :hook '(org-mode-hook . (lambda () (org-bullets-mode t)))
  :delay-eval '(setq org-bullets-bullet-list '("" "☯" "❀" "✿")))
 
-;; Vterm
+;;; Vterm
 (package-require
  'vterm
  :keymap '(("C-' C-t" . open-vterm))
@@ -88,57 +88,57 @@
 								(define-key vterm-mode-map (kbd "C-c p") 'previous-buffer)
 								(define-key vterm-mode-map (kbd "C-c n") 'next-buffer)))
 
-;; Counsel
+;;; Counsel
 (package-require
  'counsel
  :keymap '(("M-x" . counsel-M-x)
 					 ("C-x C-f" . counsel-find-file)
 					 ("C-z a" . counsel-linux-app)))
 
-;; Icons
+;;; Icons
 (package-require
  'all-the-icons
  :keymap '(("C-' C-i" . all-the-icons-insert)))
 
-;; ivy
+;;; ivy
 (package-require
  'ivy
  :hook '(after-init-hook . ivy-mode))
 
-;; Bongo
+;;; Bongo
 (package-require 'bongo)
 
-;; Which Key
+;;; Which Key
 (package-require
  'which-key
  :hook '(after-init-hook . which-key-mode))
 
-;; ace window
+;;; ace window
 (package-require
  'ace-window
  :keymap '(("C-' C-c" . ace-window)))
 
-;; Calendar-China
+;;; Calendar-China
 (package-require 'cal-china-x)
 
-;; Iedit
+;;; Iedit
 (package-require
  'iedit
  :keymap '(("C-' C-e" . iedit-mode)))
 
-;; hungry-delete
+;;; hungry-delete
 (package-require
  'hungry-delete
  :keymap '(("C-' C-h" . hungry-delete-mode)
 					 ("C-' DEL" . hungry-delete-backward))
  :hook '((emacs-lisp-mode-hook lisp-mode-hook) . hungry-delete-mode))
 
-;; js2-mode
+;;; js2-mode
 (package-require
  'js2-mode
  :hook '(js-mode . js2-mode))
 
-;; Web-mode
+;;; Web-mode
 (package-require
  'web-mode
  :delay-eval '(progn
@@ -151,7 +151,7 @@
 
 
 ;;; Auto Completion
-;; Company (Complete Anything)
+;;; Company (Complete Anything)
 (package-require
  'company
  :hook '(after-init-hook . global-company-mode)
@@ -169,21 +169,30 @@
 								 'company-c-headers
 								 :delay-eval '(add-to-list 'company-backends 'company-c-headers))))
 
-;; Lsp-mode
+;;; Lsp-mode
 (package-require
  'lsp-mode
- :hook '((c-mode-hook python-mode c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook emacs-lisp-mode-hook) . lsp-mode))
+ :hook '((c-mode-hook python-mode c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook emacs-lisp-mode-hook) . lsp)
+ :keymap '(("C-' F" . lsp-format-buffer))
+ :delay-eval '(progn
+								(setq lsp-idle-delay 1200
+											lsp-auto-guess-root nil
+											lsp-file-watch-threshold 2000
+											lsp-eldoc-hook nil
+											lsp-prefer-flymake nil)))
 
 ;; ccls (For lsp-mode)
-(package-require 'ccls)
+;; (package-require
+;;  'ccls
+;;  :hook '((c-mode-hook c++-mode-hook objc-mode-hook) . (lambda () (lsp))))
 
-;; emmet-mode
+;;; emmet-mode
 (package-require
  'emmet-mode
  :hook '(web-mode-hook . emmet-mode)
  :delay-eval '(progn (setq emmet-self-closing-tag-style " /")))
 
-;; Snippet
+;;; Snippet
 (package-require
  'yasnippet
  :keymap '(("C-' i" . yas-insert-snippet)
@@ -194,22 +203,22 @@
 								(setq yas-snippet-dirs '("~/.emacs.d/snippets"
 																				 "~/.emacs.d/elpa/yasnippet-snippets-20200802.1658/snippets"))))
 
-;;FlyMake
+;;;FlyMake
 (package-require
  'flymake
  :keymap '(("C-' C-f" . flymake-mode)))
 
-;; rainbow-delimiters
+;;; rainbow-delimiters
 (package-require
  'rainbow-delimiters
  :hook '((lisp-mode-hook emacs-lisp-mode-hook org-mode-hooke eshell-mode-hook) . rainbow-delimiters-mode))
 
-;; indent guide
+;;; indent guide
 (package-require
  'indent-guide
  :hook '(after-init-hook . indent-guide-global-mode))
 
-;; doom-modeline
+;;; doom-modeline
 (package-require
  'doom-modeline
  :hook '(after-init-hook . doom-modeline-mode)
@@ -217,17 +226,17 @@
 								(setq-default doom-modeline-height 13)
 								(setq-default doom-modeline-bar-width 3)))
 
-;; magit
+;;; magit
 (package-require
  'magit
  :keymap '(("C-' m" . magit-status)))
 
-;; Window Resize
+;;; Window Resize
 (package-require
  'windresize
  :keymap '(("C-' C-r" . windresize)))
 
-;; multiple cursor
+;;; multiple cursor
 (package-require
  'multiple-cursors
  :keymap '(("C-M-l" . mc/edit-lines)
@@ -235,24 +244,24 @@
 					 ("C-<" . mc/mark-previous-like-this)
 					 ("M-m" . newline)))
 
-;; youdao translate
+;;; youdao translate
 (package-require
  'youdao-dictionary
  :keymap '(("C-' t" . youdao-dictionary-search-at-point)))
 
-;; Treemacs : File explore
+;;; Treemacs : File explore
 (package-require
  'treemacs
  :keymap '(("C-' e" . treemacs)))
 
-;; Dap-mode
+;;; Dap-mode
 (package-require
  'dap-mode
  :keymap '(("C-' d" . dap-debug)
 					 ("<F5>" . dap-breakpoint-toggle)
 					 ("<F6>" . dap-continue)))
 
-;; avy-mode
+;;; avy-mode
 (package-require
  'avy
  :keymap '(("C-' a c" . avy-goto-char)
@@ -262,12 +271,12 @@
 					 ("C-' a W" . avy-goto-word-0)
 					 ("C-' a r" . avy-resume)))
 
-;; Caps_Lock
+;;; Caps_Lock
 (package-require
  'caps-lock
  :keymap '(("C-' g" . caps-lock-mode)))
 
-;; isolate-mode
+;;; isolate-mode
 (package-require
  'isolate
  :keymap '(("C-' C-a s" . isolate-quick-add)
@@ -277,10 +286,15 @@
 					 ("C-' C-a c" . isolate-quick-change)
 					 ("C-' C-a C" . isolate-long-change)))
 
-;; paredit mode
+;;; paredit mode
 (package-require
  'paredit
  :hook '((lisp-mode-hook emacs-lisp-mode-hook eshell-mode-hook lisp-interaction-mode-hook) . paredit-mode)
  :keymap '(("C-' f" . paredit-focus-on-defun)))
+
+;;; QuickRun
+(package-require
+ 'quickrun
+ :keymap '(("C-' r" . quickrun-shell)))
 
 (provide 'init-package)

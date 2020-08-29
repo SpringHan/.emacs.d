@@ -7,7 +7,7 @@
 (global-linum-mode t) ; Show the line number
 (global-hl-line-mode -1) ; Highlight the current line
 (toggle-frame-fullscreen) ; Set fullscreen
-(setq cursor-type 'bar) ; Cursor Shape
+(setq cursor-type 'box) ; Cursor Shape
 (setq inhibit-splash-screen t) ; Close the start flash
 (set-face-attribute
  'default nil

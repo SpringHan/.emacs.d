@@ -199,4 +199,17 @@ If it's daytime now,return t.Otherwise return nil."
 							(insert (format "%s" user-password))))
 					(erc :nick user-name :password user-password))))))
 
+(defun spring/downcase-word-first-letter ()
+	"Downcase the first letter in the word at point."
+	(interactive)
+	(let ((letter (cl-subseq (thing-at-point 'word t) 0 1)))
+		(delete-char 1)
+		(insert (downcase letter))))
+
+(defun spring/add-todo-in-code ()
+	"Add todo content in code."
+	(interactive)
+	(comment-dwim 2)
+	(insert "<TODO(SpringHan)> "))
+
 (provide 'init-functions)

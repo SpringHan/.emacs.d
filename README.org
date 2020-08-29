@@ -22,7 +22,7 @@ This is my emacs configuration repository.
    You can read its code in [[https://github.com/SpringHan/.emacs.d/blob/master/etc/init-require-package.el][init-require-package.el]].
 
 ** Transparent Background
-   The transparent background is off by default.You can use ~C-z C-a~ to change it.Or if you want it to open by default, you can delete the ~not-alpha~ file.
+   The transparent background is opened by default.You can use ~C-z C-a~ to change it.Or if you don't want to open it by default, you can use ~C-z n~ to disable it.
 
 ** Last
    I'm new in emacs, I'll continue to update my configuration everyday.
