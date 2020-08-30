@@ -4,7 +4,6 @@
 (require 'cl-lib) ; Common Lisp
 (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
 												 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
-(package-initialize)
 
 ;;;; Variables
 (defvar spring/time-block nil
@@ -70,6 +69,7 @@ Otherwise it's nil.")
 
 ;;;; Plugin requires
 (require 'init-package)
+(package-initialize)
 
 ;;;; Enable Disbaled command
 (require 'novice)
