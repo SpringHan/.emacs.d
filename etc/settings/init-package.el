@@ -307,6 +307,7 @@
 
 ;;; GitHub Explorer
 (package-require
- 'github-explorer)
+ 'github-explorer
+ :keymap '(("C-' G" . github-explorer)))
 
 (provide 'init-package)

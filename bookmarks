@@ -6,10 +6,6 @@
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")
  (filename . "https://github.com/orgs/KitPixel"))
-("netease-music-api"
- (handler . eaf--bookmark-restore)
- (eaf-app . "browser")
- (filename . "https://www.jianshu.com/p/97e35fa456ce"))
 ("iconfont"
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")
