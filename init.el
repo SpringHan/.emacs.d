@@ -23,7 +23,8 @@ Otherwise it's nil.")
 ;;; The cache directory
 (setq user-emacs-directory "~/.emacs.d/var")
 ;;; Other files
-(add-to-list 'load-path "~/.emacs.d/etc/")
+(add-to-list 'load-path "~/.emacs.d/etc/settings")
+(add-to-list 'load-path "~/.emacs.d/etc/languages")
 ;; UI
 (require 'init-ui)
 ;; Packages

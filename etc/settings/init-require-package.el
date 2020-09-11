@@ -48,7 +48,17 @@ If not,download it."
 								 (require (nth
 													 (+ 1 (cl-position other others))
 													 others))
-								 (cl-return-from package-others t))))
+								 (cl-return-from package-others t)))
+							(:child-package
+							 (when (eq other :child-package)
+								 (let ((packages (nth
+																	(+ 1 (cl-position other others))
+																	others)))
+									 (cond ((symbolp packages)
+													(package-require packages))
+												 ((listp packages)
+													(dolist (package packages)
+														(package-require package))))))))
 					(pcase other
 						(:hook
 						 (let ((hook (nth
@@ -64,7 +74,14 @@ If not,download it."
 						 (let ((keymaps (nth
 														 (+ 1 (cl-position other others))
 														 others)))
-							 (package-setting :keymaps keymaps)))))))))
+							 (package-setting :keymaps keymaps)))
+						(:child-config
+						 (let ((configs (nth
+														 (+ 1 (cl-position other others))
+														 others)))
+							 (dolist (config configs)
+								 (unless (keywordp config)
+									 (eval config)))))))))))
 
 ;;;###autoload
 (cl-defun package-themep (others)
@@ -84,7 +101,8 @@ If it's, return t. Otherwise return nil."
 	"Require the PACKAGE-NAME and its configurations."
 	(when others
 		(package-others others :before-load-eval)
-		(package-others others :load-theme))
+		(package-others others :load-theme)
+		(package-others others :child-package))
   (if (not (require package-name nil 't))
 			(if (and others (or (and (listp others) (eq (car others) :outside))
 													(and (symbolp others) (eq others :outside))))

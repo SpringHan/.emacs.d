@@ -41,9 +41,8 @@
  :outside
  :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/netease-cloud-music.el")
  :keymap '(("C-' C-m t" . netease-cloud-music)
-					 ("C-' C-m r" . netease-cloud-music-change-repeat-mode)))
-;;; Child package
-(package-require 'request)
+					 ("C-' C-m r" . netease-cloud-music-change-repeat-mode))
+ :child-package '(async request))
 
 
 ;;; Dashboard
@@ -74,12 +73,10 @@
  :delay-eval '(progn
 								(setq org-src-fontify-natively t)
 								(require 'init-org))
- :hook '(org-mode-hook . (lambda () (setq indent-tabs-mode nil) (define-key org-mode-map (kbd "C-'") nil))))
-;;; Child package
-(package-require
- 'org-bullets
- :hook '(org-mode-hook . (lambda () (org-bullets-mode t)))
- :delay-eval '(setq org-bullets-bullet-list '("" "☯" "❀" "✿")))
+ :hook '(org-mode-hook . (lambda () (setq indent-tabs-mode nil) (define-key org-mode-map (kbd "C-'") nil) (org-bullets-mode t)))
+ :child-package 'org-bullets
+ :child-config '(:org-bullets
+								 (setq org-bullets-bullet-list '("" "☯" "❀" "✿"))))
 
 ;;; Vterm
 (package-require
@@ -104,19 +101,17 @@
 ;;; ivy
 (package-require
  'ivy
- :hook '(after-init-hook . ivy-mode))
-;;; Child Packages
-(package-require
- 'posframe
- :delay-eval '(setq posframe-mouse-banish nil))
-(package-require
- 'ivy-posframe
- :hook '(ivy-mode-hook . ivy-posframe-mode)
- :delay-eval '(progn
-								(setq ivy-posframe-display-functions-alist
-											'((t . ivy-posframe-display-at-frame-center)))
-								(setq ivy-posframe-parameters '((left-fringe . 8)
-																								(right-fringe . 8)))))
+ :hook '(after-init-hook . ivy-mode)
+ :child-package '(posframe ivy-posframe)
+ :child-config '(:posframe
+								 (setq posframe-mouse-banish nil)
+								 :ivy-posframe
+								 (progn
+									 (setq ivy-posframe-display-functions-alist
+												 '((t . ivy-posframe-display-at-frame-center)))
+									 (setq ivy-posframe-parameters '((left-fringe . 8)
+																									 (right-fringe . 8)))
+									 (add-hook 'ivy-mode-hook #'ivy-posframe-mode))))
 
 ;;; Bongo
 (package-require 'bongo)
