@@ -36,6 +36,7 @@
 (global-set-key (kbd "C-z M-c") 'spring/downcase-word-first-letter) ; Downcase the first letter in the word at point
 (global-set-key (kbd "C-z A") 'spring/add-todo-in-code)	; Add the todo in code
 (global-set-key (kbd "C-z E") 'open-etc-config-by-char) ; Call the open-etc-config by its index
+(global-set-key (kbd "C-z O") 'spring/scratch-erase-contents) ; Erase all the contents of *scratch* buffer
 
 ;; Key Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder
