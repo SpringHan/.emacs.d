@@ -305,4 +305,8 @@
  'quickrun
  :keymap '(("C-' r" . quickrun-shell)))
 
+;;; GitHub Explorer
+(package-require
+ 'github-explorer)
+
 (provide 'init-package)
