@@ -1,20 +1,20 @@
 ;;;;; SpringHan's Emacs Configuration
-;;;; Mirror Config
+;;; Mirror Config
 (require 'package)
 (require 'cl-lib) ; Common Lisp
 (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
 												 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
-;;;; Variables
+;;; Variables
 (defvar spring/time-block nil
 	"If the the time-block changed, it is t.
 Otherwise it's nil.")
 
 ;;;; Other config files
-;; Error Capture
+;;; Error Capture
 (load-file "~/.emacs.d/init-error-manager.el")
 (require 'init-error-manager)
-;; Macros
+;;; Macros
 (load-file "~/.emacs.d/macros.el")
 ;;; GitHub
 (when (spring/error-check '("~/.emacs.d/init.el::17" "init.el") :file-exists "~/.emacs.d/token.el")
@@ -25,19 +25,19 @@ Otherwise it's nil.")
 ;;; Other files
 (add-to-list 'load-path "~/.emacs.d/etc/settings")
 (add-to-list 'load-path "~/.emacs.d/etc/languages")
-;; UI
+;;; UI
 (require 'init-ui)
-;; Packages
+;;; Packages
 (require 'init-require-package)
-;; The functions
+;;; The functions
 (require 'init-functions)
-;; Keymaps
+;;; Keymaps
 (require 'init-keymaps)
-;; Other mode settings
+;;; Other mode settings
 (require 'init-modes)
 
 
-;;;; Basic things
+;;; Basic things
 ;;; Functions
 (fset 'yes-or-no-p 'y-or-n-p) ; Change the asking's answer way
 (delete-selection-mode t) ; Delete the seleceted text
@@ -68,12 +68,15 @@ Otherwise it's nil.")
 (add-hook 'markdown-mode-hook #'markdown-table-keymap) ; Add the markdown table align keymap
 (add-hook 'erc-mode-hook #'(lambda () (linum-mode -1)))
 
-;;;; Plugin requires
+;;; Plugin requires
 (require 'init-package)
 (package-initialize)
 
-;;;; Enable Disbaled command
+;;; Enable Disbaled command
 (require 'novice)
 (load-file "~/.emacs.d/init-enable-disabled-commands.el")
 (require 'init-enable-disabled-commands)
 (enable-commands-init)
+
+;;; Languages settings
+(require 'spring-python)
