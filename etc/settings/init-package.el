@@ -163,6 +163,7 @@
 (package-require
  'company
  :hook '(after-init-hook . global-company-mode)
+ :child-package '(company-c-headers company-lsp)
  :delay-eval '(progn
 								(setq company-idle-delay 0
 											company-minimum-prefix-length 1)
@@ -172,15 +173,14 @@
 									(define-key company-active-map (kbd "M-n") nil)
 									(define-key company-active-map (kbd "C-n") #'company-select-next)
 									(define-key company-active-map (kbd "C-p") #'company-select-previous))
-								(package-require 'company-lsp)
-								(package-require
-								 'company-c-headers
-								 :delay-eval '(add-to-list 'company-backends 'company-c-headers))))
+								(push 'company-capf company-backends))
+ :child-config '(:company-c-headers
+								 (add-to-list 'company-backends 'company-c-headers)))
 
 ;;; Lsp-mode
 (package-require
  'lsp-mode
- :hook '((c-mode-hook python-mode c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook) . lsp)
+ :hook '((c-mode-hook python-mode-hook c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook) . lsp)
  :keymap '(("C-' F" . lsp-format-buffer))
  :delay-eval '(progn
 								(setq lsp-idle-delay 1200
