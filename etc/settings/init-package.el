@@ -310,4 +310,20 @@
  'github-explorer
  :keymap '(("C-' G" . github-explorer)))
 
+;;; Input Method
+(package-require
+ 'pyim
+ :child-package 'pyim-basedict
+ :child-config '(:pyim-basedict
+								 (progn
+									 (pyim-basedict-enable)))
+ :delay-eval '(progn
+								(setq default-input-method "pyim"
+											pyim-default-scheme 'quanpin
+											pyim-page-tooltip 'posframe
+											pyim-page-length 8)
+								(pyim-isearch-mode t))
+ :keymap '(("C-' C-\\" . toggle-input-method)
+					 ("M-j" . pyim-convert-string-at-point)))
+
 (provide 'init-package)
