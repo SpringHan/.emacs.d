@@ -321,7 +321,9 @@
 								(setq default-input-method "pyim"
 											pyim-default-scheme 'quanpin
 											pyim-page-tooltip 'posframe
-											pyim-page-length 8)
+											pyim-page-length 8
+											pyim-page-style 'one-line
+											pyim-punctuation-translate '(auto yes no))
 								(pyim-isearch-mode t))
  :keymap '(("C-' C-\\" . toggle-input-method)
 					 ("M-j" . pyim-convert-string-at-point)))
