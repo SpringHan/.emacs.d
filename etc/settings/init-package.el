@@ -163,7 +163,7 @@
 (package-require
  'company
  :hook '(after-init-hook . global-company-mode)
- :child-package '(company-c-headers company-lsp)
+ :child-package '(company-c-headers)
  :delay-eval '(progn
 								(setq company-idle-delay 0
 											company-minimum-prefix-length 1)
