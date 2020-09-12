@@ -325,7 +325,6 @@
 											pyim-page-style 'one-line
 											pyim-punctuation-translate '(auto yes no))
 								(pyim-isearch-mode t))
- :keymap '(("C-' C-\\" . toggle-input-method)
-					 ("M-j" . pyim-convert-string-at-point)))
+ :keymap '(("M-j" . pyim-convert-string-at-point)))
 
 (provide 'init-package)
