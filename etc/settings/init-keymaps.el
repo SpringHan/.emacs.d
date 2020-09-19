@@ -38,6 +38,10 @@
 (global-set-key (kbd "C-z E") 'open-etc-config-by-char) ; Call the open-etc-config by its index
 (global-set-key (kbd "C-z O") 'spring/scratch-erase-contents) ; Erase all the contents of *scratch* buffer
 (global-set-key (kbd "C-z P") 'list-processes) ; Show the processes buffer
+(global-set-key (kbd "C-z C-v u") 'spring/up-5-volume) ; Up 5 volume
+(global-set-key (kbd "C-z C-v d") 'spring/down-5-volume) ; Down 5 volume
+(global-set-key (kbd "C-z v") 'spring/set-volume) ; Set volume
+(global-set-key (kbd "C-z V") 'spring/show-volume) ; Show current volume
 
 ;; Key Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder

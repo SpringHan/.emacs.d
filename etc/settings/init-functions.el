@@ -229,4 +229,49 @@ If it's daytime now,return t.Otherwise return nil."
 	(comment-dwim 2)
 	(insert "<TODO(SpringHan)> "))
 
+(defun spring/set-volume (mode)
+	"Change the volume."
+	(interactive (list (completing-read "Enter the set mode: "
+																			'("set" "up" "down"))))
+	(let (volume)
+		(pcase mode
+			("set"
+			 (setq volume (format "%s%%"
+														(read-string "Enter the volume you want: "))))
+			("up"
+			 (setq volume (format "+%s%%"
+														(read-string "Enter the volume you want to add: "))))
+			("down"
+			 (setq volume (format "-%s%%"
+														(read-string "Enter the volume you want to reduce: "))))
+			("up5"
+			 (setq volume "+5%"))
+			("down5"
+			 (setq volume "-5%")))
+		(shell-command (concat "pactl set-sink-volume 0 " volume) "*Volume Set*")
+		(when (get-buffer "*Volume Set*")
+			(kill-buffer "*Volume Set*"))))
+
+(defun spring/up-5-volume ()
+	"Up 5 volume."
+	(interactive)
+	(spring/set-volume "up5"))
+
+(defun spring/down-5-volume ()
+	"Down 5 volume."
+	(interactive)
+	(spring/set-volume "down5"))
+
+(defun spring/show-volume ()
+	"Show the volume."
+	(interactive)
+	(let (volume)
+		(shell-command "amixer get Master | tail -n1 | sed -r \"s/.*\\[(.*)%\\].*/\\1/\""
+									 "*Volume Value*")
+		(when (get-buffer "*Volume Value*")
+			(with-current-buffer "*Volume Value*"
+				(setq volume (car (split-string (buffer-string) "\n" t))))
+			(kill-buffer "*Volume Value*"))
+		(message "[Spring Emacs]: Current Volume is: %s" volume)))
+
 (provide 'init-functions)
