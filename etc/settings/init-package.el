@@ -163,7 +163,7 @@
 (package-require
  'company
  :hook '(after-init-hook . global-company-mode)
- :child-package '(company-c-headers)
+ :child-package '(company-c-headers company-box)
  :delay-eval '(progn
 								(setq company-idle-delay 0
 											company-minimum-prefix-length 1)
@@ -175,7 +175,8 @@
 									(define-key company-active-map (kbd "C-p") #'company-select-previous))
 								(push 'company-capf company-backends))
  :child-config '(:company-c-headers
-								 (add-to-list 'company-backends 'company-c-headers)))
+								 (add-to-list 'company-backends 'company-c-headers)
+								 (add-hook 'company-mode-hook #'company-box-mode)))
 
 ;;; Lsp-mode
 (package-require

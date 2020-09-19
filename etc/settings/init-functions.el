@@ -52,14 +52,14 @@
 
 (defun window-move (way)
 	"Move the buffer window position by WAY."
-	(interactive "sEnter the way(n-e-u-i): ")
+	(interactive "cEnter the way(n-e-u-i): ")
 	(let ((current-window-buffer (window-buffer))
 				(current-window (get-buffer-window)))
 		(pcase way
-			("n" (windmove-left))
-			("e" (windmove-down))
-			("u" (windmove-up))
-			("i" (windmove-right)))
+			(110 (windmove-left))
+			(101 (windmove-down))
+			(117 (windmove-up))
+			(105 (windmove-right)))
 		(setq another-window-buffer (get-buffer-window))
 		(if (not (eql current-window-buffer another-window-buffer))
 				(progn
@@ -81,7 +81,6 @@
 
 (defun markdown-table-keymap ()
 	"Add table map in markdown mode."
-	(interactive)
 	(define-key markdown-mode-map (kbd "C-c C-c TAB") 'markdown-table-align))
 
 (defun day-or-night ()
@@ -159,8 +158,9 @@ If it's daytime now,return t.Otherwise return nil."
 (defun spring/open-scratch ()
 	"Open the scratch buffer after closing it."
 	(interactive)
-	(switch-to-buffer "*scratch*")
-	(unless (get-buffer "*scratch*")
+	(if (get-buffer "*scratch*")
+			(switch-to-buffer "*scratch*")
+		(switch-to-buffer "*scratch*")
 		(insert initial-scratch-message)
 		(message "Open the scratch action done.")))
 
