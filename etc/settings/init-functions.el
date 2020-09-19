@@ -117,11 +117,9 @@ If it's daytime now,return t.Otherwise return nil."
 (defun kill-unwanted-buffer ()
 	"Kill the unwanted buffers."
 	(interactive)
-	(kill-buffer "*dashboard*")
-	(kill-buffer "notes.org")
-	(kill-buffer "tasks.org")
-	(when (get-buffer "user-init.el")
-		(kill-buffer "user-init.el")))
+	(dolist (buffer spring/unwanted-buffer)
+		(when (get-buffer buffer)
+			(kill-buffer buffer))))
 
 (defun tab-bar-new-with-buffer (buffer-name)
 	"Create a new tab then select a buffer."
