@@ -60,8 +60,8 @@ Otherwise it's nil.")
 ;; This is the scratch buffer for you.
 
 ")
-(setq default-tab-width 2) ; The tab width
-(setq indent-tabs-mode t) ; Use tab indent
+(setq-default tab-width 2) ; The tab width
+(setq-default indent-tabs-mode t) ; Use tab indent
 (setq css-indent-offset 2) ; Set css indent width
 (setq display-time-24hr-format t) ; Display the time and date on modeline
 (display-time-mode t) ; Display the time
