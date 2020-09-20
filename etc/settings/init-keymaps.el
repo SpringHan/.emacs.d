@@ -42,6 +42,7 @@
 (global-set-key (kbd "C-z C-v d") 'spring/down-5-volume) ; Down 5 volume
 (global-set-key (kbd "C-z v") 'spring/set-volume) ; Set volume
 (global-set-key (kbd "C-z V") 'spring/show-volume) ; Show current volume
+(global-set-key (kbd "C-z C-p") 'spring/show-packages-required) ; Show all the packages have required
 
 ;; Key Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder

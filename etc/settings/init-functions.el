@@ -272,4 +272,10 @@ If it's daytime now,return t.Otherwise return nil."
 			(kill-buffer "*Volume Value*"))
 		(message "[Spring Emacs]: Current Volume is: %s" volume)))
 
+(defun spring/show-packages-required ()
+	"Show all the packages required."
+	(interactive)
+	(message "[Spring Emacs]: Now Emacs has required %d packages."
+					 (length package-activated-list)))
+
 (provide 'init-functions)
