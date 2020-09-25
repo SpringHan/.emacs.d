@@ -47,10 +47,6 @@
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")
  (filename . "https://github.com/"))
-("Bing"
- (handler . eaf--bookmark-restore)
- (eaf-app . "browser")
- (filename . "http://cn.bing.com/"))
 ("TheCW"
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")

@@ -248,7 +248,8 @@ If it's daytime now,return t.Otherwise return nil."
 			 (setq volume "-5%")))
 		(shell-command (concat "pactl set-sink-volume 0 " volume) "*Volume Set*")
 		(when (get-buffer "*Volume Set*")
-			(kill-buffer "*Volume Set*"))))
+			(kill-buffer "*Volume Set*"))
+		(message "[Spring Emacs]: The current volume: %s" (spring/get-volume))))
 
 (defun spring/up-5-volume ()
 	"Up 5 volume."
@@ -260,9 +261,8 @@ If it's daytime now,return t.Otherwise return nil."
 	(interactive)
 	(spring/set-volume "down5"))
 
-(defun spring/show-volume ()
-	"Show the volume."
-	(interactive)
+(defun spring/get-volume ()
+	"Get the volume and return it."
 	(let (volume)
 		(shell-command "amixer get Master | tail -n1 | sed -r \"s/.*\\[(.*)%\\].*/\\1/\""
 									 "*Volume Value*")
@@ -270,12 +270,22 @@ If it's daytime now,return t.Otherwise return nil."
 			(with-current-buffer "*Volume Value*"
 				(setq volume (car (split-string (buffer-string) "\n" t))))
 			(kill-buffer "*Volume Value*"))
-		(message "[Spring Emacs]: Current Volume is: %s" volume)))
+		volume))
+
+(defun spring/show-volume ()
+	"Show the volume."
+	(interactive)
+	(message "[Spring Emacs]: Current Volume is: %s" (spring/get-volume)))
 
 (defun spring/show-packages-required ()
 	"Show all the packages required."
 	(interactive)
 	(message "[Spring Emacs]: Now Emacs has required %d packages."
 					 (length package-activated-list)))
+
+(defun spring/search ()
+	"Open search page."
+	(interactive)
+	(eaf-open-browser "https://springhan.gitee.io/search"))
 
 (provide 'init-functions)
