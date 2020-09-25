@@ -88,7 +88,7 @@
 If it's daytime now,return t.Otherwise return nil."
 	(let ((now-time
 				 (string-to-number (cl-subseq (current-time-string) 11 13))))
-		(if (and (>= now-time 6) (< now-time 19))
+		(if (and (>= now-time 6) (< now-time 18))
 				t
 			nil)))
 
@@ -286,6 +286,14 @@ If it's daytime now,return t.Otherwise return nil."
 (defun spring/search ()
 	"Open search page."
 	(interactive)
-	(eaf-open-browser "https://springhan.gitee.io/search"))
+	(eaf-open-browser (concat "https://cn.bing.com/search?q=" (read-string "Enter the search content: "))))
+
+(defun spring/kill-magit ()
+	"Kill the magit buffers."
+	(interactive)
+	(magit-mode-bury-buffer)
+	(unless (null (magit-mode-get-buffers))
+		(dolist (buffer (magit-mode-get-buffers))
+			(kill-buffer buffer))))
 
 (provide 'init-functions)

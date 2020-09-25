@@ -10,7 +10,7 @@
 	"If the the time-block changed, it is t.
 Otherwise it's nil.")
 (defvar spring/unwanted-buffer
-	'("*dashboard*" "notes.org" "tasks.org" "user-init.el" "*Help*")
+	'("*dashboard*" "notes.org" "tasks.org" "user-init.el" "*Help*" "*Backtrace*")
 	"The buffers that I don't need.")
 
 ;;;; Other config files
@@ -68,8 +68,10 @@ Otherwise it's nil.")
 (column-number-mode t) ; Show the column number in the modeline
 (setq backward-delete-char-untabify-method nil) ; Delete the tab by once
 (setq user-init-file "~/.emacs.d/var/user-init.el")
-(add-hook 'markdown-mode-hook #'markdown-table-keymap) ; Add the markdown table align keymap
+(add-hook 'markdown-mode-hook #'(lambda ()
+																	(define-key markdown-mode-map (kbd "C-c C-c TAB") 'markdown-table-align))) ; Add the markdown table align keymap
 (add-hook 'erc-mode-hook #'(lambda () (linum-mode -1)))
+(add-hook 'magit-mode-hook #'(lambda () (define-key magit-mode-map "q" 'spring/kill-magit)))
 
 ;;; Plugin requires
 (require 'init-package)

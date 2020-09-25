@@ -328,4 +328,8 @@
 								(pyim-isearch-mode t))
  :keymap '(("M-j" . pyim-convert-string-at-point)))
 
+;;; Package
+(package-require
+ 'arch-packer)
+
 (provide 'init-package)
