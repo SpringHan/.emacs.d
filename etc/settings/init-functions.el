@@ -283,10 +283,10 @@ If it's daytime now,return t.Otherwise return nil."
 	(message "[Spring Emacs]: Now Emacs has required %d packages."
 					 (length package-activated-list)))
 
-(defun spring/search ()
+(defun spring/search (content)
 	"Open search page."
-	(interactive)
-	(eaf-open-browser (concat "https://cn.bing.com/search?q=" (read-string "Enter the search content: "))))
+	(interactive "MEnter the search content: ")
+	(eaf-open-browser (concat "https://cn.bing.com/search?q=" content)))
 
 (defun spring/kill-magit ()
 	"Kill the magit buffers."
