@@ -70,8 +70,8 @@ Otherwise it's nil.")
 (setq user-init-file "~/.emacs.d/var/user-init.el")
 (add-hook 'markdown-mode-hook #'(lambda ()
 																	(define-key markdown-mode-map (kbd "C-c C-c TAB") 'markdown-table-align))) ; Add the markdown table align keymap
-(add-hook 'erc-mode-hook #'(lambda () (linum-mode -1)))
-(add-hook 'magit-mode-hook #'(lambda () (define-key magit-mode-map "q" 'spring/kill-magit)))
+(add-hook 'erc-mode-hook #'(lambda () (linum-mode -1)))	; Close the line number in the erc mode
+(add-hook 'magit-mode-hook #'(lambda () (define-key magit-mode-map "q" 'spring/kill-magit))) ; Define the function to kill the magit buffers
 
 ;;; Plugin requires
 (require 'init-package)
@@ -85,3 +85,7 @@ Otherwise it's nil.")
 
 ;;; Languages settings
 (require 'spring-python)
+
+;;; Tools
+(add-to-list 'load-path "~/.emacs.d/etc/tools")
+(require 'task-reminder)
