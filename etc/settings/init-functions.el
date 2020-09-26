@@ -1,4 +1,14 @@
 ;;;; This file is used for the useful functions
+(defun spring/get-index (item seq)
+	"Get the earliest index of ITEM in SEQ."
+	(let ((index nil)
+				(indexf -1))
+		(dolist (ele seq)
+			(if (equal item ele)
+					(setq index indexf)
+				(setq indexf (+ 1 indexf))))
+		index))
+
 (defun open-config-file ()
 	"Open the init.el file."
 	(interactive)
@@ -295,5 +305,14 @@ If it's daytime now,return t.Otherwise return nil."
 	(unless (null (magit-mode-get-buffers))
 		(dolist (buffer (magit-mode-get-buffers))
 			(kill-buffer buffer))))
+
+(defun spring/kill-all-else-buffers ()
+	"Kill the buffers without *scratch*, *Message* and *eaf*."
+	(interactive)
+	(let ((wanted-buffer '("*scratch*" "*Messages*" "*eaf*")))
+		(dolist (buffer (buffer-list))
+			(unless (or (spring/get-index (buffer-name buffer) wanted-buffer)
+									(string= (cl-subseq (buffer-name buffer) 0 1) " "))
+				(kill-buffer buffer)))))
 
 (provide 'init-functions)
