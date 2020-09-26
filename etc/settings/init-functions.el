@@ -237,7 +237,7 @@ If it's daytime now,return t.Otherwise return nil."
 	(comment-dwim 2)
 	(insert "<TODO(SpringHan)> "))
 
-(defun spring/set-volume (mode)
+(defun spring/set-volume (mode &optional changes)
 	"Change the volume."
 	(interactive (list (completing-read "Enter the set mode: "
 																			'("set" "up" "down"))))
@@ -252,24 +252,35 @@ If it's daytime now,return t.Otherwise return nil."
 			("down"
 			 (setq volume (format "-%s%%"
 														(read-string "Enter the volume you want to reduce: "))))
-			("up5"
-			 (setq volume "+5%"))
-			("down5"
-			 (setq volume "-5%")))
+			("ups"
+			 (setq volume (format "+%d%%" changes)))
+			("downs"
+			 (setq volume (format "-%d%%" changes)))
+			("0"
+			 (setq volume "0%")))
 		(shell-command (concat "pactl set-sink-volume 0 " volume) "*Volume Set*")
 		(when (get-buffer "*Volume Set*")
 			(kill-buffer "*Volume Set*"))
 		(message "[Spring Emacs]: The current volume: %s" (spring/get-volume))))
 
-(defun spring/up-5-volume ()
+(defun spring/up-5-volume (&optional times)
 	"Up 5 volume."
-	(interactive)
-	(spring/set-volume "up5"))
+	(interactive "P")
+	(if times
+			(spring/set-volume "ups" (* 5 times))
+		(spring/set-volume "ups" 5)))
 
-(defun spring/down-5-volume ()
+(defun spring/down-5-volume (&optional times)
 	"Down 5 volume."
+	(interactive "P")
+	(if times
+			(spring/set-volume "downs" (* 5 times))
+		(spring/set-volume "downs" 5)))
+
+(defun spring/no-volume ()
+	"Set the volume to 0."
 	(interactive)
-	(spring/set-volume "down5"))
+	(spring/set-volume "0"))
 
 (defun spring/get-volume ()
 	"Get the volume and return it."
