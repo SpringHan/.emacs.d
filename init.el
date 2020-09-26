@@ -70,6 +70,7 @@ Otherwise it's nil.")
 																	(define-key markdown-mode-map (kbd "C-c C-c TAB") 'markdown-table-align))) ; Add the markdown table align keymap
 (add-hook 'erc-mode-hook #'(lambda () (linum-mode -1)))	; Close the line number in the erc mode
 (add-hook 'magit-mode-hook #'(lambda () (define-key magit-mode-map "q" 'spring/kill-magit))) ; Define the function to kill the magit buffers
+(add-hook 'shell-mode-hook #'(lambda () (company-mode -1) (define-key shell-mode-map (kbd "C-c l") 'spring/shell-clear)))
 
 ;;; Plugin requires
 (require 'init-package)

@@ -46,6 +46,7 @@
 (global-set-key (kbd "C-z l") 'spring/show-packages-required) ; Show all the packages have required
 (global-set-key (kbd "C-z C-m s") 'spring/search) ; Open search page
 (global-set-key (kbd "C-z K") 'spring/kill-all-else-buffers) ; Kill all the buffers without *scratch*, *Messages* and *eaf*
+(global-set-key (kbd "C-z S") 'spring/open-shell) ; Open the shell
 
 ;; Key Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder

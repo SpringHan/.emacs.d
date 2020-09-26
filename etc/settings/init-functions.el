@@ -328,4 +328,22 @@ If it's daytime now,return t.Otherwise return nil."
 						nil
 					(kill-buffer buffer))))))
 
+(defun spring/shell-clear ()
+	"Clear the shell buffer."
+	(interactive)
+	(with-current-buffer "*shell*"
+		(erase-buffer)
+		(comint-send-input)
+		(beginning-of-buffer)
+		(kill-line 2)
+		(end-of-buffer)))
+
+(defun spring/open-shell (&optional type)
+	"Open the shell."
+	(interactive "P")
+	(shell)
+	(when type
+		(with-current-buffer "*shell*"
+			(delete-other-windows))))
+
 (provide 'init-functions)
