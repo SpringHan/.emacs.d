@@ -317,13 +317,15 @@ If it's daytime now,return t.Otherwise return nil."
 		(dolist (buffer (magit-mode-get-buffers))
 			(kill-buffer buffer))))
 
-(defun spring/kill-all-else-buffers ()
+(defun spring/kill-all-else-buffers (&optional type)
 	"Kill the buffers without *scratch*, *Message* and *eaf*."
-	(interactive)
+	(interactive "P")
 	(let ((wanted-buffer '("*scratch*" "*Messages*" "*eaf*")))
 		(dolist (buffer (buffer-list))
 			(unless (or (spring/get-index (buffer-name buffer) wanted-buffer)
 									(string= (cl-subseq (buffer-name buffer) 0 1) " "))
-				(kill-buffer buffer)))))
+				(if (and type (equal buffer (current-buffer)))
+						nil
+					(kill-buffer buffer))))))
 
 (provide 'init-functions)
