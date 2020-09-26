@@ -328,8 +328,19 @@
 								(pyim-isearch-mode t))
  :keymap '(("M-j" . pyim-convert-string-at-point)))
 
-;;; Package
+;;; Arch Package Manager
 (package-require
  'arch-packer)
+
+;;; Command Shower
+(package-require
+ 'command-log-mode
+ :delay-eval '(defun spring/open-or-close-command-log-mode ()
+								"Open the command-log-mode."
+								(interactive)
+								(global-command-log-mode)
+								(clm/toggle-command-log-buffer))
+ :keymap '(("C-' k" . spring/open-or-close-command-log-mode)
+					 ("C-' K" . clm/command-log-clear)))
 
 (provide 'init-package)

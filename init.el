@@ -14,13 +14,11 @@ Otherwise it's nil.")
 	"The buffers that I don't need.")
 
 ;;;; Other config files
+(add-to-list 'load-path "~/.emacs.d/etc/tools")
 ;;; Error Capture
-(load-file "~/.emacs.d/init-error-manager.el")
 (require 'init-error-manager)
-;;; Macros
-(load-file "~/.emacs.d/macros.el")
 ;;; GitHub
-(when (spring/error-check '("~/.emacs.d/init.el::17" "init.el") :file-exists "~/.emacs.d/token.el")
+(when (spring/error-check '("~/.emacs.d/init.el::21" "init.el") :file-exists "~/.emacs.d/token.el")
 	(load-file "~/.emacs.d/token.el")
 	(require 'github-token))
 ;;; The cache directory
@@ -77,15 +75,12 @@ Otherwise it's nil.")
 (require 'init-package)
 (package-initialize)
 
-;;; Enable Disbaled command
-(require 'novice)
-(load-file "~/.emacs.d/init-enable-disabled-commands.el")
+;;; Tools
+(require 'task-reminder)
+(require 'init-macros)
 (require 'init-enable-disabled-commands)
 (enable-commands-init)
 
+
 ;;; Languages settings
 (require 'spring-python)
-
-;;; Tools
-(add-to-list 'load-path "~/.emacs.d/etc/tools")
-(require 'task-reminder)

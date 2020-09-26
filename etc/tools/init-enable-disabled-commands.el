@@ -1,5 +1,7 @@
 ;;;; This file is used to define functions about the disabled commands
 
+(require 'novice)
+
 (defconst spring/enable-commands
 	'(narrow-to-region downcase-region upcase-region erase-buffer)
 	"The disabled commands that I want to enable.")
