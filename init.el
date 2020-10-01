@@ -5,6 +5,9 @@
 (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
 												 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
 
+;; GC
+(setq gc-cons-threshold (* 50 1024 1024))
+
 ;;; Variables
 (defvar spring/time-block nil
 	"If the the time-block changed, it is t.
@@ -71,6 +74,7 @@ Otherwise it's nil.")
 (add-hook 'erc-mode-hook #'(lambda () (linum-mode -1)))	; Close the line number in the erc mode
 (add-hook 'magit-mode-hook #'(lambda () (define-key magit-mode-map "q" 'spring/kill-magit))) ; Define the function to kill the magit buffers
 (add-hook 'shell-mode-hook #'(lambda () (company-mode -1) (define-key shell-mode-map (kbd "C-c l") 'spring/shell-clear)))
+
 
 ;;; Plugin requires
 (require 'init-package)

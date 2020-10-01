@@ -16,7 +16,7 @@
 (global-set-key (kbd "C-z u") 'undo-only) ; Undo without redo
 (global-set-key (kbd "C-z r") 'undo-redo) ; Redo
 (global-set-key (kbd "C-z t") 'make-empty-file) ; Touch file
-(global-set-key (kbd "C-z s") 'sudo-save) ; Use sudo permission to save the file
+(global-set-key (kbd "C-z s") 'spring/open-shell)
 (global-set-key (kbd "C-z w") 'write-scratch) ; New a write scratch buffer
 (global-set-key (kbd "C-z f") 'mark-defun) ; Mark the function SAME LIKE C-M-h
 (global-set-key (kbd "C-z e") 'eshell) ; Open eshell
@@ -46,7 +46,7 @@
 (global-set-key (kbd "C-z l") 'spring/show-packages-required) ; Show all the packages have required
 (global-set-key (kbd "C-z C-m s") 'spring/search) ; Open search page
 (global-set-key (kbd "C-z K") 'spring/kill-all-else-buffers) ; Kill all the buffers without *scratch*, *Messages* and *eaf*
-(global-set-key (kbd "C-z S") 'spring/open-shell) ; Open the shell
+(global-set-key (kbd "C-z S") 'sudo-save)
 
 ;; Key Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder
