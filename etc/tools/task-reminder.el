@@ -26,7 +26,8 @@
 	(interactive (list (completing-read "Enter the function: "
 																			'("add" "remove" "stop" "start"))))
 	(pcase key
-		("add" (task-reminder-add-task))))
+		("add" (task-reminder-add-task))
+		("start" (task-reminder-start))))
 
 (defun task-reminder-add-task (task-name task-time task-content)
 	"Add task."
@@ -34,10 +35,15 @@
 										 (read-string "Enter the deadline time(HH:mm): ")
 										 (read-string "Enter the task content: "))))
 
+(defun task-reminder-process ()
+	"Start the process."
+	(while task-reminder-status))
+
 (defun task-reminder-start ()
 	"The task-reminder main program."
 	(interactive)
 	(if (not (null task-reminder-status))
-			(message "[Spring Emacs]: Task-Reminder has already running!")))
+			(message "[Spring Emacs]: Task-Reminder has already running!")
+		(task-reminder-process)))
 
 (provide 'task-reminder)

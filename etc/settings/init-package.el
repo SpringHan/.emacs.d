@@ -30,7 +30,8 @@
  'english-teacher
  :outside
  :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/english-teacher.el")
- :keymap '(("C-' C-l" . english-teacher-smart-translation))
+ :keymap '(("C-' C-l" . english-teacher-smart-translation)
+					 ("C-' T" . english-teacher-follow-mode))
  :delay-eval '(setq english-teacher-backend 'baidu
 										english-teacher-show-result-function 'english-teacher-eldoc-show-result-function)
  :hook '((Info-mode-hook eww-mode-hook help-mode-hook) . english-teacher-follow-mode))
