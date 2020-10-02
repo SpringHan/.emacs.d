@@ -106,27 +106,35 @@ If it's daytime now,return t.Otherwise return nil."
 				t
 			nil)))
 
-(defun load-the-theme ()
+(defun load-the-theme (&optional time)
 	"Load the theme by time."
-	(interactive)
-	(if (day-or-night)
-			(progn
-				(package-require
-				 'atom-one-light
-				 :outside
-				 :before-load-eval '(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-				 :load-theme 'atom-one-light)
-				(when (string= spring/time-block "night")
-					(eaf-browser-set))
-				(setq spring/time-block "daytime"))
-		(package-require
-		 'atom-one-dark
-		 :outside
-		 :before-load-eval '(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-		 :load-theme 'atom-one-dark)
-		(when (string= spring/time-block "daytime")
-			(eaf-browser-set))
-		(setq spring/time-block "night")))
+	(interactive (list (completing-read "Enter the theme type: "
+																			'("day" "night"))))
+	(let (time-result)
+		(cond (time
+					 (pcase time
+						 ("day" (setq time-result t))
+						 ("night" (setq time-result nil))))
+					((null time)
+					 (setq time-result (day-or-night))))
+		(if time-result
+				(progn
+					(package-require
+					 'atom-one-light
+					 :outside
+					 :before-load-eval '(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+					 :load-theme 'atom-one-light)
+					(when (string= spring/time-block "night")
+						(eaf-browser-set "day"))
+					(setq spring/time-block "daytime"))
+			(package-require
+			 'atom-one-dark
+			 :outside
+			 :before-load-eval '(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+			 :load-theme 'atom-one-dark)
+			(when (string= spring/time-block "daytime")
+				(eaf-browser-set "night"))
+			(setq spring/time-block "night"))))
 
 (defun kill-unwanted-buffer ()
 	"Kill the unwanted buffers."
@@ -238,8 +246,9 @@ If it's daytime now,return t.Otherwise return nil."
 (defun spring/add-todo-in-code ()
 	"Add todo content in code."
 	(interactive)
-	(comment-dwim 2)
-	(insert "<TODO(SpringHan)> "))
+	(comment-dwim nil)
+	(let ((todo-content (read-string "Enter your todo content: ")))
+		(insert (format "<TODO(SpringHan)> %s [%s]" todo-content (current-time-string)))))
 
 (defun spring/set-volume (mode &optional changes)
 	"Change the volume."

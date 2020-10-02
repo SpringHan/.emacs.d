@@ -1,7 +1,9 @@
 ;;;; This file is used for packages configuration and more
 ;;; Set the plugin keybinding
 (define-prefix-command 'plugin-key)
+(define-prefix-command 'plugin-key-2)
 (global-set-key (kbd "C-'") 'plugin-key)
+(global-set-key (kbd "C--") 'plugin-key-2)
 
 ;;;; Themes
 (load-the-theme)
@@ -18,11 +20,15 @@
  :delay-eval '(progn
 								(eaf-setq eaf-browser-remember-history "true")
 								(eaf-setq eaf-browser-default-zoom "1.0")
-								(defun eaf-browser-set ()
+								(defun eaf-browser-set (&optional day)
 									(interactive)
-									(if (day-or-night)
-											(eaf-setq eaf-browser-dark-mode "false")
-										(eaf-setq eaf-browser-dark-mode "true")))
+									(if (null day)
+											(if (day-or-night)
+													(eaf-setq eaf-browser-dark-mode "false")
+												(eaf-setq eaf-browser-dark-mode "true"))
+										(pcase day
+											("day" (eaf-setq eaf-browser-dark-mode "false"))
+											("night" (eaf-setq eaf-browser-dark-mode "true")))))
 								(eaf-browser-set)))
 
 ;;; English Teacher
@@ -343,5 +349,12 @@
 								(clm/toggle-command-log-buffer))
  :keymap '(("C-' k" . spring/open-or-close-command-log-mode)
 					 ("C-' K" . clm/command-log-clear)))
+
+;;; Code Foding
+(package-require
+ 'yafolding
+ :keymap '(("C-- C-f a" . yafolding-show-all)
+					 ("C-- C-f A" . yafolding-hide-all)
+					 ("C-- C-f t" . yafolding-toggle-element)))
 
 (provide 'init-package)
