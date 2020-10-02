@@ -1,4 +1,6 @@
 ;;;; This file is the c configuration.
 
-(setq c-default-style "linux"
-			c-basic-offset 2)
+(setq-default c-default-style '((java-mode . "java")
+																(awk-mode . "awk")
+																(other . "linux"))
+							c-basic-offset 2)

@@ -181,6 +181,7 @@
 									(define-key company-active-map (kbd "C-n") #'company-select-next)
 									(define-key company-active-map (kbd "C-p") #'company-select-previous))
 								(push 'company-capf company-backends))
+ :keymap '(("C-' i" . company-yasnippet))
  :child-config '(:company-c-headers
 								 (add-to-list 'company-backends 'company-c-headers)
 								 (add-hook 'company-mode-hook #'company-box-mode)))
@@ -211,8 +212,7 @@
 ;;; Snippet
 (package-require
  'yasnippet
- :keymap '(("C-' i" . yas-insert-snippet)
-					 ("C-' C-y" . yas-expand-from-trigger-key))
+ :keymap '(("C-' C-y" . yas-expand-from-trigger-key))
  :hook '(after-init-hook . yas-global-mode)
  :delay-eval '(progn
 								(package-require 'yasnippet-snippets)
