@@ -3,4 +3,6 @@
 # name: cl-defun
 # key: cdefun
 # --
-(cl-defun ${1:name})
+(cl-defun ${1:name} (${2:arg})
+					"${3:DOC}"
+					$0)
