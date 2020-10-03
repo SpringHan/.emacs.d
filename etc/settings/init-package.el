@@ -350,4 +350,8 @@
  :keymap '(("C-' k" . spring/open-or-close-command-log-mode)
 					 ("C-' K" . clm/command-log-clear)))
 
+;;; Git Sign
+(package-require
+ 'diff-hl)
+
 (provide 'init-package)
