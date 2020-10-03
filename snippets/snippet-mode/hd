@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: header
+# key: hd
+# --
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: ${2:name}
+# key: ${3:key}
+# --
+$0

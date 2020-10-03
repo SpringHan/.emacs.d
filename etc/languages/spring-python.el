@@ -10,4 +10,7 @@
  :delay-eval '(when (executable-find "python3")
 								(setq lsp-pyright-python-executable-cmd "python3")))
 
+;;; Folding
+(add-hook 'python-mode-hook #'(lambda () (outline-minor-mode t)))
+
 (provide 'spring-python)

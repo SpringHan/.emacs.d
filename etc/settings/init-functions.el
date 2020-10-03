@@ -30,13 +30,6 @@
 																			(delete "." (directory-files path)))))
 		(find-file (concat path filename))))
 
-(defun open-etc-config-by-char (char)
-	"Call the open-etc-config with its index."
-	(interactive "cEnter the char: ")
-	(open-etc-config (pcase char
-										 (115 "settings")
-										 (108 "languages"))))
-
 (defun open-vterm (&optional dir)
 	"Open the vterm by DIR"
 	(interactive "DInput the directory: ")
@@ -358,5 +351,25 @@ If it's daytime now,return t.Otherwise return nil."
 	(when type
 		(with-current-buffer "*shell*"
 			(delete-other-windows))))
+
+(defun spring/edit-snippets (type)
+	"Edit the snippets in current mode."
+	(interactive (list (completing-read "Enter the edit type: "
+																			'("add" "edit" "delete"))))
+	(let ((path (format "~/.emacs.d/snippets/%S/" major-mode))
+				snippet-name)
+		(if (string= type "add")
+				(setq snippet-name (read-string "Snippet name: "))
+			(setq snippet-name (completing-read "Snippet name: "
+																					(delete "."
+																									(delete ".."
+																													(directory-files path))))))
+		(pcase type
+			("add"
+			 (find-file (concat path snippet-name)))
+			("edit"
+			 (find-file (concat path snippet-name)))
+			("delete"
+			 (delete-file (concat path snippet-name))))))
 
 (provide 'init-functions)

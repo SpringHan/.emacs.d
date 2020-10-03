@@ -74,6 +74,8 @@ Otherwise it's nil.")
 (add-hook 'erc-mode-hook #'(lambda () (linum-mode -1)))	; Close the line number in the erc mode
 (add-hook 'magit-mode-hook #'(lambda () (define-key magit-mode-map "q" 'spring/kill-magit))) ; Define the function to kill the magit buffers
 (add-hook 'shell-mode-hook #'(lambda () (company-mode -1) (define-key shell-mode-map (kbd "C-c l") 'spring/shell-clear)))
+(add-hook 'emacs-lisp-mode-hook #'(lambda () (outline-minor-mode t)))
+(add-hook 'web-mode-hook #'(lambda () (outline-minor-mode t)))
 
 
 ;;; Plugin requires
@@ -89,3 +91,4 @@ Otherwise it's nil.")
 
 ;;; Languages settings
 (require 'spring-python)
+(require 'spring-c)

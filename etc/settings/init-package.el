@@ -350,11 +350,4 @@
  :keymap '(("C-' k" . spring/open-or-close-command-log-mode)
 					 ("C-' K" . clm/command-log-clear)))
 
-;;; Code Foding
-(package-require
- 'yafolding
- :keymap '(("C-- C-f a" . yafolding-show-all)
-					 ("C-- C-f A" . yafolding-hide-all)
-					 ("C-- C-f t" . yafolding-toggle-element)))
-
 (provide 'init-package)

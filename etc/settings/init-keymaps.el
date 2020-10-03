@@ -35,7 +35,6 @@
 (global-set-key (kbd "C-z C-r") 'revert-buffer) ; Revert current buffer
 (global-set-key (kbd "C-z M-c") 'spring/downcase-word-first-letter) ; Downcase the first letter in the word at point
 (global-set-key (kbd "C-z A") 'spring/add-todo-in-code)	; Add the todo in code
-(global-set-key (kbd "C-z E") 'open-etc-config-by-char) ; Call the open-etc-config by its index
 (global-set-key (kbd "C-z O") 'spring/scratch-erase-contents) ; Erase all the contents of *scratch* buffer
 (global-set-key (kbd "C-z P") 'list-processes) ; Show the processes buffer
 (global-set-key (kbd "C-z C-v u") 'spring/up-5-volume) ; Up 5 volume
@@ -47,6 +46,7 @@
 (global-set-key (kbd "C-z C-m s") 'spring/search) ; Open search page
 (global-set-key (kbd "C-z K") 'spring/kill-all-else-buffers) ; Kill all the buffers without *scratch*, *Messages* and *eaf*
 (global-set-key (kbd "C-z S") 'sudo-save)
+(global-set-key (kbd "C-z E") 'spring/edit-snippets) ; Edit the snippets
 
 ;; Key Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder
