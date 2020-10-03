@@ -118,7 +118,10 @@
 												 '((t . ivy-posframe-display-at-frame-center)))
 									 (setq ivy-posframe-parameters '((left-fringe . 8)
 																									 (right-fringe . 8)))
-									 (add-hook 'ivy-mode-hook #'ivy-posframe-mode))))
+									 (add-hook 'ivy-mode-hook #'ivy-posframe-mode)))
+ :keymap '(("C-s" . swiper)
+					 ("C-r" . swiper-backward)
+					 ("C-- s" . swiper-all)))
 
 ;;; Bongo
 (package-require 'bongo)
@@ -357,5 +360,10 @@
 (package-require
  'diff-hl
  :hook '(after-init-hook . global-diff-hl-mode))
+
+;;; Git Message
+(package-require
+ 'vc-msg
+ :keymap '(("C-' s" . vc-msg-show)))
 
 (provide 'init-package)
