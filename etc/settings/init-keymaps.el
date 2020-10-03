@@ -1,6 +1,8 @@
 ;;;; This file is used for the keybindings
 (define-prefix-command 'ctl-z-map)		 ; Create the C-z map
+(define-prefix-command 'more-functions)
 (global-set-key (kbd "C-z") 'ctl-z-map)		 ; Set the C-z
+(global-set-key (kbd "C-=") 'more-functions)
 (global-set-key (kbd "C-z i") 'open-config-file) ; Open the init.el
 (global-set-key (kbd "C-z p") 'package-list-packages) ; Open the package interface
 (global-set-key (kbd "C-z C-b") 'buffer-menu) ; Open the buffer menu
@@ -47,6 +49,7 @@
 (global-set-key (kbd "C-z K") 'spring/kill-all-else-buffers) ; Kill all the buffers without *scratch*, *Messages* and *eaf*
 (global-set-key (kbd "C-z S") 'sudo-save)
 (global-set-key (kbd "C-z E") 'spring/edit-snippets) ; Edit the snippets
+(global-set-key (kbd "C-= SPC") 'spring/change-indent-type) ; Change indent type
 
 ;; Key Macros
 (global-set-key (kbd "C-z C-k i") 'insert-placeholder) ; Insert Placeholder

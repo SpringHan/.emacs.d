@@ -372,4 +372,12 @@ If it's daytime now,return t.Otherwise return nil."
 			("delete"
 			 (delete-file (concat path snippet-name))))))
 
+(defun spring/change-indent-type (type)
+	"Change the indent type."
+	(interactive (list (completing-read "Enter the indent type: "
+																			'("tab" "space"))))
+	(pcase type
+		("tab" (setq-local indent-tabs-mode t))
+		("space" (setq-local indent-tabs-mode nil))))
+
 (provide 'init-functions)

@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
 # contributor: SpringHan
-# name: cl-defun
-# key: cdefun
+# name: print
+# key: print
 # --
-(cl-defun ${1:name})
+print(${1:content})$0

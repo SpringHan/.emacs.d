@@ -19,7 +19,7 @@
 					 ("C-z C-m b" . eaf-open-bookmark))
  :delay-eval '(progn
 								(eaf-setq eaf-browser-remember-history "true")
-								(eaf-setq eaf-browser-default-zoom "1.0")
+								(eaf-setq eaf-browser-default-zoom "1.05")
 								(defun eaf-browser-set (&optional day)
 									(interactive)
 									(if (null day)
@@ -189,14 +189,17 @@
 ;;; Lsp-mode
 (package-require
  'lsp-mode
- :hook '((c-mode-hook python-mode-hook c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook) . lsp)
+ :hook '((c-mode-hook c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook) . lsp)
  :keymap '(("C-' F" . lsp-format-buffer))
  :delay-eval '(progn
 								(setq lsp-idle-delay 1200
 											lsp-auto-guess-root nil
 											lsp-file-watch-threshold 2000
 											lsp-eldoc-hook nil
-											lsp-prefer-flymake nil)))
+											lsp-log-io nil
+											lsp-enable-folding nil	 
+											lsp-enable-snippet nil	 
+											lsp-prefer-flymake :none)))
 
 ;; ccls (For lsp-mode)
 ;; (package-require
@@ -352,6 +355,7 @@
 
 ;;; Git Sign
 (package-require
- 'diff-hl)
+ 'diff-hl
+ :hook '(after-init-hook . global-diff-hl-mode))
 
 (provide 'init-package)

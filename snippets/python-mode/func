@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: function
+# key: func
+# --
+def ${1:name}(${2:arg}):
+  $0
