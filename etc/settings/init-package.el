@@ -14,9 +14,9 @@
  'eaf
  :outside
  :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/emacs-application-framework")
- :keymap '(("C-z C-w l" . eaf-open-browser)
-					 ("C-z C-w h" . eaf-open-browser-with-history)
-					 ("C-z C-m b" . eaf-open-bookmark))
+ :keymap '(("C-q C-w l" . eaf-open-browser)
+					 ("C-q C-w h" . eaf-open-browser-with-history)
+					 ("C-q C-m b" . eaf-open-bookmark))
  :delay-eval '(progn
 								(eaf-setq eaf-browser-remember-history "true")
 								(eaf-setq eaf-browser-default-zoom "1.05")
@@ -29,7 +29,8 @@
 										(pcase day
 											("day" (eaf-setq eaf-browser-dark-mode "false"))
 											("night" (eaf-setq eaf-browser-dark-mode "true")))))
-								(eaf-browser-set)))
+								(eaf-browser-set))
+ :hook '(eaf-mode-hook . (lambda () (evil-emacs-state))))
 
 ;;; English Teacher
 (package-require
@@ -69,14 +70,14 @@
  'org
  :before-load-eval '(progn
 											(define-prefix-command 'org-key-map)
-											(global-set-key (kbd "C-z C-c") 'org-key-map))
- :keymap '(("C-z C-c g" . org-agenda)
-					 ("C-z C-c c" . org-capture)
-					 ("C-z C-c s" . org-timer-start)
-					 ("C-z C-c S" . org-timer-set-timer)
-					 ("C-z C-c e" . org-timer-stop)
-					 ("C-z C-c SPC" . org-timer-pause-or-continue)
-					 ("C-z C-c C-i" . spring/use-space-indent))
+											(global-set-key (kbd "C-q C-c") 'org-key-map))
+ :keymap '(("C-q C-c g" . org-agenda)
+					 ("C-q C-c c" . org-capture)
+					 ("C-q C-c s" . org-timer-start)
+					 ("C-q C-c S" . org-timer-set-timer)
+					 ("C-q C-c e" . org-timer-stop)
+					 ("C-q C-c SPC" . org-timer-pause-or-continue)
+					 ("C-q C-c C-i" . spring/use-space-indent))
  :delay-eval '(progn
 								(setq org-src-fontify-natively t)
 								(require 'init-org))
@@ -98,7 +99,7 @@
  'counsel
  :keymap '(("M-x" . counsel-M-x)
 					 ("C-x C-f" . counsel-find-file)
-					 ("C-z a" . counsel-linux-app)))
+					 ("C-q a" . counsel-linux-app)))
 
 ;;; Icons
 (package-require
@@ -365,5 +366,14 @@
 (package-require
  'vc-msg
  :keymap '(("C-' s" . vc-msg-show)))
+
+;;; Evil
+(package-require
+ 'evil-leader
+ :hook '(after-init-hook . global-evil-leader-mode))
+(package-require
+ 'evil
+ :hook '(global-evil-leader-mode-hook . (lambda () (evil-mode t)))
+ )
 
 (provide 'init-package)

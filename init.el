@@ -81,6 +81,7 @@ Otherwise it's nil.")
 ;;; Plugin requires
 (require 'init-package)
 (package-initialize)
+(require 'init-evil)
 
 ;;; Tools
 (require 'task-reminder)
