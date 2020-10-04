@@ -39,12 +39,14 @@
 (define-key evil-insert-state-map (kbd "M-n") 'next-line)
 (define-key evil-insert-state-map (kbd "C-p") 'evil-normal-state)
 (define-key evil-insert-state-map (kbd "C-o") 'evil-open-below)
-(define-key evil-insert-state-map (kbd "C-O") 'evil-open-above)
+(define-key evil-insert-state-map (kbd "C-S-o") 'evil-open-above)
 (define-key evil-replace-state-map (kbd "C-p") 'evil-normal-state)
 
 ;;; Leader
 (setq evil-leader/leader ",")
 (evil-leader/set-key
+	;; File
+	"ff" 'find-file
 	;; Window
 	"wx" 'delete-window
 	"wo" 'delete-other-windows
@@ -70,6 +72,9 @@
 	"tn" 'tab-bar-new-with-buffer
 	"tN" 'tab-bar-new
 	"ts" 'spring/tab-bar-new-scratch
+	"tn" 'tab-bar-switch-to-next-tab
+	"tp" 'tab-bar-switch-to-prev-tab
+	"tx" 'tab-bar-close-tab
 	;; Configs
 	"zc" 'open-etc-config
 	"zi" 'open-config-file
