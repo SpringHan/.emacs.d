@@ -101,6 +101,11 @@
 					 ("C-x C-f" . counsel-find-file)
 					 ("C-q a" . counsel-linux-app)))
 
+;;; Counsel-etags
+(package-require
+ 'counsel-etags
+ :keymap '(("C-]" . counsel-etags-find-tag-at-point)))
+
 ;;; Icons
 (package-require
  'all-the-icons
@@ -375,5 +380,9 @@
  'evil
  :hook '(global-evil-leader-mode-hook . (lambda () (evil-mode t)))
  )
+
+;;; Evil-nerd-commenter
+(package-require
+ 'evil-nerd-commenter)
 
 (provide 'init-package)

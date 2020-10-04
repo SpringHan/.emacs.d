@@ -27,6 +27,7 @@
 (define-key evil-normal-state-map "S" 'save-buffer)
 (define-key evil-normal-state-map "Q" 'save-buffers-kill-terminal)
 (define-key evil-normal-state-map "l" 'undo)
+(define-key evil-normal-state-map "L" 'undo-tree-redo)
 (define-key evil-motion-state-map ";" 'counsel-M-x)
 (define-key evil-normal-state-map "h" 'evil-insert)
 
@@ -37,6 +38,9 @@
 (define-key evil-insert-state-map (kbd "M-p") 'previous-line)
 (define-key evil-insert-state-map (kbd "M-n") 'next-line)
 (define-key evil-insert-state-map (kbd "C-p") 'evil-normal-state)
+(define-key evil-insert-state-map (kbd "C-o") 'evil-open-below)
+(define-key evil-insert-state-map (kbd "C-O") 'evil-open-above)
+(define-key evil-replace-state-map (kbd "C-p") 'evil-normal-state)
 
 ;;; Leader
 (setq evil-leader/leader ",")
@@ -58,6 +62,7 @@
 	"bp" 'previous-buffer
 	"bn" 'next-buffer
 	"bb" 'buffer-menu
+	"bo" 'spring/open-scratch
 	;; Tab
 	"tS" 'tab-bar-select-tab-by-name
 	"to" 'tab-bar-close-other-tabs
@@ -78,21 +83,43 @@
 	"fe" 'eshell
 	"ze" 'spring/edit-snippets
 	"zo" 'open-the-dir
+	"zO" 'spring/scratch-erase-contents
+
 	;; Plugins Keymap
+	;; Magit
 	"'m" 'magit-status
+	;; org
 	"og" 'org-agenda
 	"oc" 'org-capture
 	"os" 'org-timer-start
 	"oS" 'org-timer-set-timer
 	"oe" 'org-timer-stop
 	"op" 'org-timer-pause-or-continue
+	;; netease-cloud-music
 	"mt" 'netease-cloud-music
 	"mr" 'netease-cloud-music-change-repeat-mode
+	;; Caps_Lock
 	"g" 'caps-lock-mode
+	;; Github Explore
 	"G" 'github-explorer
+	;; Quickrun
 	"r" 'quickrun-shell
+	;; command-log
 	"lk" 'spring/open-or-close-command-log-mode
 	"lK" 'clm/command-log-clear
-	"s" 'vc-msg-show)
+	;; vc-msg
+	"s" 'vc-msg-show
+	;; evil-nerd-commenter
+	"ci" 'evilnc-comment-or-uncomment-lines
+	"cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+	"cc" 'evilnc-copy-and-comment-lines
+	"cp" 'evilnc-comment-or-uncomment-paragraphs
+	;; Dired-mode
+	"D" 'dired
+	;; diff-hl
+	"dn" 'diff-hl-next-hunk
+	"dp" 'diff-hl-previous-hunk
+	;; counsel-etags
+	"el" 'counsel-etags-list-tag)
 
 (provide 'init-evil)
