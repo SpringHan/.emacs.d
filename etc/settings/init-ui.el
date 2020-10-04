@@ -4,7 +4,10 @@
 (scroll-bar-mode -1) ; Close Scroll bar
 (tab-bar-mode -1) ; Set tab bar not display
 (setq tab-bar-show nil) ; Always not display tab bar
-(global-linum-mode t) ; Show the line number
+;; (global-linum-mode -1) ; Show the line number
+;;; Set the line number as the relative style
+(global-display-line-numbers-mode t)
+(setq display-line-numbers 'relative)
 (global-hl-line-mode -1) ; Highlight the current line
 (toggle-frame-fullscreen) ; Set fullscreen
 (setq cursor-type 'box) ; Cursor Shape
