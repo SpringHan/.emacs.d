@@ -63,6 +63,7 @@
 	"bn" 'next-buffer
 	"bb" 'buffer-menu
 	"bo" 'spring/open-scratch
+	"br" 'recentf-open-files
 	;; Tab
 	"tS" 'tab-bar-select-tab-by-name
 	"to" 'tab-bar-close-other-tabs
@@ -77,8 +78,6 @@
 	"zu" 'spring/up-5-volume
 	"zd" 'spring/down-5-volume
 	"zl" 'spring/show-packages-required
-	"zms" 'spring/search
-	"zmb" 'eaf-open-bookmark
 	"zmw" 'window-move
 	"fe" 'eshell
 	"ze" 'spring/edit-snippets
@@ -120,6 +119,11 @@
 	"dn" 'diff-hl-next-hunk
 	"dp" 'diff-hl-previous-hunk
 	;; counsel-etags
-	"el" 'counsel-etags-list-tag)
+	"el" 'counsel-etags-list-tag
+	;; outline
+	"fs" 'outline-show-entry
+	"fh" 'outline-hide-entry
+	"fa" 'outline-show-all
+	"fA" 'outline-hide-body)
 
 (provide 'init-evil)
