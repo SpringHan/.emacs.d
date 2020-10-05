@@ -7,7 +7,6 @@
 ;; (global-linum-mode -1) ; Show the line number
 ;;; Set the line number as the relative style
 (global-display-line-numbers-mode t)
-(setq display-line-numbers 'relative)
 (global-hl-line-mode -1) ; Highlight the current line
 (toggle-frame-fullscreen) ; Set fullscreen
 (setq cursor-type 'box) ; Cursor Shape

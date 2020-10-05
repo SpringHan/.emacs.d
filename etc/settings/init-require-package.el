@@ -118,4 +118,8 @@ If it's, return t. Otherwise return nil."
 	(when others
 		(package-others others)))
 
+;;; The next step: function -> macro
+;; (defmacro package-require (package-name &rest arg)
+;; 	"The macro for user to control the packages.")
+
 (provide 'init-require-package)
