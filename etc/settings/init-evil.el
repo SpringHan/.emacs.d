@@ -1,24 +1,23 @@
 ;;;; The evil config for my emacs.
 
 ;;; The functions to set the evil-keys
-(defun set-in-evil-states (key def maps)
-	(while maps
-		(define-key (pop maps) key def)))
+(defun set-movement-evil-states-keys (key def)
+	(dolist (state '(normal visual))
+		(evil-global-set-key state key def)))
 
 (defun set-in-navigation-evil-states (key def)
-	(set-in-evil-states key def (list evil-motion-state-map
-																		evil-normal-state-map
-																		evil-visual-state-map)))
+	(dolist (state '(normal insert visual replace))
+		(evil-global-set-key state key def)))
 
 ;;; Defines
 
 ;;; Cursors' movement
-(set-in-navigation-evil-states "u" 'evil-previous-line)
-(set-in-navigation-evil-states "e" 'evil-next-line)
-(set-in-navigation-evil-states "n" 'evil-backward-char)
-(set-in-navigation-evil-states "i" 'evil-forward-char)
-(set-in-navigation-evil-states "H" 'evil-insert-line)
-(set-in-navigation-evil-states "s" 'nil)
+(set-movement-evil-states-keys "u" 'evil-previous-line)
+(set-movement-evil-states-keys "e" 'evil-next-line)
+(set-movement-evil-states-keys "n" 'evil-backward-char)
+(set-movement-evil-states-keys "i" 'evil-forward-char)
+(set-movement-evil-states-keys "H" 'evil-insert-line)
+(set-movement-evil-states-keys "s" 'nil)
 
 (set-in-navigation-evil-states "I" '(lambda () (interactive) (evil-forward-char 5)))
 (set-in-navigation-evil-states "N" '(lambda () (interactive) (evil-backward-char 5)))
@@ -26,23 +25,20 @@
 (set-in-navigation-evil-states "U" '(lambda () (interactive) (evil-previous-line 5)))
 
 ;;; Other movement
-(define-key evil-normal-state-map "S" 'save-buffer)
-(define-key evil-normal-state-map "Q" 'save-buffers-kill-terminal)
-(define-key evil-normal-state-map "l" 'undo)
-(define-key evil-normal-state-map "L" 'undo-tree-redo)
-(define-key evil-motion-state-map ";" 'counsel-M-x)
-(define-key evil-normal-state-map "h" 'evil-insert)
+(evil-global-set-key 'normal "S" 'save-buffer)
+(evil-global-set-key 'normal "Q" 'save-buffers-kill-terminal)
+(evil-global-set-key 'normal "l" 'undo)
+(evil-global-set-key 'normal "L" 'undo-tree-redo)
+(evil-global-set-key 'normal "h" 'evil-insert)
+(evil-global-set-key 'motion ";" 'counsel-M-x)
 
-(set-in-navigation-evil-states "/" 'swiper)
-(set-in-navigation-evil-states "k" 'evil-search-next)
-(set-in-navigation-evil-states "K" 'evil-search-previous)
-(set-in-navigation-evil-states "$" 'end-of-line)
-(define-key evil-insert-state-map (kbd "M-p") 'previous-line)
-(define-key evil-insert-state-map (kbd "M-n") 'next-line)
-(define-key evil-insert-state-map (kbd "C-p") 'evil-normal-state)
-(define-key evil-insert-state-map (kbd "C-o") 'evil-open-below)
-(define-key evil-insert-state-map (kbd "C-S-o") 'evil-open-above)
-(define-key evil-replace-state-map (kbd "C-p") 'evil-normal-state)
+(evil-global-set-key 'normal "/" 'swiper)
+(evil-global-set-key 'insert (kbd "M-p") 'previous-line)
+(evil-global-set-key 'insert (kbd "M-n") 'next-line)
+(evil-global-set-key 'insert (kbd "C-p") 'evil-normal-state)
+(evil-global-set-key 'insert (kbd "C-o") 'evil-open-below)
+(evil-global-set-key 'insert (kbd "C-S-o") 'evil-open-above)
+(evil-global-set-key 'replace (kbd "C-p") 'evil-normal-state)
 
 ;;; Leader
 (setq evil-leader/leader ",")
