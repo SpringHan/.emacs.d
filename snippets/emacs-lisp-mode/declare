@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: declare
+# key: declare
+# --
+(declare ${0:indent})

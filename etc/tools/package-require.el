@@ -65,7 +65,7 @@ If not,download it."
 													(+ 1 (cl-position other others))
 													others)))
 							 (package-setting :hooks hook)))
-						(:delay-eval
+						(:config
 						 (let ((eval-s (nth
 														(+ 1 (cl-position other others))
 														others)))
@@ -99,27 +99,61 @@ If it's, return t. Otherwise return nil."
 ;;;###autoload
 (defun package-require (package-name &optional &rest others)
 	"Require the PACKAGE-NAME and its configurations."
-	(when others
-		(package-others others :before-load-eval)
-		(package-others others :load-theme)
-		(package-others others :child-package))
-  (if (not (require package-name nil 't))
-			(if (and others (or (and (listp others) (eq (car others) :outside))
-													(and (symbolp others) (eq others :outside))))
-					(unless (package-others others :require-name)
-						(ignore
-						 (when (not (package-themep others))
-							 (message
-								(format "The %s package from third-party is not installed." package-name)))))
-				(ignore (message
-								 (format "The %s package is not exists.And now it'll be installed." package-name))
-								(package-download package-name)
-								(require package-name))))
-	(when others
-		(package-others others)))
+	(unless (memq :disable others)
+		(when others
+			(package-others others :before-load-eval)
+			(package-others others :load-theme)
+			(package-others others :child-package))
+		(if (not (require package-name nil 't))
+				(if (and others (or (and (listp others) (eq (car others) :outside))
+														(and (symbolp others) (eq others :outside))))
+						(unless (package-others others :require-name)
+							(ignore
+							 (when (not (package-themep others))
+								 (message
+									(format "The %s package from third-party is not installed." package-name)))))
+					(ignore (message
+									 (format "The %s package is not exists.And now it'll be installed." package-name))
+									(package-download package-name)
+									(require package-name))))
+		(when others
+			(package-others others))))
 
-;;; The next step: function -> macro
+;; (defmacro package-require-bind-key (key-infos)
+;; 	"Eval `define-key' in `package-require'."
+;; 	(let (keymap key function)
+;; 		(dolist (key-info key-infos)
+;; 			(setq keymap (car key-info))
+;; 			`(define-key ,keymap (kbd ,key) ,function))))
+
 ;; (defmacro package-require (package-name &rest arg)
-;; 	"The macro for user to control the packages.")
+;; 	"Require the PACKAGE-NAME and its configurations."
+;; 	(declare (indent 1))
+;; 	(unless (memq :disable arg)
+;; 		;; The configs which should be loaded before requiring the package
+;; 		(when arg
+;; 			`(package-others ,@arg :before-load-eval)
+;; 			`(package-others ,@arg :load-theme)
+;; 			`(package-others ,@arg :child-package)
+;; 			`(when (memq :bind-key ,arg)
+;; 				 (package-require-bind-key (nth (+ 1 (cl-position :bind-key ,arg)) ,arg))))
 
-(provide 'init-require-package)
+;; 		;; Require package by its name
+;; 		(if (not (require package-name nil 't))
+;; 				(if (and arg (or (and (listp arg) (memq :outside arg))
+;; 												 (and (symbolp arg) (memq :outside arg))))
+;; 						`(unless (package-others ,@arg :require-name)
+;; 							 (ignore
+;; 								(when (not (package-themep ,@arg))
+;; 									(message
+;; 									 (format "The %s package from third-party is not installed." ,package-name)))))
+;; 					`(ignore (message
+;; 										(format "The %s package is not exists.And now it'll be installed." ,package-name))
+;; 									 (package-download ,package-name)
+;; 									 (require ,package-name))))
+
+;; 		;; The configs which should be loaded after requiring the package
+;; 		(when arg
+;; 			`(package-others ,@arg))))
+
+(provide 'package-require)

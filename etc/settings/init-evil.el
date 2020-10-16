@@ -17,6 +17,8 @@
 (set-in-navigation-evil-states "e" 'evil-next-line)
 (set-in-navigation-evil-states "n" 'evil-backward-char)
 (set-in-navigation-evil-states "i" 'evil-forward-char)
+(set-in-navigation-evil-states "H" 'evil-insert-line)
+(set-in-navigation-evil-states "s" 'nil)
 
 (set-in-navigation-evil-states "I" '(lambda () (interactive) (evil-forward-char 5)))
 (set-in-navigation-evil-states "N" '(lambda () (interactive) (evil-backward-char 5)))
@@ -55,39 +57,21 @@
 	"wc" 'ace-window
 	"wr" 'windresize
 	"wk" 'kill-buffer-and-window
-	;; Buffer
-	"bx" 'kill-buffer
-	"bX" 'kill-current-buffer
-	"bs" 'switch-to-buffer
-	"bk" 'kill-unwanted-buffer
-	"bK" 'spring/kill-all-else-buffers
-	"bp" 'previous-buffer
-	"bn" 'next-buffer
-	"bb" 'buffer-menu
-	"bo" 'spring/open-scratch
-	"br" 'recentf-open-files
-	;; Tab
-	"tS" 'tab-bar-select-tab-by-name
-	"to" 'tab-bar-close-other-tabs
-	"tn" 'tab-bar-new-with-buffer
-	"tN" 'tab-bar-new
-	"ts" 'spring/tab-bar-new-scratch
-	"tn" 'tab-bar-switch-to-next-tab
-	"tp" 'tab-bar-switch-to-prev-tab
-	"tx" 'tab-bar-close-tab
+	;; ;; Tab
+	;; "tS" 'tab-bar-select-tab-by-name
+	;; "to" 'tab-bar-close-other-tabs
+	;; "tn" 'tab-bar-new-with-buffer
+	;; "tN" 'tab-bar-new
+	;; "ts" 'spring/tab-bar-new-scratch
+	;; "tn" 'tab-bar-switch-to-next-tab
+	;; "tp" 'tab-bar-switch-to-prev-tab
+	;; "tx" 'tab-bar-close-tab
 	;; Configs
-	"zc" 'open-etc-config
 	"zi" 'open-config-file
-	"zv" 'spring/set-volume
-	"zV" 'spring/show-volume
-	"zu" 'spring/up-5-volume
-	"zd" 'spring/down-5-volume
-	"zl" 'spring/show-packages-required
 	"zmw" 'window-move
 	"fe" 'eshell
 	"ze" 'spring/edit-snippets
 	"zo" 'open-the-dir
-	"zO" 'spring/scratch-erase-contents
 
 	;; Plugins Keymap
 	;; Magit
@@ -129,6 +113,8 @@
 	"fs" 'outline-show-entry
 	"fh" 'outline-hide-entry
 	"fa" 'outline-show-all
-	"fA" 'outline-hide-body)
+	"fA" 'outline-hide-body
+	;; Other functions
+	"mf" 'mark-defun)
 
 (provide 'init-evil)

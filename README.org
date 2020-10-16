@@ -22,7 +22,7 @@ This is my emacs configuration repository.
 
 ** Functions
    My package manager is ~package-require~ (A package manager written by me).
-   You can read its code in [[https://github.com/SpringHan/.emacs.d/blob/master/etc/init-require-package.el][init-require-package.el]].
+   You can read its code in [[https://github.com/SpringHan/.emacs.d/blob/master/tools/package-require.el][package-require]].
 
 ** Transparent Background
    The transparent background is opened by default.You can use ~C-z C-a~ to change it.Or if you don't want to open it by default, you can use ~C-z n~ to disable it.

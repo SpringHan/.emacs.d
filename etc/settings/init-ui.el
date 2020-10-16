@@ -6,6 +6,7 @@
 (setq tab-bar-show nil) ; Always not display tab bar
 ;; (global-linum-mode -1) ; Show the line number
 ;;; Set the line number as the relative style
+(setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
 (global-hl-line-mode -1) ; Highlight the current line
 (toggle-frame-fullscreen) ; Set fullscreen

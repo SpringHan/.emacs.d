@@ -17,7 +17,7 @@
  :keymap '(("C-q C-w l" . eaf-open-browser)
 					 ("C-q C-w h" . eaf-open-browser-with-history)
 					 ("C-q C-m b" . eaf-open-bookmark))
- :delay-eval '(progn
+ :config '(progn
 								(eaf-setq eaf-browser-remember-history "true")
 								(eaf-setq eaf-browser-default-zoom "1.05")
 								(defun eaf-browser-set (&optional day)
@@ -39,7 +39,7 @@
  :before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/english-teacher.el")
  :keymap '(("C-' C-l" . english-teacher-smart-translation)
 					 ("C-' T" . english-teacher-follow-mode))
- :delay-eval '(setq english-teacher-backend 'baidu
+ :config '(setq english-teacher-backend 'baidu
 										english-teacher-show-result-function 'english-teacher-eldoc-show-result-function)
  :hook '((Info-mode-hook eww-mode-hook help-mode-hook) . english-teacher-follow-mode))
 
@@ -56,7 +56,7 @@
 ;;; Dashboard
 (package-require
  'dashboard
- :delay-eval '(progn
+ :config '(progn
 								(dashboard-setup-startup-hook)
 								(setq dashboard-banner-logo-title "Live in Emacs!")
 								(setq dashboard-startup-banner 'logo)
@@ -78,7 +78,7 @@
 					 ("C-q C-c e" . org-timer-stop)
 					 ("C-q C-c SPC" . org-timer-pause-or-continue)
 					 ("C-q C-c C-i" . spring/use-space-indent))
- :delay-eval '(progn
+ :config '(progn
 								(setq org-src-fontify-natively t)
 								(require 'init-org))
  :hook '(org-mode-hook . (lambda () (setq indent-tabs-mode nil) (define-key org-mode-map (kbd "C-'") nil) (org-bullets-mode t)))
@@ -90,7 +90,7 @@
 (package-require
  'vterm
  :keymap '(("C-' C-t" . open-vterm))
- :delay-eval '(progn
+ :config '(progn
 								(define-key vterm-mode-map (kbd "C-c p") 'previous-buffer)
 								(define-key vterm-mode-map (kbd "C-c n") 'next-buffer)))
 
@@ -165,7 +165,7 @@
 ;;; Web-mode
 (package-require
  'web-mode
- :delay-eval '(progn
+ :config '(progn
 								(setq auto-mode-alist
 											(append '(("\\.html\\'" . web-mode)) auto-mode-alist))
 								(setq-default web-mode-markup-indent-offset 2 ; Indent of HTML
@@ -180,7 +180,7 @@
  'company
  :hook '(after-init-hook . global-company-mode)
  :child-package '(company-c-headers company-box)
- :delay-eval '(progn
+ :config '(progn
 								(setq company-idle-delay 0
 											company-minimum-prefix-length 1)
 								(with-eval-after-load
@@ -200,7 +200,7 @@
  'lsp-mode
  :hook '((c-mode-hook c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook) . lsp)
  :keymap '(("C-' F" . lsp-format-buffer))
- :delay-eval '(progn
+ :config '(progn
 								(setq lsp-idle-delay 1200
 											lsp-auto-guess-root nil
 											lsp-file-watch-threshold 2000
@@ -219,14 +219,14 @@
 (package-require
  'emmet-mode
  :hook '(web-mode-hook . emmet-mode)
- :delay-eval '(progn (setq emmet-self-closing-tag-style " /")))
+ :config '(progn (setq emmet-self-closing-tag-style " /")))
 
 ;;; Snippet
 (package-require
  'yasnippet
  :keymap '(("C-' C-y" . yas-expand-from-trigger-key))
  :hook '(after-init-hook . yas-global-mode)
- :delay-eval '(progn
+ :config '(progn
 								(package-require 'yasnippet-snippets)
 								(setq yas-snippet-dirs '("~/.emacs.d/snippets"
 																				 "~/.emacs.d/elpa/yasnippet-snippets-20200802.1658/snippets"))))
@@ -250,7 +250,7 @@
 (package-require
  'doom-modeline
  :hook '(after-init-hook . doom-modeline-mode)
- :delay-eval '(progn
+ :config '(progn
 								(setq-default doom-modeline-height 13)
 								(setq-default doom-modeline-bar-width 3)))
 
@@ -337,7 +337,7 @@
  :child-config '(:pyim-basedict
 								 (progn
 									 (pyim-basedict-enable)))
- :delay-eval '(progn
+ :config '(progn
 								(setq default-input-method "pyim"
 											pyim-default-scheme 'quanpin
 											pyim-page-tooltip 'posframe
@@ -354,7 +354,7 @@
 ;;; Command Shower
 (package-require
  'command-log-mode
- :delay-eval '(defun spring/open-or-close-command-log-mode ()
+ :config '(defun spring/open-or-close-command-log-mode ()
 								"Open the command-log-mode."
 								(interactive)
 								(global-command-log-mode)
@@ -379,7 +379,7 @@
 (package-require
  'evil
  :hook '(global-evil-leader-mode-hook . (lambda () (evil-mode t)))
- )
+ :hook '(Info-mode-hook . (lambda () (evil-emacs-state t))))
 
 ;;; Evil-nerd-commenter
 (package-require

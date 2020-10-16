@@ -21,7 +21,7 @@ Otherwise it's nil.")
 ;;; Error Capture
 (require 'init-error-manager)
 ;;; GitHub
-(when (spring/error-check '("~/.emacs.d/init.el::21" "init.el") :file-exists "~/.emacs.d/token.el")
+(when (spring/error-check '("~/.emacs.d/init.el::24" "init.el") :file-exists "~/.emacs.d/token.el")
 	(load-file "~/.emacs.d/token.el")
 	(require 'github-token))
 ;;; The cache directory
@@ -32,7 +32,7 @@ Otherwise it's nil.")
 ;;; UI
 (require 'init-ui)
 ;;; Packages
-(require 'init-require-package)
+(require 'package-require)
 ;;; The functions
 (require 'init-functions)
 ;;; Keymaps
