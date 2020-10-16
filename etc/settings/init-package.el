@@ -210,16 +210,11 @@
 											lsp-enable-snippet nil	 
 											lsp-prefer-flymake :none)))
 
-;; ccls (For lsp-mode)
-;; (package-require
-;;  'ccls
-;;  :hook '((c-mode-hook c++-mode-hook objc-mode-hook) . (lambda () (lsp))))
-
 ;;; emmet-mode
 (package-require
  'emmet-mode
  :hook '(web-mode-hook . emmet-mode)
- :config '(progn (setq emmet-self-closing-tag-style " /")))
+ :config '(setq emmet-self-closing-tag-style " /"))
 
 ;;; Snippet
 (package-require
@@ -379,7 +374,8 @@
 (package-require
  'evil
  :hook '(global-evil-leader-mode-hook . (lambda () (evil-mode t)))
- :hook '(Info-mode-hook . (lambda () (evil-emacs-state t))))
+ :hook '(Info-mode-hook . (lambda () (evil-emacs-state)))
+ :hook '(xref--xref-buffer-mode-hook . (lambda () (evil-emacs-state))))
 
 ;;; Evil-nerd-commenter
 (package-require
