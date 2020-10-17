@@ -20,7 +20,5 @@
 ;;; Tools
 (require 'task-reminder)
 (require 'init-macros)
-(require 'init-enable-disabled-commands)
-(enable-commands-init)
 
 (provide 'init-config)

@@ -19,6 +19,7 @@ This is my emacs configuration repository.
 
 ** Installation
    To use my configuration, you should run ~make install~ to download the EAF.And then you can open emacs.
+   Now I'm using ~~ evil-mode ~~ and I'm a Colemak user.So if you don't want to use it, you can add ~~ :disable ~~ into the evil's package-require function in the [[https://github.com/SpringHan/.emacs.d/master/blob/etc/settings/init-evil.el][init-evil.el]].
 
 ** Functions
    My package manager is ~package-require~ (A package manager written by me).

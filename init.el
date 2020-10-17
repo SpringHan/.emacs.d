@@ -15,3 +15,8 @@ Otherwise it's nil.")
 	"The buffers that I don't need.")
 
 (load-file "~/.emacs.d/etc/init-config.el")
+
+(put 'narrow-to-region 'disabled nil)
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+(put 'erase-buffer 'disabled nil)

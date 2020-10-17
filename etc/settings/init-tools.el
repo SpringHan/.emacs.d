@@ -22,7 +22,7 @@
 											("day" (eaf-setq eaf-browser-dark-mode "false"))
 											("night" (eaf-setq eaf-browser-dark-mode "true")))))
 								(eaf-browser-set))
- :hook '(eaf-mode-hook . (lambda () (evil-emacs-state))))
+ :hook '(eaf-mode-hook . (lambda () (evil-change-state 'emacs))))
 
 ;;; English Teacher
 (package-require
@@ -151,7 +151,8 @@
 ;;; Treemacs : File explore
 (package-require
  'treemacs
- :keymap '(("C-' e" . treemacs)))
+ :keymap '(("C-' e" . treemacs))
+ :hook '(treemacs-select-hook . (lambda () (evil-change-state 'emacs))))
 
 ;;; Caps_Lock
 (package-require
@@ -167,7 +168,7 @@
 (package-require
  'github-explorer
  :keymap '(("C-' G" . github-explorer))
- :hook '(github-explorer-mode-hook . (lambda () (evil-emacs-state))))
+ :hook '(github-explorer-mode-hook . (lambda () (evil-change-state 'emacs))))
 
 ;;; Input Method
 (package-require

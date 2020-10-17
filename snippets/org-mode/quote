@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: quote
+# key: qt
+# --
+~~ ${1:content} ~~$0

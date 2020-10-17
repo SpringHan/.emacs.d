@@ -7,8 +7,8 @@
 (package-require
  'evil
  :hook '(global-evil-leader-mode-hook . (lambda () (evil-mode t)))
- :hook '(Info-mode-hook . (lambda () (evil-emacs-state)))
- :hook '(xref--xref-buffer-mode-hook . (lambda () (evil-emacs-state))))
+ :hook '(Info-selection-hook . (lambda () (evil-change-state 'emacs)))
+ :hook '(xref--xref-buffer-mode-hook . (lambda () (evil-change-state 'emacs))))
 
 ;;; Evil-nerd-commenter
 (package-require
