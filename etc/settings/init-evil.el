@@ -23,6 +23,27 @@
 	(dolist (state '(normal insert visual replace))
 		(evil-global-set-key state key def)))
 
+;;; Motions
+(evil-define-motion spring/movement-up ()
+	"Movement up."
+	:type line
+	(spring/movement-with-middle-keyboard 'up))
+
+(evil-define-motion spring/movement-down ()
+	"Movement down."
+	:type line
+	(spring/movement-with-middle-keyboard 'down))
+
+(evil-define-motion spring/+-5-lines ()
+	"Move up 5 lines."
+	:type line
+	(evil-previous-line 5))
+
+(evil-define-motion spring/--5-lines ()
+	"Move down 5 lines."
+	:type line
+	(evil-next-line 5))
+
 ;;; Defines
 
 ;;; Cursors' movement
@@ -35,8 +56,8 @@
 
 (set-movement-evil-states-keys "I" '(lambda () (interactive) (evil-forward-char 5)))
 (set-movement-evil-states-keys "N" '(lambda () (interactive) (evil-backward-char 5)))
-(set-movement-evil-states-keys "E" '(lambda () (interactive) (evil-next-line 5)))
-(set-movement-evil-states-keys "U" '(lambda () (interactive) (evil-previous-line 5)))
+(set-movement-evil-states-keys "E" 'spring/--5-lines)
+(set-movement-evil-states-keys "U" 'spring/+-5-lines)
 
 ;;; Other movement
 (evil-global-set-key 'normal "S" 'save-buffer)

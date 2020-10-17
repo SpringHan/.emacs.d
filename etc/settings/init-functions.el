@@ -383,18 +383,6 @@ If it's daytime now,return t.Otherwise return nil."
 		("tab" (setq-local indent-tabs-mode t))
 		("space" (setq-local indent-tabs-mode nil))))
 
-;; (defun spring/evil-movement-do (direction num)
-;; 	"A function to do movements in each line in `evil-mode'."
-;; 	(if (eq evil-state 'visual)
-;; 			(cond ((eq direction 'up)
-;; 						 (dotimes (n num) (evil-previous-line)))
-;; 						((eq direction 'down)
-;; 						 (dotimes (n num) (evil-next-line))))
-;; 		(cond ((eq direction 'up)
-;; 					 (evil-previous-line num))
-;; 					((eq direction 'down)
-;; 					 (evil-next-line num)))))
-
 (defun spring/movement-with-middle-keyboard (movement)
 	"A function which make you can use the middle of the keyboard instead of the num keyboard."
 	(interactive)
@@ -414,15 +402,5 @@ If it's daytime now,return t.Otherwise return nil."
 					 (evil-previous-line (string-to-number moves)))
 					((eq movement 'down)
 					 (evil-next-line (string-to-number moves))))))
-
-(defun spring/movement-up ()
-	"Movement up."
-	(interactive)
-	(spring/movement-with-middle-keyboard 'up))
-
-(defun spring/movement-down ()
-	"Movement down."
-	(interactive)
-	(spring/movement-with-middle-keyboard 'down))
 
 (provide 'init-functions)
