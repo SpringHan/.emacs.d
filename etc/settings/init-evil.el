@@ -1,8 +1,22 @@
 ;;;; The evil config for my emacs.
 
+;;; Evil
+(package-require
+ 'evil-leader
+ :hook '(after-init-hook . global-evil-leader-mode))
+(package-require
+ 'evil
+ :hook '(global-evil-leader-mode-hook . (lambda () (evil-mode t)))
+ :hook '(Info-mode-hook . (lambda () (evil-emacs-state)))
+ :hook '(xref--xref-buffer-mode-hook . (lambda () (evil-emacs-state))))
+
+;;; Evil-nerd-commenter
+(package-require
+ 'evil-nerd-commenter)
+
 ;;; The functions to set the evil-keys
 (defun set-movement-evil-states-keys (key def)
-	(dolist (state '(normal visual))
+	(dolist (state '(normal visual motion))
 		(evil-global-set-key state key def)))
 
 (defun set-in-navigation-evil-states (key def)
@@ -17,7 +31,7 @@
 (set-movement-evil-states-keys "n" 'evil-backward-char)
 (set-movement-evil-states-keys "i" 'evil-forward-char)
 (set-movement-evil-states-keys "H" 'evil-insert-line)
-(set-movement-evil-states-keys "s" 'nil)
+(set-movement-evil-states-keys "s" 'eval-last-sexp)
 
 (set-in-navigation-evil-states "I" '(lambda () (interactive) (evil-forward-char 5)))
 (set-in-navigation-evil-states "N" '(lambda () (interactive) (evil-backward-char 5)))
@@ -68,6 +82,8 @@
 	"fe" 'eshell
 	"ze" 'spring/edit-snippets
 	"zo" 'open-the-dir
+	"," 'spring/movement-up
+	"." 'spring/movement-down
 
 	;; Plugins Keymap
 	;; Magit
@@ -110,6 +126,9 @@
 	"fh" 'outline-hide-entry
 	"fa" 'outline-show-all
 	"fA" 'outline-hide-body
+	;; Treemacs
+	"tt" 'treemacs
+	"ts" 'treemacs-select-window
 	;; Other functions
 	"mf" 'mark-defun)
 

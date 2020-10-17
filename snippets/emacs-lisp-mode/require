@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: require
+# key: require
+# --
+(require '${1:feature})$0

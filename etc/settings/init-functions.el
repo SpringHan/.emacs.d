@@ -22,12 +22,15 @@
 							 (string= filename ".."))
 			(setq path (pcase (completing-read
 												 "Enter the index of config: "
-												 '("settings" "languages" "tools"))
+												 '("settings" "languages" "tools" "init"))
 									 ("languages" "~/.emacs.d/etc/languages/")
 									 ("settings" "~/.emacs.d/etc/settings/")
-									 ("tools" "~/.emacs.d/etc/tools/")))
-			(setq filename (completing-read "Enter the filename: "
-																			(delete "." (directory-files path)))))
+									 ("tools" "~/.emacs.d/etc/tools/")
+									 ("init" "~/.emacs.d/etc/init-config.el")))
+			(if (not (string= path "~/.emacs.d/etc/init-config.el"))
+					(setq filename (completing-read "Enter the filename: "
+																					(delete "." (directory-files path))))
+				(setq filename "")))
 		(find-file (concat path filename))))
 
 (defun open-vterm (&optional dir)
@@ -379,5 +382,35 @@ If it's daytime now,return t.Otherwise return nil."
 	(pcase type
 		("tab" (setq-local indent-tabs-mode t))
 		("space" (setq-local indent-tabs-mode nil))))
+
+(defun spring/movement-with-middle-keyboard (movement)
+	"A function which make you can use the middle of the keyboard instead of the num keyboard."
+	(interactive)
+	(let ((moves "")
+				(stop nil)
+				number)
+		(while (null stop)
+			(setq number
+						(pcase (read-char)
+							(97 "1") (114 "2") (115 "3") (116 "4") (100 "5")
+							(104 "6") (110 "7") (101 "8") (105 "9") (111 "0")
+							(13 "over")))
+			(if (not (string= number "over"))
+					(setq moves (concat moves number))
+				(setq stop t)))
+		(cond ((eq movement 'up)
+					 (evil-previous-line (string-to-number moves)))
+					((eq movement 'down)
+					 (evil-next-line (string-to-number moves))))))
+
+(defun spring/movement-up ()
+	"Movement up."
+	(interactive)
+	(spring/movement-with-middle-keyboard 'up))
+
+(defun spring/movement-down ()
+	"Movement down."
+	(interactive)
+	(spring/movement-with-middle-keyboard 'down))
 
 (provide 'init-functions)
