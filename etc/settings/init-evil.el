@@ -33,10 +33,10 @@
 (set-movement-evil-states-keys "H" 'evil-insert-line)
 (set-movement-evil-states-keys "s" 'eval-last-sexp)
 
-(set-in-navigation-evil-states "I" '(lambda () (interactive) (evil-forward-char 5)))
-(set-in-navigation-evil-states "N" '(lambda () (interactive) (evil-backward-char 5)))
-(set-in-navigation-evil-states "E" '(lambda () (interactive) (evil-next-line 5)))
-(set-in-navigation-evil-states "U" '(lambda () (interactive) (evil-previous-line 5)))
+(set-movement-evil-states-keys "I" '(lambda () (interactive) (evil-forward-char 5)))
+(set-movement-evil-states-keys "N" '(lambda () (interactive) (evil-backward-char 5)))
+(set-movement-evil-states-keys "E" '(lambda () (interactive) (evil-next-line 5)))
+(set-movement-evil-states-keys "U" '(lambda () (interactive) (evil-previous-line 5)))
 
 ;;; Other movement
 (evil-global-set-key 'normal "S" 'save-buffer)
@@ -130,6 +130,7 @@
 	"tt" 'treemacs
 	"ts" 'treemacs-select-window
 	;; Other functions
-	"mf" 'mark-defun)
+	"mf" 'mark-defun
+	"fr" 'recentf-open-files)
 
 (provide 'init-evil)
