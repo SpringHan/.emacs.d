@@ -133,6 +133,7 @@
 ;;; doom-modeline
 (package-require
  'doom-modeline
+ :disable
  :hook '(after-init-hook . doom-modeline-mode)
  :config '(progn
 								(setq-default doom-modeline-height 13)

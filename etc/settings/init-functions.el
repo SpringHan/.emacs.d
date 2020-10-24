@@ -53,12 +53,13 @@
 		("emacs" (find-file "~/.emacs.d"))
 		("C" (find-file "~/Code/C/src/Study"))))
 
-(defun set-alpha (var)
+(defun set-alpha ()
 	"Set the backgroud alpha by VAR."
-	(interactive "sAlpha or not(y-or-n): ")
-	(pcase var
-		("y" (set-frame-parameter nil 'alpha '(90 . 100)))
-		("n" (set-frame-parameter nil 'alpha '(100 . 100)))))
+	(interactive)
+	(let ((var (read-char "Alpha or not(y-or-n):")))
+		(pcase var
+			(121 (set-frame-parameter nil 'alpha '(90 . 100)))
+			(110 (set-frame-parameter nil 'alpha '(100 . 100))))))
 
 (defun window-move (way)
 	"Move the buffer window position by WAY."
@@ -223,10 +224,8 @@ If it's daytime now,return t.Otherwise return nil."
 				(if (or (string= user-name "")
 								(string= user-password ""))
 						(error "The user name or password can't be null!")
-					(setq save-y-or-n (read-minibuffer
-														 "Do you want to save your ERC user info?(y/n)"
-														 "y"))
-					(when (string= save-y-or-n "y")
+					(setq save-y-or-n (read-char "Do you want to save your account?(y/n)"))
+					(when (= save-y-or-n 121)
 						(with-temp-file erc-file-path
 							(insert (format "%s\n" user-name))
 							(insert (format "%s" user-password))))
@@ -387,9 +386,8 @@ If it's daytime now,return t.Otherwise return nil."
 	"A function which make you can use the middle of the keyboard instead of the num keyboard."
 	(interactive)
 	(let ((moves "")
-				(stop nil)
-				number)
-		(while (null stop)
+				(number ""))
+		(while (not (string= number "over"))
 			(setq number
 						(pcase (read-char)
 							(97 "1") (114 "2") (115 "3") (116 "4") (100 "5")

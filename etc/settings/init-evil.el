@@ -60,12 +60,15 @@
 (set-movement-evil-states-keys "U" 'spring/+-5-lines)
 
 ;;; Other movement
+(evil-global-set-key 'visual "h" 'evil-insert)
 (evil-global-set-key 'normal "S" 'save-buffer)
 (evil-global-set-key 'normal "Q" 'save-buffers-kill-terminal)
 (evil-global-set-key 'normal "l" 'undo)
 (evil-global-set-key 'normal "L" 'undo-tree-redo)
 (evil-global-set-key 'normal "h" 'evil-insert)
 (evil-global-set-key 'motion ";" 'counsel-M-x)
+(set-movement-evil-states-keys "." 'spring/movement-down)
+(set-movement-evil-states-keys "k" 'spring/movement-up)
 
 (evil-global-set-key 'normal "/" 'swiper)
 (evil-global-set-key 'insert (kbd "M-p") 'previous-line)
@@ -88,6 +91,7 @@
 	"wc" 'ace-window
 	"wr" 'windresize
 	"wk" 'kill-buffer-and-window
+	"wm" 'window-move
 	;; ;; Tab
 	;; "tS" 'tab-bar-select-tab-by-name
 	;; "to" 'tab-bar-close-other-tabs
@@ -103,8 +107,6 @@
 	"fe" 'eshell
 	"ze" 'spring/edit-snippets
 	"zo" 'open-the-dir
-	"," 'spring/movement-up
-	"." 'spring/movement-down
 
 	;; Plugins Keymap
 	;; Magit
@@ -138,8 +140,8 @@
 	;; Dired-mode
 	"D" 'dired
 	;; diff-hl
-	"dn" 'diff-hl-next-hunk
-	"dp" 'diff-hl-previous-hunk
+	"'dn" 'diff-hl-next-hunk
+	"'dp" 'diff-hl-previous-hunk
 	;; counsel-etags
 	"el" 'counsel-etags-list-tag
 	;; outline

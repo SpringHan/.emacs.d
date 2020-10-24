@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: define-key
+# key: dk
+# --
+(define-key ${1:map} ${2:key} '${3:function})$0

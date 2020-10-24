@@ -15,6 +15,7 @@
 (require 'init-lsp)
 (require 'init-modes)
 (require 'init-tools)
+(require 'init-awesome-tray)
 (require 'init-git)
 (require 'init-org)
 (require 'init-evil)

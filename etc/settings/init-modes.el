@@ -39,6 +39,5 @@
 
 ;; Eshell-mode
 (add-hook 'eshell-mode-hook (lambda () (linum-mode -1)))
-(setq eshell-aliases-file "~/.emacs.d/eshell-aliases")
 
 (provide 'init-modes)
