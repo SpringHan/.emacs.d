@@ -121,8 +121,8 @@
 	;; netease-cloud-music
 	"mt" 'netease-cloud-music
 	"mr" 'netease-cloud-music-change-repeat-mode
-	;; Caps_Lock
-	"g" 'caps-lock-mode
+	;; LightGit
+	"g" 'lightgit
 	;; Github Explore
 	"G" 'github-explorer
 	;; Quickrun
@@ -154,6 +154,7 @@
 	"ts" 'treemacs-select-window
 	;; Other functions
 	"mf" 'mark-defun
-	"fr" 'recentf-open-files)
+	"fr" 'recentf-open-files
+	"." 'xref-find-definitions)
 
 (provide 'init-evil)
