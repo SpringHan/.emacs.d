@@ -105,6 +105,7 @@
 	"zi" 'open-config-file
 	"zmw" 'window-move
 	"fe" 'eshell
+	"fi" 'indent-region
 	"ze" 'spring/edit-snippets
 	"zo" 'open-the-dir
 

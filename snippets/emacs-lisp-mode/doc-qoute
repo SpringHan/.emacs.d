@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: doc-quote
+# key: dq
+# --
+`${1:content}'$0
