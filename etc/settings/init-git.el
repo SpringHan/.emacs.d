@@ -2,18 +2,15 @@
 
 ;;; Packages
 ;;; magit
-(package-require
- 'magit
- :keymap '(("C-' m" . magit-status)))
+(package-require 'magit
+	:keymap '(("C-' m" . magit-status)))
 
 ;;; Git Sign
-(package-require
- 'diff-hl
- :hook '(after-init-hook . global-diff-hl-mode))
+(package-require 'diff-hl
+	:hook '(after-init-hook . global-diff-hl-mode))
 
 ;;; Git Message
-(package-require
- 'vc-msg
- :keymap '(("C-' s" . vc-msg-show)))
+(package-require 'vc-msg
+	:keymap '(("C-' s" . vc-msg-show)))
 
 (provide 'init-git)

@@ -2,24 +2,23 @@
 
 ;;; Package
 ;;; Org
-(package-require
- 'org
- :before-load-eval '(progn
-											(define-prefix-command 'org-key-map)
-											(global-set-key (kbd "C-q C-c") 'org-key-map))
- :keymap '(("C-q C-c g" . org-agenda)
-					 ("C-q C-c c" . org-capture)
-					 ("C-q C-c s" . org-timer-start)
-					 ("C-q C-c S" . org-timer-set-timer)
-					 ("C-q C-c e" . org-timer-stop)
-					 ("C-q C-c SPC" . org-timer-pause-or-continue)
-					 ("C-q C-c C-i" . spring/use-space-indent))
- :config '(progn
-								(setq org-src-fontify-natively t))
- :hook '(org-mode-hook . (lambda () (setq indent-tabs-mode nil) (define-key org-mode-map (kbd "C-'") nil) (org-bullets-mode t)))
- :child-package 'org-bullets
- :child-config '(:org-bullets
-								 (setq org-bullets-bullet-list '("" "☯" "❀" "✿"))))
+(package-require 'org
+	:before-load-eval '(progn
+											 (define-prefix-command 'org-key-map)
+											 (global-set-key (kbd "C-q C-c") 'org-key-map))
+	:keymap '(("C-q C-c g" . org-agenda)
+						("C-q C-c c" . org-capture)
+						("C-q C-c s" . org-timer-start)
+						("C-q C-c S" . org-timer-set-timer)
+						("C-q C-c e" . org-timer-stop)
+						("C-q C-c SPC" . org-timer-pause-or-continue)
+						("C-q C-c C-i" . spring/use-space-indent))
+	:config '(progn
+						 (setq org-src-fontify-natively t))
+	:hook '(org-mode-hook . (lambda () (setq indent-tabs-mode nil) (define-key org-mode-map (kbd "C-'") nil) (org-bullets-mode t)))
+	:child-package 'org-bullets
+	:child-config '(:org-bullets
+									(setq org-bullets-bullet-list '("" "☯" "❀" "✿"))))
 
 ;;; Config
 (setq org-log-mode 'note) ; Set the log mode type

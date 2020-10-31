@@ -53,6 +53,7 @@
 (set-movement-evil-states-keys "i" 'evil-forward-char)
 (set-movement-evil-states-keys "H" 'evil-insert-line)
 (set-movement-evil-states-keys "s" 'eval-last-sexp)
+(set-movement-evil-states-keys "zZ" '(lambda () (interactive) (recenter-top-bottom 0)))
 
 (set-movement-evil-states-keys "I" '(lambda () (interactive) (evil-forward-char 5)))
 (set-movement-evil-states-keys "N" '(lambda () (interactive) (evil-backward-char 5)))
@@ -155,6 +156,7 @@
 	"ts" 'treemacs-select-window
 	;; Other functions
 	"mf" 'mark-defun
+	"mh" 'mark-whole-buffer
 	"fr" 'recentf-open-files
 	"." 'xref-find-definitions)
 

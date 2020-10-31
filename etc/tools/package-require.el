@@ -99,6 +99,7 @@ If it's, return t. Otherwise return nil."
 ;;;###autoload
 (defun package-require (package-name &optional &rest others)
 	"Require the PACKAGE-NAME and its configurations."
+	(declare (indent 1))
 	(unless (memq :disable others)
 		(when others
 			(package-others others :before-load-eval)
