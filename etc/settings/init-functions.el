@@ -401,4 +401,20 @@ If it's daytime now,return t.Otherwise return nil."
 					((eq movement 'down)
 					 (evil-next-line (string-to-number moves))))))
 
+(defun spring/number-add-delete-one (type)
+	"The function to add or delete the number under the cursor with one.
+
+If the TYPE is t, it will add the number with 1.
+Otherwise it'll delete the number with one."
+	(interactive)
+	(let ((number (thing-at-point 'number)))
+		(if (not (numberp number))
+				(message "It's not a number!")
+			(if type
+					(setq number (+ number 1))
+				(setq number (- number 1)))
+			(delete-forward-char 1)
+			(insert (number-to-string number))
+			(backward-char 1))))
+
 (provide 'init-functions)

@@ -54,6 +54,8 @@
 (set-movement-evil-states-keys "H" 'evil-insert-line)
 (set-movement-evil-states-keys "s" 'eval-last-sexp)
 (set-movement-evil-states-keys "zZ" '(lambda () (interactive) (recenter-top-bottom 0)))
+(set-movement-evil-states-keys (kbd "C-a") '(lambda () (interactive) (spring/number-add-delete-one t)))
+(set-movement-evil-states-keys (kbd "C-d") '(lambda () (interactive) (spring/number-add-delete-one nil)))
 
 (set-movement-evil-states-keys "I" '(lambda () (interactive) (evil-forward-char 5)))
 (set-movement-evil-states-keys "N" '(lambda () (interactive) (evil-backward-char 5)))
