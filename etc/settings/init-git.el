@@ -5,6 +5,11 @@
 (package-require 'magit
 	:keymap '(("C-' m" . magit-status)))
 
+;;; LightGit
+(package-require 'lightgit
+	:outside
+	:before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/lightgit"))
+
 ;;; Git Sign
 (package-require 'diff-hl
 	:hook '(after-init-hook . global-diff-hl-mode))

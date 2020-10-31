@@ -7,7 +7,8 @@
 	:hook '(global-evil-leader-mode-hook . (lambda () (evil-mode t)))
 	:hook '(Info-selection-hook . (lambda () (evil-change-state 'emacs)))
 	:hook '(ranger-mode-load-hook . (lambda () (evil-change-state 'emacs)))
-	:hook '(xref--xref-buffer-mode-hook . (lambda () (evil-change-state 'emacs))))
+	:hook '(xref--xref-buffer-mode-hook . (lambda () (evil-change-state 'emacs)))
+	:hook '(netease-cloud-music-mode-hook . (lambda () (evil-change-state 'emacs))))
 
 ;;; Evil-nerd-commenter
 (package-require 'evil-nerd-commenter)
