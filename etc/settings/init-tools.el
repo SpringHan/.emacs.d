@@ -181,4 +181,18 @@
 	:keymap '(("C-' k" . spring/open-or-close-command-log-mode)
 						("C-' K" . clm/command-log-clear)))
 
+;;; Ranger
+(package-require 'ranger
+	:config '(progn
+						 (ranger-override-dired-mode t)
+						 (define-more-keys ranger-mode-map
+							 (("n" ranger-up-directory)
+								("k" ranger-search-next)
+								("i" ranger-find-file)
+								("uv" nil)
+								("um" nil)
+								("uv" nil)
+								("u" ranger-prev-file)
+								("e" ranger-next-file)))))
+
 (provide 'init-tools)

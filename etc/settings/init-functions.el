@@ -116,21 +116,21 @@ If it's daytime now,return t.Otherwise return nil."
 					 (setq time-result (day-or-night))))
 		(if time-result
 				(progn
-					(package-require
-					 'atom-one-light
-					 :outside
-					 :before-load-eval '(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-					 :load-theme 'atom-one-light)
+					(package-require 'atom-one-light
+						:outside
+						:before-load-eval '(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+						:load-theme 'atom-one-light)
 					(when (string= spring/time-block "night")
-						(eaf-browser-set "day"))
+						(eaf-browser-set "day")
+						(spring/disable-modeline))
 					(setq spring/time-block "daytime"))
-			(package-require
-			 'atom-one-dark
-			 :outside
-			 :before-load-eval '(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-			 :load-theme 'atom-one-dark)
+			(package-require 'atom-one-dark
+				:outside
+				:before-load-eval '(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+				:load-theme 'atom-one-dark)
 			(when (string= spring/time-block "daytime")
-				(eaf-browser-set "night"))
+				(eaf-browser-set "night")
+				(spring/disable-modeline))
 			(setq spring/time-block "night"))))
 
 (defun kill-unwanted-buffer ()
@@ -416,5 +416,11 @@ Otherwise it'll delete the number with one."
 			(delete-forward-char 1)
 			(insert (number-to-string number))
 			(backward-char 1))))
+
+(defmacro define-more-keys (map keys)
+	"The macro to define-keys with more keys."
+	(declare (indent 1))
+	`(dolist (key-info ',keys)
+		 (define-key ,map (car key-info) (nth 1 key-info))))
 
 (provide 'init-functions)
