@@ -3,4 +3,4 @@
 # name: quote
 # key: qt
 # --
-~~ ${1:content} ~~$0
+~${1:content}~$0

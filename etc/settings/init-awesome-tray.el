@@ -1,6 +1,5 @@
 ;;;; This is the awesome-tray settings for my emacs configuration.
 
-
 ;;; awesome-tray
 (package-require 'awesome-tray
 	:before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/awesome-tray")
@@ -15,6 +14,12 @@
 	(if (buffer-modified-p)
 			"*"
 		""))
+
+(defun awesome-tray-netease-current-song ()
+	(when (netease-cloud-music-process-live-p)
+		(format "%s-%s"
+						(car netease-cloud-music-current-song)
+						(nth 1 netease-cloud-music-current-song))))
 
 (defun spring/disable-modeline ()
 	"The function to disable the modeline."
@@ -33,7 +38,9 @@
 
 (add-to-list 'awesome-tray-module-alist '("buffer-read-only" . (awesome-tray-read-only awesome-tray-module-parent-dir-face)))
 (add-to-list 'awesome-tray-module-alist '("buffer-modified-p" . (awesome-tray-buffer-modified awesome-tray-module-date-face)))
+(add-to-list 'awesome-tray-module-alist '("netease-current-song" . (awesome-tray-netease-current-song awesome-tray-module-mode-name-face)))
 
-(setq awesome-tray-active-modules '("evil" "location" "buffer-read-only" "buffer-modified-p" "buffer-name" "git" "parent-dir" "mode-name" "date"))
+(setq awesome-tray-active-modules '("evil" "netease-current-song" "location" "buffer-read-only"
+																		"buffer-modified-p" "buffer-name" "git" "mode-name" "date"))
 
 (provide 'init-awesome-tray)

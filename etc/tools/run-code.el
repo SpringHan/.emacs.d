@@ -54,7 +54,9 @@
 				 (setq command (format "gcc --std=c11 %s -o /tmp/%s; /tmp/%s"
 															 (buffer-name) file-name file-name)))
 				('python-mode
-				 (setq command (concat "python3 " (buffer-name)))))
+				 (setq command (concat "python3 " (buffer-name))))
+				('go-mode
+				 (setq command (concat "go run " (buffer-name)))))
 			(split-window nil nil 'above)
 			(switch-to-buffer spring-code-running-buffer)
 			(spring-code-running-mode)
