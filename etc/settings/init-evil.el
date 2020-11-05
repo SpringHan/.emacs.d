@@ -52,7 +52,6 @@
 (set-movement-evil-states-keys "i" 'evil-forward-char)
 (set-movement-evil-states-keys "H" 'evil-insert-line)
 (set-movement-evil-states-keys "s" 'eval-last-sexp)
-(set-movement-evil-states-keys "zZ" '(lambda () (interactive) (recenter-top-bottom 0)))
 (set-movement-evil-states-keys (kbd "C-a") '(lambda () (interactive) (spring/number-add-delete-one t)))
 (set-movement-evil-states-keys (kbd "C-d") '(lambda () (interactive) (spring/number-add-delete-one nil)))
 
@@ -160,6 +159,8 @@
 	"mh" 'mark-whole-buffer
 	"fr" 'recentf-open-files
 	"." 'xref-find-definitions
-	"fk" 'describe-key)
+	"fk" 'describe-key
+	"ft" 'spring/terlat-translate
+	"fT" 'spring/terlat-translate-insert)
 
 (provide 'init-evil)

@@ -417,6 +417,29 @@ Otherwise it'll delete the number with one."
 			(insert (number-to-string number))
 			(backward-char 1))))
 
+(defun spring/show-current-url ()
+	"The function to show the url at current buffer."
+	(interactive)
+	(message eaf--buffer-url))
+
+(defun spring/terlat-translate (&optional type)
+	"The function to translate the CONTENT by terlat."
+	(interactive)
+	(let ((content (read-string "Enter the content you want to translate: "))
+				result)
+		(shell-command (concat "terlat " "\"" content "\"") " *Spring-Translate*")
+		(setq result (with-current-buffer " *Spring-Translate*"
+									 (buffer-string)))
+		(if type
+				(insert (car-safe (split-string result "\n" t)))
+			(message (concat "[Spring-Translate:Result]: " result)))
+		(kill-buffer " *Spring-Translate*")))
+
+(defun spring/terlat-translate-insert ()
+	"The function to insert the translate result."
+	(interactive)
+	(spring/terlat-translate t))
+
 (defmacro define-more-keys (map keys)
 	"The macro to define-keys with more keys."
 	(declare (indent 1))

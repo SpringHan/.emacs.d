@@ -15,7 +15,6 @@
 (global-set-key (kbd "C-q C-m w") 'window-move) ; Move the window
 (global-set-key (kbd "C-q C-a") 'set-alpha) ; Set the emacs' alpha
 (global-set-key (kbd "C-q C-o") 'open-the-dir) ; Open the gtd/github directory
-(global-set-key (kbd "C-q u") 'undo-only) ; Undo without redo
 (global-set-key (kbd "C-q r") 'undo-redo) ; Redo
 (global-set-key (kbd "C-q t") 'make-empty-file) ; Touch file
 (global-set-key (kbd "C-q s") 'spring/open-shell)
@@ -51,6 +50,8 @@
 (global-set-key (kbd "C-= SPC") 'spring/change-indent-type) ; Change indent type
 (global-set-key (kbd "C-= f") 'recentf-open-files) ; Open recentf files
 (global-set-key (kbd "C-x K") 'kill-current-buffer)	; Kill the current buffer
+(global-set-key (kbd "C-q u") 'spring/show-current-url) ;Show the current website url
+(global-set-key (kbd "C-q T") 'spring/terlat-translate)	;Translate the content
 
 ;; Key Macros
 (global-set-key (kbd "C-q C-k i") 'insert-placeholder) ; Insert Placeholder
