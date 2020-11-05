@@ -22,11 +22,12 @@
 							 (string= filename ".."))
 			(setq path (pcase (completing-read
 												 "Enter the index of config: "
-												 '("settings" "languages" "tools" "init"))
+												 '("settings" "languages" "tools" "init" "third-party"))
 									 ("languages" "~/.emacs.d/etc/languages/")
 									 ("settings" "~/.emacs.d/etc/settings/")
 									 ("tools" "~/.emacs.d/etc/tools/")
-									 ("init" "~/.emacs.d/etc/init-config.el")))
+									 ("init" "~/.emacs.d/etc/init-config.el")
+									 ("third-party" "~/.emacs.d/third-party/")))
 			(if (not (string= path "~/.emacs.d/etc/init-config.el"))
 					(setq filename (completing-read "Enter the filename: "
 																					(delete "." (directory-files path))))
@@ -439,6 +440,8 @@ Otherwise it'll delete the number with one."
 	"The function to insert the translate result."
 	(interactive)
 	(spring/terlat-translate t))
+
+;;; Macros
 
 (defmacro define-more-keys (map keys)
 	"The macro to define-keys with more keys."

@@ -142,10 +142,6 @@
 (package-require 'caps-lock
 	:keymap '(("C-' g" . caps-lock-mode)))
 
-;;; QuickRun
-(package-require 'quickrun
-	:keymap '(("C-' r" . quickrun-shell)))
-
 ;;; GitHub Explorer
 (package-require 'github-explorer
 	:keymap '(("C-' G" . github-explorer))

@@ -65,7 +65,6 @@
 (evil-global-set-key 'normal "S" 'save-buffer)
 (evil-global-set-key 'normal "Q" 'save-buffers-kill-terminal)
 (evil-global-set-key 'normal "l" 'undo)
-(evil-global-set-key 'normal "L" 'undo-tree-redo)
 (evil-global-set-key 'normal "h" 'evil-insert)
 (evil-global-set-key 'motion ";" 'counsel-M-x)
 (set-movement-evil-states-keys "." 'spring/movement-down)
@@ -128,7 +127,7 @@
 	;; Github Explore
 	"G" 'github-explorer
 	;; Quickrun
-	"r" 'quickrun-shell
+	"r" 'spring-run-code
 	;; command-log
 	"lk" 'spring/open-or-close-command-log-mode
 	"lK" 'clm/command-log-clear

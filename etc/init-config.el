@@ -19,6 +19,7 @@
 ;;; Other settings
 ;;; Tools
 (require 'task-reminder)
+(require 'run-code)
 (require 'init-macros)
 
 (provide 'init-config)
