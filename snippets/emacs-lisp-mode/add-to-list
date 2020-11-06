@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: add-to-list
+# key: atl
+# --
+(add-to-list ${1:load-path} ${2:ele})$0

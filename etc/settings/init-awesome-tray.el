@@ -41,6 +41,6 @@
 (add-to-list 'awesome-tray-module-alist '("netease-current-song" . (awesome-tray-netease-current-song awesome-tray-module-mode-name-face)))
 
 (setq awesome-tray-active-modules '("evil" "netease-current-song" "location" "buffer-read-only"
-																		"buffer-modified-p" "buffer-name" "git" "mode-name" "date"))
+																		"buffer-modified-p" "git" "mode-name" "date"))
 
 (provide 'init-awesome-tray)

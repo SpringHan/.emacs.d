@@ -16,9 +16,10 @@
 (require 'init-modes)
 (require 'init-tools)
 (require 'init-awesome-tray)
+(require 'init-awesome-tab)
+(require 'init-evil)
 (require 'init-git)
 (require 'init-org)
-(require 'init-evil)
 
 (package-initialize)
 

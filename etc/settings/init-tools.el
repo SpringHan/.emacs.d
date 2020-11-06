@@ -10,7 +10,7 @@
 						("C-q C-m b" . eaf-open-bookmark))
 	:config '(progn
 						 (eaf-setq eaf-browser-remember-history "true")
-						 (eaf-setq eaf-browser-default-zoom "1.05")
+						 (eaf-setq eaf-browser-default-zoom "1.1")
 						 (defun eaf-browser-set (&optional day)
 							 (interactive)
 							 (if (null day)
@@ -127,7 +127,12 @@
 
 ;;; Window Resize
 (package-require 'windresize
-	:keymap '(("C-' C-r" . windresize)))
+	:keymap '(("C-' C-r" . windresize))
+	:config '(progn
+						 (define-key windresize-map (kbd "C-n") 'windresize-down)
+						 (define-key windresize-map (kbd "C-p") 'windresize-up)
+						 (define-key windresize-map (kbd "C-b") 'windresize-left)
+						 (define-key windresize-map (kbd "C-f") 'windresize-right)))
 
 ;;; youdao translate
 (package-require 'youdao-dictionary

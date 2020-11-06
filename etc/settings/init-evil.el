@@ -66,7 +66,7 @@
 (evil-global-set-key 'normal "Q" 'save-buffers-kill-terminal)
 (evil-global-set-key 'normal "l" 'undo)
 (evil-global-set-key 'normal "h" 'evil-insert)
-(evil-global-set-key 'motion ";" 'counsel-M-x)
+(evil-global-set-key 'motion ";" 'evil-ex)
 (set-movement-evil-states-keys "." 'spring/movement-down)
 (set-movement-evil-states-keys "k" 'spring/movement-up)
 
@@ -141,8 +141,8 @@
 	;; Dired-mode
 	"R" 'ranger
 	;; diff-hl
-	"'dn" 'diff-hl-next-hunk
-	"'dp" 'diff-hl-previous-hunk
+	"dn" 'diff-hl-next-hunk
+	"dp" 'diff-hl-previous-hunk
 	;; counsel-etags
 	"el" 'counsel-etags-list-tag
 	;; outline
@@ -153,6 +153,8 @@
 	;; Treemacs
 	"tt" 'treemacs
 	"ts" 'treemacs-select-window
+	;; Awesome-tab
+	"at" 'awesome-fast-switch/body
 	;; Other functions
 	"mf" 'mark-defun
 	"mh" 'mark-whole-buffer
@@ -160,6 +162,7 @@
 	"." 'xref-find-definitions
 	"fk" 'describe-key
 	"ft" 'spring/terlat-translate
-	"fT" 'spring/terlat-translate-insert)
+	"fT" 'spring/terlat-translate-insert
+	"fc" 'spring/test-color)
 
 (provide 'init-evil)

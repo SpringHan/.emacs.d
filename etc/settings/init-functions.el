@@ -57,7 +57,9 @@
 (defun set-alpha ()
 	"Set the backgroud alpha by VAR."
 	(interactive)
-	(let ((var (read-char "Alpha or not(y-or-n):")))
+	(let ((var (progn
+							 (message "Alpha or not(y/n): ")
+							 (read-char))))
 		(pcase var
 			(121 (set-frame-parameter nil 'alpha '(90 . 100)))
 			(110 (set-frame-parameter nil 'alpha '(100 . 100))))))
@@ -440,6 +442,18 @@ Otherwise it'll delete the number with one."
 	"The function to insert the translate result."
 	(interactive)
 	(spring/terlat-translate t))
+
+(defun spring/test-color ()
+	"Test color by input color."
+	(interactive)
+	(let (color)
+		(while (not (string=
+								 (setq color (read-string "Enter the color: "))
+								 ""))
+			(message (concat color ": "
+											 (propertize "TEST-COLOR"
+																	 'face `((t :foreground ,color)))))
+			(read-char))))
 
 ;;; Macros
 
