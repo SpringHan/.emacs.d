@@ -455,6 +455,16 @@ Otherwise it'll delete the number with one."
 																	 'face `((t :foreground ,color)))))
 			(read-char))))
 
+(defun spring/input-char-number (&optional times)
+	"Input the char number."
+	(interactive "P")
+	(let (char)
+		(unless times
+			(setq times 1))
+		(dotimes (n times)
+			(setq char (read-char))
+			(insert (number-to-string char)))))
+
 ;;; Macros
 
 (defmacro define-more-keys (map keys)

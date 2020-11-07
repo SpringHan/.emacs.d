@@ -163,6 +163,7 @@
 	"fk" 'describe-key
 	"ft" 'spring/terlat-translate
 	"fT" 'spring/terlat-translate-insert
-	"fc" 'spring/test-color)
+	"fc" 'spring/test-color
+	"fC" 'spring/input-char-number)
 
 (provide 'init-evil)
