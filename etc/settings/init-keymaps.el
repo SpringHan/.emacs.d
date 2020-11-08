@@ -52,6 +52,7 @@
 (global-set-key (kbd "C-x K") 'kill-current-buffer)	; Kill the current buffer
 (global-set-key (kbd "C-q u") 'spring/show-current-url) ;Show the current website url
 (global-set-key (kbd "C-q T") 'spring/terlat-translate)	;Translate the content
+(global-set-key (kbd "C-q U") 'spring/copy-current-url)	;Copy current website url
 
 ;; Key Macros
 (global-set-key (kbd "C-q C-k i") 'insert-placeholder) ; Insert Placeholder

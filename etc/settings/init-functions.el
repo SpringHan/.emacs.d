@@ -423,7 +423,16 @@ Otherwise it'll delete the number with one."
 (defun spring/show-current-url ()
 	"The function to show the url at current buffer."
 	(interactive)
-	(message eaf--buffer-url))
+	(message eaf--buffer-url)
+	eaf--buffer-url)
+
+(defun spring/copy-current-url ()
+	"Copy the current buffer's url."
+	(interactive)
+	(let ((url (spring/show-current-url)))
+		(with-temp-buffer
+			(insert url)
+			(kill-ring-save (line-beginning-position) (line-end-position)))))
 
 (defun spring/terlat-translate (&optional type)
 	"The function to translate the CONTENT by terlat."
