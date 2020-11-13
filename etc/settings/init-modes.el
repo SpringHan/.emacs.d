@@ -8,23 +8,23 @@
 	(define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
 ;;; js2-mode
-(package-require 'js2-mode
-	:hook '(js-mode . js2-mode))
+(package-require js2-mode
+	:hook (js-mode . js2-mode))
 
 ;;; Web-mode
-(package-require 'web-mode
-	:config '(progn
-						 (setq auto-mode-alist
-									 (append '(("\\.html\\'" . web-mode)) auto-mode-alist))
-						 (setq-default web-mode-markup-indent-offset 2 ; Indent of HTML
-													 web-mode-css-indent-offset 2
-													 web-mode-code-indent-offset 2) ; Indent of JavaScript in HTML
-						 ))
+(package-require web-mode
+	:config (progn
+						(setq auto-mode-alist
+									(append '(("\\.html\\'" . web-mode)) auto-mode-alist))
+						(setq-default web-mode-markup-indent-offset 2 ; Indent of HTML
+													web-mode-css-indent-offset 2
+													web-mode-code-indent-offset 2) ; Indent of JavaScript in HTML
+						))
 
 ;;; emmet-mode
-(package-require 'emmet-mode
-	:hook '(web-mode-hook . emmet-mode)
-	:config '(setq emmet-self-closing-tag-style " /"))
+(package-require emmet-mode
+	:hook (web-mode-hook . emmet-mode)
+	:var (emmet-self-closing-tag-style " /"))
 
 ;; Abbrev-mode
 (setq-default abbrev-mode t) ; Open abbrev-mode

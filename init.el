@@ -2,6 +2,16 @@
 ;;; Mirror Config
 (require 'package)
 (require 'cl-lib) ; Common Lisp
+;;; Package Require
+(setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
+												 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
+(add-to-list 'load-path "~/.emacs.d/third-party/package-require")
+(require 'package-require)
+
+;;; Theme
+(package-require atom-one-themes
+	:load-path ("~/.emacs.d/themes" . custom-theme-load-path)
+	:un-require)
 
 ;; GC
 (setq gc-cons-threshold (* 50 1024 1024))

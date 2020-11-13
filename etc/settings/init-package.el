@@ -5,9 +5,7 @@
 (global-set-key (kbd "C-'") 'plugin-key)
 (global-set-key (kbd "C--") 'plugin-key-2)
 
-(setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-												 ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
-(require 'package-require)							;Package Manager
+;; (require 'package-require)							;Package Manager
 
 ;;; Packages
 (require 'init-complete)

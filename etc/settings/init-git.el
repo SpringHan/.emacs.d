@@ -2,20 +2,19 @@
 
 ;;; Packages
 ;;; magit
-(package-require 'magit
-	:keymap '(("C-' m" . magit-status)))
+(package-require magit
+	:key ("C-' m" . magit-status))
 
 ;;; LightGit
-(package-require 'lightgit
-	:outside
-	:before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/lightgit"))
+(package-require lightgit
+	:load-path "~/.emacs.d/third-party/lightgit")
 
 ;;; Git Sign
-(package-require 'diff-hl
-	:hook '(after-init-hook . global-diff-hl-mode))
+(package-require diff-hl
+	:hook (after-init-hook . global-diff-hl-mode))
 
 ;;; Git Message
-(package-require 'vc-msg
-	:keymap '(("C-' s" . vc-msg-show)))
+(package-require vc-msg
+	:key ("C-' s" . vc-msg-show))
 
 (provide 'init-git)

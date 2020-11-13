@@ -119,18 +119,12 @@ If it's daytime now,return t.Otherwise return nil."
 					 (setq time-result (day-or-night))))
 		(if time-result
 				(progn
-					(package-require 'atom-one-light
-						:outside
-						:before-load-eval '(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-						:load-theme 'atom-one-light)
+					(load-theme 'atom-one-light t)
 					(when (string= spring/time-block "night")
 						(eaf-browser-set "day")
 						(spring/disable-modeline))
 					(setq spring/time-block "daytime"))
-			(package-require 'atom-one-dark
-				:outside
-				:before-load-eval '(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-				:load-theme 'atom-one-dark)
+			(load-theme 'atom-one-dark t)
 			(when (string= spring/time-block "daytime")
 				(eaf-browser-set "night")
 				(spring/disable-modeline))
@@ -472,7 +466,9 @@ Otherwise it'll delete the number with one."
 			(setq times 1))
 		(dotimes (n times)
 			(setq char (read-char))
-			(insert (number-to-string char)))))
+			(insert (number-to-string char))
+			(unless (= times 1)
+				(insert " ")))))
 
 ;;; Macros
 

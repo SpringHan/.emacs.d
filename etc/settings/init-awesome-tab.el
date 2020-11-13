@@ -1,11 +1,10 @@
 ;;;; This is the awesome tab config.
 
 ;;; Awesome-Tab
-(package-require 'awesome-tab
-	:outside
-	:before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/awesome-tab")
-	:hook '(after-init-hook . awesome-tab-mode)
-	:config '(setq awesome-tab-height 150))
+(package-require awesome-tab
+	:load-path "~/.emacs.d/third-party/awesome-tab"
+	:hook (after-init-hook . awesome-tab-mode)
+	:var (awesome-tab-height . 150))
 
 (defhydra awesome-fast-switch (:hint nil)
   "

@@ -1,9 +1,9 @@
 ;;;; This is the awesome-tray settings for my emacs configuration.
 
 ;;; awesome-tray
-(package-require 'awesome-tray
-	:before-load-eval '(add-to-list 'load-path "~/.emacs.d/third-party/awesome-tray")
-	:hook '(after-init-hook . awesome-tray-mode))
+(package-require awesome-tray
+	:load-path "~/.emacs.d/third-party/awesome-tray"
+	:hook (after-init-hook . awesome-tray-mode))
 
 (defun awesome-tray-read-only ()
 	(if (eq buffer-read-only t)

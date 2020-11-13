@@ -1,17 +1,17 @@
 ;;;; The evil config for my emacs.
 
 ;;; Evil
-(package-require 'evil-leader
-	:hook '(after-init-hook . global-evil-leader-mode))
-(package-require 'evil
-	:hook '(global-evil-leader-mode-hook . (lambda () (evil-mode t)))
-	:hook '(Info-selection-hook . (lambda () (evil-change-state 'emacs)))
-	:hook '(ranger-mode-load-hook . (lambda () (evil-change-state 'emacs)))
-	:hook '(xref--xref-buffer-mode-hook . (lambda () (evil-change-state 'emacs)))
-	:hook '(netease-cloud-music-mode-hook . (lambda () (evil-change-state 'emacs))))
+(package-require evil-leader
+	:hook (after-init-hook . global-evil-leader-mode))
+(package-require evil
+	:hook ((global-evil-leader-mode-hook . (lambda () (evil-mode t)))
+				 (Info-selection-hook . (lambda () (evil-change-state 'emacs)))
+				 (ranger-mode-load-hook . (lambda () (evil-change-state 'emacs)))
+				 (xref--xref-buffer-mode-hook . (lambda () (evil-change-state 'emacs)))
+				 (netease-cloud-music-mode-hook . (lambda () (evil-change-state 'emacs)))))
 
 ;;; Evil-nerd-commenter
-(package-require 'evil-nerd-commenter)
+(package-require evil-nerd-commenter)
 
 ;;; The functions to set the evil-keys
 (defun set-movement-evil-states-keys (key def)
@@ -68,7 +68,10 @@
 (evil-global-set-key 'normal "h" 'evil-insert)
 (evil-global-set-key 'motion ";" 'evil-ex)
 (set-movement-evil-states-keys "." 'spring/movement-down)
-(set-movement-evil-states-keys "k" 'spring/movement-up)
+(set-movement-evil-states-keys ">" 'spring/movement-up)
+(set-movement-evil-states-keys "k" 'evil-search-next)
+(set-movement-evil-states-keys "K" 'evil-search-previous)
+(set-movement-evil-states-keys "?" 'evil-search-forward)
 
 (evil-global-set-key 'normal "/" 'swiper)
 (evil-global-set-key 'insert (kbd "M-p") 'previous-line)
