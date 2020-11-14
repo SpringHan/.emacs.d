@@ -2,7 +2,7 @@
 
 ;;; awesome-tray
 (package-require awesome-tray
-	:load-path "~/.emacs.d/third-party/awesome-tray"
+	:repo "manateelazycat/awesome-tray"
 	:hook (after-init-hook . awesome-tray-mode))
 
 (defun awesome-tray-read-only ()

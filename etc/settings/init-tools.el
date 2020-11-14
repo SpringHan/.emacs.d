@@ -25,7 +25,7 @@
 
 ;;; English Teacher
 (package-require english-teacher
-	:load-path "~/.emacs.d/third-party/english-teacher.el"
+	:repo "loyalpartner/english-teacher.el"
 	:key (("C-' C-l" . english-teacher-smart-translation)
 				("C-' T" . english-teacher-follow-mode))
 	:var ((english-teacher-backend . 'baidu)
@@ -36,9 +36,13 @@
 (package-require async)
 (package-require request)
 (package-require netease-cloud-music
-	:load-path "~/.emacs.d/third-party/netease-cloud-music.el"
+	:repo ("SpringHan/netease-cloud-music.el" :depth nil)
 	:key (("C-' C-m t" . netease-cloud-music)
 				("C-' C-m r" . netease-cloud-music-change-repeat-mode)))
+
+;;; Shengci.el
+(package-require shengci
+	:repo "EvanMeek/shengci.el")
 
 
 ;;; Dashboard

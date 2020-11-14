@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: test
+# key: test
+# --
+(message "Test: $1")$0
