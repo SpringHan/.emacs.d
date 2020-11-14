@@ -28,8 +28,8 @@
 	:load-path "~/.emacs.d/third-party/english-teacher.el"
 	:key (("C-' C-l" . english-teacher-smart-translation)
 				("C-' T" . english-teacher-follow-mode))
-	:var ((english-teacher-backend . baidu)
-				(english-teacher-show-result-function . english-teacher-eldoc-show-result-function))
+	:var ((english-teacher-backend . 'baidu)
+				(english-teacher-show-result-function . 'english-teacher-eldoc-show-result-function))
 	:hook ((Info-mode-hook eww-mode-hook help-mode-hook) . english-teacher-follow-mode))
 
 ;;; Netease Cloud Music
@@ -44,13 +44,12 @@
 ;;; Dashboard
 (package-require dashboard
 	:var ((dashboard-banner-logo-title . "Live in Emacs!")
-				(dashboard-startup-banner . logo)
+				(dashboard-startup-banner . 'logo)
 				(dashboard-center-content . t)
 				(dashboard-set-heading-icons . t)
 				(dashboard-set-navigator . t)
 				(dashboard-init-info . "SpringHan Emacs"))
-	:config (dashboard-setup-startup-hook)
-	)
+	:config (dashboard-setup-startup-hook))
 
 ;;; Counsel
 (package-require counsel
@@ -76,8 +75,8 @@
 				("C-- s" . swiper-all)))
 (package-require ivy-posframe
 	:hook (ivy-mode-hook . ivy-posframe-mode)
-	:var ((ivy-posframe-display-functions-alist . ((t . ivy-posframe-display-at-frame-center)))
-				(ivy-posframe-parameters . ((left-fringe . 8) (right-fringe . 8)))))
+	:var ((ivy-posframe-display-functions-alist . '((t . ivy-posframe-display-at-frame-center)))
+				(ivy-posframe-parameters . '((left-fringe . 8) (right-fringe . 8)))))
 
 ;;; Bongo
 (package-require bongo)
@@ -121,11 +120,11 @@
 
 ;;; Window Resize
 (package-require windresize
-	:key ("C-' C-r" . windresize)
-	:key (windresize-map . (("C-n" . windresize-down)
-													("C-p" . windresize-up)
-													("C-b" . windresize-left)
-													("C-f" . windresize-right))))
+	:key (("C-' C-r" . windresize)
+				(windresize-map . (("C-n" . windresize-down)
+													 ("C-p" . windresize-up)
+													 ("C-b" . windresize-left)
+													 ("C-f" . windresize-right)))))
 
 ;;; youdao translate
 (package-require youdao-dictionary

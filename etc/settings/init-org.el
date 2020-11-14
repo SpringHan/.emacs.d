@@ -17,7 +17,7 @@
 						(setq org-src-fontify-natively t))
 	:hook (org-mode-hook . (lambda () (setq indent-tabs-mode nil) (define-key org-mode-map (kbd "C-'") nil) (org-bullets-mode t))))
 (package-require org-bullets
-	:var (org-bullets-bullet-list ("" "☯" "❀" "✿")))
+	:var (org-bullets-bullet-list . '("" "☯" "❀" "✿")))
 
 ;;; Config
 (setq org-log-mode 'note) ; Set the log mode type
