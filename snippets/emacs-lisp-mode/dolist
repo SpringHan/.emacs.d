@@ -4,4 +4,4 @@
 # key: dolist
 # --
 (dolist (${1:item} ${2:seq})
-				$0)
+        $0)
