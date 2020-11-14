@@ -5,21 +5,21 @@
 (show-paren-mode t) ; Highlight the ()
 (electric-pair-mode t) ; Auto complete the ()
 (setq electric-pair-pairs
-			'((?\" . ?\")
-				(?\( . ?\))
-				(?\< . ?\>)
-				(?\{ . ?\}))) ; Set the electric-pair-mode's pair keywords
+      '((?\" . ?\")
+        (?\( . ?\))
+        (?\< . ?\>)
+        (?\{ . ?\}))) ; Set the electric-pair-mode's pair keywords
 (setq make-backup-files nil ; Don't let Emacs make up backup file
       create-lockfiles nil ;Don't make lockfile
       auto-save-default nil ; Don't auto save the file
       )
 (setq initial-scratch-message
-			";; Spring Emacs
+      ";; Spring Emacs
 ;; This is the scratch buffer for you.
 
 ")
 (setq-default tab-width 2) ; The tab width
-(setq-default indent-tabs-mode t) ; Use tab indent
+(setq-default indent-tabs-mode nil) ; Use tab indent
 (setq-default css-indent-offset 2) ; Set css indent width
 (setq display-time-24hr-format t) ; Display the time and date on modeline
 (display-time-mode t) ; Display the time
@@ -28,8 +28,8 @@
 (setq user-emacs-directory "~/.emacs.d/var/")
 (setq user-init-file "~/.emacs.d/var/user-init.el")
 (add-hook 'markdown-mode-hook #'(lambda ()
-																	(define-key markdown-mode-map (kbd "C-c C-c TAB") 'markdown-table-align))) ; Add the markdown table align keymap
-(add-hook 'erc-mode-hook #'(lambda () (linum-mode -1)))	; Close the line number in the erc mode
+                                  (define-key markdown-mode-map (kbd "C-c C-c TAB") 'markdown-table-align))) ; Add the markdown table align keymap
+(add-hook 'erc-mode-hook #'(lambda () (linum-mode -1))) ; Close the line number in the erc mode
 (add-hook 'magit-mode-hook #'(lambda () (define-key magit-mode-map "q" 'spring/kill-magit))) ; Define the function to kill the magit buffers
 (add-hook 'shell-mode-hook #'(lambda () (company-mode -1) (define-key shell-mode-map (kbd "C-c l") 'spring/shell-clear)))
 (add-hook 'emacs-lisp-mode-hook #'(lambda () (outline-minor-mode t)))

@@ -20,7 +20,7 @@
  :width 'normal) ; Set the font size
 ;; Set backgroup alpha
 (unless (file-exists-p
-				 (expand-file-name (locate-user-emacs-file "not-alpha")))
-	(set-frame-parameter nil 'alpha '(90 . 100)))
+         (expand-file-name (locate-user-emacs-file "not-alpha")))
+  (set-frame-parameter nil 'alpha '(90 . 100)))
 
 (provide 'init-ui)
