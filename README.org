@@ -15,7 +15,6 @@ This is my emacs configuration repository.
        sudo pacman -S libvterm
      #+end_src
    - The dependences in [[https://github.com/manateelazycat/emacs-application-framework][Emacs Application Framework]].(To use EAF)
-   - The dependences in [[https://github.com/loyalpartner/english-teacher.el][english-teacher.el]].(To use english-teacher)
 
 ** Installation
    To use my configuration, you should run ~make install~ to download the EAF.And then you can open emacs.
@@ -23,7 +22,7 @@ This is my emacs configuration repository.
 
 ** Functions
    My package manager is ~package-require~ (A package manager written by me).
-   You can read its code in [[https://github.com/SpringHan/.emacs.d/blob/master/tools/package-require.el][package-require]].
+   [[https://github.com/SpringHan/package-require][Click Here]] to know about it.
 
 ** Transparent Background
    The transparent background is opened by default.You can use ~C-z C-a~ to change it.Or if you don't want to open it by default, you can use ~C-z n~ to disable it.
