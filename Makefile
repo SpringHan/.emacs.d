@@ -2,6 +2,8 @@
 
 install:
 	mkdir ~/.emacs.d/third-party
+	git clone https://github.com/SpringHan/package-require.git ~/.emacs.d/third-party/package-require --depth=1
+	@echo "Package-Require downloaded."
 	mkdir ~/.emacs.d/var
 	ln -sf ~/.emacs.d/bookmarks ~/.emacs.d/var/bookmarks
 	mkdir ~/.emacs.d/var/netease-cloud-music/
