@@ -2,8 +2,8 @@
 
 ;;; Packages
 ;;; Company (Complete Anything)
-(package-require company-c-headers)
-(package-require company
+(gpack company-c-headers)
+(gpack company
   :hook (after-init-hook . global-company-mode)
   :config (progn
             (setq company-idle-delay 0
@@ -16,7 +16,7 @@
               (define-key company-active-map (kbd "C-p") #'company-select-previous))
             (push 'company-capf company-backends))
   :key ("C-' i" . company-yasnippet))
-(package-require company-box
+(gpack company-box
   :hook (company-mode-hook . company-box-mode))
 
 (provide 'init-complete)

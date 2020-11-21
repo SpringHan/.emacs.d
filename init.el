@@ -5,11 +5,11 @@
 ;;; Package Require
 (setq package-archives '(("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
                          ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")))
-(add-to-list 'load-path "~/.emacs.d/third-party/package-require")
-(require 'package-require)
+(add-to-list 'load-path "~/.emacs.d/third-party/gpack")
+(require 'gpack)
 
 ;;; Theme
-(package-require atom-one-themes
+(gpack atom-one-themes
   :load-path ("~/.emacs.d/themes" . custom-theme-load-path)
   :un-require)
 

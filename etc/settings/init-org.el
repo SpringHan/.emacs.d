@@ -2,7 +2,7 @@
 
 ;;; Package
 ;;; Org
-(package-require org
+(gpack org
   :before (progn
             (define-prefix-command 'org-key-map)
             (global-set-key (kbd "C-q C-c") 'org-key-map))
@@ -16,7 +16,7 @@
   :config (progn
             (setq org-src-fontify-natively t))
   :hook (org-mode-hook . (lambda () (setq indent-tabs-mode nil) (define-key org-mode-map (kbd "C-'") nil) (org-bullets-mode t))))
-(package-require org-bullets
+(gpack org-bullets
   :var (org-bullets-bullet-list . '("" "☯" "❀" "✿")))
 
 ;;; Config

@@ -1,7 +1,7 @@
 ;;;; This is the awesome tab config.
 
 ;;; Awesome-Tab
-(package-require awesome-tab
+(gpack awesome-tab
   :repo "manateelazycat/awesome-tab"
   :hook (after-init-hook . awesome-tab-mode)
   :var (awesome-tab-height . 150))

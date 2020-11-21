@@ -1,9 +1,9 @@
 ;;;; The evil config for my emacs.
 
 ;;; Evil
-(package-require evil-leader
+(gpack evil-leader
   :hook (after-init-hook . global-evil-leader-mode))
-(package-require evil
+(gpack evil
   :hook ((global-evil-leader-mode-hook . (lambda () (evil-mode t)))
          (Info-selection-hook . (lambda () (evil-change-state 'emacs)))
          (ranger-mode-load-hook . (lambda () (evil-change-state 'emacs)))
@@ -11,7 +11,7 @@
          (netease-cloud-music-mode-hook . (lambda () (evil-change-state 'emacs)))))
 
 ;;; Evil-nerd-commenter
-(package-require evil-nerd-commenter)
+(gpack evil-nerd-commenter)
 
 ;;; The functions to set the evil-keys
 (defun set-movement-evil-states-keys (key def)
@@ -111,6 +111,7 @@
   "fi" 'indent-region
   "ze" 'spring/edit-snippets
   "zo" 'open-the-dir
+  "zc" 'open-etc-config
 
   ;; Plugins Keymap
   ;; Magit

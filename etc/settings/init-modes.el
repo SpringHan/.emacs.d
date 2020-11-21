@@ -8,11 +8,11 @@
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
 ;;; js2-mode
-(package-require js2-mode
+(gpack js2-mode
   :hook (js-mode . js2-mode))
 
 ;;; Web-mode
-(package-require web-mode
+(gpack web-mode
   :config (progn
             (setq auto-mode-alist
                   (append '(("\\.html\\'" . web-mode)) auto-mode-alist))
@@ -22,7 +22,7 @@
             ))
 
 ;;; emmet-mode
-(package-require emmet-mode
+(gpack emmet-mode
   :hook (web-mode-hook . emmet-mode)
   :var (emmet-self-closing-tag-style . " /"))
 

@@ -2,19 +2,19 @@
 
 ;;; Packages
 ;;; magit
-(package-require magit
+(gpack magit
   :key ("C-' m" . magit-status))
 
 ;;; LightGit
-(package-require lightgit
+(gpack lightgit
   :load-path "~/.emacs.d/third-party/lightgit")
 
 ;;; Git Sign
-(package-require diff-hl
+(gpack diff-hl
   :hook (after-init-hook . global-diff-hl-mode))
 
 ;;; Git Message
-(package-require vc-msg
+(gpack vc-msg
   :key ("C-' s" . vc-msg-show))
 
 (provide 'init-git)

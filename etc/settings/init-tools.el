@@ -2,7 +2,7 @@
 
 ;;; Third-party
 ;;; Emacs Application Framework
-(package-require eaf
+(gpack eaf
   :load-path "~/.emacs.d/third-party/emacs-application-framework"
   :key (("C-q C-w l" . eaf-open-browser)
         ("C-q C-w h" . eaf-open-browser-with-history)
@@ -24,7 +24,7 @@
                            (setq-local awesome-tray-active-modules '("input-method" "mode-name" "date")))))
 
 ;;; English Teacher
-(package-require english-teacher
+(gpack english-teacher
   :repo "loyalpartner/english-teacher.el"
   :key (("C-' C-l" . english-teacher-smart-translation)
         ("C-' T" . english-teacher-follow-mode))
@@ -33,20 +33,20 @@
   :hook ((Info-mode-hook eww-mode-hook help-mode-hook) . english-teacher-follow-mode))
 
 ;;; Netease Cloud Music
-(package-require async)
-(package-require request)
-(package-require netease-cloud-music
-  :repo ("SpringHan/netease-cloud-music.el" :depth nil)
+(gpack async)
+(gpack request)
+(gpack netease-cloud-music
+  :repo "SpringHan/netease-cloud-music.el"
   :key (("C-' C-m t" . netease-cloud-music)
         ("C-' C-m r" . netease-cloud-music-change-repeat-mode)))
 
 ;;; Shengci.el
-(package-require shengci
+(gpack shengci
   :repo "EvanMeek/shengci.el")
 
 
 ;;; Dashboard
-(package-require dashboard
+(gpack dashboard
   :var ((dashboard-banner-logo-title . "Live in Emacs!")
         (dashboard-startup-banner . 'logo)
         (dashboard-center-content . t)
@@ -56,66 +56,66 @@
   :config (dashboard-setup-startup-hook))
 
 ;;; Counsel
-(package-require counsel
+(gpack counsel
   :key (("M-x" . counsel-M-x)
         ("C-x C-f" . counsel-find-file)
         ("C-q a" . counsel-linux-app)))
 
 ;;; Counsel-etags
-(package-require counsel-etags
+(gpack counsel-etags
   :key ("C-]" . counsel-etags-find-tag-at-point))
 
 ;;; Icons
-(package-require all-the-icons
+(gpack all-the-icons
   :key ("C-' C-i" . all-the-icons-insert))
 
 ;;; ivy
-(package-require posframe
+(gpack posframe
   :var (posframe-mouse-banish . nil))
-(package-require ivy
+(gpack ivy
   :hook (after-init-hook . ivy-mode)
   :key (("C-s" . swiper)
         ("C-r" . swiper-backward)
         ("C-- s" . swiper-all)))
-(package-require ivy-posframe
+(gpack ivy-posframe
   :hook (ivy-mode-hook . ivy-posframe-mode)
   :var ((ivy-posframe-display-functions-alist . '((t . ivy-posframe-display-at-frame-center)))
         (ivy-posframe-parameters . '((left-fringe . 8) (right-fringe . 8)))))
 
 ;;; Bongo
-(package-require bongo)
+(gpack bongo)
 
 ;;; Which Key
-(package-require which-key
+(gpack which-key
   :hook (after-init-hook . which-key-mode))
 
 ;;; ace window
-(package-require ace-window
+(gpack ace-window
   :key ("C-' C-c" . ace-window))
 
 ;;; Calendar-China
-(package-require cal-china-x)
+(gpack cal-china-x)
 
 ;;; Iedit
-(package-require iedit
+(gpack iedit
   :key ("C-' C-e" . iedit-mode))
 
 ;;; hungry-delete
-(package-require hungry-delete
+(gpack hungry-delete
   :key (("C-' C-h" . hungry-delete-mode)
         ("C-' DEL" . hungry-delete-backward))
   :hook ((emacs-lisp-mode-hook lisp-mode-hook) . hungry-delete-mode))
 
 ;;; rainbow-delimiters
-(package-require rainbow-delimiters
+(gpack rainbow-delimiters
   :hook ((lisp-mode-hook emacs-lisp-mode-hook org-mode-hooke eshell-mode-hook) . rainbow-delimiters-mode))
 
 ;;; indent guide
-(package-require indent-guide
+(gpack indent-guide
   :hook (after-init-hook . indent-guide-global-mode))
 
 ;;; doom-modeline
-(package-require doom-modeline
+(gpack doom-modeline
   :disable
   :hook (after-init-hook . doom-modeline-mode)
   :config (progn
@@ -123,7 +123,7 @@
             (setq-default doom-modeline-bar-width 3)))
 
 ;;; Window Resize
-(package-require windresize
+(gpack windresize
   :key (("C-' C-r" . windresize)
         (windresize-map . (("C-n" . windresize-down)
                            ("C-p" . windresize-up)
@@ -131,26 +131,26 @@
                            ("C-f" . windresize-right)))))
 
 ;;; youdao translate
-(package-require youdao-dictionary
+(gpack youdao-dictionary
   :key ("C-' t" . youdao-dictionary-search-at-point))
 
 ;;; Treemacs : File explore
-(package-require treemacs
+(gpack treemacs
   :key ("C-' e" . treemacs)
   :hook (treemacs-select-hook . (lambda () (evil-change-state 'emacs))))
 
 ;;; Caps_Lock
-(package-require caps-lock
+(gpack caps-lock
   :key ("C-' g" . caps-lock-mode))
 
 ;;; GitHub Explorer
-(package-require github-explorer
+(gpack github-explorer
   :key ("C-' G" . github-explorer)
   :hook (github-explorer-mode-hook . (lambda () (evil-change-state 'emacs))))
 
 ;;; Input Method
-(package-require pyim-basedict)
-(package-require pyim
+(gpack pyim-basedict)
+(gpack pyim
   :config (progn
             (pyim-basedict-enable)
             (pyim-isearch-mode t))
@@ -163,10 +163,10 @@
   :key ("M-j" . pyim-convert-string-at-point))
 
 ;;; Arch Package Manager
-(package-require arch-packer)
+(gpack arch-packer)
 
 ;;; Command Shower
-(package-require command-log-mode
+(gpack command-log-mode
   :config (defun spring/open-or-close-command-log-mode ()
             "Open the command-log-mode."
             (interactive)
@@ -176,7 +176,7 @@
         ("C-' K" . clm/command-log-clear)))
 
 ;;; Ranger
-(package-require ranger
+(gpack ranger
   :key (ranger-mode-map . (("n" . ranger-up-directory)
                            ("k" . ranger-search-next)
                            ("i" . ranger-find-file)

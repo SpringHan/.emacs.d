@@ -2,16 +2,16 @@
 
 ;;; Packages
 ;;; Snippet
-(package-require yasnippet
+(gpack yasnippet
   :key ("C-' C-y" . yas-expand-from-trigger-key)
   :hook (after-init-hook . yas-global-mode)
   :config (progn
-            (package-require yasnippet-snippets)
+            (gpack yasnippet-snippets)
             (setq yas-snippet-dirs '("~/.emacs.d/snippets"
                                      "~/.emacs.d/elpa/yasnippet-snippets-20200802.1658/snippets"))))
 
 ;;; isolate-mode
-(package-require isolate
+(gpack isolate
   :key (("C-' C-a s" . isolate-quick-add)
         ("C-' C-a S" . isolate-long-add)
         ("C-' C-a d" . isolate-quick-delete)
@@ -20,19 +20,19 @@
         ("C-' C-a C" . isolate-long-change)))
 
 ;;; paredit mode
-(package-require paredit
+(gpack paredit
   :hook ((lisp-mode-hook emacs-lisp-mode-hook eshell-mode-hook lisp-interaction-mode-hook) . paredit-mode)
   :key ("C-' f" . paredit-focus-on-defun))
 
 ;;; multiple cursor
-(package-require multiple-cursors
+(gpack multiple-cursors
   :key (("C-M-l" . mc/edit-lines)
         ("C->" . mc/mark-next-like-this)
         ("C-<" . mc/mark-previous-like-this)
         ("M-m" . newline)))
 
 ;;; avy-mode
-(package-require avy
+(gpack avy
   :key (("C-' a c" . avy-goto-char)
         ("C-' a C" . avy-goto-char-2)
         ("C-' a l" . avy-goto-line)

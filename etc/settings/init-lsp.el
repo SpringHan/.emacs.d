@@ -2,7 +2,7 @@
 
 ;;; Packages
 ;;; Lsp-mode
-(package-require lsp-mode
+(gpack lsp-mode
   :hook ((c-mode-hook c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook) . lsp)
   :key ("C-' F" . lsp-format-buffer)
   :config (progn
@@ -15,7 +15,7 @@
                   lsp-enable-snippet nil   
                   lsp-prefer-flymake :none)))
 ;;; lsp-ui
-(package-require lsp-ui
+(gpack lsp-ui
   :hook (lsp-mode-hook . lsp-ui-mode)
   :var ((lsp-ui-sideline-enable . t)
         (lsp-ui-sideline-delay . 5)
@@ -26,14 +26,14 @@
             (define-key lsp-ui-mode-map [remap xref-find-references] #'lsp-ui-peek-find-references)))
 
 ;;;FlyMake
-(package-require flymake
+(gpack flymake
   :key ("C-' C-f" . flymake-mode))
 
 (defvar lsp-on-touch-time 0
   "The lsp-on-change's time.")
 
 ;;; Dap-mode
-(package-require dap-mode
+(gpack dap-mode
   :key ("C-' d" . dap-debug))
 
 ;;; Config

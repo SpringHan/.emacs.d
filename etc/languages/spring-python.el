@@ -4,7 +4,7 @@
 (setq-default python-indent-offset 2)
 
 ;;; Completing
-(package-require lsp-pyright
+(gpack lsp-pyright
   :hook (python-mode-hook . (lambda () (require 'lsp-pyright) (lsp))))
 
 ;;; Folding

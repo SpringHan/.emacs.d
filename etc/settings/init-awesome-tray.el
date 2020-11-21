@@ -1,7 +1,7 @@
 ;;;; This is the awesome-tray settings for my emacs configuration.
 
 ;;; awesome-tray
-(package-require awesome-tray
+(gpack awesome-tray
   :repo "manateelazycat/awesome-tray"
   :hook (after-init-hook . awesome-tray-mode))
 
