@@ -13,6 +13,10 @@
 ;;; Evil-nerd-commenter
 (gpack evil-nerd-commenter)
 
+;;; Evil-Wildfire
+(gpack evil-wildfire
+  :load-path "~/.emacs.d/third-party/evil-wildfire")
+
 ;;; The functions to set the evil-keys
 (defun set-movement-evil-states-keys (key def)
   (dolist (state '(normal visual motion))
