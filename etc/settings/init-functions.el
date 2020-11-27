@@ -475,12 +475,16 @@ Otherwise it'll delete the number with one."
 (defun spring/format-commit ()
   "Git commit with formatted text."
   (interactive)
-  (let ((type (completing-read "Enter the commit type: "
-                               '("docs" "new" "modifiy" "feat" "style" "fix")))
-        (files (read-string "Enter the files(use space to split): "))
+  (let* ((type (completing-read "Enter the commit type: "
+                               '("docs" "file" "modifiy" "feat" "style" "fix")))
+         (files (read-string (format
+                              "Enter the files with %s(use space to split): "
+                              type)))
         content)
     ;; Commit
-    (setq content (read-string "Enter the short content: "))
+    (setq content (read-string (format
+                                "Enter the short content with %s(%s): "
+                                type files)))
     (shell-command (concat "git commit -m \""
                            type "(" files "): " content "\"")
                    " *Format-Commit*")
