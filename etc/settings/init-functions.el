@@ -472,12 +472,18 @@ Otherwise it'll delete the number with one."
       (unless (= times 1)
         (insert " ")))))
 
-;;; Macros
-
-(defmacro define-more-keys (map keys)
-  "The macro to define-keys with more keys."
-  (declare (indent 1))
-  `(dolist (key-info ',keys)
-     (define-key ,map (car key-info) (nth 1 key-info))))
+(defun spring/format-commit ()
+  "Git commit with formatted text."
+  (interactive)
+  (let ((type (completing-read "Enter the commit type: "
+                               '("docs" "file" "feat" "style" "fix")))
+        (files (read-string "Enter the files(use space to split): "))
+        content)
+    ;; Commit
+    (setq content (read-string "Enter the short content: "))
+    (shell-command (concat "git commit -m \""
+                           type "(" files "): " content "\"")
+                   " *Format-Commit*")
+    (kill-buffer " *Format-Commit*")))
 
 (provide 'init-functions)

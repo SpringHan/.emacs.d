@@ -90,6 +90,7 @@
 (evil-leader/set-key
   ;; File
   "ff" 'find-file
+  "fx" 'kill-current-buffer
   ;; Window
   "wx" 'delete-window
   "wo" 'delete-other-windows
@@ -115,6 +116,7 @@
   "fi" 'indent-region
   "ze" 'spring/edit-snippets
   "zo" 'open-the-dir
+  "zO" 'spring/open-scratch
   "zc" 'open-etc-config
 
   ;; Plugins Keymap
@@ -172,6 +174,7 @@
   "ft" 'spring/terlat-translate
   "fT" 'spring/terlat-translate-insert
   "fc" 'spring/test-color
-  "fC" 'spring/input-char-number)
+  "fC" 'spring/input-char-number
+  "zf" 'spring/format-commit)
 
 (provide 'init-evil)

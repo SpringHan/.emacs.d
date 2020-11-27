@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: defgroup
+# key: defgroup
+# --
+(defgroup ${1:group-name} ${2:nil}
+          "${3:DOC}"
+          $0)

@@ -15,7 +15,7 @@
         ("C-q C-c C-i" . spring/use-space-indent))
   :config (progn
             (setq org-src-fontify-natively t))
-  :hook (org-mode-hook . (lambda () (setq indent-tabs-mode nil) (define-key org-mode-map (kbd "C-'") nil) (org-bullets-mode t))))
+  :hook (org-mode-hook . (lambda () (define-key org-mode-map (kbd "C-'") nil) (org-bullets-mode t))))
 (gpack org-bullets
   :var (org-bullets-bullet-list . '("" "☯" "❀" "✿")))
 
