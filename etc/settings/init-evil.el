@@ -163,6 +163,8 @@
   ;; Treemacs
   "tt" 'treemacs
   "ts" 'treemacs-select-window
+  ;; Avy
+  "av" 'avy-goto-char
   ;; Awesome-tab
   "at" 'awesome-fast-switch/body
   ;; Other functions

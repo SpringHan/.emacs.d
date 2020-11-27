@@ -94,7 +94,8 @@
   :key ("C-' C-c" . ace-window))
 
 ;;; Calendar-China
-(gpack cal-china-x)
+(gpack cal-china-x
+  :var (calendar-chinese-all-holidays-flag . t))
 
 ;;; Iedit
 (gpack iedit

@@ -5,20 +5,19 @@
 (gpack lsp-mode
   :hook ((c-mode-hook c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook) . lsp)
   :key ("C-' F" . lsp-format-buffer)
-  :config (progn
-            (setq lsp-idle-delay 1200
-                  lsp-auto-guess-root nil
-                  lsp-file-watch-threshold 2000
-                  lsp-eldoc-hook nil
-                  lsp-log-io nil
-                  lsp-enable-folding nil   
-                  lsp-enable-snippet nil   
-                  lsp-prefer-flymake :none)))
+  :var ((lsp-idle-delay . 0)
+        (lsp-auto-guess-root . nil)
+        (lsp-file-watch-threshold . 1000)
+        (lsp-eldoc-hook . nil)
+        (lsp-log-io . nil)
+        (lsp-enable-folding . nil)   
+        (lsp-enable-snippet . nil)   
+        (lsp-prefer-flymake . :none)))
 ;;; lsp-ui
 (gpack lsp-ui
   :hook (lsp-mode-hook . lsp-ui-mode)
   :var ((lsp-ui-sideline-enable . t)
-        (lsp-ui-sideline-delay . 5)
+        (lsp-ui-sideline-delay . 3)
         (lsp-ui-peek-enable . t)
         (lsp-ui-doc-enable . t))
   :config (progn

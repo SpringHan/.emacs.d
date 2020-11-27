@@ -476,7 +476,7 @@ Otherwise it'll delete the number with one."
   "Git commit with formatted text."
   (interactive)
   (let ((type (completing-read "Enter the commit type: "
-                               '("docs" "file" "feat" "style" "fix")))
+                               '("docs" "new" "modifiy" "feat" "style" "fix")))
         (files (read-string "Enter the files(use space to split): "))
         content)
     ;; Commit

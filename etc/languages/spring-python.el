@@ -7,7 +7,10 @@
 (gpack lsp-pyright
   :hook (python-mode-hook . (lambda () (require 'lsp-pyright) (lsp))))
 
-;;; Folding
-(add-hook 'python-mode-hook #'(lambda () (outline-minor-mode t)))
+(gpack elpy
+  :config (with-eval-after-load 'python
+            (unless (or (not buffer-file-name)
+                        (string= (file-name-extension buffer-file-name) "org"))
+              (elpy-enable))))
 
 (provide 'spring-python)
