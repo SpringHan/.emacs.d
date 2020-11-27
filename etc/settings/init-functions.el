@@ -488,6 +488,8 @@ Otherwise it'll delete the number with one."
     (shell-command (concat "git commit -m \""
                            type "(" files "): " content "\"")
                    " *Format-Commit*")
-    (kill-buffer " *Format-Commit*")))
+    (kill-buffer " *Format-Commit*"))
+  (when (eq major-mode 'magit-status-mode)
+    (magit-refresh)))
 
 (provide 'init-functions)
