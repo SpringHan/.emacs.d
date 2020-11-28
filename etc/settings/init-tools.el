@@ -185,4 +185,8 @@
                            ("e" . ranger-next-file)))
   :config (ranger-override-dired-mode t))
 
+;;; Projectile
+(gpack projectile
+  :hook (after-init-hook . projectile-mode))
+
 (provide 'init-tools)
