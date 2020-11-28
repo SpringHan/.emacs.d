@@ -485,10 +485,10 @@ Otherwise it'll delete the number with one."
     (setq content (read-string (format
                                 "Enter the short content with %s(%s): "
                                 type files)))
-    (shell-command (concat "git commit -m \""
-                           type "(" files "): " content "\"")
-                   " *Format-Commit*")
-    (kill-buffer " *Format-Commit*"))
+    (setq content (concat "\"" type "(" files "): " content "\""))
+    (when (read-char (format "Content: %s(y/n)" content))
+      (shell-command (concat "git commit -m " content) " *Format-Commit*")
+      (kill-buffer " *Format-Commit*")))
   (when (eq major-mode 'magit-status-mode)
     (magit-refresh)))
 

@@ -167,6 +167,8 @@
   "av" 'avy-goto-char
   ;; Awesome-tab
   "at" 'awesome-fast-switch/body
+  ;; FlyCheck
+  "fy" 'flycheck-mode
   ;; Other functions
   "mf" 'mark-defun
   "mh" 'mark-whole-buffer

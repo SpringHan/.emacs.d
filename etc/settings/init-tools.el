@@ -82,9 +82,6 @@
   :var ((ivy-posframe-display-functions-alist . '((t . ivy-posframe-display-at-frame-center)))
         (ivy-posframe-parameters . '((left-fringe . 8) (right-fringe . 8)))))
 
-;;; Bongo
-(gpack bongo)
-
 ;;; Which Key
 (gpack which-key
   :hook (after-init-hook . which-key-mode))
