@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: quote-text
+# key: qt
+# --
+\`$1\`$0
