@@ -121,7 +121,7 @@
 
   ;; Plugins Keymap
   ;; Magit
-  "'m" 'magit-status
+  "g" 'magit-status
   ;; org
   "og" 'org-agenda
   "oc" 'org-capture
@@ -133,7 +133,7 @@
   "mt" 'netease-cloud-music
   "mr" 'netease-cloud-music-change-repeat-mode
   ;; LightGit
-  "g" 'lightgit
+  ;; "g" 'lightgit
   ;; Github Explore
   "G" 'github-explorer
   ;; Quickrun
