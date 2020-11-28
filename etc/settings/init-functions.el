@@ -476,17 +476,17 @@ Otherwise it'll delete the number with one."
   "Git commit with formatted text."
   (interactive)
   (let* ((type (completing-read "Enter the commit type: "
-                               '("docs" "file" "modifiy" "feat" "style" "fix")))
+                                '("docs" "file" "modifiy" "feat" "style" "fix")))
          (files (read-string (format
                               "Enter the files with %s(use space to split): "
                               type)))
-        content)
+         content)
     ;; Commit
     (setq content (read-string (format
                                 "Enter the short content with %s(%s): "
                                 type files)))
     (setq content (concat "\"" type "(" files "): " content "\""))
-    (when (read-char (format "Content: %s(y/n)" content))
+    (when (= 121 (read-char (format "Content: %s(y/n)" content)))
       (shell-command (concat "git commit -m " content) " *Format-Commit*")
       (kill-buffer " *Format-Commit*")))
   (when (eq major-mode 'magit-status-mode)
