@@ -9,6 +9,7 @@
 (require 'init-ui)
 (require 'init-keymaps)
 (require 'init-functions)
+(require 'init-hugo)
 (require 'init-package)
 
 ;;; Languages
