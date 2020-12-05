@@ -23,18 +23,20 @@
                                         "."
                                         (directory-files
                                          (concat spring/hugo-directory "themes/")))))))
-  (setq spring/hugo-process (start-process "Hugo Process"
+  (setq spring/hugo-process (start-process-shell-command "Hugo Process"
                                            " *Hugo Process*"
-                                           "hugo"
-                                           (format "server -t %s --buildDrafts"
-                                                   theme)))
+                                           (format
+                                            "cd %s; hugo server -t %s --buildDrafts"
+                                            spring/hugo-directory theme)))
+  (sleep-for 1)
   (eaf-open-url "http://127.0.0.1:1313/blog"))
 
 (defun spring/hugo-kill-process ()
   "Kill hugo process."
   (interactive)
   (kill-process spring/hugo-process)
-  (setq spring/hugo-process nil))
+  (setq spring/hugo-process nil)
+  (message "[Hugo]: Hugo server killed."))
 
 (defun spring/hugo-new-article (item art-name)
   "Create a new hugo article."
@@ -58,6 +60,17 @@
   (spring/hugo-run-command (format "--theme=%s --baseUrl=\"%s\"" theme base-url)
                            "--buildDrafts"))
 
+(defun spring/open-hugo-directory ()
+  "Open the hugo directory."
+  (interactive)
+  (find-file spring/hugo-directory))
+
+(defun spring/hugo-open-blog (url)
+  "Open the remote blog."
+  (interactive (list (read-string "Enter url: "
+                                  "https://springhan.gitee.io/blog")))
+  (eaf-open-url url))
+
 (defun spring/hugo-run-command (&rest args)
   "Run hugo command."
   (let ((command (concat "cd " spring/hugo-directory "; hugo")))
@@ -74,6 +87,9 @@
    ["Build"
     ("b" "Build" spring/hugo-build)
     ("s" "Server" spring/hugo-start-server)
-    ("k" "Kill Server" spring/hugo-kill-process)]])
+    ("k" "Kill Server" spring/hugo-kill-process)]
+   ["Open"
+    ("d" "Directory" spring/open-hugo-directory)
+    ("u" "Remote" spring/hugo-open-blog)]])
 
 (provide 'init-hugo)
