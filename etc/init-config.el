@@ -9,8 +9,8 @@
 (require 'init-ui)
 (require 'init-keymaps)
 (require 'init-functions)
-(require 'init-hugo)
 (require 'init-package)
+(require 'init-hugo)
 
 ;;; Languages
 (require 'spring-c)
