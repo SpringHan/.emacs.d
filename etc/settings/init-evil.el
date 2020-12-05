@@ -179,6 +179,7 @@
   "fT" 'spring/terlat-translate-insert
   "fc" 'spring/test-color
   "fC" 'spring/input-char-number
-  "zf" 'spring/format-commit)
+  "zf" 'spring/format-commit
+  "h" 'spring/hugo)
 
 (provide 'init-evil)

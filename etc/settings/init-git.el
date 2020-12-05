@@ -42,6 +42,7 @@
 
 ;;; LightGit
 (gpack lightgit
+  :disable
   :load-path "~/.emacs.d/third-party/lightgit")
 
 ;;; Git Sign

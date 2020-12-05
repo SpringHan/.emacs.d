@@ -185,4 +185,7 @@
                            ("e" . ranger-next-file)))
   :config (ranger-override-dired-mode t))
 
+;;; Transient
+(gpack transient)
+
 (provide 'init-tools)
