@@ -44,6 +44,15 @@
 (gpack shengci
   :repo "EvanMeek/shengci.el")
 
+;;; Snails
+(gpack snails
+  :repo "manateelazycat/snails")
+
+;;; Safe
+(gpack safe
+  :repo "SpringHan/safe"
+  :key ("M-z" . safe))
+
 
 ;;; Dashboard
 (gpack dashboard

@@ -5,4 +5,5 @@
 # --
 (defcustom ${1:name} ${2:value}
            "${3:DOC}"
-           $0)
+           :type '$4
+           :group '$0)
