@@ -179,6 +179,8 @@
   "fT" 'spring/terlat-translate-insert
   "fc" 'spring/test-color
   "fC" 'spring/input-char-number
+  "fS" 'spring/set-variable-region
+  "fv" 'spring/print-vars-value
   "zf" 'spring/format-commit
   "h" 'spring/hugo)
 

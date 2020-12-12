@@ -492,4 +492,16 @@ Otherwise it'll delete the number with one."
   (when (eq major-mode 'magit-status-mode)
     (magit-refresh)))
 
+(defun spring/set-variable-region (var)
+  "Set the variable's value by region."
+  (interactive "MEnter the var's name: ")
+  (set (intern var) (eval-last-sexp t)))
+
+(defun spring/print-vars-value (var)
+  "Print the var's value."
+  (interactive (let ((variable (thing-at-point 'symbol)))
+                 (list (read-string "Enter the variable's name: "
+                               variable))))
+  (print (symbol-value (intern var))))
+
 (provide 'init-functions)
