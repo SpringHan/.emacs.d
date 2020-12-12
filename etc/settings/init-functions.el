@@ -155,20 +155,6 @@ If it's daytime now,return t.Otherwise return nil."
   (kill-buffer)
   (tab-bar-close-tab))
 
-(defun spring/copy-license (license-name)
-  "Copy the license file to current directory."
-  (interactive (list
-                (completing-read "sLincense name: "
-                                 '("MIT" "GPL-3.0"))))
-  (pcase license-name
-    ("MIT"
-     (copy-file "~/.emacs.d/license/MIT" "./LICENSE")
-     (message "Copy license action done."))
-    ("GPL-3.0"
-     (copy-file "~/.emacs.d/license/GPL-3.0" "./LICENSE")
-     (find-file "./LICENSE")
-     (message "Copy license action done."))))
-
 (defun spring/open-scratch ()
   "Open the scratch buffer after closing it."
   (interactive)

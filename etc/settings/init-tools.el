@@ -197,4 +197,7 @@
 ;;; Transient
 (gpack transient)
 
+;;; License
+(gpack license-templates)
+
 (provide 'init-tools)

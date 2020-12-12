@@ -150,6 +150,8 @@
   "cp" 'evilnc-comment-or-uncomment-paragraphs
   ;; Dired-mode
   "R" 'ranger
+  ;; Insert License
+  "il" 'license-templates-insert
   ;; diff-hl
   "dn" 'diff-hl-next-hunk
   "dp" 'diff-hl-previous-hunk
