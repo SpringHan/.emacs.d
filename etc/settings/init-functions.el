@@ -224,8 +224,8 @@ If it's daytime now,return t.Otherwise return nil."
 (defun spring/add-todo-in-code ()
   "Add todo content in code."
   (interactive)
-  (comment-dwim nil)
   (let ((todo-content (read-string "Enter your todo content: ")))
+    (comment-dwim nil)
     (insert (format "<TODO(SpringHan)> %s [%s]" todo-content (current-time-string)))))
 
 (defun spring/set-volume (mode &optional changes)
