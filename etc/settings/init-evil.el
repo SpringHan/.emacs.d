@@ -166,7 +166,7 @@
   "tt" 'treemacs
   "ts" 'treemacs-select-window
   ;; Avy
-  "av" 'avy-goto-char
+  "ac" 'avy-goto-char
   ;; Awesome-tab
   "at" 'awesome-fast-switch/body
   ;; FlyCheck
