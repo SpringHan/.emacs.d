@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: inter-debug
+# key: id
+# --
+(interactive "M${1:Enter the var: }")
