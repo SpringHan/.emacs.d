@@ -34,5 +34,23 @@
 (add-hook 'shell-mode-hook #'(lambda () (company-mode -1) (define-key shell-mode-map (kbd "C-c l") 'spring/shell-clear)))
 (add-hook 'emacs-lisp-mode-hook #'(lambda () (outline-minor-mode t)))
 (add-hook 'web-mode-hook #'(lambda () (outline-minor-mode t)))
-
+;;; Calendar
+(advice-add 'calendar-exit
+            :after
+            (lambda (&optional kill)
+              "Disable mode line."
+              (spring/disable-modeline)))
+(add-hook 'calendar-mode-hook #'(lambda ()
+                                  (set-face-attribute 'mode-line nil
+                                                      :foreground (nth 0 awesome-tray-mode-line-colors)
+                                                      :background (nth 1 awesome-tray-mode-line-colors)
+                                                      :family (nth 2 awesome-tray-mode-line-colors)
+                                                      :box (nth 3 awesome-tray-mode-line-colors)
+                                                      :height awesome-tray-mode-line-default-height)
+                                  (set-face-attribute 'mode-line-inactive nil
+                                                      :foreground (nth 4 awesome-tray-mode-line-colors)
+                                                      :background (nth 5 awesome-tray-mode-line-colors)
+                                                      :family (nth 6 awesome-tray-mode-line-colors)
+                                                      :box (nth 7 awesome-tray-mode-line-colors)
+                                                      :height awesome-tray-mode-line-default-height)))
 (provide 'init-basic)

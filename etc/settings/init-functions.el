@@ -490,4 +490,13 @@ Otherwise it'll delete the number with one."
                                variable))))
   (print (symbol-value (intern var))))
 
+(defun spring/change-input-method (method)
+  "Change input METHOD."
+  (interactive)
+  (if (symbolp method)
+      (set-input-method method)
+    (toggle-input-method))
+  (when (get-buffer "*Quail Completions*")
+    (kill-buffer "*Quail Completions*")))
+
 (provide 'init-functions)
