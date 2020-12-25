@@ -5,6 +5,12 @@
   :repo "manateelazycat/awesome-tray"
   :hook (after-init-hook . awesome-tray-mode))
 
+(defun awesome-tray-module-input-method-info ()
+  (pcase current-input-method
+    ('nil "EN")
+    ("pyim" "ZN")
+    ("japanese" "JA")))
+
 (defun awesome-tray-read-only ()
   (if (eq buffer-read-only t)
       "read-only"

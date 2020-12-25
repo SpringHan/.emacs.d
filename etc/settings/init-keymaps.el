@@ -54,6 +54,7 @@
 (global-set-key (kbd "C-q T") 'spring/terlat-translate)	;Translate the content
 (global-set-key (kbd "C-q U") 'spring/copy-current-url)	;Copy current website url
 (global-set-key (kbd "C-q F") 'spring/format-commit) ;Format Commit
+(global-set-key (kbd "C-\\") 'nil)
 (global-set-key (kbd "C-\\ j") '(lambda () (interactive) (spring/change-input-method 'japanese)))
 (global-set-key (kbd "C-\\ c") '(lambda () (interactive) (spring/change-input-method 'pyim)))
 (global-set-key (kbd "C-\\ C-\\") '(lambda () (interactive) (spring/change-input-method 0)))

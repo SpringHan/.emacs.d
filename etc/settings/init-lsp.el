@@ -3,7 +3,7 @@
 ;;; Packages
 ;;; Lsp-mode
 (gpack lsp-mode
-  :hook ((c-mode-hook c++-mode-hook lisp-mode-hook js-mode-hook web-mode-hook) . lsp)
+  :hook ((c-mode-hook c++-mode-hook lisp-mode-hook js-mode-hook) . lsp)
   :key ("C-' F" . lsp-format-buffer)
   :var ((lsp-idle-delay . 0)
         (lsp-auto-guess-root . nil)

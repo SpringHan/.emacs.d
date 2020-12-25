@@ -18,5 +18,10 @@
   :key ("C-' i" . company-yasnippet))
 (gpack company-box
   :hook (company-mode-hook . company-box-mode))
+(gpack company-web
+  :config (progn
+            (add-to-list 'company-backends 'company-web-html)
+            (add-to-list 'company-backends 'company-web-jade)
+            (add-to-list 'company-backends 'company-web-slim)))
 
 (provide 'init-complete)
