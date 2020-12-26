@@ -7,10 +7,6 @@
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
 
-;;; js2-mode
-(gpack js2-mode
-  :hook (js-mode . js2-mode))
-
 ;;; Web-mode
 (gpack web-mode
   :config (progn

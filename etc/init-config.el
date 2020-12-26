@@ -16,6 +16,7 @@
 (require 'spring-c)
 (require 'spring-python)
 (require 'spring-go)
+(require 'spring-js)
 
 ;;; Other settings
 ;;; Tools
