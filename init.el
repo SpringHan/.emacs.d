@@ -23,6 +23,7 @@
 (defvar spring/time-block nil
   "If the the time-block changed, it is t.
 Otherwise it's nil.")
+
 (defvar spring/unwanted-buffer
   '("*dashboard*" "notes.org" "tasks.org" "user-init.el" "*Help*" "*Backtrace*")
   "The buffers that I don't need.")

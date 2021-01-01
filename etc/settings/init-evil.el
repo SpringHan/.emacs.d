@@ -218,13 +218,14 @@
         (message "[Evil]: '%s' prefix is not defined in keypad."
                  (char-to-string last-input-event))
       (message key)
-      (while (not (eq 13
-                      (setq tmp (read-char))))
-        (setq key (concat key
-                          (cond ((= tmp 44) "C-")
-                                ((= tmp 46) "M-")
-                                ((= tmp 47) "C-M-")
-                                (t (concat (char-to-string tmp) " ")))))
+      (while (not (= 13 (setq tmp (read-char))))
+        (if (= tmp 127)
+            (setq key (substring key 0 -2))
+          (setq key (concat key
+                            (cond ((= tmp 44) "C-")
+                                  ((= tmp 46) "M-")
+                                  ((= tmp 47) "C-M-")
+                                  (t (concat (char-to-string tmp) " "))))))
         (message key))
       (setq key (substring key 0 -1))
       (if (commandp (setq tmp (key-binding (read-kbd-macro key))))
