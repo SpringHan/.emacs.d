@@ -15,6 +15,7 @@
 
 ;;; Evil-Wildfire
 (gpack evil-wildfire
+  :disable
   :load-path "~/.emacs.d/third-party/evil-wildfire")
 
 ;;; The functions to set the evil-keys
@@ -31,6 +32,15 @@
   "Movement up."
   :type line
   (spring/movement-with-middle-keyboard 'up))
+
+(defun spring/movement-with-middle-keyboard (move)
+  "Movement with middle keyboard."
+  (interactive)
+  (let ((times (spring/arg-with-middle-keyboard "Move: ")))
+    (funcall (pcase move
+               ('up 'evil-previous-line)
+               ('down 'evil-next-line))
+             times)))
 
 (evil-define-motion spring/movement-down ()
   "Movement down."
@@ -56,6 +66,7 @@
 (set-movement-evil-states-keys "i" 'evil-forward-char)
 (set-movement-evil-states-keys "H" 'evil-insert-line)
 (set-movement-evil-states-keys "s" 'eval-last-sexp)
+(set-movement-evil-states-keys (kbd "SPC") 'spring/evil-digit-argument)
 (set-movement-evil-states-keys (kbd "C-a") '(lambda () (interactive) (spring/number-add-delete-one t)))
 (set-movement-evil-states-keys (kbd "C-d") '(lambda () (interactive) (spring/number-add-delete-one nil)))
 
@@ -155,8 +166,6 @@
   ;; diff-hl
   "dn" 'diff-hl-next-hunk
   "dp" 'diff-hl-previous-hunk
-  ;; counsel-etags
-  "el" 'counsel-etags-list-tag
   ;; outline
   "fs" 'outline-show-entry
   "fh" 'outline-hide-entry
@@ -171,6 +180,10 @@
   "at" 'awesome-fast-switch/body
   ;; FlyCheck
   "fy" 'flycheck-mode
+  ;; Keypad mode
+  "x" 'spring/evil-keypad-execute
+  "e" 'spring/evil-keypad-execute
+  "b" 'spring/evil-keypad-execute
   ;; Other functions
   "mf" 'mark-defun
   "mh" 'mark-whole-buffer
@@ -185,5 +198,31 @@
   "fv" 'spring/print-vars-value
   "zf" 'spring/format-commit
   "h" 'spring/hugo)
+
+;;; Functions
+(defun spring/evil-digit-argument (arg)
+  "The digit argument function."
+  (interactive (list (spring/arg-with-middle-keyboard)))
+  (prefix-command-preserve-state)
+  (setq prefix-arg arg)
+  (universal-argument--mode))
+
+(defun spring/evil-keypad-execute ()
+  "Execute the keypad command."
+  (interactive)
+  (let ((key (pcase last-input-event
+                  (120 "C-x ")
+                  (101 "M-")
+                  (98 "C-M-")))
+        tmp)
+    (message key)
+    (while (not (eq 13
+                    (setq tmp (read-char))))
+      (setq key (concat key (char-to-string tmp) " "))
+      (message key))
+    (setq key (substring key 0 -1))
+    (if (commandp (setq tmp (key-binding (read-kbd-macro key))))
+        (call-interactively tmp)
+      (message "[Evil]: '%s' is not defined." key))))
 
 (provide 'init-evil)

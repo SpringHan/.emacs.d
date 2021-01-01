@@ -365,26 +365,26 @@ If it's daytime now,return t.Otherwise return nil."
     ("tab" (setq-local indent-tabs-mode t))
     ("space" (setq-local indent-tabs-mode nil))))
 
-(defun spring/movement-with-middle-keyboard (movement)
+(defun spring/arg-with-middle-keyboard (&optional msg)
   "A function which make you can use the middle of the keyboard instead of the num keyboard."
   (interactive)
-  (let ((moves "")
-        (number ""))
+  (let ((number "")
+        (arg ""))
     (while (not (string= number "over"))
       (setq number
             (pcase (read-char)
               (97 "1") (114 "2") (115 "3") (116 "4") (100 "5")
               (104 "6") (110 "7") (101 "8") (105 "9") (111 "0")
-              (13 "over") (127 "delete")))
+              (45 "-") (13 "over") (127 "delete")))
       (unless (string= number "over")
         (if (string= number "delete")
-            (setq moves (substring moves 0 -1))
-          (setq moves (concat moves number))))
-      (message "Move: %s" moves))
-    (cond ((eq movement 'up)
-           (evil-previous-line (string-to-number moves)))
-          ((eq movement 'down)
-           (evil-next-line (string-to-number moves))))))
+            (setq arg (substring arg 0 -1))
+          (setq arg (concat arg number))))
+      (message "%s%s" (if msg
+                          msg
+                        "C-")
+               arg))
+    (string-to-number arg)))
 
 (defun spring/number-add-delete-one (type)
   "The function to add or delete the number under the cursor with one.
