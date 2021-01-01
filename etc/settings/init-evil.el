@@ -184,6 +184,7 @@
   "x" 'spring/evil-keypad-execute
   "e" 'spring/evil-keypad-execute
   "b" 'spring/evil-keypad-execute
+  "q" 'spring/evil-keypad-execute
   ;; Other functions
   "mf" 'mark-defun
   "mh" 'mark-whole-buffer
@@ -211,18 +212,19 @@
   "Execute the keypad command."
   (interactive)
   (let ((key (pcase last-input-event
-                  (120 "C-x ")
-                  (101 "M-")
-                  (98 "C-M-")))
+               (120 "C-x ") (101 "M-") (98 "C-M-") (113 "C-q ")))
         tmp)
-    (message key)
-    (while (not (eq 13
-                    (setq tmp (read-char))))
-      (setq key (concat key (char-to-string tmp) " "))
-      (message key))
-    (setq key (substring key 0 -1))
-    (if (commandp (setq tmp (key-binding (read-kbd-macro key))))
-        (call-interactively tmp)
-      (message "[Evil]: '%s' is not defined." key))))
+    (if (null key)
+        (message "[Evil]: '%s' prefix is not defined in keypad."
+                 (char-to-string last-input-event))
+      (message key)
+      (while (not (eq 13
+                      (setq tmp (read-char))))
+        (setq key (concat key (char-to-string tmp) " "))
+        (message key))
+      (setq key (substring key 0 -1))
+      (if (commandp (setq tmp (key-binding (read-kbd-macro key))))
+          (call-interactively tmp)
+        (message "[Evil]: '%s' is not defined." key)))))
 
 (provide 'init-evil)
