@@ -113,15 +113,6 @@
   "wr" 'windresize
   "wk" 'kill-buffer-and-window
   "wm" 'window-move
-  ;; ;; Tab
-  ;; "tS" 'tab-bar-select-tab-by-name
-  ;; "to" 'tab-bar-close-other-tabs
-  ;; "tn" 'tab-bar-new-with-buffer
-  ;; "tN" 'tab-bar-new
-  ;; "ts" 'spring/tab-bar-new-scratch
-  ;; "tn" 'tab-bar-switch-to-next-tab
-  ;; "tp" 'tab-bar-switch-to-prev-tab
-  ;; "tx" 'tab-bar-close-tab
   ;; Configs
   "zi" 'open-config-file
   "zmw" 'window-move
@@ -182,12 +173,14 @@
   "at" 'awesome-fast-switch/body
   ;; FlyCheck
   "fy" 'flycheck-mode
+
   ;; Keypad mode
   "x" 'spring/evil-keypad-execute
   "e" 'spring/evil-keypad-execute
   "b" 'spring/evil-keypad-execute
   "q" 'spring/evil-keypad-execute
   "h" 'spring/evil-keypad-execute
+  "v" 'spring/evil-keypad-execute
   ;; Other functions
   "mf" 'mark-defun
   "mh" 'mark-whole-buffer
@@ -215,7 +208,8 @@
   "Execute the keypad command."
   (interactive)
   (let ((key (pcase last-input-event
-               (120 "C-x ") (101 "M-") (98 "C-M-") (113 "C-q ") (104 "C-h ")))
+               (120 "C-x ") (101 "M-") (98 "C-M-") (113 "C-q ") (104 "C-h ")
+               (118 "C-")))
         tmp)
     (if (null key)
         (message "[Evil]: '%s' prefix is not defined in keypad."
