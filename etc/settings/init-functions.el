@@ -102,7 +102,7 @@
 If it's daytime now,return t.Otherwise return nil."
   (let ((now-time
          (string-to-number (cl-subseq (current-time-string) 11 13))))
-    (if (and (>= now-time 6) (< now-time 18))
+    (if (and (>= now-time 6) (< now-time 17))
         t
       nil)))
 
@@ -375,7 +375,7 @@ If it's daytime now,return t.Otherwise return nil."
             (pcase (read-char)
               (97 "1") (114 "2") (115 "3") (116 "4") (100 "5")
               (104 "6") (110 "7") (101 "8") (105 "9") (111 "0")
-              (39 "-") (13 "over") (127 "delete")))
+              (39 "-") (13 "over") (127 "delete") (59 (keyboard-quit))))
       (unless (string= number "over")
         (if (string= number "delete")
             (setq arg (substring arg 0 -1))

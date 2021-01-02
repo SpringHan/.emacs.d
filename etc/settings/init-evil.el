@@ -15,8 +15,8 @@
 
 ;;; Evil-Wildfire
 (gpack evil-wildfire
-  :disable
-  :load-path "~/.emacs.d/third-party/evil-wildfire")
+  :load-path "~/.emacs.d/third-party/evil-wildfire"
+  :hook (evil-mode-hook . global-evil-wildfire-mode))
 
 ;;; The functions to set the evil-keys
 (defun set-movement-evil-states-keys (key def)
@@ -81,7 +81,7 @@
 (evil-global-set-key 'normal "Q" 'save-buffers-kill-terminal)
 (evil-global-set-key 'normal "l" 'undo)
 (evil-global-set-key 'normal "h" 'evil-insert)
-(evil-global-set-key 'motion ";" 'evil-ex)
+(set-movement-evil-states-keys ";" 'keyboard-quit)
 (set-movement-evil-states-keys "." 'spring/movement-down)
 (set-movement-evil-states-keys ">" 'spring/movement-up)
 (set-movement-evil-states-keys "k" 'evil-search-next)
@@ -218,6 +218,8 @@
       (while (not (= 13 (setq tmp (read-char))))
         (if (= tmp 127)
             (setq key (substring key 0 -2))
+          (when (= tmp 59)
+            (keyboard-quit))
           (setq key (concat key
                             (cond ((= tmp 44) "C-")
                                   ((= tmp 46) "M-")
