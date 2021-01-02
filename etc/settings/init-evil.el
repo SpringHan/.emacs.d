@@ -94,6 +94,8 @@
 (evil-global-set-key 'insert (kbd "C-p") 'evil-normal-state)
 (evil-global-set-key 'insert (kbd "C-o") 'evil-open-below)
 (evil-global-set-key 'insert (kbd "C-S-o") 'evil-open-above)
+(evil-global-set-key 'insert (kbd "C-a") 'evil-beginning-of-line)
+(evil-global-set-key 'insert (kbd "C-e") 'end-of-line)
 (evil-global-set-key 'replace (kbd "C-p") 'evil-normal-state)
 
 ;;; Leader
@@ -185,6 +187,7 @@
   "e" 'spring/evil-keypad-execute
   "b" 'spring/evil-keypad-execute
   "q" 'spring/evil-keypad-execute
+  "h" 'spring/evil-keypad-execute
   ;; Other functions
   "mf" 'mark-defun
   "mh" 'mark-whole-buffer
@@ -198,7 +201,7 @@
   "fS" 'spring/set-variable-region
   "fv" 'spring/print-vars-value
   "zf" 'spring/format-commit
-  "h" 'spring/hugo)
+  ",h" 'spring/hugo)
 
 ;;; Functions
 (defun spring/evil-digit-argument (arg)
@@ -212,7 +215,7 @@
   "Execute the keypad command."
   (interactive)
   (let ((key (pcase last-input-event
-               (120 "C-x ") (101 "M-") (98 "C-M-") (113 "C-q ")))
+               (120 "C-x ") (101 "M-") (98 "C-M-") (113 "C-q ") (104 "C-h ")))
         tmp)
     (if (null key)
         (message "[Evil]: '%s' prefix is not defined in keypad."

@@ -45,8 +45,8 @@
                                                   (concat spring/hugo-directory
                                                           "content/"))))))
                  (list (completing-read "Enter item: " items)
-                       "MEnter article name: ")))
-  (spring/hugo-run-command "new" item "/" art-name))
+                       (read-string "Enter article name: "))))
+  (spring/hugo-run-command "new" (concat item "/" art-name)))
 
 (defun spring/hugo-build (theme base-url)
   "Build hugo."
