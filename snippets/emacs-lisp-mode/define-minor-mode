@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: define-minor-mode
+# key: dmm
+# --
+(define-minor-mode ${1:name}
+                   "${2:DOC}"
+                   $0)

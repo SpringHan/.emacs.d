@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: defkeymap
+# key: defkeymap
+# --
+(defcustom ${1:name}
+           (let ((map (make-sparse-keymap)))
+                $0
+                map)
+           "${2:DOC}"
+           :type 'keymap
+           :group '$3)
