@@ -53,6 +53,10 @@
   :repo "SpringHan/safe"
   :key ("M-z" . safe))
 
+;;; Sniem
+(gpack sniem
+  :repo "SpringHan/sniem")
+
 
 ;;; Dashboard
 (gpack dashboard
