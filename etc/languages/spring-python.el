@@ -7,6 +7,12 @@
 (gpack lsp-pyright
   :hook (python-mode-hook . (lambda () (require 'lsp-pyright) (lsp))))
 
+;; (gpack lsp-python-ms
+;;   :config (setq lsp-python-ms-auto-install-server t)
+;;   :hook (python-mode-hook . (lambda ()
+;;                               (require 'lsp-python-ms)
+;;                               (lsp))))
+
 (gpack elpy
   :config (with-eval-after-load 'python
             (unless (or (not buffer-file-name)
