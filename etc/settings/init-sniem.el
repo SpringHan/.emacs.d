@@ -7,4 +7,6 @@
 (sniem-leader-set-key
  "q" 'sniem-keypad)
 
+(sniem-set-keyboard-layout 'colemak)
+
 (provide 'init-sniem)
