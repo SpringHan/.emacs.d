@@ -3,5 +3,5 @@
 # name: defvar
 # key: defvar
 # --
-(defvar ${1:name} ${2:value}
-        "${3:DOC}")$0
+(defvar ${1:name} ${0:value}
+        "${2:DOC}")

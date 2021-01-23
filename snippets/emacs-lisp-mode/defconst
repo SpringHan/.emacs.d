@@ -3,5 +3,5 @@
 # name: defconst
 # key: defconst
 # --
-(defconst ${1:name} ${2:value}
-          "${3:DOC}")$0
+(defconst ${1:name} ${0:value}
+          "${2:DOC}")
