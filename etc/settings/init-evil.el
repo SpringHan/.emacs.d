@@ -126,27 +126,8 @@
   ;; Plugins Keymap
   ;; Magit
   "g" 'magit-status
-  ;; org
-  "og" 'org-agenda
-  "oc" 'org-capture
-  "os" 'org-timer-start
-  "oS" 'org-timer-set-timer
-  "oe" 'org-timer-stop
-  "op" 'org-timer-pause-or-continue
-  ;; netease-cloud-music
-  "mt" 'netease-cloud-music
-  "mr" 'netease-cloud-music-change-repeat-mode
-  ;; LightGit
-  ;; "g" 'lightgit
-  ;; Github Explore
-  "G" 'github-explorer
   ;; Quickrun
   "r" 'spring-run-code
-  ;; command-log
-  "lk" 'spring/open-or-close-command-log-mode
-  "lK" 'clm/command-log-clear
-  ;; vc-msg
-  "s" 'vc-msg-show
   ;; evil-nerd-commenter
   "ci" 'evilnc-comment-or-uncomment-lines
   "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
@@ -154,25 +135,14 @@
   "cp" 'evilnc-comment-or-uncomment-paragraphs
   ;; Dired-mode
   "R" 'ranger
-  ;; Insert License
-  "il" 'license-templates-insert
   ;; diff-hl
   "dn" 'diff-hl-next-hunk
   "dp" 'diff-hl-previous-hunk
-  ;; outline
-  "fs" 'outline-show-entry
-  "fh" 'outline-hide-entry
-  "fa" 'outline-show-all
-  "fA" 'outline-hide-body
   ;; Treemacs
   "tt" 'treemacs
   "ts" 'treemacs-select-window
   ;; Avy
   "ac" 'avy-goto-char
-  ;; Awesome-tab
-  "at" 'awesome-fast-switch/body
-  ;; FlyCheck
-  "fy" 'flycheck-mode
 
   ;; Keypad mode
   "x" 'spring/evil-keypad-execute
@@ -181,19 +151,18 @@
   "q" 'spring/evil-keypad-execute
   "h" 'spring/evil-keypad-execute
   "v" 'spring/evil-keypad-execute
+  "'" 'spring/evil-keypad-execute
   ;; Other functions
   "mf" 'mark-defun
   "mh" 'mark-whole-buffer
   "fr" 'recentf-open-files
   "." 'xref-find-definitions
-  "fk" 'describe-key
   "ft" 'spring/terlat-translate
   "fT" 'spring/terlat-translate-insert
   "fc" 'spring/test-color
   "fC" 'spring/input-char-number
   "fS" 'spring/set-variable-region
   "fv" 'spring/print-vars-value
-  "zf" 'spring/format-commit
   ",h" 'spring/hugo)
 
 ;;; Functions
@@ -209,7 +178,7 @@
   (interactive)
   (let ((key (pcase last-input-event
                (120 "C-x ") (101 "M-") (98 "C-M-") (113 "C-q ") (104 "C-h ")
-               (118 "C-")))
+               (118 "C-") (_ (format "C-%c" last-input-event))))
         tmp)
     (if (null key)
         (message "[Evil]: '%s' prefix is not defined in keypad."

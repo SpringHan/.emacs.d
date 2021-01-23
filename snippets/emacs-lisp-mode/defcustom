@@ -3,7 +3,7 @@
 # name: defcustom
 # key: defcustom
 # --
-(defcustom ${1:name} ${2:value}
-           "${3:DOC}"
-           :type '$4
-           :group '$0)
+(defcustom ${1:name} ${0:value}
+           "${2:DOC}"
+           :type '$3
+           :group '$4)
