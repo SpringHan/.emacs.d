@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: bold
+# key: bd
+# --
+**${1:text}**$0
