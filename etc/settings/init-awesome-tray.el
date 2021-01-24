@@ -46,7 +46,7 @@
 (add-to-list 'awesome-tray-module-alist '("buffer-modified-p" . (awesome-tray-buffer-modified awesome-tray-module-date-face)))
 (add-to-list 'awesome-tray-module-alist '("netease-current-song" . (awesome-tray-netease-current-song awesome-tray-module-mode-name-face)))
 
-(setq awesome-tray-active-modules '("evil" "netease-current-song" "input-method" "location" "buffer-read-only"
+(setq awesome-tray-active-modules '("sniem-state" "netease-current-song" "input-method" "location" "buffer-read-only"
                                     "buffer-modified-p" "git" "mode-name" "date"))
 
 (provide 'init-awesome-tray)

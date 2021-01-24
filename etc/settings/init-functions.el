@@ -365,43 +365,6 @@ If it's daytime now,return t.Otherwise return nil."
     ("tab" (setq-local indent-tabs-mode t))
     ("space" (setq-local indent-tabs-mode nil))))
 
-(defun spring/arg-with-middle-keyboard (&optional msg)
-  "A function which make you can use the middle of the keyboard instead of the num keyboard."
-  (interactive)
-  (let ((number "")
-        (arg ""))
-    (while (not (string= number "over"))
-      (setq number
-            (pcase (read-char)
-              (97 "1") (114 "2") (115 "3") (116 "4") (100 "5")
-              (104 "6") (110 "7") (101 "8") (105 "9") (111 "0")
-              (39 "-") (13 "over") (127 "delete") (59 (keyboard-quit))))
-      (unless (string= number "over")
-        (if (string= number "delete")
-            (setq arg (substring arg 0 -1))
-          (setq arg (concat arg number))))
-      (message "%s%s" (if msg
-                          msg
-                        "C-")
-               arg))
-    (string-to-number arg)))
-
-(defun spring/number-add-delete-one (type)
-  "The function to add or delete the number under the cursor with one.
-
-If the TYPE is t, it will add the number with 1.
-Otherwise it'll delete the number with one."
-  (interactive)
-  (let ((number (thing-at-point 'number)))
-    (if (not (numberp number))
-        (message "It's not a number!")
-      (if type
-          (setq number (+ number 1))
-        (setq number (- number 1)))
-      (delete-forward-char 1)
-      (insert (number-to-string number))
-      (backward-char 1))))
-
 (defun spring/show-current-url ()
   "The function to show the url at current buffer."
   (interactive)

@@ -2,7 +2,8 @@
 
 ;;; Evil
 (gpack evil-leader
-  :hook (after-init-hook . global-evil-leader-mode))
+  ;; :hook (after-init-hook . global-evil-leader-mode)
+  )
 (gpack evil
   :hook ((global-evil-leader-mode-hook . (lambda () (evil-mode t)))
          (Info-selection-hook . (lambda () (evil-change-state 'emacs)))

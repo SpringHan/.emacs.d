@@ -7,6 +7,9 @@
 
 ;; (require 'package-require)							;Package Manager
 
+;;;; Themes
+(load-the-theme)
+
 ;;; Packages
 (require 'init-complete)
 (require 'init-edits)
@@ -15,14 +18,11 @@
 (require 'init-tools)
 (require 'init-awesome-tray)
 (require 'init-awesome-tab)
-(require 'init-evil)
+;; (require 'init-evil)
 (require 'init-sniem)
 (require 'init-git)
 (require 'init-org)
 
 (package-initialize)
-
-;;;; Themes
-(load-the-theme)
 
 (provide 'init-package)

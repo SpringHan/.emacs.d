@@ -2,9 +2,21 @@
 
 ;;; Sniem
 (gpack sniem
-  :repo "SpringHan/sniem")
+  :repo "SpringHan/sniem"
+  :hook (after-init-hook . global-sniem-mode))
+
+;;; Vars
+(setq sniem-center-message nil
+      sniem-mark-message nil
+      sniem-delete-message nil
+      sniem-change-message nil
+      sniem-yank-message nil
+      sniem-macro-message nil)
+(add-to-list 'sniem-close-mode-alist 'eaf-mode)
 
 (sniem-leader-set-key
+ "u" 'previous-line
+ "e" 'next-line
  "q" 'sniem-keypad
  "h" 'sniem-keypad
  ;; File
@@ -60,7 +72,7 @@
  "fS" 'spring/set-variable-region
  "fv" 'spring/print-vars-value
  ",h" 'spring/hugo)
-
 (sniem-set-keyboard-layout 'colemak)
+(sniem-normal-set-key "/" 'swiper)
 
 (provide 'init-sniem)

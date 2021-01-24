@@ -20,7 +20,7 @@
                   ("day" (eaf-setq eaf-browser-dark-mode "false"))
                   ("night" (eaf-setq eaf-browser-dark-mode "true")))))
             (eaf-browser-set))
-  :hook (eaf-mode-hook . (lambda () (evil-change-state 'emacs)
+  :hook (eaf-mode-hook . (lambda () ;; (evil-change-state 'emacs)
                            (setq-local awesome-tray-active-modules '("input-method" "mode-name" "date")))))
 
 ;;; English Teacher
