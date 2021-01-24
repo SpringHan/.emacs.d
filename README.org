@@ -5,24 +5,19 @@ This is my emacs configuration repository.
 [[./demo.png]]
 
 [[./demo1.png]]
+
 ** Dependences
    - cmake
    - git
-   - libvterm
-     It's used for the vterm.
-     If you are an Arch user, you can install it by:
-     #+begin_src shell
-       sudo pacman -S libvterm
-     #+end_src
    - The dependences in [[https://github.com/manateelazycat/emacs-application-framework][Emacs Application Framework]].(To use EAF)
 
 ** Installation
    To use my configuration, you should run ~make install~ to download the EAF.And then you can open emacs.
-   Now I'm using ~~ evil-mode ~~ and I'm a Colemak user.So if you don't want to use it, you can add ~~ :disable ~~ into the evil's package-require function in the [[https://github.com/SpringHan/.emacs.d/master/blob/etc/settings/init-evil.el][init-evil.el]].
+   Now I'm using [[https://github.com/SpringHan/sniem][Sniem]] as my edition method and I'm a Colemak user. So if you don't want to use it, you can add ~~:disable~~ into the sniem package manager code of config in the [[https://github.com/SpringHan/.emacs.d/master/blob/etc/settings/init-sniem.el][init-sniem.el]].
 
 ** Functions
-   My package manager is ~package-require~ (A package manager written by me).
-   [[https://github.com/SpringHan/package-require][Click Here]] to know about it.
+   My package manager is ~gpack~ (A package manager written by me).
+   [[https://github.com/SpringHan/gpack][Click Here]] to know about it.
 
 ** Transparent Background
    The transparent background is opened by default.You can use ~C-z C-a~ to change it.Or if you don't want to open it by default, you can use ~C-z n~ to disable it.
