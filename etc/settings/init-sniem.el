@@ -71,6 +71,7 @@
  "fC" 'spring/input-char-number
  "fS" 'spring/set-variable-region
  "fv" 'spring/print-vars-value
+ "fE" 'eval-expression
  ",h" 'spring/hugo)
 (sniem-set-keyboard-layout 'colemak)
 (sniem-normal-set-key "/" 'swiper)
