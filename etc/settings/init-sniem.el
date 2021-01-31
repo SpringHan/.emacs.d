@@ -14,11 +14,13 @@
       sniem-macro-message nil)
 (add-to-list 'sniem-close-mode-alist 'eaf-mode)
 
+;;; Keymap settings
 (sniem-leader-set-key
  "u" 'previous-line
  "e" 'next-line
  "q" 'sniem-keypad
  "h" 'sniem-keypad
+ "'" 'sniem-keypad
  ;; File
  "ff" 'find-file
  "fx" 'kill-current-buffer
@@ -47,10 +49,10 @@
  ;; Quickrun
  "r" 'spring-run-code
  ;; evil-nerd-commenter
- "ci" 'evilnc-comment-or-uncomment-lines
- "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
- "cc" 'evilnc-copy-and-comment-lines
- "cp" 'evilnc-comment-or-uncomment-paragraphs
+ "Ci" 'evilnc-comment-or-uncomment-lines
+ "Cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+ "Cc" 'evilnc-copy-and-comment-lines
+ "Cp" 'evilnc-comment-or-uncomment-paragraphs
  ;; Dired-mode
  "R" 'ranger
  ;; Treemacs
@@ -58,6 +60,18 @@
  "ts" 'treemacs-select-window
  ;; Avy
  "ac" 'avy-goto-char
+ ;; Diff
+ "d" 'nil
+ "dp" 'diff-hl-previous-hunk
+ "dn" 'diff-hl-next-hunk
+
+ ;; Org mode
+ "oc" 'org-capture
+ "oa" 'org-agenda
+ "os" 'org-timer-start
+ "oS" 'org-timer-set-timer
+ "oe" 'org-timer-stop
+ "o SPC" 'org-timer-pause-or-continue
 
  ;; Other functions
  "m" 'nil

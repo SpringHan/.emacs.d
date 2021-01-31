@@ -6,18 +6,29 @@
   :before (progn
             (define-prefix-command 'org-key-map)
             (global-set-key (kbd "C-q C-c") 'org-key-map))
-  :key (("C-q C-c g" . org-agenda)
-        ("C-q C-c c" . org-capture)
-        ("C-q C-c s" . org-timer-start)
-        ("C-q C-c S" . org-timer-set-timer)
-        ("C-q C-c e" . org-timer-stop)
-        ("C-q C-c SPC" . org-timer-pause-or-continue)
-        ("C-q C-c C-i" . spring/use-space-indent))
+  :key ("C-q C-c C-i" . spring/use-space-indent)
   :config (progn
             (setq org-src-fontify-natively t))
-  :hook (org-mode-hook . (lambda () (define-key org-mode-map (kbd "C-'") nil) (org-bullets-mode t))))
+  :hook (org-mode-hook . (lambda () (define-key org-mode-map (kbd "C-'") nil)
+                           ;; (org-bullets-mode t)
+                           )))
 (gpack org-bullets
+  :disable
   :var (org-bullets-bullet-list . '("" "☯" "❀" "✿")))
+;;; Custom theme for org to html
+(gpack hexrgb
+  :repo "emacsmirror/hexrgb")
+(gpack htmlize)
+(gpack org-html-themify
+  :repo "DogLooksGood/org-html-themify"
+  :var (org-html-themify-themes . '((dark . atom-one-dark)
+                                    (light . atom-one-light)))
+  :hook ((org-mode-hook . org-html-themify-mode)
+         (org-html-themify-mode-hook . (lambda ()
+                                         (spring/disable-modeline)
+                                         (posframe-delete-all)
+                                         ;; (org-bullets-mode t)
+                                         ))))
 
 ;;; Config
 (setq org-log-mode 'note) ; Set the log mode type
@@ -37,7 +48,8 @@
  'org-babel-load-languages
  '((C . t)
    (emacs-lisp . t)
-   (shell . t)))
+   (shell . t)
+   (python . t)))
 
 ;; GTD
 (unless (file-exists-p "~/.emacs.d/gtd")
