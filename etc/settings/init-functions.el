@@ -441,10 +441,14 @@ If it's daytime now,return t.Otherwise return nil."
   (when (eq major-mode 'magit-status-mode)
     (magit-refresh)))
 
-(defun spring/set-variable-region (var)
-  "Set the variable's value by region."
-  (interactive "MEnter the var's name: ")
-  (set (intern var) (eval-last-sexp t)))
+(defun spring/set-value-at-point (symbol value)
+  "Set value for the symbol at point."
+  (interactive (list (let ((s (symbol-at-point)))
+                       (if s
+                           s
+                         (intern (read-string "Enter symbol name: "))))
+                     (read--expression "Enter the value: ")))
+  (set symbol value))
 
 (defun spring/print-vars-value (var)
   "Print the var's value."
@@ -461,5 +465,12 @@ If it's daytime now,return t.Otherwise return nil."
     (toggle-input-method))
   (when (get-buffer "*Quail Completions*")
     (kill-buffer "*Quail Completions*")))
+
+(defun spring/use-colemak-keyboard ()
+  "Run shell to use colemak keyboard."
+  (interactive)
+  (shell-command "setxkbmap us colemak -option -option ctrl:nocaps" "*Colemak*")
+  (when (get-buffer "*Colemak*")
+    (kill-buffer "*Colemak*")))
 
 (provide 'init-functions)

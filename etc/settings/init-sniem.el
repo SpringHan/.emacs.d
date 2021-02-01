@@ -11,7 +11,8 @@
       sniem-delete-message nil
       sniem-change-message nil
       sniem-yank-message nil
-      sniem-macro-message nil)
+      sniem-macro-message nil
+      sniem-insert-mode-cursor '(bar . 3))
 (add-to-list 'sniem-close-mode-alist 'eaf-mode)
 
 ;;; Keymap settings
@@ -83,11 +84,12 @@
  "fT" 'spring/terlat-translate-insert
  "fc" 'spring/test-color
  "fC" 'spring/input-char-number
- "fS" 'spring/set-variable-region
+ "fS" 'spring/set-value-at-point
  "fv" 'spring/print-vars-value
  "fE" 'eval-expression
  ",h" 'spring/hugo)
 (sniem-set-keyboard-layout 'colemak)
 (sniem-normal-set-key "/" 'swiper)
+(sniem-set-quit-insert-key "<C-tab>")
 
 (provide 'init-sniem)
