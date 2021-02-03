@@ -38,19 +38,14 @@
 (advice-add 'calendar-exit
             :after
             (lambda (&optional kill)
-              "Disable mode line."
+              "Disable modeline."
               (spring/disable-modeline)))
-(add-hook 'calendar-mode-hook #'(lambda ()
-                                  (set-face-attribute 'mode-line nil
-                                                      :foreground (nth 0 awesome-tray-mode-line-colors)
-                                                      :background (nth 1 awesome-tray-mode-line-colors)
-                                                      :family (nth 2 awesome-tray-mode-line-colors)
-                                                      :box (nth 3 awesome-tray-mode-line-colors)
-                                                      :height awesome-tray-mode-line-default-height)
-                                  (set-face-attribute 'mode-line-inactive nil
-                                                      :foreground (nth 4 awesome-tray-mode-line-colors)
-                                                      :background (nth 5 awesome-tray-mode-line-colors)
-                                                      :family (nth 6 awesome-tray-mode-line-colors)
-                                                      :box (nth 7 awesome-tray-mode-line-colors)
-                                                      :height awesome-tray-mode-line-default-height)))
+(add-hook 'calendar-mode-hook #'spring/enable-modeline)
+;;; Eval-Expression
+(add-hook 'eval-expression-minibuffer-setup-hook #'spring/enable-modeline)
+(advice-add 'eval-expression :after
+            (lambda (exp &optional insert-value no-truncate char-print-limit)
+              "Disable modeline"
+              (spring/disable-modeline)))
+
 (provide 'init-basic)

@@ -59,6 +59,7 @@
 (global-set-key (kbd "C-\\ c") '(lambda () (interactive) (spring/change-input-method 'pyim)))
 (global-set-key (kbd "C-\\ C-\\") '(lambda () (interactive) (spring/change-input-method 0)))
 (global-set-key (kbd "<f5>") 'spring/use-colemak-keyboard)
+(global-set-key (kbd "<f6>") 'spring/disable-modeline)
 
 ;; Key Macros
 (global-set-key (kbd "C-q C-k i") 'insert-placeholder) ; Insert Placeholder

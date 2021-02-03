@@ -473,4 +473,35 @@ If it's daytime now,return t.Otherwise return nil."
   (when (get-buffer "*Colemak*")
     (kill-buffer "*Colemak*")))
 
+(defun spring/disable-modeline ()
+  "The function to disable the modeline."
+  (interactive)
+  (set-face-attribute 'mode-line nil
+                      :foreground awesome-tray-mode-line-active-color
+                      :background awesome-tray-mode-line-active-color
+                      :height 0.1
+                      :box nil)
+  (set-face-attribute 'mode-line-inactive nil
+                      :foreground awesome-tray-mode-line-inactive-color
+                      :background awesome-tray-mode-line-inactive-color
+                      :height 0.1
+                      :box nil
+                      :inherit 'unspecified))
+
+(defun spring/enable-modeline ()
+  "Enable mode-line."
+  (interactive)
+  (set-face-attribute 'mode-line nil
+                      :foreground (nth 0 awesome-tray-mode-line-colors)
+                      :background (nth 1 awesome-tray-mode-line-colors)
+                      :family (nth 2 awesome-tray-mode-line-colors)
+                      :box (nth 3 awesome-tray-mode-line-colors)
+                      :height awesome-tray-mode-line-default-height)
+  (set-face-attribute 'mode-line-inactive nil
+                      :foreground (nth 4 awesome-tray-mode-line-colors)
+                      :background (nth 5 awesome-tray-mode-line-colors)
+                      :family (nth 6 awesome-tray-mode-line-colors)
+                      :box (nth 7 awesome-tray-mode-line-colors)
+                      :height awesome-tray-mode-line-default-height))
+
 (provide 'init-functions)

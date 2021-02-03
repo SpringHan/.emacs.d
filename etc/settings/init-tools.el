@@ -2,6 +2,9 @@
 
 ;;; Third-party
 ;;; Emacs Application Framework
+(gpack ctable)
+(gpack deferred)
+(gpack epc)
 (gpack eaf
   :load-path "~/.emacs.d/third-party/emacs-application-framework"
   :key (("C-q C-w l" . eaf-open-browser)
@@ -143,8 +146,7 @@
 
 ;;; Treemacs : File explore
 (gpack treemacs
-  :key ("C-' e" . treemacs)
-  :hook (treemacs-select-hook . (lambda () (evil-change-state 'emacs))))
+  :key ("C-' e" . treemacs))
 
 ;;; Caps_Lock
 (gpack caps-lock
@@ -152,8 +154,7 @@
 
 ;;; GitHub Explorer
 (gpack github-explorer
-  :key ("C-' G" . github-explorer)
-  :hook (github-explorer-mode-hook . (lambda () (evil-change-state 'emacs))))
+  :key ("C-' G" . github-explorer))
 
 ;;; Input Method
 (gpack pyim-basedict)
