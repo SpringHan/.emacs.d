@@ -18,7 +18,6 @@
 (require 'init-tools)
 (require 'init-awesome-tray)
 (require 'init-awesome-tab)
-;; (require 'init-evil)
 (require 'init-sniem)
 (require 'init-git)
 (require 'init-org)
