@@ -55,7 +55,7 @@
  "Cc" 'evilnc-copy-and-comment-lines
  "Cp" 'evilnc-comment-or-uncomment-paragraphs
  ;; Dired-mode
- "R" 'ranger
+ "D" 'dired-jump
  ;; Treemacs
  "tt" 'treemacs
  "ts" 'treemacs-select-window

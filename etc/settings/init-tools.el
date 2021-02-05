@@ -23,7 +23,7 @@
                   ("day" (eaf-setq eaf-browser-dark-mode "false"))
                   ("night" (eaf-setq eaf-browser-dark-mode "true")))))
             (eaf-browser-set))
-  :hook (eaf-mode-hook . (lambda () ;; (evil-change-state 'emacs)
+  :hook (eaf-mode-hook . (lambda ()
                            (setq-local awesome-tray-active-modules '("input-method" "mode-name" "date")))))
 
 ;;; English Teacher
@@ -182,18 +182,6 @@
             (clm/toggle-command-log-buffer))
   :key (("C-' k" . spring/open-or-close-command-log-mode)
         ("C-' K" . clm/command-log-clear)))
-
-;;; Ranger
-(gpack ranger
-  :key (ranger-mode-map . (("n" . ranger-up-directory)
-                           ("k" . ranger-search-next)
-                           ("i" . ranger-find-file)
-                           ("uv" . nil)
-                           ("um" . nil)
-                           ("uv" . nil)
-                           ("u" . ranger-prev-file)
-                           ("e" . ranger-next-file)))
-  :config (ranger-override-dired-mode t))
 
 ;;; Transient
 (gpack transient)
