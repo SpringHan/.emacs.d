@@ -6,7 +6,9 @@
 
 (gpack company
   :hook (after-init-hook . global-company-mode)
-  :var (company-show-numbers . t)
+  :var ((company-show-numbers . t)
+        (company-idle-delay . 0)
+        (company-echo-delay . 0))
   :config (progn
             (setq company-idle-delay 0
                   company-minimum-prefix-length 1)
