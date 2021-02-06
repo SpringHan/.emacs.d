@@ -26,6 +26,7 @@
 
 ;;; multiple cursor
 (gpack multiple-cursors
+  :disable
   :key (("C-M-l" . mc/edit-lines)
         ("C->" . mc/mark-next-like-this)
         ("C-<" . mc/mark-previous-like-this)

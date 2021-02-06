@@ -3,8 +3,10 @@
 ;;; Packages
 ;;; Company (Complete Anything)
 (gpack company-c-headers)
+
 (gpack company
   :hook (after-init-hook . global-company-mode)
+  :var (company-show-numbers . t)
   :config (progn
             (setq company-idle-delay 0
                   company-minimum-prefix-length 1)
@@ -16,8 +18,10 @@
               (define-key company-active-map (kbd "C-p") #'company-select-previous))
             (push 'company-capf company-backends))
   :key ("C-' i" . company-yasnippet))
+
 (gpack company-box
   :hook (company-mode-hook . company-box-mode))
+
 (gpack company-web
   :config (progn
             (add-to-list 'company-backends 'company-web-html)
