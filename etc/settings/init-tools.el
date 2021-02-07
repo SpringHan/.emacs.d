@@ -84,11 +84,13 @@
 ;;; ivy
 (gpack posframe
   :var (posframe-mouse-banish . nil))
+
 (gpack ivy
   :hook (after-init-hook . ivy-mode)
   :key (("C-s" . swiper)
         ("C-r" . swiper-backward)
         ("C-- s" . swiper-all)))
+
 (gpack ivy-posframe
   :hook (ivy-mode-hook . ivy-posframe-mode)
   :var ((ivy-posframe-display-functions-alist . '((t . ivy-posframe-display-at-frame-center)))
@@ -188,5 +190,8 @@
 
 ;;; License
 (gpack license-templates)
+
+;;; Restart
+(gpack restart-emacs)
 
 (provide 'init-tools)
