@@ -9,12 +9,7 @@
   :key ("C-q C-c C-i" . spring/use-space-indent)
   :config (progn
             (setq org-src-fontify-natively t))
-  :hook (org-mode-hook . (lambda () (define-key org-mode-map (kbd "C-'") nil)
-                           ;; (org-bullets-mode t)
-                           )))
-(gpack org-bullets
-  :disable
-  :var (org-bullets-bullet-list . '("" "☯" "❀" "✿")))
+  :hook (org-mode-hook . (lambda () (define-key org-mode-map (kbd "C-'") nil))))
 ;;; Custom theme for org to html
 (gpack hexrgb
   :repo "emacsmirror/hexrgb")
@@ -81,5 +76,9 @@
       '("lof" "lot" "tex" "aux" "idx" "log" "out" "toc" "nav" "snm" "vrb" "dvi" "fdb_latexmk" "blg""brf" "fls" "entoc" "ps" "spl" "bbl" "xdv"))
 (setq org-image-actual-width '(300))
 (setq org-export-with-sub-superscripts nil)
+
+;;; sniem-object-catch
+(sniem-object-catch-mode-defalist org-mode
+  ("~" . "~"))
 
 (provide 'init-org)

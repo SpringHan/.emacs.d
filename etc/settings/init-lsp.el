@@ -5,15 +5,15 @@
 (gpack lsp-mode
   :hook ((c-mode-hook c++-mode-hook lisp-mode-hook) . lsp)
   :key ("C-' F" . lsp-format-buffer)
-  :var ((lsp-idle-delay . 0.5)
+  :var ((lsp-idle-delay . 0.2)
         (lsp-enable-indentation . t)
         (lsp-keep-workspace-alive . nil)
         (lsp-auto-guess-root . nil)
         (lsp-file-watch-threshold . 1000)
         (lsp-eldoc-hook . nil)
         (lsp-log-io . nil)
-        (lsp-enable-folding . nil)   
-        (lsp-enable-snippet . nil)   
+        (lsp-enable-folding . nil)
+        (lsp-enable-snippet . t)
         (lsp-prefer-flymake . :none)
         (lsp-completion-provider . :capf)))
 
@@ -39,14 +39,14 @@
   :key ("C-' d" . dap-debug))
 
 ;;; Config
-(eval-after-load 'lsp-mode
-  '(progn
-     (defvar lsp-on-touch-time 0)
-     (defadvice lsp-on-change (around lsp-on-change-hack activate)
-       ;; don't run `lsp-on-change' too frequently
-       (when (> (- (float-time (current-time))
-                   lsp-on-touch-time) 30)
-         (setq lsp-on-touch-time (float-time (current-time)))
-         ad-do-it))))
+;; (eval-after-load 'lsp-mode
+;;   '(progn
+;;      (defvar lsp-on-touch-time 0)
+;;      (defadvice lsp-on-change (around lsp-on-change-hack activate)
+;;        ;; don't run `lsp-on-change' too frequently
+;;        (when (> (- (float-time (current-time))
+;;                    lsp-on-touch-time) 30)
+;;          (setq lsp-on-touch-time (float-time (current-time)))
+;;          ad-do-it))))
 
 (provide 'init-lsp)

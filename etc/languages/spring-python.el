@@ -5,12 +5,12 @@
 
 ;;; Completing
 (gpack lsp-pyright
-  :disable
   :hook (python-mode-hook . (lambda () (require 'lsp-pyright) (lsp)))
   :config (when (executable-find "python3")
             (setq lsp-pyright-python-executable-cmd "python3")))
 
 (gpack lsp-python-ms
+  :disable
   :config (setq lsp-python-ms-auto-install-server t)
   :hook (python-mode-hook . (lambda ()
                               (require 'lsp-python-ms)
