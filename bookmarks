@@ -6,10 +6,6 @@
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")
  (filename . "https://github.com/SpringHan"))
-("KitPixel"
- (handler . eaf--bookmark-restore)
- (eaf-app . "browser")
- (filename . "https://github.com/orgs/KitPixel"))
 ("iconfont"
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")
@@ -39,10 +35,6 @@
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")
  (filename . "https://www.bilibili.com/"))
-("book"
- (handler . eaf--bookmark-restore)
- (eaf-app . "browser")
- (filename . "http://book.emacs-china.org/"))
 ("emacs-china"
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")

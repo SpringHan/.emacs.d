@@ -47,12 +47,14 @@
   "Open some directory by the DIR-NAME."
   (interactive (list
                 (completing-read "The directory's name: "
-                                 '("emacs" "git" "gtd" "C"))))
-  (pcase dir-name
-    ("gtd" (find-file "~/.emacs.d/gtd"))
-    ("git" (find-file "~/Github"))
-    ("emacs" (find-file "~/.emacs.d"))
-    ("C" (find-file "~/Code/C/src/Study"))))
+                                 '("emacs" "git" "gtd" "C" "python" "go"))))
+  (find-file (pcase dir-name
+               ("gtd" "~/.emacs.d/gtd")
+               ("git" "~/Github")
+               ("emacs" "~/.emacs.d")
+               ("C" "~/Code/C/src/Study")
+               ("python" "~/Code/python")
+               ("go" "~/go"))))
 
 (defun set-alpha ()
   "Set the backgroud alpha by VAR."
@@ -135,7 +137,15 @@ If it's daytime now,return t.Otherwise return nil."
   (interactive)
   (dolist (buffer spring/unwanted-buffer)
     (when (get-buffer buffer)
-      (kill-buffer buffer))))
+      (kill-buffer buffer)))
+  (let (buffer-name)
+    (dolist (buffer (buffer-list))
+      (setq buffer-name (buffer-name buffer))
+      (when (or (string-match-p "^*lsp\\(.*\\)*" buffer-name)
+                (string-match-p "^*\\(.*\\):stderr*" buffer-name)
+                (string-match-p "^*Flycheck\\(.*\\)*" buffer-name)
+                (string-match-p "^*company-\\(.*\\)*" buffer-name))
+        (kill-buffer buffer)))))
 
 (defun tab-bar-new-with-buffer (buffer-name)
   "Create a new tab then select a buffer."

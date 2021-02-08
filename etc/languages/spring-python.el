@@ -5,7 +5,7 @@
 
 ;;; Completing
 (gpack lsp-pyright
-  :hook (python-mode-hook . (lambda () (require 'lsp-pyright) (lsp)))
+  :hook (python-mode-hook . (lambda () (require 'lsp-pyright) (lsp-deferred)))
   :config (when (executable-find "python3")
             (setq lsp-pyright-python-executable-cmd "python3")))
 

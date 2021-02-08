@@ -3,7 +3,7 @@
 ;;; Packages
 ;;; Lsp-mode
 (gpack lsp-mode
-  :hook ((c-mode-hook c++-mode-hook lisp-mode-hook) . lsp)
+  :hook ((c-mode-hook c++-mode-hook lisp-mode-hook) . lsp-deferred)
   :key ("C-' F" . lsp-format-buffer)
   :var ((lsp-idle-delay . 0.2)
         (lsp-enable-indentation . t)

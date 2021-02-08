@@ -41,11 +41,5 @@
               "Disable modeline."
               (spring/disable-modeline)))
 (add-hook 'calendar-mode-hook #'spring/enable-modeline)
-;;; Eval-Expression
-(add-hook 'eval-expression-minibuffer-setup-hook #'spring/enable-modeline)
-(advice-add 'eval-expression :after
-            (lambda (exp &optional insert-value no-truncate char-print-limit)
-              "Disable modeline"
-              (spring/disable-modeline)))
 
 (provide 'init-basic)
