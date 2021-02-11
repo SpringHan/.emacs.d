@@ -259,7 +259,8 @@ If it's daytime now,return t.Otherwise return nil."
        (setq volume (format "-%d%%" changes)))
       ("0"
        (setq volume "0%")))
-    (shell-command (concat "pactl set-sink-volume 0 " volume) "*Volume Set*")
+    ;; TODO: Need new function to get the audio card
+    (shell-command (concat "pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo " volume) "*Volume Set*")
     (when (get-buffer "*Volume Set*")
       (kill-buffer "*Volume Set*"))
     (message "[Spring Emacs]: The current volume: %s" (spring/get-volume))))
