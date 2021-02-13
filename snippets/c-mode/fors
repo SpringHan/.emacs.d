@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: forshort
+# key: fors
+# --
+for (${1:init}; ${2:condition}; ${3:update})
+    $0

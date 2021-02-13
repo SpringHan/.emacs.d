@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: whileshort
+# key: whiles
+# --
+while (${1:condition})
+      $0

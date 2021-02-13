@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: ifm
+# key: ifm
+# --
+if (${1:condition}) {
+   $0
+}
