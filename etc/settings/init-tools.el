@@ -53,6 +53,7 @@
 
 ;;; Safe
 (gpack safe
+  :disable
   :repo "SpringHan/safe"
   :key ("M-z" . safe))
 
@@ -120,6 +121,7 @@
 
 ;;; rainbow-delimiters
 (gpack rainbow-delimiters
+  :disable
   :hook ((lisp-mode-hook emacs-lisp-mode-hook org-mode-hooke eshell-mode-hook) . rainbow-delimiters-mode))
 
 ;;; indent guide
@@ -193,5 +195,8 @@
 
 ;;; Restart
 (gpack restart-emacs)
+
+;;; Package-Lint
+(gpack package-lint)
 
 (provide 'init-tools)

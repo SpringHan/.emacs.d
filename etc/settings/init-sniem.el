@@ -17,8 +17,6 @@
 
 ;;; Keymap settings
 (sniem-leader-set-key
- "u" 'previous-line
- "e" 'next-line
  "q" 'sniem-keypad
  "h" 'sniem-keypad
  "'" 'sniem-keypad
@@ -75,9 +73,8 @@
  "o SPC" 'org-timer-pause-or-continue
 
  ;; Other functions
- "m" 'nil
- "mf" 'mark-defun
- "mh" 'mark-whole-buffer
+ "Mf" 'mark-defun
+ "Mh" 'mark-whole-buffer
  "fr" 'recentf-open-files
  "." 'xref-find-definitions
  "ft" 'spring/terlat-translate

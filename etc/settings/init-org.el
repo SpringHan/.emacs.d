@@ -16,14 +16,11 @@
 (gpack htmlize)
 (gpack org-html-themify
   :repo "DogLooksGood/org-html-themify"
-  :var (org-html-themify-themes . '((dark . atom-one-dark)
-                                    (light . atom-one-light)))
+  :var (org-html-themify-themes . '((dark . nord)
+                                    (light . lab-light)))
   :hook ((org-mode-hook . org-html-themify-mode)
          (org-html-themify-mode-hook . (lambda ()
-                                         (spring/disable-modeline)
-                                         (posframe-delete-all)
-                                         ;; (org-bullets-mode t)
-                                         ))))
+                                         (load-the-theme)))))
 
 ;;; Config
 (setq org-log-mode 'note) ; Set the log mode type

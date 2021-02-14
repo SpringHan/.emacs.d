@@ -121,16 +121,24 @@ If it's daytime now,return t.Otherwise return nil."
            (setq time-result (day-or-night))))
     (if time-result
         (progn
-          (load-theme 'atom-one-light t)
+          (load-the-theme--enable-theme 'lab-light)
           (when (string= spring/time-block "night")
             (eaf-browser-set "day")
             (spring/disable-modeline))
           (setq spring/time-block "daytime"))
-      (load-theme 'atom-one-dark t)
+      (load-the-theme--enable-theme 'nord)
       (when (string= spring/time-block "daytime")
         (eaf-browser-set "night")
         (spring/disable-modeline))
       (setq spring/time-block "night"))))
+
+(defun load-the-theme--enable-theme (current-theme)
+  "Delete all the other themes."
+  (load-theme current-theme t)
+  (unless (= 1 (length (memq current-theme custom-enabled-themes)))
+    (dolist (theme custom-enabled-themes)
+      (unless (eq theme current-theme)
+        (disable-theme theme)))))
 
 (defun kill-unwanted-buffer ()
   "Kill the unwanted buffers."
@@ -230,13 +238,6 @@ If it's daytime now,return t.Otherwise return nil."
   (let ((letter (cl-subseq (thing-at-point 'word t) 0 1)))
     (delete-char 1)
     (insert (downcase letter))))
-
-(defun spring/add-todo-in-code ()
-  "Add todo content in code."
-  (interactive)
-  (let ((todo-content (read-string "Enter your todo content: ")))
-    (comment-dwim nil)
-    (insert (format "<TODO(SpringHan)> %s [%s]" todo-content (current-time-string)))))
 
 (defun spring/set-volume (mode &optional changes)
   "Change the volume."

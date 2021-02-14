@@ -34,7 +34,6 @@
 (global-set-key (kbd "C-q C-d") 'delete-char) ; Delete the char
 (global-set-key (kbd "C-q C-r") 'revert-buffer) ; Revert current buffer
 (global-set-key (kbd "C-q M-c") 'spring/downcase-word-first-letter) ; Downcase the first letter in the word at point
-(global-set-key (kbd "C-q A") 'spring/add-todo-in-code)	; Add the todo in code
 (global-set-key (kbd "C-q O") 'spring/scratch-erase-contents) ; Erase all the contents of *scratch* buffer
 (global-set-key (kbd "C-q P") 'list-processes) ; Show the processes buffer
 (global-set-key (kbd "C-q C-v u") 'spring/up-5-volume) ; Up 5 volume
@@ -65,6 +64,5 @@
 ;; Key Macros
 (global-set-key (kbd "C-q C-k i") 'insert-placeholder) ; Insert Placeholder
 (global-set-key (kbd "C-q C-k r") 'replace-placeholder) ; Replace Placeholder
-(global-set-key (kbd "C-q C-k s") 'search-todo-in-code) ; Search the todo thing in code
 
 (provide 'init-keymaps)
