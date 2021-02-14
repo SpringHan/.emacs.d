@@ -114,9 +114,10 @@ If it's daytime now,return t.Otherwise return nil."
                                       '("day" "night"))))
   (let (time-result)
     (cond (time
-           (pcase time
-             ("day" (setq time-result t))
-             ("night" (setq time-result nil))))
+           (setq time-result
+                 (pcase time
+                   ("day" t)
+                   ("night" nil))))
           ((null time)
            (setq time-result (day-or-night))))
     (if time-result
@@ -134,7 +135,8 @@ If it's daytime now,return t.Otherwise return nil."
 
 (defun load-the-theme--enable-theme (current-theme)
   "Delete all the other themes."
-  (load-theme current-theme t)
+  (unless (memq current-theme custom-enabled-themes)
+    (load-theme current-theme t))
   (unless (= 1 (length (memq current-theme custom-enabled-themes)))
     (dolist (theme custom-enabled-themes)
       (unless (eq theme current-theme)

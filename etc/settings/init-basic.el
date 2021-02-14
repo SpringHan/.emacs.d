@@ -21,8 +21,6 @@
 (setq-default tab-width 2) ; The tab width
 (setq-default indent-tabs-mode nil) ; Use tab indent
 (setq-default css-indent-offset 2) ; Set css indent width
-(setq display-time-24hr-format t) ; Display the time and date on modeline
-(display-time-mode t) ; Display the time
 (column-number-mode t) ; Show the column number in the modeline
 (setq backward-delete-char-untabify-method nil) ; Delete the tab by once
 (setq user-emacs-directory "~/.emacs.d/var/")

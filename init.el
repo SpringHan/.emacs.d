@@ -10,7 +10,7 @@
 (require 'gpack)
 
 ;;; Theme
-(gpack atom-one-themes
+(gpack my-themes
   :load-path ("~/.emacs.d/themes" . custom-theme-load-path)
   :un-require)
 

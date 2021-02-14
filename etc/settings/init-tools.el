@@ -128,14 +128,6 @@
 (gpack indent-guide
   :hook (after-init-hook . indent-guide-global-mode))
 
-;;; doom-modeline
-(gpack doom-modeline
-  :disable
-  :hook (after-init-hook . doom-modeline-mode)
-  :config (progn
-            (setq-default doom-modeline-height 13)
-            (setq-default doom-modeline-bar-width 3)))
-
 ;;; Window Resize
 (gpack windresize
   :key (("C-' C-r" . windresize)
