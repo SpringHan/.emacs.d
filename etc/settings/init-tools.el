@@ -24,7 +24,8 @@
                   ("night" (eaf-setq eaf-browser-dark-mode "true")))))
             (eaf-browser-set))
   :hook (eaf-mode-hook . (lambda ()
-                           (setq-local awesome-tray-active-modules '("input-method" "mode-name" "date")))))
+                           (setq-local awesome-tray-active-modules
+                                       '("netease-current-song" "input-method" "mode-name" "date")))))
 
 ;;; English Teacher
 (gpack english-teacher
@@ -41,7 +42,8 @@
 (gpack netease-cloud-music
   :repo "SpringHan/netease-cloud-music.el"
   :key (("C-' C-m t" . netease-cloud-music)
-        ("C-' C-m r" . netease-cloud-music-change-repeat-mode)))
+        ("C-' C-m r" . netease-cloud-music-change-repeat-mode))
+  :var (netease-cloud-music-search-limit . 15))
 
 ;;; Shengci.el
 (gpack shengci
@@ -118,11 +120,6 @@
   :key (("C-' C-h" . hungry-delete-mode)
         ("C-' DEL" . hungry-delete-backward))
   :hook ((emacs-lisp-mode-hook lisp-mode-hook) . hungry-delete-mode))
-
-;;; rainbow-delimiters
-(gpack rainbow-delimiters
-  :disable
-  :hook ((lisp-mode-hook emacs-lisp-mode-hook org-mode-hooke eshell-mode-hook) . rainbow-delimiters-mode))
 
 ;;; indent guide
 (gpack indent-guide
