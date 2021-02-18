@@ -72,6 +72,17 @@
  "oe" 'org-timer-stop
  "o SPC" 'org-timer-pause-or-continue
 
+ ;; Netease-Cloud-Music
+ "nt" 'netease-cloud-music
+ "nr" 'netease-cloud-music-change-repeat-mode
+ "na" 'netease-cloud-music-add-header-lyrics
+ "nd" 'netease-cloud-music-delete-header-lyrics
+ "n<" 'netease-cloud-music-seek-backward
+ "n>" 'netease-cloud-music-seek-forward
+ "n SPC" 'netease-cloud-music-pause-or-continue
+ "nn" 'netease-cloud-music-play-next-song
+ "np" 'netease-cloud-music-play-previous-song
+
  ;; Other functions
  "Mf" 'mark-defun
  "Mh" 'mark-whole-buffer
