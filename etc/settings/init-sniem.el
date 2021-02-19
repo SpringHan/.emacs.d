@@ -95,7 +95,8 @@
  "fS" 'spring/set-value-at-point
  "fv" 'spring/print-vars-value
  "fE" 'eval-expression
- ",h" 'spring/hugo)
+ ",h" 'spring/hugo
+ ", SPC" 'sniem-digit-argument-or-fn)
 (sniem-set-keyboard-layout 'colemak)
 (sniem-normal-set-key "/" 'swiper)
 (sniem-set-quit-insert-key "<C-tab>")
