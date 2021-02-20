@@ -53,7 +53,6 @@
 
 ;;; Safe
 (gpack safe
-  :disable
   :repo "SpringHan/safe"
   :key ("M-z" . safe))
 
