@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: gpack
+# key: gpack
+# --
+(gpack ${1:package-name}
+       $0)

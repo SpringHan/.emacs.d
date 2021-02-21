@@ -34,7 +34,7 @@
         ("C-' T" . english-teacher-follow-mode))
   :var ((english-teacher-backend . 'baidu)
         (english-teacher-show-result-function . 'english-teacher-eldoc-show-result-function))
-  :hook ((Info-mode-hook eww-mode-hook help-mode-hook) . english-teacher-follow-mode))
+  :hook ((Info-mode-hook eww-mode-hook help-mode-hook helpful-mode-hook) . english-teacher-follow-mode))
 
 ;;; Netease Cloud Music
 (gpack async)
@@ -184,5 +184,13 @@
 
 ;;; Package-Lint
 (gpack package-lint)
+
+;;; Helpful - For more helpful help
+(gpack helpful
+  :key (("C-h f" . helpful-callable)
+        ("C-h F" . helpful-function)
+        ("C-h w" . helpful-command)
+        ("C-h k" . helpful-key)
+        ("C-h v" . helpful-variable)))
 
 (provide 'init-tools)

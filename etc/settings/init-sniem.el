@@ -14,6 +14,7 @@
       sniem-macro-message nil
       sniem-insert-mode-cursor '(bar . 3))
 (add-to-list 'sniem-close-mode-alist 'eaf-mode)
+(add-to-list 'sniem-normal-mode-alist 'helpful-mode)
 
 ;;; Keymap settings
 (sniem-leader-set-key
