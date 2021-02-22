@@ -12,7 +12,8 @@
       sniem-change-message nil
       sniem-yank-message nil
       sniem-macro-message nil
-      sniem-insert-mode-cursor '(bar . 3))
+      sniem-insert-mode-cursor '(bar . 3)
+      sniem-expand-region-message nil)
 (add-to-list 'sniem-close-mode-alist 'eaf-mode)
 (add-to-list 'sniem-normal-mode-alist 'helpful-mode)
 
@@ -85,6 +86,7 @@
  "np" 'netease-cloud-music-play-previous-song
 
  ;; Other functions
+ "dc" 'spring/copy-directory-path
  "Mf" 'mark-defun
  "Mh" 'mark-whole-buffer
  "fr" 'recentf-open-files

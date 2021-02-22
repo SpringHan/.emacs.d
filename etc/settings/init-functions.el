@@ -518,4 +518,12 @@ If it's daytime now,return t.Otherwise return nil."
                       :box (nth 7 awesome-tray-mode-line-colors)
                       :height awesome-tray-mode-line-default-height))
 
+(defun spring/copy-directory-path ()
+  "Copy the current directory path."
+  (interactive)
+  (let ((dir default-directory))
+    (with-temp-buffer
+      (insert dir)
+      (kill-ring-save (point-min) (point-max)))))
+
 (provide 'init-functions)
