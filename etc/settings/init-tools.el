@@ -193,4 +193,8 @@
         ("C-h k" . helpful-key)
         ("C-h v" . helpful-variable)))
 
+;;; Subtree
+(gpack dired-subtree
+  :key (dired-mode-map . ("TAB" . dired-subtree-toggle)))
+
 (provide 'init-tools)
