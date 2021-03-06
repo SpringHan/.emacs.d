@@ -5,8 +5,6 @@
 (global-set-key (kbd "C-'") 'plugin-key)
 (global-set-key (kbd "C--") 'plugin-key-2)
 
-;; (require 'package-require)							;Package Manager
-
 ;;;; Themes
 (load-the-theme)
 
