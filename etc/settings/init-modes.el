@@ -31,6 +31,14 @@
     ("MyEmail" "<springchohaku@qq.com>")
     ("Copyright" "Copyright (C) <+++> SpringHan")))
 
+;;; Term-mode
+(gpack term
+  :key (term-raw-map .
+                     (("M-:" . nil)
+                      ("M-x" . nil)
+                      ("C-x" . nil)
+                      ("C-q" . nil))))
+
 ;; Eshell-mode
 (add-hook 'eshell-mode-hook (lambda () (linum-mode -1)))
 
