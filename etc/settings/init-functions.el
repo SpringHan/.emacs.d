@@ -155,7 +155,8 @@ If it's daytime now,return t.Otherwise return nil."
       (when (or (string-match-p "^*lsp\\(.*\\)*" buffer-name)
                 (string-match-p "^*\\(.*\\):stderr*" buffer-name)
                 (string-match-p "^*Flycheck\\(.*\\)*" buffer-name)
-                (string-match-p "^*company-\\(.*\\)*" buffer-name))
+                (string-match-p "^*company-\\(.*\\)*" buffer-name)
+                (string-match-p "^*helpful\\(.*\\)*" buffer-name))
         (kill-buffer buffer)))))
 
 (defun tab-bar-new-with-buffer (buffer-name)
@@ -526,5 +527,27 @@ If it's daytime now,return t.Otherwise return nil."
     (with-temp-buffer
       (insert dir)
       (kill-ring-save (point-min) (point-max)))))
+
+(defun spring/todo-undo-p ()
+  "If there're todos have not been donw."
+  (interactive)
+  (when org-agenda-files
+    (let ((files (delete "." (delete ".." (directory-files (car-safe org-agenda-files)))))
+          (undo-regexp "\\* \\(TODO\\|STUDY\\|WAIT\\|BUG\\|KNOWN\\)")
+          undo)
+      (catch 'stop
+        (dolist (file files)
+          (if undo
+              (throw 'stop t)
+            (with-temp-buffer
+              (insert-file-contents (concat (car-safe org-agenda-files)
+                                            "/"
+                                            file))
+              (goto-char (point-min))
+              (unless (re-search-forward undo-regexp nil t)
+                (setq undo t))))))
+      (when undo
+        (with-current-buffer "*scratch*"
+          (insert ";; [Spring Emacs]: There're todos haven't been done.\n\n"))))))
 
 (provide 'init-functions)

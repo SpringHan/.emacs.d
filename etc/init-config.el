@@ -28,4 +28,7 @@
   (load-file (locate-user-emacs-file "private.el"))
   (require 'private))
 
+;;; Todo gets
+(add-hook 'after-init-hook #'spring/todo-undo-p)
+
 (provide 'init-config)
