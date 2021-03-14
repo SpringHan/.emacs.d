@@ -56,9 +56,9 @@
 (setq org-capture-templates
       '(("t" "Task")
         ("tw" "Work Task" entry (file+headline org-agenda-file-task "Work")
-         "* TODO %T - %^{Work Mainly Content} %^g\n  %?" :clock-in t :clock-keep t)
+         "* TODO %T - %^{Work Mainly Content} %^g\n  %?")
         ("ts" "Study Task" entry (file+headline org-agenda-file-task "Study")
-         "* STUDY %T - %^{Study Mainly Content} %^g\n  %?" :clock-in t :clock-keep t)
+         "* STUDY %T - %^{Study Mainly Content} %^g\n  %?")
         ("i" "inspiration" entry (file+headline org-agenda-file-insp "Inspiration")
          "* %^{Inspiration Mainly Content} \n  %?")
         ("n" "Note" entry (file+headline org-agenda-file-note "Note")
