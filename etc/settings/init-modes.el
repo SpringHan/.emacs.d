@@ -37,7 +37,9 @@
                      (("M-:" . nil)
                       ("M-x" . nil)
                       ("C-x" . nil)
-                      ("C-q" . nil))))
+                      ("C-q" . nil)
+                      ("C-y" . term-paste)))
+  :hook (term-mode-hook . (lambda () (setq-local truncate-lines t))))
 
 ;; Eshell-mode
 (add-hook 'eshell-mode-hook (lambda () (linum-mode -1)))
