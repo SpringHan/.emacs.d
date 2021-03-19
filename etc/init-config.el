@@ -17,6 +17,7 @@
 (require 'spring-python)
 (require 'spring-go)
 (require 'spring-js)
+(require 'spring-dart)
 
 ;;; Other settings
 ;;; Tools
