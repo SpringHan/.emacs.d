@@ -8,19 +8,19 @@
 (defun spring-run-code ()
   "The function to run code."
   (interactive)
-  (let ((modes '(c-mode python-mode))
-        file-name command)
-    (if (not (memq major-mode modes))
-        (message "There're no running way for current filetype.")
-      (pcase major-mode
-        ('c-mode
-         (setq file-name (spring-run-code-get-file-name (buffer-name) ".c"))
-         (setq command (format "gcc --std=c11 %s -o /tmp/%s; /tmp/%s"
-                               (buffer-name) file-name file-name)))
-        ('python-mode
-         (setq command (concat "python3 " (buffer-name))))
-        ('go-mode
-         (setq command (concat "go run " (buffer-name)))))
+  (let (file-name command unknow-mode)
+    (pcase major-mode
+      ('c-mode
+       (setq file-name (spring-run-code-get-file-name (buffer-name) ".c"))
+       (setq command (format "gcc --std=c11 %s -o /tmp/%s; /tmp/%s"
+                             (buffer-name) file-name file-name)))
+      ('python-mode
+       (setq command (concat "python3 " (buffer-name))))
+      ('go-mode
+       (setq command (concat "go run " (buffer-name))))
+      (_ (message "There're no running way for current filetype.")
+         (setq unknow-mode t)))
+    (unless unknow-mode
       (split-window nil nil 'above)
       (eshell)
       (insert command)
