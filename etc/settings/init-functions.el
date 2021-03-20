@@ -151,10 +151,9 @@ If it's daytime now,return t.Otherwise return nil."
   (let (buffer-name)
     (dolist (buffer (buffer-list))
       (setq buffer-name (buffer-name buffer))
-      (when (or (string-match-p "^*lsp\\(.*\\)*" buffer-name)
-                (string-match-p "^*\\(.*\\):stderr*" buffer-name)
+      (when (or (string-match-p "^*\\(.*\\):stderr*" buffer-name)
                 (string-match-p "^*Flycheck\\(.*\\)*" buffer-name)
-                (string-match-p "^*company-\\(.*\\)*" buffer-name)
+                (string-match-p "^*\\(.*\\)doc\\(.*\\)" buffer-name)
                 (string-match-p "^*helpful\\(.*\\)*" buffer-name))
         (kill-buffer buffer)))))
 
