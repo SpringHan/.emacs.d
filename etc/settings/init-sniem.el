@@ -87,7 +87,6 @@
 
  ;; Nox
  "Nk" 'nox-shutdown
- "Nd" 'nox-show-doc
 
  ;; Other functions
  "dc" 'spring/copy-directory-path
