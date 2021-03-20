@@ -60,12 +60,11 @@
 (defun set-alpha ()
   "Set the backgroud alpha by VAR."
   (interactive)
-  (let ((var (progn
-               (message "Alpha or not(y/n): ")
-               (read-char))))
-    (pcase var
-      (121 (set-frame-parameter nil 'alpha '(90 . 100)))
-      (110 (set-frame-parameter nil 'alpha '(100 . 100))))))
+  (let ((var (when (= (car (frame-parameter nil 'alpha)) 100)
+               t)))
+    (if var
+        (set-frame-parameter nil 'alpha '(75 . 100))
+      (set-frame-parameter nil 'alpha '(100 . 100)))))
 
 (defun window-move (way)
   "Move the buffer window position by WAY."

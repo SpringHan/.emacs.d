@@ -20,7 +20,7 @@ This is my emacs configuration repository.
    [[https://github.com/SpringHan/gpack][Click Here]] to know about it.
 
 ** Transparent Background
-   The transparent background is opened by default.You can use ~C-z C-a~ to change it.Or if you don't want to open it by default, you can use ~C-z n~ to disable it.
+   The transparent background is opened by default.You can use ~C-q C-a~ to change it.Or if you don't want to open it by default, you can use ~C-q n~ to disable it.
 
 ** Last
    I'm new in emacs, I'll continue to update my configuration everyday.

@@ -59,6 +59,7 @@
 
 ;;; Dashboard
 (gpack dashboard
+  :disable
   :var ((dashboard-banner-logo-title . "Live in Emacs!")
         (dashboard-startup-banner . 'logo)
         (dashboard-center-content . t)
@@ -118,9 +119,10 @@
         ("C-' DEL" . hungry-delete-backward))
   :hook ((emacs-lisp-mode-hook lisp-mode-hook) . hungry-delete-mode))
 
-;;; indent guide
-(gpack indent-guide
-  :hook (after-init-hook . indent-guide-global-mode))
+(gpack highlight-indent-guides
+  :hook ((prog-mode-hook text-mode-hook) . highlight-indent-guides-mode)
+  :var ((highlight-indent-guides-method . 'character)
+        (highlight-indent-guides-delay . 0)))
 
 ;;; Window Resize
 (gpack windresize
