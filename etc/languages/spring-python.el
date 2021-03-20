@@ -4,10 +4,8 @@
 (setq-default python-indent-offset 2)
 
 ;;; Completing
-(gpack lsp-pyright
-  :hook (python-mode-hook . (lambda () (require 'lsp-pyright) (lsp-deferred)))
-  :config (when (executable-find "python3")
-            (setq lsp-pyright-python-executable-cmd "python3")))
+(gpack python-mode
+  :hook (python-mode-hook . nox-ensure))
 
 (gpack live-py-mode)
 

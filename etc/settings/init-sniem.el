@@ -85,6 +85,10 @@
  "nn" 'netease-cloud-music-play-next-song
  "np" 'netease-cloud-music-play-previous-song
 
+ ;; Nox
+ "Nk" 'nox-shutdown
+ "Nd" 'nox-show-doc
+
  ;; Other functions
  "dc" 'spring/copy-directory-path
  "Mf" 'mark-defun
@@ -99,7 +103,8 @@
  "fv" 'spring/print-vars-value
  "fE" 'eval-expression
  ",h" 'spring/hugo
- ", SPC" 'sniem-digit-argument-or-fn)
+ ", SPC" 'sniem-digit-argument-or-fn
+ "RET" 'sniem-object-catch)
 (sniem-set-keyboard-layout 'colemak)
 (sniem-normal-set-key "/" 'swiper)
 (sniem-set-quit-insert-key "<C-tab>")
