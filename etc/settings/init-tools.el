@@ -49,10 +49,12 @@
 
 ;;; Snails
 (gpack snails
+  :disable
   :repo "manateelazycat/snails")
 
 ;;; Safe
 (gpack safe
+  :disable
   :repo "SpringHan/safe"
   :key ("M-z" . safe))
 
@@ -198,5 +200,8 @@
 ;;; Subtree
 (gpack dired-subtree
   :key (dired-mode-map . ("TAB" . dired-subtree-toggle)))
+
+;;; Expand region
+(gpack expand-region)
 
 (provide 'init-tools)

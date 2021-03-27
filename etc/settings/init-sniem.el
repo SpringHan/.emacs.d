@@ -103,7 +103,8 @@
  "fE" 'eval-expression
  ",h" 'spring/hugo
  ", SPC" 'sniem-digit-argument-or-fn
- "RET" 'sniem-object-catch)
+ "RET" 'sniem-object-catch
+ "e" 'er/expand-region)
 (sniem-set-keyboard-layout 'colemak)
 (sniem-normal-set-key "/" 'swiper)
 (sniem-set-quit-insert-key "<C-tab>")
