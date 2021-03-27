@@ -5,9 +5,9 @@
   (let ((result (car (split-string buffer-name suffix t))))
     result))
 
-(defun spring-run-code ()
+(defun spring-run-code (&optional not-run)
   "The function to run code."
-  (interactive)
+  (interactive "P")
   (let (file-name command unknow-mode)
     (pcase major-mode
       ('c-mode
@@ -24,6 +24,7 @@
       (split-window nil nil 'above)
       (eshell)
       (insert command)
-      (eshell-send-input))))
+      (unless not-run
+        (eshell-send-input)))))
 
 (provide 'run-code)
