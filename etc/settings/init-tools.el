@@ -204,4 +204,9 @@
 ;;; Expand region
 (gpack expand-region)
 
+;;; MUtil-Term
+(gpack multi-term
+  :repo "manateelazycat/multi-term"
+  :var (multi-term-program . "/bin/zsh"))
+
 (provide 'init-tools)
