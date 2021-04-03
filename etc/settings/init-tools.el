@@ -124,7 +124,11 @@
 (gpack highlight-indent-guides
   :hook ((prog-mode-hook text-mode-hook) . highlight-indent-guides-mode)
   :var ((highlight-indent-guides-method . 'character)
-        (highlight-indent-guides-delay . 0)))
+        (highlight-indent-guides-delay . 0))
+  :key ("C-' r" . (lambda ()
+                    (interactive)
+                    (highlight-indent-guides-mode -1)
+                    (highlight-indent-guides-mode t))))
 
 ;;; Window Resize
 (gpack windresize
