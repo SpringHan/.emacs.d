@@ -542,7 +542,8 @@ If it's daytime now,return t.Otherwise return nil."
                                             "/"
                                             file))
               (goto-char (point-min))
-              (when (re-search-forward undo-regexp nil t)
+              (when (let ((case-fold-search nil))
+                      (re-search-forward undo-regexp nil t))
                 (setq undo t))))))
       (when undo
         (with-current-buffer "*scratch*"
