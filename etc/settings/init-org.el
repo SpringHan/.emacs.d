@@ -76,6 +76,7 @@
 
 ;;; sniem-object-catch
 (sniem-object-catch-mode-defalist org-mode
-  ("~" . "~"))
+  ("~" . "~")
+  ("=" . "="))
 
 (provide 'init-org)
