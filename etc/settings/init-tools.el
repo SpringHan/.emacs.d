@@ -203,7 +203,9 @@
 
 ;;; Subtree
 (gpack dired-subtree
-  :key (dired-mode-map . ("TAB" . dired-subtree-toggle)))
+  :key (dired-mode-map . (("TAB" . dired-subtree-toggle)
+                          ("," . dired-subtree-up)
+                          ("/" . dired-subtree-down))))
 
 ;;; Expand region
 (gpack expand-region)
