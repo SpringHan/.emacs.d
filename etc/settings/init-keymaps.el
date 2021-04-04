@@ -60,6 +60,7 @@
 (global-set-key (kbd "M-f") 'toggle-input-method)
 (global-set-key (kbd "<f5>") 'spring/use-colemak-keyboard)
 (global-set-key (kbd "<f6>") 'spring/disable-modeline)
+(global-set-key (kbd "C-:") 'spring/insert-result)
 
 ;; Key Macros
 (global-set-key (kbd "C-q C-k i") 'insert-placeholder) ; Insert Placeholder

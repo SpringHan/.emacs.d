@@ -548,4 +548,9 @@ If it's daytime now,return t.Otherwise return nil."
         (with-current-buffer "*scratch*"
           (insert ";; [Spring Emacs]: There're todos haven't been done.\n\n"))))))
 
+(defun spring/insert-result (command)
+  "Insert COMMAND's result."
+  (interactive (list (read--expression "Eval: ")))
+  (insert (format "%S" (eval command))))
+
 (provide 'init-functions)
