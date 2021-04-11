@@ -84,6 +84,7 @@
  "n SPC" 'netease-cloud-music-pause-or-continue
  "nn" 'netease-cloud-music-play-next-song
  "np" 'netease-cloud-music-play-previous-song
+ "n/" 'netease-cloud-music-ask-play
 
  ;; Nox
  "Nk" 'nox-shutdown

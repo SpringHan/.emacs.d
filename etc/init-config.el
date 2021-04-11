@@ -24,10 +24,6 @@
 (require 'task-reminder)
 (require 'run-code)
 (require 'init-macros)
-;;; Private settings
-(when (file-exists-p (locate-user-emacs-file "private.el"))
-  (load-file (locate-user-emacs-file "private.el"))
-  (require 'private))
 
 ;;; Todo gets
 (add-hook 'after-init-hook #'spring/todo-undo-p)
