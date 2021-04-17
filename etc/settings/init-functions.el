@@ -312,7 +312,13 @@ If it's daytime now,return t.Otherwise return nil."
 (defun spring/search (content)
   "Open search page."
   (interactive "MEnter the search content: ")
-  (eaf-open-browser (concat "https://cn.bing.com/search?q=" content)))
+  (let ((engine (pcase (substring content 0 2)
+                  ("bg" "https://cn.bing.com/search?q=")
+                  ("bi" "https://search.bilibili.com/all?keyword=")
+                  ("gh" "https://github.com/search?q=")
+                  ("gt" "https://search.gitee.com/?type=repository&q="))))
+    (setq content (substring content 2))
+    (eaf-open-browser (concat engine content))))
 
 (defun spring/kill-magit ()
   "Kill the magit buffers."
