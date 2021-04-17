@@ -29,7 +29,7 @@
                                             "cd %s; hugo server -t %s --buildDrafts"
                                             spring/hugo-directory theme)))
   (sleep-for 1)
-  (eaf-open-url "http://127.0.0.1:1313/blog"))
+  (eaf-open-browser "http://127.0.0.1:1313/blog"))
 
 (defun spring/hugo-kill-process ()
   "Kill hugo process."
@@ -46,7 +46,7 @@
                                                           "content/"))))))
                  (list (completing-read "Enter item: " items)
                        (read-string "Enter article name: "))))
-  (spring/hugo-run-command "new" (concat item "/" art-name)))
+  (spring/hugo-run-command "new" (concat item "/" art-name ".md")))
 
 (defun spring/hugo-build (theme base-url)
   "Build hugo."
@@ -69,15 +69,15 @@
   "Open the remote blog."
   (interactive (list (read-string "Enter url: "
                                   "https://springhan.gitee.io/blog")))
-  (eaf-open-url url))
+  (eaf-open-browser url))
 
 (defun spring/hugo-run-command (&rest args)
   "Run hugo command."
   (let ((command (concat "cd " spring/hugo-directory "; hugo")))
     (mapc #'(lambda (a) (setq command (concat command " " a)))
           args)
-    (shell-command command "* Hugo*")
-    (kill-buffer "* Hugo*")))
+    (shell-command command " *Hugo*")
+    (kill-buffer " *Hugo*")))
 
 (transient-define-prefix spring/hugo ()
   "Hugo functions."

@@ -40,7 +40,8 @@
 (gpack request)
 (gpack netease-cloud-music
   :repo "SpringHan/netease-cloud-music.el"
-  :key (("C-' n q" . netease-cloud-music-close))
+  :key (("C-' n q" . netease-cloud-music-close)
+        ("C-' n t" . netease-cloud-music))
   :var (netease-cloud-music-search-limit . 15))
 
 ;;; Shengci.el
