@@ -37,10 +37,10 @@
   :hook ((Info-mode-hook eww-mode-hook help-mode-hook helpful-mode-hook) . english-teacher-follow-mode))
 
 ;;; Netease Cloud Music
-(gpack async)
 (gpack request)
 (gpack netease-cloud-music
   :repo "SpringHan/netease-cloud-music.el"
+  :key (("C-' n q" . netease-cloud-music-close))
   :var (netease-cloud-music-search-limit . 15))
 
 ;;; Shengci.el
