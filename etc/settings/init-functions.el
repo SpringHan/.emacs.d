@@ -47,7 +47,8 @@
   "Open some directory by the DIR-NAME."
   (interactive (list
                 (completing-read "The directory's name: "
-                                 '("emacs" "git" "gtd" "C" "python" "go" "clojure"))))
+                                 '("emacs" "git" "gtd" "C" "python" "go"
+                                   "clojure" "blog"))))
   (find-file (pcase dir-name
                ("gtd" "~/.emacs.d/gtd")
                ("git" "~/Github")
@@ -55,7 +56,8 @@
                ("C" "~/Code/C/src/Study")
                ("python" "~/Code/python")
                ("go" "~/go")
-               ("clojure" "~/Code/clojure"))))
+               ("clojure" "~/Code/clojure")
+               ("blog" "~/Github/Blog"))))
 
 (defun set-alpha ()
   "Set the backgroud alpha by VAR."
@@ -131,7 +133,9 @@ If it's daytime now,return t.Otherwise return nil."
       (when (string= spring/time-block "daytime")
         (eaf-browser-set "night")
         (spring/disable-modeline))
-      (setq spring/time-block "night"))))
+      (setq spring/time-block "night"))
+    (spring/disable-modeline)
+    (posframe-delete-all)))
 
 (defun load-the-theme--enable-theme (current-theme)
   "Delete all the other themes."
@@ -559,5 +563,15 @@ If it's daytime now,return t.Otherwise return nil."
   "Insert COMMAND's result."
   (interactive (list (read--expression "Eval: ")))
   (insert (format "%S" (eval command))))
+
+(defun spring/find-function (fn)
+  "A new `find-function'."
+  (interactive (list (let ((demo (intern
+                                  (substring-no-properties
+                                   (thing-at-point 'symbol)))))
+                       (if (functionp demo)
+                           demo
+                         nil))))
+  (find-function fn))
 
 (provide 'init-functions)
