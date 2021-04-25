@@ -134,7 +134,8 @@ If it's daytime now,return t.Otherwise return nil."
         (eaf-browser-set "night")
         (spring/disable-modeline))
       (setq spring/time-block "night"))
-    (spring/disable-modeline)
+    (when time
+      (spring/disable-modeline))
     (posframe-delete-all)))
 
 (defun load-the-theme--enable-theme (current-theme)
