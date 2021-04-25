@@ -75,7 +75,8 @@
 (gpack counsel
   :key (("M-x" . counsel-M-x)
         ("C-x C-f" . counsel-find-file)
-        ("C-q a" . counsel-linux-app)))
+        ("C-q a" . counsel-linux-app)
+        ("C-' A" . counsel-ag)))
 
 ;;; Counsel-etags
 (gpack counsel-etags

@@ -12,12 +12,12 @@
 (require 'init-complete)
 (require 'init-edits)
 (require 'init-lsp)
-(require 'init-modes)
 (require 'init-tools)
 (require 'init-awesome-tray)
 (require 'init-awesome-tab)
 (require 'init-sniem)
 (require 'init-git)
+(require 'init-modes)
 (require 'init-org)
 
 (package-initialize)

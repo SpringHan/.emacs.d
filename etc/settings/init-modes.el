@@ -42,7 +42,11 @@
                       ("C-h" . nil)))
   :hook (term-mode-hook . (lambda () (setq-local truncate-lines t))))
 
-;; Eshell-mode
+;;; Eshell-mode
 (add-hook 'eshell-mode-hook (lambda () (linum-mode -1)))
+
+;;; Markdown
+(sniem-object-catch-mode-defalist markdown-mode
+  ("`" . "`"))
 
 (provide 'init-modes)
