@@ -567,12 +567,14 @@ If it's daytime now,return t.Otherwise return nil."
 
 (defun spring/find-function (fn)
   "A new `find-function'."
-  (interactive (list (let ((demo (intern
-                                  (substring-no-properties
-                                   (thing-at-point 'symbol)))))
+  (interactive (list (let ((demo (ignore-errors
+                                   (intern (substring-no-properties
+                                            (thing-at-point 'symbol))))))
                        (if (functionp demo)
                            demo
                          nil))))
-  (find-function fn))
+  (find-function (if fn
+                     fn
+                   (car (find-function-read)))))
 
 (provide 'init-functions)
