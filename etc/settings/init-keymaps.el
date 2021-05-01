@@ -60,6 +60,7 @@
 (global-set-key (kbd "M-f") 'toggle-input-method)
 (global-set-key (kbd "<f5>") 'spring/use-colemak-keyboard)
 (global-set-key (kbd "<f6>") 'spring/disable-modeline)
+(global-set-key (kbd "<f7>") 'spring/initialize-input-method)
 (global-set-key (kbd "C-:") 'spring/insert-result)
 
 ;; Key Macros
