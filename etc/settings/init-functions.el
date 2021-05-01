@@ -494,7 +494,7 @@ If it's daytime now,return t.Otherwise return nil."
 (defun spring/initialize-input-method ()
   "Initialize input method."
   (interactive)
-  (activate-input-method 'pyim)
+  (set-input-method 'pyim)
   (spring/change-input-method 0))
 
 (defun spring/use-colemak-keyboard ()
