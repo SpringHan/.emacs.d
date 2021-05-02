@@ -24,9 +24,51 @@
       (while (not (eq (current-buffer) buffer))
         (other-window 1)))))
 
+(defun spring/clojure-comment ()
+  "Comment clojure."
+  (interactive)
+  (let ((comment-check
+         (lambda ()
+           (string= "#_" (buffer-substring-no-properties (point) (+ 2 (point))))))
+        (comment-check2
+         (lambda ()
+           (string-suffix-p "#_" (buffer-substring-no-properties
+                                  (line-beginning-position) (point))))))
+    (save-mark-and-excursion
+      (cond ((null current-prefix-arg)
+             (if (funcall comment-check)
+                 (while (funcall comment-check)
+                   (delete-char 2))
+               (unless (or (= (char-after) 40)
+                           (= (char-after) 91)
+                           (= (char-after) 123))
+                 (backward-up-list))
+               (if (funcall comment-check2)
+                   (while (funcall comment-check2)
+                     (delete-char -2))
+                 (insert "#_"))))
+
+            ((numberp current-prefix-arg)
+             (let ((current-symbol (symbol-name (symbol-at-point))))
+               (unless (string-prefix-p
+                        current-symbol
+                        (buffer-substring-no-properties (point) (line-end-position)))
+                 (backward-sexp))
+               (dotimes (_ current-prefix-arg)
+                 (insert "#_"))))
+
+            ((equal '(4) current-prefix-arg)
+             (unless (and (= (char-after) 40)
+                          (= (point) (line-beginning-position)))
+               (beginning-of-defun))
+             (if (funcall comment-check)
+                 (delete-char 2)
+               (insert "#_")))))))
+
 (gpack clojure-mode
   :var (clojure-toplevel-inside-comment-form . t)
-  :key (clojure-mode-map . ("C-c M-l" . spring/cider-eval-last-sexp-in-repl)))
+  :key (clojure-mode-map . (("C-c M-l" . spring/cider-eval-last-sexp-in-repl)
+                            ("C-#" . spring/clojure-comment))))
 
 (gpack cider
   :hook (clojure-mode-hook . cider-mode))
