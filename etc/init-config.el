@@ -18,6 +18,7 @@
 (require 'spring-go)
 (require 'spring-js)
 (require 'spring-dart)
+(require 'spring-clojure)
 
 ;;; Other settings
 ;;; Tools
@@ -27,5 +28,6 @@
 
 ;;; Todo gets
 (add-hook 'after-init-hook #'spring/todo-undo-p)
+(add-hook 'after-init-hook #'spring/refresh-packages)
 
 (provide 'init-config)

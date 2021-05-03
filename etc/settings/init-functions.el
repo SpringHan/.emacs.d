@@ -592,4 +592,22 @@ If it's daytime now,return t.Otherwise return nil."
                      fn
                    (car (find-function-read)))))
 
+(defun spring/refresh-packages ()
+  "Refresh packages if the packages' info had't been updated yet."
+  (let ((file-name (locate-user-emacs-file "refresh-package"))
+        (date (substring (current-time-string) 9 11))
+        last-refresh)
+    (unless (file-exists-p file-name)
+      (make-empty-file file-name))
+    (setq last-refresh (with-temp-buffer
+                         (insert-file-contents file-name)
+                         (buffer-string)))
+    (when (or (string= "" last-refresh)
+              (not (string= last-refresh date)))
+      (with-temp-file file-name
+        (erase-buffer)
+        (insert date))
+      (package-refresh-contents)
+      (message "[Spring Emacs]: Package refreshed."))))
+
 (provide 'init-functions)
