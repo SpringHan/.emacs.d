@@ -3,7 +3,8 @@
 ;;; Packages
 ;;; magit
 (gpack magit
-  :key ("C-' m" . magit-status)
+  :key (("C-' m" . magit-status)
+        (magit-process-mode-map . ("x" . magit-process-kill)))
   :config
   (transient-define-prefix magit-commit ()
     "Create a new commit or replace an existing commit."
