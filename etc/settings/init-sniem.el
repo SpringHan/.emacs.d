@@ -84,10 +84,15 @@
  "n SPC" 'netease-cloud-music-pause-or-continue
  "nn" 'netease-cloud-music-play-next-song
  "np" 'netease-cloud-music-play-previous-song
+ "nN" 'netease-cloud-music-random-play
  "n/" 'netease-cloud-music-ask-play
 
  ;; Nox
  "Nk" 'nox-shutdown
+
+ ;; move-text
+ "M-e" 'move-text-down
+ "M-u" 'move-text-up
 
  ;; Other functions
  "dc" 'spring/copy-directory-path
