@@ -90,10 +90,6 @@
  ;; Nox
  "Nk" 'nox-shutdown
 
- ;; move-text
- "M-e" 'move-text-down
- "M-u" 'move-text-up
-
  ;; Other functions
  "dc" 'spring/copy-directory-path
  "Mf" 'mark-defun
@@ -112,7 +108,11 @@
  "RET" 'sniem-object-catch
  "e" 'er/expand-region)
 (sniem-set-keyboard-layout 'colemak)
-(sniem-normal-set-key "/" 'swiper)
+(sniem-normal-set-key
+ "/" 'swiper
+  ;; move-text
+ "M-e" 'move-text-down
+ "M-u" 'move-text-up)
 (sniem-set-quit-insert-key "<C-tab>")
 
 (provide 'init-sniem)
