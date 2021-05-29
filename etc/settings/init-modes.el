@@ -12,7 +12,9 @@
 (gpack web-mode
   :config (progn
             (setq auto-mode-alist
-                  (append '(("\\.html\\'" . web-mode)) auto-mode-alist))
+                  (append '(("\\.html\\'" . web-mode)
+                            ("\\.vue\\'" . web-mode))
+                          auto-mode-alist))
             (setq-default web-mode-markup-indent-offset 2 ; Indent of HTML
                           web-mode-css-indent-offset 2
                           web-mode-code-indent-offset 2) ; Indent of JavaScript in HTML
