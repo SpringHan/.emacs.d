@@ -42,7 +42,8 @@
   :repo "SpringHan/netease-cloud-music.el"
   :key (("C-' n q" . netease-cloud-music-close)
         ("C-' n t" . netease-cloud-music))
-  :var (netease-cloud-music-search-limit . 15))
+  :var (netease-cloud-music-search-limit . 15)
+  :config (require 'netease-cloud-music-ui))
 
 ;;; Shengci.el
 (gpack shengci
@@ -90,7 +91,7 @@
 (gpack all-the-icons
   :key ("C-' C-i" . all-the-icons-insert))
 
-;;; ivy
+;;; Posframe
 (gpack posframe
   :var (posframe-mouse-banish . nil))
 
@@ -98,7 +99,8 @@
   :hook (after-init-hook . ivy-mode)
   :key (("C-s" . swiper)
         ("C-r" . swiper-backward)
-        ("C-- s" . swiper-all)))
+        ("C-- s" . swiper-all)
+       (ivy-minibuffer-map . ("C-<return>" . ivy-immediate-done))))
 
 (gpack ivy-posframe
   :hook (ivy-mode-hook . ivy-posframe-mode)
