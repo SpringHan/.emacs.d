@@ -2,7 +2,9 @@
 
 (defun spring-run-code-get-file-name (buffer-name suffix)
   "The function to get the file name without file suffix and return it."
-  (let ((result (car (split-string buffer-name suffix t))))
+  (let ((result (progn
+                  (string-match (concat "^\\(.*\\)\\." suffix) buffer-name)
+                  (match-string 1 buffer-name))))
     result))
 
 (defun spring-run-code (&optional not-run)
@@ -11,7 +13,7 @@
   (let (file-name command unknow-mode)
     (pcase major-mode
       ('c-mode
-       (setq file-name (spring-run-code-get-file-name (buffer-name) ".c"))
+       (setq file-name (spring-run-code-get-file-name (buffer-name) "c"))
        (setq command (format "gcc --std=c11 %s -o /tmp/%s; /tmp/%s"
                              (buffer-name) file-name file-name)))
       ('python-mode
@@ -21,8 +23,10 @@
       (_ (message "There're no running way for current filetype.")
          (setq unknow-mode t)))
     (unless unknow-mode
-      (split-window nil nil 'above)
-      (eshell)
+      (if (get-buffer-window "*eshell*")
+          (select-window (get-buffer-window "*eshell*"))
+        (split-window nil nil 'above)
+        (eshell))
       (insert command)
       (unless not-run
         (eshell-send-input)))))

@@ -3,6 +3,7 @@
 # name: formore
 # key: form
 # --
-for (${1:init}; ${2:condition}; ${3:update}) {
-    $0
+for (${1:init}; ${2:condition}; ${3:update})
+{
+  $0
 }

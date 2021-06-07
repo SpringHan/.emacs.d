@@ -3,6 +3,7 @@
 # name: whilemore
 # key: whilem
 # --
-while (${1:condition}) {
-      $0
+while (${1:condition})
+{
+  $0
 }
