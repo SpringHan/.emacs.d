@@ -42,7 +42,8 @@
   :repo "SpringHan/netease-cloud-music.el"
   :key (("C-' n q" . netease-cloud-music-close)
         ("C-' n t" . netease-cloud-music))
-  :var (netease-cloud-music-search-limit . 15)
+  :var ((netease-cloud-music-search-limit . 15)
+        (netease-cloud-music-show-lyric . 'all))
   :config (require 'netease-cloud-music-ui))
 
 ;;; Shengci.el
