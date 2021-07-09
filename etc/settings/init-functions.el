@@ -338,7 +338,8 @@ If it's daytime now,return t.Otherwise return nil."
   "Kill the magit buffers."
   (interactive)
   (magit-mode-bury-buffer)
-  (unless (null (magit-mode-get-buffers))
+  (when (and (magit-mode-get-buffers)
+             (eq major-mode 'magit-status-mode))
     (dolist (buffer (magit-mode-get-buffers))
       (kill-buffer buffer))))
 
