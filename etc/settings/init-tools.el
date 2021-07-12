@@ -224,4 +224,7 @@
   :repo "manateelazycat/multi-term"
   :var (multi-term-program . "/bin/zsh"))
 
+;;; Projectile
+(gpack projectile)
+
 (provide 'init-tools)

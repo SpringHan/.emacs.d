@@ -4,8 +4,7 @@
 (setq-default python-indent-offset 2)
 
 ;;; Completing
-(gpack python-mode
-  :hook (python-mode-hook . nox-ensure))
+(gpack python-mode)
 
 (gpack live-py-mode)
 

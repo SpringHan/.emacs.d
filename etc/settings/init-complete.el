@@ -30,4 +30,9 @@
             (add-to-list 'company-backends 'company-web-jade)
             (add-to-list 'company-backends 'company-web-slim)))
 
+(gpack company-tabnine
+  :hook ((python-mode-hook go-mode-hook c-mode-hook c++-mode-hook) . (lambda ()
+                                                                       (setq-local company-backends
+                                                                                   (append '(company-tabnine) company-backends)))))
+
 (provide 'init-complete)

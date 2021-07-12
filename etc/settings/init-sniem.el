@@ -87,8 +87,8 @@
  "nN" 'netease-cloud-music-random-play
  "n/" 'netease-cloud-music-ask-play
 
- ;; Nox
- "Nk" 'nox-shutdown
+ ;; TabNine
+ "Nk" 'company-tabnine-kill-process
 
  ;; Other functions
  "dc" 'spring/copy-directory-path
