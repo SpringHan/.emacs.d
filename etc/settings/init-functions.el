@@ -611,4 +611,9 @@ If it's daytime now,return t.Otherwise return nil."
       (package-refresh-contents)
       (message "[Spring Emacs]: Package refreshed."))))
 
+(defun spring/vue-build ()
+  "Build vue project at current directory."
+  (interactive)
+  (async-shell-command "npm run build"))
+
 (provide 'init-functions)

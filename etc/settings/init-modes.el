@@ -47,6 +47,9 @@
 ;;; Eshell-mode
 (add-hook 'eshell-mode-hook (lambda () (linum-mode -1)))
 
+;;; Buffer Menu mode
+(define-key Buffer-menu-mode-map "q" #'kill-current-buffer)
+
 ;;; Markdown
 (sniem-object-catch-mode-defalist markdown-mode
   ("`" . "`"))

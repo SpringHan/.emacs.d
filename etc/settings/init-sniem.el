@@ -106,7 +106,8 @@
  ",h" 'spring/hugo
  ", SPC" 'sniem-digit-argument-or-fn
  "RET" 'sniem-object-catch
- "e" 'er/expand-region)
+ "e" 'er/expand-region
+ "B" 'spring/vue-build)
 (sniem-set-keyboard-layout 'colemak)
 (sniem-normal-set-key
  "/" 'swiper
