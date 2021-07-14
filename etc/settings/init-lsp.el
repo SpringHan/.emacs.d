@@ -29,10 +29,7 @@
      citre-default-create-tags-file-location 'project-cache
      ;; See the "Create tags file" section above to know these options
      citre-use-project-root-when-creating-tags t
-     citre-prompt-language-for-ctags-command t)
-    (add-hook 'emacs-lisp-mode-hook #'(lambda ()
-                                        (setq-local company-backends
-                                                    (append '(company-elisp) company-backends))))))
+     citre-prompt-language-for-ctags-command t)))
 
 (gpack lsp-mode
   :hook (web-mode-hook . (lambda ()

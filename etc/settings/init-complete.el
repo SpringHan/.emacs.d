@@ -17,8 +17,12 @@
               (define-key company-active-map (kbd "M-p") nil)
               (define-key company-active-map (kbd "M-n") nil)
               (define-key company-active-map (kbd "C-n") #'company-select-next)
-              (define-key company-active-map (kbd "C-p") #'company-select-previous))
-            (push 'company-capf company-backends))
+              (define-key company-active-map (kbd "C-p") #'company-select-previous)
+              (setq company-backends
+                    '((company-dabbrev company-keywords company-files company-capf)))
+              (add-hook 'emacs-lisp-mode-hook #'(lambda ()
+                                                  (setq-local company-backends
+                                                              (append '(company-elisp) company-backends))))))
   :key ("C-' i" . company-yasnippet))
 
 (gpack company-box
