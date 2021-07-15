@@ -76,6 +76,7 @@
 
  ;; Netease-Cloud-Music
  "nt" 'netease-cloud-music
+ "nT" 'eaf-open-netease-cloud-music
  "nr" 'netease-cloud-music-change-repeat-mode
  "na" 'netease-cloud-music-add-header-lyrics
  "nd" 'netease-cloud-music-delete-header-lyrics
