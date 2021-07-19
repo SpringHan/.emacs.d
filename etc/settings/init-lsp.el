@@ -33,9 +33,10 @@
 
 (gpack lsp-mode
   :hook (web-mode-hook . (lambda ()
-                           (lsp-deferred)
-                           (setq-local company-backends
-                                       (append '(company-capf) company-backends))))
+                           (when (string-match-p "\\(.*\\).vue$" (buffer-name))
+                             (lsp-deferred)
+                             (setq-local company-backends
+                                         (append '(company-capf) company-backends)))))
   :key ("C-' F" . lsp-format-buffer)
   :var ((lsp-idle-delay . 0.2)
         (lsp-enable-indentation . t)

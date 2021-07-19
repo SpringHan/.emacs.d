@@ -40,7 +40,7 @@
 (gpack request)
 (gpack netease-cloud-music
   :repo "SpringHan/netease-cloud-music.el"
-  :key (("C-' n q" . netease-cloud-music-close)
+  :key (("C-' n q" . netease-cloud-music-quit)
         ("C-' n t" . eaf-open-netease-cloud-music))
   :var ((netease-cloud-music-search-limit . 15)
         (netease-cloud-music-show-lyric . 'all))
