@@ -11,17 +11,17 @@
         ("C-q C-w h" . eaf-open-browser-with-history)
         ("C-q C-m b" . eaf-open-bookmark))
   :config (progn
-            (eaf-setq eaf-browser-remember-history "true")
+            (eaf-setq eaf-browser-remember-history t)
             (eaf-setq eaf-browser-default-zoom "1.1")
             (defun eaf-browser-set (&optional day)
               (interactive)
               (if (null day)
                   (if (day-or-night)
-                      (eaf-setq eaf-browser-dark-mode "false")
-                    (eaf-setq eaf-browser-dark-mode "true"))
+                      (eaf-setq eaf-browser-dark-mode nil)
+                    (eaf-setq eaf-browser-dark-mode t))
                 (pcase day
-                  ("day" (eaf-setq eaf-browser-dark-mode "false"))
-                  ("night" (eaf-setq eaf-browser-dark-mode "true")))))
+                  ("day" (eaf-setq eaf-browser-dark-mode nil))
+                  ("night" (eaf-setq eaf-browser-dark-mode t)))))
             (eaf-browser-set))
   :hook (eaf-mode-hook . (lambda ()
                            (setq-local awesome-tray-active-modules
@@ -64,6 +64,10 @@
 ;;; Move-text
 (gpack move-text
   :repo "manateelazycat/move-text")
+
+;;; Dired-File-Preview
+(gpack dired-file-preview
+  :repo "SpringHan/dired-file-preview")
 
 
 ;;; Dashboard
