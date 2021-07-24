@@ -62,10 +62,11 @@
 (defun set-alpha ()
   "Set the backgroud alpha by VAR."
   (interactive)
-  (let ((var (when (= (car (frame-parameter nil 'alpha)) 100)
+  (let ((var (when (or (null (frame-parameter nil 'alpha))
+                       (eq (car (frame-parameter nil 'alpha)) 100))
                t)))
     (if var
-        (set-frame-parameter nil 'alpha '(75 . 100))
+        (set-frame-parameter nil 'alpha '(80 . 100))
       (set-frame-parameter nil 'alpha '(100 . 100)))))
 
 (defun window-move (way)
