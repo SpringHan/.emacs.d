@@ -11,6 +11,9 @@
 
 ;;; Web-mode
 (gpack web-mode
+  :hook (web-mode-hook . (lambda ()
+                           (when (string-match-p "\\(.*\\).vue$" (buffer-name))
+                             (lsp-deferred))))
   :config (progn
             (setq auto-mode-alist
                   (append '(("\\.html\\'" . web-mode)

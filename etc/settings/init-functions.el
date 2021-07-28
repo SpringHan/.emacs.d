@@ -161,13 +161,25 @@ If it's daytime now,return t.Otherwise return nil."
   (dolist (buffer spring/unwanted-buffer)
     (when (get-buffer buffer)
       (kill-buffer buffer)))
-  (let (buffer-name)
+  (let* ((lsp-client-list nil)
+         (add-clients (lambda (c)
+                        (when (buffer-live-p (get-buffer c))
+                          (setq lsp-client-list
+                                (append lsp-client-list
+                                        (list c))))))
+         buffer-name)
     (dolist (buffer (buffer-list))
       (setq buffer-name (buffer-name buffer))
-      (when (or (string-match-p "^*\\(.*\\):stderr*" buffer-name)
-                (string-match-p "^*Flycheck\\(.*\\)*" buffer-name)
-                (string-match-p "^*\\(.*\\)doc\\(.*\\)" buffer-name)
-                (string-match-p "^*helpful\\(.*\\)*" buffer-name))
+      (when (or (prog1 (string-match "^\\*\\(.*\\)\\:\\:stderr\\*" buffer-name)
+                  (funcall add-clients
+                           (format "*%s*" (match-string 1 buffer-name))))
+                (string-match-p "^\\*Flycheck\\(.*\\)\\*" buffer-name)
+                (string-match-p "^\\*\\(.*\\)doc\\(.*\\)" buffer-name)
+                (string-match-p "^\\*helpful\\(.*\\)\\*" buffer-name))
+        (kill-buffer buffer)))
+    (when (and lsp-client-list
+               (listp lsp-client-list))
+      (dolist (buffer lsp-client-list)
         (kill-buffer buffer)))))
 
 (defun tab-bar-new-with-buffer (buffer-name)
