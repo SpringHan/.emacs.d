@@ -469,26 +469,6 @@ If it's daytime now,return t.Otherwise return nil."
       (unless (= times 1)
         (insert " ")))))
 
-(defun spring/format-commit ()
-  "Git commit with formatted text."
-  (interactive)
-  (let* ((type (completing-read "Enter the commit type: "
-                                '("docs" "file" "modifiy" "feat" "style" "fix")))
-         (files (read-string (format
-                              "Enter the files with %s(use space to split): "
-                              type)))
-         content)
-    ;; Commit
-    (setq content (read-string (format
-                                "Enter the short content with %s(%s): "
-                                type files)))
-    (setq content (concat "\"" type "(" files "): " content "\""))
-    (when (= 121 (read-char (format "Content: %s(y/n)" content)))
-      (shell-command (concat "git commit -m " content) " *Format-Commit*")
-      (kill-buffer " *Format-Commit*")))
-  (when (eq major-mode 'magit-status-mode)
-    (magit-refresh)))
-
 (defun spring/set-value-at-point (symbol value)
   "Set value for the symbol at point."
   (interactive (list (let ((s (symbol-at-point)))
