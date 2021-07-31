@@ -350,11 +350,13 @@ If it's daytime now,return t.Otherwise return nil."
 (defun spring/kill-magit ()
   "Kill the magit buffers."
   (interactive)
-  (magit-mode-bury-buffer)
-  (when (and (magit-mode-get-buffers)
-             (eq major-mode 'magit-status-mode))
-    (dolist (buffer (magit-mode-get-buffers))
-      (kill-buffer buffer))))
+  (when (magit-mode-get-buffers)
+    (if (eq major-mode 'magit-status-mode)
+        (progn
+          (magit-mode-bury-buffer 100)
+          (delete-window))
+      (quit-window)
+      (other-window 1))))
 
 (defun spring/kill-all-else-buffers (&optional type)
   "Kill the buffers without *scratch*, *Message* and *eaf*."
