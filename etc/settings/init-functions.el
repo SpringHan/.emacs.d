@@ -134,12 +134,12 @@ If it's daytime now,return t.Otherwise return nil."
         (progn
           (load-the-theme--enable-theme 'lab-light)
           (when (string= spring/time-block "night")
-            (eaf-browser-set "day")
+            ;; (eaf-browser-set "day")
             (spring/disable-modeline))
           (setq spring/time-block "daytime"))
       (load-the-theme--enable-theme 'nord)
       (when (string= spring/time-block "daytime")
-        (eaf-browser-set "night")
+        ;; (eaf-browser-set "night")
         (spring/disable-modeline))
       (setq spring/time-block "night"))
     (when time
