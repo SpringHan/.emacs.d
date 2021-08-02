@@ -611,4 +611,12 @@ If it's daytime now,return t.Otherwise return nil."
   (interactive)
   (async-shell-command "npm run build"))
 
+(defun spring/byte-compile-directory (directory)
+  "Byte-Compiling the DIRECTORY."
+  (interactive (list default-directory))
+  (let ((dir-files (directory-files directory)))
+    (dolist (file dir-files)
+      (when (string-match-p "\\(.*\\)\\.el$" file)
+        (byte-compile-file file)))))
+
 (provide 'init-functions)
