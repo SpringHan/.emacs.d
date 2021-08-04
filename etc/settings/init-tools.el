@@ -2,9 +2,6 @@
 
 ;;; Third-party
 ;;; Emacs Application Framework
-(gpack ctable)
-(gpack deferred)
-(gpack epc)
 (gpack eaf
   :load-path "~/.emacs.d/third-party/emacs-application-framework"
   :key (("C-q C-w l" . eaf-open-browser)

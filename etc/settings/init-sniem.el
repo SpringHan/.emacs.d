@@ -102,7 +102,7 @@
  "fc" 'spring/test-color
  "fC" 'spring/input-char-number
  "fS" 'spring/set-value-at-point
- "fv" 'spring/print-vars-value
+ "fp" 'spring/char-to-string-output
  "fE" 'eval-expression
  ",h" 'spring/hugo
  ", SPC" 'sniem-digit-argument-or-fn

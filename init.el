@@ -24,7 +24,7 @@ Otherwise it's nil.")
 
 (defvar spring/unwanted-buffer
   '("*dashboard*" "notes.org" "tasks.org" "user-init.el" "*Help*" "*Backtrace*" "*Compile-Log*"
-    "TAGS" "*lsp-log*")
+    "TAGS" "*lsp-log*" "*vc*")
   "The buffers that I don't need.")
 
 (load-file "~/.emacs.d/etc/init-config.el")

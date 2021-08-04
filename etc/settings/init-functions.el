@@ -480,13 +480,6 @@ If it's daytime now,return t.Otherwise return nil."
                      (read--expression "Enter the value: ")))
   (set symbol value))
 
-(defun spring/print-vars-value (var)
-  "Print the var's value."
-  (interactive (let ((variable (thing-at-point 'symbol)))
-                 (list (read-string "Enter the variable's name: "
-                               variable))))
-  (print (symbol-value (intern var))))
-
 (defun spring/change-input-method (method)
   "Change input METHOD."
   (interactive)
@@ -618,5 +611,10 @@ If it's daytime now,return t.Otherwise return nil."
     (dolist (file dir-files)
       (when (string-match-p "\\(.*\\)\\.el$" file)
         (byte-compile-file file)))))
+
+(defun spring/char-to-string-output (char)
+  "Convert the CHAR to string and output it."
+  (interactive (list (thing-at-point 'number)))
+  (print (char-to-string char)))
 
 (provide 'init-functions)
