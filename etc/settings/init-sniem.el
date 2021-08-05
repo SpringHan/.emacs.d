@@ -91,6 +91,9 @@
  ;; TabNine
  "Nk" 'company-tabnine-kill-process
 
+ ;; Awesome-Tab
+ "j" 'awesome-tab-ace-jump
+
  ;; Other functions
  "dc" 'spring/copy-directory-path
  "Mf" 'mark-defun

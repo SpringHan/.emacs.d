@@ -25,6 +25,7 @@
 (require 'task-reminder)
 (require 'run-code)
 (require 'init-macros)
+(setq sniem-macro-file (locate-library "init-macros"))
 
 ;;; Todo gets
 (add-hook 'after-init-hook #'spring/todo-undo-p)

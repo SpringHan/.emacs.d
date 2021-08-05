@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: method
+# key: method
+# --
+func (${1:struct}) ${2:name} (${3:args}) ${4:return}{
+     $0
+}
