@@ -6,21 +6,12 @@
   :load-path "~/.emacs.d/third-party/emacs-application-framework"
   :key (("C-q C-w l" . eaf-open-browser)
         ("C-q C-w h" . eaf-open-browser-with-history)
-        ("C-q C-m b" . eaf-open-bookmark))
-  :config (progn
-            (setq eaf-browser-remember-history t)
-            (setq eaf-browser-default-zoom 1.1)
-            ;; (defun eaf-browser-set (&optional day)
-            ;;   (interactive)
-            ;;   (if (null day)
-            ;;       (if (day-or-night)
-            ;;           (setq eaf-browser-dark-mode nil)
-            ;;         (setq eaf-browser-dark-mode "follow"))
-            ;;     (pcase day
-            ;;       ("day" (setq eaf-browser-dark-mode nil))
-            ;;       ("night" (setq eaf-browser-dark-mode t)))))
-            ;; (eaf-browser-set)
-            )
+        ("C-q C-m b" . eaf-open-bookmark)
+        ("C-q C-m t" . eaf-open-terminal))
+  :var ((eaf-browser-remember-history . t)
+        (eaf-browser-default-zoom . 1.1)
+        (eaf-terminal-font-family . "Source Code Pro")
+        (eaf-terminal-font-size . 25))
   :hook (eaf-mode-hook . (lambda ()
                            (setq-local awesome-tray-active-modules
                                        '("netease-current-song" "input-method" "mode-name" "date")))))
