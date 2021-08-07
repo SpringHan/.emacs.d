@@ -632,4 +632,14 @@ Otherwise it's a variable."
   (interactive (list (thing-at-point 'number)))
   (print (char-to-string char)))
 
+(defun spring/eval-expression ()
+  "Like `eval-expression'.
+But it will paste the content which was marked before eval this function."
+  (interactive)
+  (let ((marked-content (when (region-active-p)
+                          (buffer-substring-no-properties
+                           (region-beginning) (region-end)))))
+    (eval-expression
+     (read--expression "Eval: " marked-content))))
+
 (provide 'init-functions)

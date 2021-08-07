@@ -13,7 +13,8 @@
       sniem-yank-message nil
       sniem-macro-message nil
       sniem-insert-mode-cursor '(bar . 3)
-      sniem-expand-region-message nil)
+      sniem-expand-region-message nil
+      sniem-object-catch-auto-backward t)
 (add-to-list 'sniem-close-mode-alist 'eaf-mode)
 (add-to-list 'sniem-normal-mode-alist 'helpful-mode)
 
@@ -106,7 +107,7 @@
  "fC" 'spring/input-char-number
  "fS" 'spring/set-value-at-point
  "fp" 'spring/char-to-string-output
- "fE" 'eval-expression
+ "fE" 'spring/eval-expression
  ",h" 'spring/hugo
  ", SPC" 'sniem-digit-argument-or-fn
  "RET" 'sniem-object-catch
