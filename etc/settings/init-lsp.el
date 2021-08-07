@@ -17,7 +17,8 @@
         ("C-x c u" . citre-update-this-tags-file))
   :config
   (progn
-    (require 'citre-config)
+    (citre-auto-enable-citre-mode)
+    (require 'citre-config
     (setq
      ;; Set these if readtags/ctags is not in your path.
      citre-readtags-program "/usr/bin/readtags"
