@@ -110,6 +110,7 @@
  "fE" 'spring/eval-expression
  ",h" 'spring/hugo
  ", SPC" 'sniem-digit-argument-or-fn
+ ",t" 'spring/compile-test
  "RET" 'sniem-object-catch
  "e" 'er/expand-region
  "B" 'spring/vue-build)

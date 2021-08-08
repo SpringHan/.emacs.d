@@ -642,4 +642,36 @@ But it will paste the content which was marked before eval this function."
     (eval-expression
      (read--expression "Eval: " marked-content))))
 
+(defun spring/compile-test (packages)
+  "Test compile the current package.
+PACKAGES is the dependences."
+  (interactive "sEnter the packages: ")
+  (let ((expression `((add-to-list 'load-path
+                                   ,(file-name-directory (buffer-file-name)))
+                      (byte-compile-file
+                       ,(buffer-file-name))
+                      (if (get-buffer "*Compile-Log*")
+                          (with-current-buffer "*Compile-Log*"
+                            (buffer-string))
+                        (print "No warning or error!"))))
+        (test-file "/tmp/test.el")
+        tmp)
+    (when (not (string= packages ""))
+      (setq packages (split-string packages " " t))
+      (dolist (package packages)
+        (setq tmp (file-name-directory (locate-library package)))
+        (unless (string-match-p "^/usr/share/emacs/\\(.*\\)/lisp/emacs-lisp/"
+                                tmp)
+          (setq expression
+                (append (list
+                         `(add-to-list 'load-path ,tmp))
+                        expression)))))
+
+    (setq expression (append '(progn) expression))
+    (unless (file-exists-p test-file)
+      (make-empty-file test-file))
+    (with-temp-file test-file
+      (insert (format "%S" expression)))
+    (async-shell-command "emacs -q --no-site-file --batch -l /tmp/test.el")))
+
 (provide 'init-functions)
