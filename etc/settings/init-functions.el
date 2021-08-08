@@ -655,6 +655,8 @@ PACKAGES is the dependences."
                             (buffer-string))
                         (print "No warning or error!"))))
         (test-file "/tmp/test.el")
+        (current-window (selected-window))
+        (output-buffer "*Compile-Log*")
         tmp)
     (when (not (string= packages ""))
       (setq packages (split-string packages " " t))
@@ -672,6 +674,16 @@ PACKAGES is the dependences."
       (make-empty-file test-file))
     (with-temp-file test-file
       (insert (format "%S" expression)))
-    (async-shell-command "emacs -q --no-site-file --batch -l /tmp/test.el")))
+    (async-shell-command "emacs -q --no-site-file --batch -l /tmp/test.el" output-buffer)
+
+    (delete-other-windows current-window)
+    (split-window nil nil t)
+    (other-window 1)
+    (switch-to-buffer output-buffer)
+    (with-current-buffer output-buffer
+      (when (eq (sniem-current-mode) 'insert)
+        (sniem-change-mode 'normal))
+      (goto-char (point-min)))
+    (select-window current-window)))
 
 (provide 'init-functions)
