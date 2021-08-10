@@ -686,4 +686,13 @@ PACKAGES is the dependences."
       (goto-char (point-min)))
     (select-window current-window)))
 
+(defun spring/move-to-window (direction)
+  "Move to the window by DIRECTION."
+  (interactive "cEnter the direction: ")
+  (pcase direction
+    (117 (windmove-up))
+    (101 (windmove-down))
+    (110 (windmove-left))
+    (105 (windmove-right))))
+
 (provide 'init-functions)

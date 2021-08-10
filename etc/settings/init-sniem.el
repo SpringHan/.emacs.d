@@ -35,6 +35,7 @@
  "wr" 'windresize
  "wk" 'kill-buffer-and-window
  "wm" 'window-move
+ "w SPC" 'spring/move-to-window
  ;; Configs
  "zi" 'open-config-file
  "zmw" 'window-move
@@ -117,6 +118,7 @@
 (sniem-set-keyboard-layout 'colemak)
 (sniem-normal-set-key
  "/" 'swiper
+ "?" 'swiper
   ;; move-text
  "M-e" 'move-text-down
  "M-u" 'move-text-up)
