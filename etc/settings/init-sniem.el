@@ -119,9 +119,10 @@
 (sniem-normal-set-key
  "/" 'swiper
  "?" 'swiper
-  ;; move-text
+ ;; move-text
  "M-e" 'move-text-down
  "M-u" 'move-text-up)
 (sniem-set-quit-insert-key "<C-tab>")
+(global-set-key (kbd "C--") sniem-leader-keymap)
 
 (provide 'init-sniem)

@@ -97,8 +97,7 @@
   :hook (after-init-hook . ivy-mode)
   :key (("C-s" . swiper)
         ("C-r" . swiper-backward)
-        ("C-- s" . swiper-all)
-       (ivy-minibuffer-map . ("C-<return>" . ivy-immediate-done))))
+        (ivy-minibuffer-map . ("C-<return>" . ivy-immediate-done))))
 
 (gpack ivy-posframe
   :hook (ivy-mode-hook . ivy-posframe-mode)

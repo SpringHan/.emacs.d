@@ -62,9 +62,6 @@
 (global-set-key (kbd "<f6>") 'spring/disable-modeline)
 (global-set-key (kbd "<f7>") 'spring/initialize-input-method)
 (global-set-key (kbd "C-:") 'spring/insert-result)
-
-;; Key Macros
-(global-set-key (kbd "C-q C-k i") 'insert-placeholder) ; Insert Placeholder
-(global-set-key (kbd "C-q C-k r") 'replace-placeholder) ; Replace Placeholder
+(global-set-key (kbd "C-x o") 'spring/move-to-window)
 
 (provide 'init-keymaps)

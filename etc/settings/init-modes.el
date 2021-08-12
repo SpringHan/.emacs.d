@@ -54,6 +54,14 @@
 ;;; Buffer Menu mode
 (define-key Buffer-menu-mode-map "q" #'kill-current-buffer)
 
+;;; eww
+(gpack eww
+  :key (eww-mode-map . (("n" . next-line)
+                        ("p" . previous-line)
+                        ("v" . sniem-scroll-up-command)
+                        ("V" . sniem-scroll-down-command)
+                        ("/" . swiper))))
+
 ;;; Markdown
 (sniem-object-catch-mode-defalist markdown-mode
   ("`" . "`"))
