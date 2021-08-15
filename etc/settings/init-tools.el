@@ -14,7 +14,21 @@
         (eaf-terminal-font-size . 25))
   :hook (eaf-mode-hook . (lambda ()
                            (setq-local awesome-tray-active-modules
-                                       '("netease-current-song" "input-method" "mode-name" "date")))))
+                                       '("netease-current-song" "input-method" "mode-name" "date"))))
+  :config
+  (progn
+    (require 'eaf-terminal)
+    (require 'eaf-image-viewer)
+    (require 'eaf-js-video-player)
+    (require 'eaf-video-player)
+    (require 'eaf-markdown-previewer)
+    (require 'eaf-pdf-viewer)
+    (require 'eaf-browser)
+    (require 'eaf-file-sender)
+    (require 'eaf-org-previewer)
+    (require 'eaf-airshare)
+    (require 'eaf-file-browser)
+    (require 'eaf-netease-cloud-music)))
 
 ;;; English Teacher
 (gpack english-teacher
