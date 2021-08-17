@@ -11,7 +11,8 @@
   :var ((eaf-browser-remember-history . t)
         (eaf-browser-default-zoom . 1.1)
         (eaf-terminal-font-family . "Source Code Pro")
-        (eaf-terminal-font-size . 25))
+        (eaf-terminal-font-size . 25)
+        (eaf-kill-process-after-last-buffer-closed . t))
   :hook (eaf-mode-hook . (lambda ()
                            (setq-local awesome-tray-active-modules
                                        '("netease-current-song" "input-method" "mode-name" "date"))))
@@ -32,6 +33,7 @@
 
 ;;; English Teacher
 (gpack english-teacher
+  :disable
   :repo "loyalpartner/english-teacher.el"
   :key (("C-' C-l" . english-teacher-smart-translation)
         ("C-' T" . english-teacher-follow-mode))
