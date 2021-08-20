@@ -36,8 +36,8 @@
                                                company-backends)))))
 
 (gpack company-tabnine
-  :hook ((python-mode-hook go-mode-hook c-mode-hook c++-mode-hook) . (lambda ()
-                                                                       (setq-local company-backends
-                                                                                   (append '(company-tabnine) company-backends)))))
+  :hook ((python-mode-hook go-mode-hook) . (lambda ()
+                                             (setq-local company-backends
+                                                         (append '(company-tabnine) company-backends)))))
 
 (provide 'init-complete)

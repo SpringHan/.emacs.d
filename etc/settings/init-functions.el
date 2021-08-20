@@ -171,8 +171,9 @@ If it's daytime now,return t.Otherwise return nil."
     (dolist (buffer (buffer-list))
       (setq buffer-name (buffer-name buffer))
       (when (or (prog1 (string-match "^\\*\\(.*\\)\\:\\:stderr\\*" buffer-name)
-                  (funcall add-clients
-                           (format "*%s*" (match-string 1 buffer-name))))
+                  (ignore-errors
+                    (funcall add-clients
+                             (format "*%s*" (match-string 1 buffer-name)))))
                 (string-match-p "^\\*Flycheck\\(.*\\)\\*" buffer-name)
                 (string-match-p "^\\*\\(.*\\)doc\\(.*\\)" buffer-name)
                 (string-match-p "^\\*helpful\\(.*\\)\\*" buffer-name))
