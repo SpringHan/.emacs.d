@@ -18,7 +18,7 @@
                              (buffer-name) file-name file-name)))
       ('c++-mode
        (setq file-name (spring-run-code-get-file-name (buffer-name) "cpp"))
-       (setq command (format "g++ %s -o /tmp/%s; /tmp/%s"
+       (setq command (format "g++ -std=c++20 %s -o /tmp/%s; /tmp/%s"
                              (buffer-name) file-name file-name)))
       ('python-mode
        (setq command (concat "python3 " (buffer-name))))
