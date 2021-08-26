@@ -64,12 +64,6 @@
   :disable
   :repo "manateelazycat/snails")
 
-;;; Safe
-(gpack safe
-  :disable
-  :repo "SpringHan/safe"
-  :key ("M-z" . safe))
-
 ;;; Move-text
 (gpack move-text
   :repo "manateelazycat/move-text")

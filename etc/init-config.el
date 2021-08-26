@@ -23,6 +23,7 @@
 ;;; Other settings
 ;;; Tools
 (require 'task-reminder)
+(require 'emulting)
 (require 'run-code)
 (require 'init-macros)
 (setq sniem-macro-file (locate-library "init-macros"))

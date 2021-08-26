@@ -16,6 +16,7 @@
       sniem-expand-region-message nil
       sniem-object-catch-auto-backward t)
 (add-to-list 'sniem-close-mode-alist 'eaf-mode)
+(add-to-list 'sniem-close-mode-alist 'emulting-mode)
 (add-to-list 'sniem-normal-mode-alist 'helpful-mode)
 
 ;;; Keymap settings

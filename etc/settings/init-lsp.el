@@ -46,6 +46,9 @@
         (lsp-prefer-flymake . :none)
         (lsp-completion-provider . :capf)))
 
+(gpack lsp-ui
+  :var (lsp-ui-doc-show-with-mouse . nil))
+
 ;;; Dap-mode
 (gpack dap-mode
   :key ("C-' d" . dap-debug))
