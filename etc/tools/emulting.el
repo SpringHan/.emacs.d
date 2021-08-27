@@ -210,7 +210,7 @@ When disable-cursor is non-nil, set `cursor-type' to nil."
   (with-current-buffer emulting-result-buffer
     (erase-buffer)
     (let (extension)
-      (dolist (result emulting-extension-result)
+      (dolist (result (emulting-get-extension-result))
         (setq extension (symbol-value (car result)))
         (insert (propertize (alist-get 'name extension)
                             'face 'emulting-header-title-face)
@@ -241,7 +241,7 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
            (delete-overlay emulting-selected-overlay)
            (setq emulting-adjusting-overlay t)
 
-           ;; TODO: Add check for null line
+           ;; TODO: Add check for null line, every time update the result buffer will make the overlay goto the first char
            (if moved
                (let ((line-arg (when (eq moved 'prev)
                                  -1)))
@@ -306,11 +306,6 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
           (buffer-substring (overlay-start emulting-selected-overlay)
                             (overlay-end emulting-selected-overlay)))))
 
-;; (defun emulting-get-extension-from-result (index)
-;;   "Get the extension by INDEX from the result."
-;;   (let ((extensions (emulting-get-extension-has-result)))
-;;     ))
-
 (defun emulting-get-extension-has-result ()
   "Get all the extensions that has non-nil result."
   (let (extensions)
@@ -318,6 +313,14 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
       (when (cdr-safe result)
         (setq extensions (append extensions (list (car result))))))
     extensions))
+
+(defun emulting-get-extension-result ()
+  "Get the extension's result which is non-nil."
+  (let (results)
+    (dolist (result emulting-extension-result)
+      (when (cdr-safe result)
+        (setq results (append results (list result)))))
+    results))
 
 (defun emulting-extension-buffer-icon (buffer)
   "Icon function for BUFFER."
