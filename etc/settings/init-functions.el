@@ -1,13 +1,10 @@
 ;;;; This file is used for the useful functions
 (defun spring/get-index (item seq)
   "Get the earliest index of ITEM in SEQ."
-  (let ((index nil)
-        (indexf -1))
-    (dolist (ele seq)
-      (if (equal item ele)
-          (setq index indexf)
-        (setq indexf (+ 1 indexf))))
-    index))
+  (catch 'index
+    (dotimes (i (length seq))
+      (when (equal item (nth i seq))
+        (throw 'index i)))))
 
 (defun open-config-file ()
   "Open the init.el file."
