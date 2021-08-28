@@ -330,12 +330,13 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
         (unless (string-empty-p (buffer-string))
           (delete-overlay emulting-selected-overlay)
           (emulting-goto-extension emulting-current-extension)
+          (forward-line)
           (let (temp)
             (setq temp
                   (catch 'stop
                     (save-excursion
-                      (while (or (not (emulting-header-title-p))
-                                 (not (eobp)))
+                      (while (and (not (emulting-header-title-p))
+                                  (not (eobp)))
                         (when (string= (buffer-substring (line-beginning-position)
                                                          (line-end-position))
                                        emulting-selected-candidate)
@@ -351,7 +352,6 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
                                                      (car temp) (cdr temp)))
                   (overlay-put emulting-selected-overlay 'face 'region)
                   (emulting-keep-cursor-visible))
-              (forward-line)
               (emulting-select-current-candidate)))))
       (setq emulting-adjusting-overlay nil))))
 
