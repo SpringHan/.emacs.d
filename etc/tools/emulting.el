@@ -89,6 +89,11 @@
   :type 'string
   :group 'emulting)
 
+(defcustom emulting-selected-candidate-data-list nil
+  "The list for candidate data."
+  :type 'list
+  :group 'emulting)
+
 (defcustom emulting-adjusting-overlay nil
   "If now the overlay is adjusting."
   :type 'boolean
@@ -168,7 +173,8 @@
   (setq emulting-current-extension nil
         emulting-adjusting-overlay nil
         emulting-selected-candidate nil
-        emulting-selected-overlay nil)
+        emulting-selected-overlay nil
+        emulting-selected-candidate-data-list nil)
   (emulting-clear-result))
 
 (defun emulting-next-item ()
@@ -214,11 +220,17 @@
       (user-error "[Emulting]: There's no candidate.")
     (when (and emulting-current-extension
                emulting-selected-candidate)
-      (funcall (alist-get 'execute
-                          (symbol-value
-                           (nth emulting-current-extension
-                                (emulting-get-extension-has-result))))
-               (emulting-get-main-candidate emulting-selected-candidate)))))
+      (let* ((candidate (emulting-get-main-candidate emulting-selected-candidate))
+             (data (alist-get candidate
+                              emulting-selected-candidate-data-list
+                              nil nil 'string-equal)))
+        (funcall (alist-get 'execute
+                            (symbol-value
+                             (nth emulting-current-extension
+                                  (emulting-get-extension-has-result))))
+                 (if data
+                     data
+                   candidate))))))
 
 (defun emulting-immediate-do ()
   "Like `emulting-candidate-do', but do not follow the candidate."
@@ -279,6 +291,7 @@ When disable-cursor is non-nil, set `cursor-type' to nil."
   "Update result buffer."
   (with-current-buffer emulting-result-buffer
     (erase-buffer)
+    (setq emulting-selected-candidate-data-list nil)
     (let (extension icon)
       (dolist (result (emulting-get-extension-result))
         (setq extension (symbol-value (car result))
@@ -287,10 +300,16 @@ When disable-cursor is non-nil, set `cursor-type' to nil."
                             'face 'emulting-header-title-face)
                 "\n")
         (mapcar (lambda (r)
-                  (insert (if icon
-                              (funcall icon r)
-                            "")
-                          " " r "\n"))
+                  (let ((s (if (consp r)
+                               (progn
+                                 (add-to-list 'emulting-selected-candidate-data-list
+                                              r t 'equal)
+                                 (car r))
+                             r)))
+                    (insert (if icon
+                                (funcall icon s)
+                              "")
+                            " " s "\n")))
                 (cdr result))
         (insert "\n")))
     (emulting-adjust-selected-overlay)))
@@ -421,9 +440,11 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
 
 (defun emulting-get-main-candidate (candidate)
   "Get the main candiate from which one includes icon."
-  (progn
-    (string-match "^\\(.*\\) \\(.*\\)$" candidate)
-    (match-string 2 candidate)))
+  (if (stringp candidate)
+      (progn
+        (string-match "^\\(.*\\) \\(.*\\)$" candidate)
+        (match-string 2 candidate))
+    candidate))
 
 (defun emulting-extension-buffer-icon (buffer)
   "Icon function for BUFFER."
@@ -475,7 +496,7 @@ EXECUTE-FUNCTION is used to handle the result."
             (cons extension candidate))
       (emulting-update-result-buffer))))
 
-(defmacro emulting-fliter-append (candidate val)
+(defmacro emulting-filter-append (candidate val)
   "Add VAL to CANDIDATE."
   (declare ((debug t)))
   `(setq ,candidate (append ,candidate (list ,val))))
@@ -523,12 +544,14 @@ EXECUTE-FUNCTION is used to handle the result."
         (setq buffer-name (buffer-name buf))
         (when (and (emulting-extension-buffer-not-blacklist-buffer buffer-name)
                    (emulting-input-match input (list buffer-name)))
-          (emulting-fliter-append result buffer-name)))
+          (emulting-filter-append result buffer-name)))
       (emulting-change-candidate 'emulting-extension-var-buffer result)))
 
   (lambda (content)
     (emulting-exit)
     (switch-to-buffer content)))
+
+;;; Command
 
 (defvar emulting-extension-command nil
   "commands")
@@ -560,7 +583,7 @@ EXECUTE-FUNCTION is used to handle the result."
       (catch 'stop
         (dolist (cmd emulting-extension-command)
           (when (emulting-input-match input (list cmd))
-            (emulting-fliter-append candidates
+            (emulting-filter-append candidates
                                     (emulting-extension-command-wrap-command-with-key
                                      cmd)))
           (when (> (length candidates) 20)
@@ -570,6 +593,68 @@ EXECUTE-FUNCTION is used to handle the result."
   (lambda (candidate)
     (emulting-exit)
     (call-interactively (intern candidate))))
+
+;;; Imenu
+(defvar emulting-extension-imenu-cached-candidates nil)
+
+(defvar emulting-extension-imenu-cached-buffer nil)
+
+(defun emulting-extension-imenu-candidates (buffer)
+  (with-current-buffer buffer
+    (prog1
+        (if
+            (and emulting-extension-imenu-cached-candidates
+                 (or
+                  (not emulting-extension-imenu-cached-buffer)
+                  (equal emulting-extension-imenu-cached-buffer buffer)))
+            emulting-extension-imenu-cached-candidates
+          (setq emulting-extension-imenu-cached-candidates
+                (let ((index (ignore-errors (imenu--make-index-alist t))))
+                  (when index
+                    (emulting-extension-imenu-build-candidates
+                     (delete (assoc "*Rescan*" index) index))))))
+      (setq emulting-extension-imenu-cached-buffer buffer))))
+
+(defun emulting-extension-imenu-build-candidates (alist)
+  (cl-remove-if
+   (lambda (c)
+     (or (string-equal (car c) "Types")
+         (string-equal (car c) "Variables")))
+   (cl-loop for elm in alist
+            nconc (cond
+                   ((imenu--subalist-p elm)
+                    (emulting-extension-imenu-build-candidates
+                     (cl-loop for (e . v) in (cdr elm) collect
+                              (cons
+                               e
+                               (if (integerp v) (copy-marker v) v)))))
+                   ((listp (cdr elm))
+                    (and elm (list elm)))
+                   (t
+                    (and (cdr elm)
+                         (setcdr elm (pcase (cdr elm)
+                                       ((and ov (pred overlayp))
+                                        (copy-overlay ov))
+                                       ((and mk (or (pred markerp)
+                                                    (pred integerp)))
+                                        (copy-marker mk))))
+                         (list elm)))))))
+
+(emulting-define-extension "IMENU"
+  nil
+
+  (lambda (input)
+    (let ((imenu-items (emulting-extension-imenu-candidates emulting-last-buffer))
+          candidates)
+      (dolist (item imenu-items)
+        (when (emulting-input-match input (list (car item)))
+          (emulting-filter-append candidates (cons (car item)
+                                                   (marker-position (cdr item))))))
+      (emulting-change-candidate 'emulting-extension-var-imenu candidates)))
+
+  (lambda (candidate)
+    (emulting-exit)
+    (goto-char candidate)))
 
 ;;; Global keymap init
 (global-set-key (kbd "M-z") #'emulting)
