@@ -99,6 +99,11 @@
   :type 'boolean
   :group 'emulting)
 
+(defcustom emulting-only-extension nil
+  "The only used extension."
+  :type 'number
+  :group 'emulting)
+
 (defface emulting-header-title-face
   '((t :height 1.5 :inherit awesome-tray-module-location-face))
   "Face for header title."
@@ -174,7 +179,8 @@
         emulting-adjusting-overlay nil
         emulting-selected-candidate nil
         emulting-selected-overlay nil
-        emulting-selected-candidate-data-list nil)
+        emulting-selected-candidate-data-list nil
+        emulting-only-extension nil)
   (emulting-clear-result))
 
 (defun emulting-next-item ()
@@ -243,8 +249,7 @@
                           (symbol-value
                            (nth emulting-current-extension
                                 (emulting-get-extension-has-result))))
-               (with-current-buffer emulting-input-buffer
-                 (buffer-string))))))
+               (emulting-get-input)))))
 
 (defun emulting-clear-result ()
   "Clear the match results."
@@ -293,7 +298,10 @@ When disable-cursor is non-nil, set `cursor-type' to nil."
     (erase-buffer)
     (setq emulting-selected-candidate-data-list nil)
     (let (extension icon)
-      (dolist (result (emulting-get-extension-result))
+      (dolist (result (if emulting-only-extension
+                          (list (nth emulting-only-extension
+                                     emulting-extension-result))
+                        (emulting-get-extension-result)))
         (setq extension (symbol-value (car result))
               icon (alist-get 'icon extension))
         (insert (propertize (alist-get 'name extension)
@@ -379,10 +387,14 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
   (if (not (or (get-buffer emulting-input-buffer)
                (get-buffer emulting-result-buffer)))
       (emulting-exit)
-    (let ((input (with-current-buffer emulting-input-buffer
-                   (buffer-string))))
-      (dolist (extension emulting-extension-alist)
-        (funcall (alist-get 'fliter (symbol-value extension)) input)))))
+    (let ((input (emulting-get-input)))
+      (if emulting-only-extension
+          (funcall (alist-get 'filter
+                              (symbol-value (nth emulting-only-extension
+                                                 emulting-extension-alist)))
+                   input)
+        (dolist (extension emulting-extension-alist)
+          (funcall (alist-get 'filter (symbol-value extension)) input))))))
 
 (defun emulting-keep-cursor-visible ()
   "Keep the selected overlay visible."
@@ -446,6 +458,28 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
         (match-string 2 candidate))
     candidate))
 
+(defun emulting-get-input ()
+  "Get input text."
+  (let ((input (with-current-buffer emulting-input-buffer
+                 (buffer-string)))
+        prefix content tmp)
+    (if (prog1 (string-match "^#\\(.*\\)\\:\\(.*\\)" input)
+          (setq prefix (ignore-errors
+                         (match-string 1 input))
+                content (ignore-errors
+                          (match-string 2 input))))
+        (progn
+          (setq prefix (intern (concat "emulting-extension-var-"
+                                       (replace-regexp-in-string
+                                        " " "-" (downcase prefix)))))
+          (when (setq tmp
+                      (spring/get-index prefix emulting-extension-alist))
+            (setq emulting-only-extension tmp))
+          content)
+      (when emulting-only-extension
+        (setq emulting-only-extension nil))
+      input)))
+
 (defun emulting-extension-buffer-icon (buffer)
   "Icon function for BUFFER."
   (with-current-buffer buffer
@@ -455,14 +489,14 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
 
 ;;; Functional functions for extension
 
-(defmacro emulting-define-extension (name icon-function fliter-function execute-function)
+(defmacro emulting-define-extension (name icon-function filter-function execute-function)
   "The macro to define emulting extension.
 NAME is the head-title which show in the result buffer.
 ICON-FUNCTION is used for providing the icon for the result.
-FLITER-FUNCTION is used to fliter result.
+FILTER-FUNCTION is used to filter result.
 EXECUTE-FUNCTION is used to handle the result."
   (declare (indent defun))
-  (let* ((async (eq (car fliter-function) 'async))
+  (let* ((async (eq (car filter-function) 'async))
          (extension-symbol-name (replace-regexp-in-string " " "-" (downcase name)))
          (function-name (intern (concat "emulting-extension-"
                                         extension-symbol-name)))
@@ -470,13 +504,13 @@ EXECUTE-FUNCTION is used to handle the result."
                                         extension-symbol-name))))
     `(progn
        (defun ,function-name (content)
-         (funcall ,fliter-function content))
+         (funcall ,filter-function content))
 
        (defvar ,variable-name)
 
        (setq ,variable-name
              '((name . ,name)
-               (fliter . ,function-name)
+               (filter . ,function-name)
                (icon . ,icon-function)
                (execute . ,execute-function)))
 
