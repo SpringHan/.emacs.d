@@ -6,7 +6,6 @@
   :load-path "~/.emacs.d/third-party/emacs-application-framework"
   :key (("C-q C-w l" . eaf-open-browser)
         ("C-q C-w h" . eaf-open-browser-with-history)
-        ("C-q C-m b" . eaf-open-bookmark)
         ("C-q C-m t" . eaf-open-terminal))
   :var ((eaf-browser-remember-history . t)
         (eaf-browser-default-zoom . 1.1)

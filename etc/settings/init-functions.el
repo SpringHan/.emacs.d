@@ -11,25 +11,25 @@
   (interactive)
   (find-file "~/.emacs.d/init.el"))
 
-(defun open-etc-config ()
-  "Open the config file in the etc directory."
-  (interactive)
-  (let (path filename)
-    (while (or (null filename)
-               (string= filename ".."))
-      (setq path (pcase (completing-read
-                         "Enter the index of config: "
-                         '("settings" "languages" "tools" "init" "third-party"))
-                   ("languages" "~/.emacs.d/etc/languages/")
-                   ("settings" "~/.emacs.d/etc/settings/")
-                   ("tools" "~/.emacs.d/etc/tools/")
-                   ("init" "~/.emacs.d/etc/init-config.el")
-                   ("third-party" "~/.emacs.d/third-party/")))
-      (if (not (string= path "~/.emacs.d/etc/init-config.el"))
-          (setq filename (completing-read "Enter the filename: "
-                                          (delete "." (directory-files path))))
-        (setq filename "")))
-    (find-file (concat path filename))))
+;; (defun open-etc-config ()
+;;   "Open the config file in the etc directory."
+;;   (interactive)
+;;   (let (path filename)
+;;     (while (or (null filename)
+;;                (string= filename ".."))
+;;       (setq path (pcase (completing-read
+;;                          "Enter the index of config: "
+;;                          '("settings" "languages" "tools" "init" "third-party"))
+;;                    ("languages" "~/.emacs.d/etc/languages/")
+;;                    ("settings" "~/.emacs.d/etc/settings/")
+;;                    ("tools" "~/.emacs.d/etc/tools/")
+;;                    ("init" "~/.emacs.d/etc/init-config.el")
+;;                    ("third-party" "~/.emacs.d/third-party/")))
+;;       (if (not (string= path "~/.emacs.d/etc/init-config.el"))
+;;           (setq filename (completing-read "Enter the filename: "
+;;                                           (delete "." (directory-files path))))
+;;         (setq filename "")))
+;;     (find-file (concat path filename))))
 
 (defun open-vterm (&optional dir)
   "Open the vterm by DIR"

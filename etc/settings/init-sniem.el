@@ -45,7 +45,7 @@
  "ze" 'spring/edit-snippets
  "zo" 'open-the-dir
  "zO" 'spring/open-scratch
- "zc" 'open-etc-config
+ "zc" (lambda () (interactive) (emulting 'config))
 
  ;; Plugins Keymap
  ;; Magit

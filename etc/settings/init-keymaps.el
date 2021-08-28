@@ -11,7 +11,6 @@
 (global-set-key (kbd "C-q C-n") 'next-buffer)	  ;Goto Next buffer
 (global-set-key (kbd "C-q m") 'set-mark-command) ; The mark key map
 (global-set-key (kbd "<f12>") 'tab-bar-mode) ; Open or close the tab-bar-mode
-(global-set-key (kbd "C-q c") 'open-etc-config) ; Open the etc config dir
 (global-set-key (kbd "C-q C-m w") 'window-move) ; Move the window
 (global-set-key (kbd "C-q C-a") 'set-alpha) ; Set the emacs' alpha
 (global-set-key (kbd "C-q C-o") 'open-the-dir) ; Open the gtd/github directory
