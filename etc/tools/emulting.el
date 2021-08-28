@@ -104,6 +104,11 @@
   :type 'number
   :group 'emulting)
 
+(defcustom emulting-start-prefix nil
+  "If starting to insert prefix."
+  :type 'boolean
+  :group 'emulting)
+
 (defface emulting-header-title-face
   '((t :height 1.5 :inherit awesome-tray-module-location-face))
   "Face for header title."
@@ -120,6 +125,8 @@
     (define-key map (kbd "M-p") #'emulting-prev-extension)
     (define-key map (kbd "RET") #'emulting-candidate-do)
     (define-key map (kbd "C-m") #'emulting-candidate-do)
+    (define-key map (kbd "TAB") #'emulting-complete)
+    (define-key map (kbd "C-i") #'emulting-complete)
     (define-key map (kbd "<C-return>") #'emulting-immediate-do)
     map)
   "keymap for emulting-mode."
@@ -175,12 +182,15 @@
   (when (timerp emulting-input-match-timer)
     (cancel-timer emulting-input-match-timer)
     (setq emulting-input-match-timer nil))
-  (setq emulting-current-extension nil
+  (setq emulting-start-prefix nil
+        emulting-current-extension nil
         emulting-adjusting-overlay nil
         emulting-selected-candidate nil
         emulting-selected-overlay nil
         emulting-selected-candidate-data-list nil
-        emulting-only-extension nil)
+        emulting-only-extension nil
+        emulting-last-buffer nil
+        emulting-last-directory nil)
   (emulting-clear-result))
 
 (defun emulting-next-item ()
@@ -229,14 +239,15 @@
       (let* ((candidate (emulting-get-main-candidate emulting-selected-candidate))
              (data (alist-get candidate
                               emulting-selected-candidate-data-list
-                              nil nil 'string-equal)))
-        (funcall (alist-get 'execute
-                            (symbol-value
-                             (nth emulting-current-extension
-                                  (emulting-get-extension-has-result))))
-                 (if data
-                     data
-                   candidate))))))
+                              nil nil 'string-equal))
+             (func (alist-get 'execute
+                              (symbol-value
+                               (nth emulting-current-extension
+                                    (emulting-get-extension-has-result))))))
+        (when func
+          (funcall func (if data
+                            data
+                          candidate)))))))
 
 (defun emulting-immediate-do ()
   "Like `emulting-candidate-do', but do not follow the candidate."
@@ -250,6 +261,32 @@
                            (nth emulting-current-extension
                                 (emulting-get-extension-has-result))))
                (emulting-get-input)))))
+
+(defun emulting-complete ()
+  "Complete by the selected candidate."
+  (interactive)
+  (with-current-buffer emulting-input-buffer
+    (let ((input (buffer-string))
+          completion prefix content condidate)
+      (when (and emulting-current-extension
+                 emulting-selected-candidate)
+        (setq condidate (emulting-get-main-candidate emulting-selected-candidate))
+        (if (setq completion (alist-get
+                              'complete
+                              (symbol-value (nth emulting-current-extension
+                                                 (emulting-get-extension-has-result)))))
+            (setq input (funcall completion input condidate))
+          (if (prog1 (string-match "^#\\(.*\\):\\(.*\\)" input)
+                (setq prefix (ignore-errors
+                               (concat "#" (match-string 1 input) ":"))
+                      content (ignore-errors
+                                (match-string 2 input))))
+              (progn
+                (setq content condidate)
+                (setq input (concat prefix content)))
+            (setq input condidate)))
+        (erase-buffer)
+        (insert input)))))
 
 (defun emulting-clear-result ()
   "Clear the match results."
@@ -463,7 +500,7 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
   (let ((input (with-current-buffer emulting-input-buffer
                  (buffer-string)))
         prefix content tmp)
-    (if (prog1 (string-match "^#\\(.*\\)\\:\\(.*\\)" input)
+    (if (prog1 (string-match "^#\\(.*\\):\\(.*\\)" input)
           (setq prefix (ignore-errors
                          (match-string 1 input))
                 content (ignore-errors
@@ -478,6 +515,8 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
           content)
       (when emulting-only-extension
         (setq emulting-only-extension nil))
+      (when (string-match-p "^#" input)
+        (setq emulting-start-prefix t))
       input)))
 
 (defun emulting-extension-buffer-icon (buffer)
@@ -489,12 +528,14 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
 
 ;;; Functional functions for extension
 
-(defmacro emulting-define-extension (name icon-function filter-function execute-function)
+(defmacro emulting-define-extension (name icon-function filter-function execute-function
+                                          &optional complete-function)
   "The macro to define emulting extension.
 NAME is the head-title which show in the result buffer.
 ICON-FUNCTION is used for providing the icon for the result.
 FILTER-FUNCTION is used to filter result.
-EXECUTE-FUNCTION is used to handle the result."
+EXECUTE-FUNCTION is used to handle the result.
+COMPLETE-FUNCTION is used to complete the input."
   (declare (indent defun))
   (let* ((async (eq (car filter-function) 'async))
          (extension-symbol-name (replace-regexp-in-string " " "-" (downcase name)))
@@ -512,7 +553,8 @@ EXECUTE-FUNCTION is used to handle the result."
              '((name . ,name)
                (filter . ,function-name)
                (icon . ,icon-function)
-               (execute . ,execute-function)))
+               (execute . ,execute-function)
+               (complete . ,complete-function)))
 
        (add-to-list 'emulting-extension-alist ',variable-name t)
        (add-to-list 'emulting-extension-result '(,variable-name) t))))
@@ -536,6 +578,38 @@ EXECUTE-FUNCTION is used to handle the result."
   `(setq ,candidate (append ,candidate (list ,val))))
 
 ;;; Extensions
+;;; Prefix
+
+(defun emulting-get-all-extension-prefix ()
+  "Get all the extension prefix."
+  (let (result)
+    (dolist (extension emulting-extension-alist)
+      (unless (eq extension 'emulting-extension-var-prefix)
+        (emulting-filter-append
+         result
+         (format "#%s:"
+                 (replace-regexp-in-string
+                  "-" " " (progn
+                            (string-match "^emulting-extension-var-\\(.*\\)"
+                                          (symbol-name extension))
+                            (match-string 1 (symbol-name extension))))))))
+    result))
+
+(emulting-define-extension "PREFIX"
+  nil
+
+  (lambda (input)
+    (if emulting-start-prefix
+        (let ((prefix (emulting-get-all-extension-prefix))
+              candidate)
+          (setq candidate (emulting-input-match input prefix))
+          (unless candidate
+            (setq emulting-start-prefix nil))
+          (emulting-change-candidate 'emulting-extension-var-prefix candidate))
+      (emulting-change-candidate 'emulting-extension-var-prefix nil)))
+
+  nil)
+
 ;;; Buffer
 (defvar emulting-extension-buffer-blacklist
   (list
@@ -689,6 +763,60 @@ EXECUTE-FUNCTION is used to handle the result."
   (lambda (candidate)
     (emulting-exit)
     (goto-char candidate)))
+
+;;; File
+(emulting-define-extension "FILE"
+  (lambda (file)
+    (all-the-icons-icon-for-file file))
+
+  (lambda (input)
+    (let* ((current-directory emulting-last-directory)
+           (absolute-path current-directory)
+           filepath
+           candidates)
+      (when (string-match-p "/" input)
+        (setq absolute-path (expand-file-name input absolute-path)
+              current-directory (file-name-directory absolute-path))
+        (if (directory-name-p input)
+            (setq input "")
+          (setq input (file-name-base absolute-path))))
+
+      (dolist (file (directory-files current-directory nil "^\\([^.]\\|\\.[^.]\\|\\.\\..\\)"))
+        (when (emulting-input-match input (list file))
+          (setq filepath (concat current-directory file))
+          (emulting-filter-append candidates (cons file filepath))))
+      (emulting-change-candidate 'emulting-extension-var-file candidates)))
+
+  (lambda (candidate)
+    (emulting-exit)
+    (find-file candidate))
+
+  (lambda (input candidate)
+    (let (prefix content string-list)
+      (setq string-list (split-string
+                         (if (prog1 (string-match "^#\\(.*\\):\\(.*\\)" input)
+                               (setq prefix (ignore-errors
+                                              (concat "#"
+                                                      (match-string 1 input)
+                                                      ":"))
+                                     content (ignore-errors
+                                               (match-string 2 input))))
+                             content
+                           input)
+                         "/"))
+      (if (= (length string-list) 1)
+          (set (if content
+                   'content
+                 'input)
+               candidate)
+        (setf (nth (1- (length string-list)) string-list) candidate)
+        (set (if content
+                 'content
+               'input)
+             (mapconcat (lambda (s) s) string-list "/")))
+      (when content
+        (setq input (concat prefix content)))
+      input)))
 
 ;;; Global keymap init
 (global-set-key (kbd "M-z") #'emulting)
