@@ -21,6 +21,10 @@
 ;; For a full copy of the GNU General Public License
 ;; see <http://www.gnu.org/licenses/>.
 
+;;; Changelog
+;;; 2021-08-29
+;; 	* etc/tools/emulting.el: Added some daily used extension, next step to add async extension
+
 ;;; Code
 
 ;;; Core
@@ -160,7 +164,8 @@
     (setq emulting-last-buffer (current-buffer)
           emulting-last-directory default-directory)
 
-    (tab-bar-new-tab)
+    (let ((tab-bar-mode t))
+      (tab-bar-new-tab))
     ;; (setq emulting-current-tab (tab-bar--current-tab-index))
     ;; (tab-bar-select-tab emulting-current-tab)
 
@@ -897,18 +902,24 @@ COMPLETE-FUNCTION is used to complete the input."
                  (setq tmp (spring/get-index (car input-list) dir)))
             (progn
               (setq dir (nth tmp dir))
-              (setq tmp (delete ".."
-                                (delete "."
-                                        (directory-files
-                                         (format "~/.emacs.d/etc/%s/"
-                                                 dir)))))
+              (setq tmp (delete
+                         ".."
+                         (delete "."
+                                 (directory-files
+                                  (if (string= dir "third-party")
+                                      "~/.emacs.d/third-party/"
+                                    (format "~/.emacs.d/etc/%s/" 
+                                            dir))))))
               (setq input (nth 1 input-list))
               (dolist (file tmp)
                 (when (emulting-input-match input (list file))
                   (emulting-filter-append
                    candidates
-                   (list file (format "~/.emacs.d/etc/%s/%s"
-                                      dir file))))))
+                   (list file (format "~/.emacs.d/%s/%s"
+                                      (if (string= dir "third-party")
+                                          "third-party"
+                                        (concat "etc/" dir))
+                                      file))))))
           (setq candidates (emulting-input-match input dir)))
         (emulting-change-candidate 'emulting-extension-var-config candidates))))
 
@@ -919,17 +930,77 @@ COMPLETE-FUNCTION is used to complete the input."
               (progn
                 (find-file "~/.emacs.d/etc/init-config.el")
                 (emulting-exit))
-            (message "[Emulting-Config]: This is a directory, is not a file."))
+            (emulting-complete))
         (emulting-exit)
         (find-file candidate))))
 
   (lambda (input candidate)
     (let ((input-list (split-string input "/")))
       (if (= (length input-list) 1)
-          (setq input candidate)
+          (setq input (concat candidate "/"))
         (setf (nth 1 input-list) candidate)
         (setq input (mapconcat (lambda (s) s) input-list "/")))
       input)))
+
+;;; Callable
+
+(defvar emulting-extension-callables nil
+  "Callable list.")
+
+(defun emulting-extension-get-callables ()
+  "Get callables."
+  (let (cmds)
+    (mapatoms (lambda (a) (when (fboundp a) (push (symbol-name a) cmds))))
+    (setq emulting-extension-callables cmds)))
+
+(run-with-idle-timer 60 t #'emulting-extension-get-callables)
+
+(emulting-define-extension "CALLABLE"
+  nil
+
+  (lambda (input)
+    (unless emulting-whole-start
+      (let (callables candidates)
+        (unless emulting-extension-callables
+          (emulting-extension-get-callables))
+        (setq callables emulting-extension-callables)
+        (setq candidates (emulting-input-match input callables))
+        (emulting-change-candidate 'emulting-extension-var-callable candidates))))
+
+  (lambda (candidate)
+    (emulting-exit)
+    (funcall helpful-switch-buffer-function
+             (helpful--buffer (intern candidate) t))
+    (helpful-update)))
+
+;;; variable
+(defvar emulting-extension-variables nil)
+
+(defun emulting-extension-get-variables ()
+  "Get callables."
+  (let (cmds)
+    (mapatoms (lambda (a) (when (helpful--variable-p a) (push (symbol-name a) cmds))))
+    (setq emulting-extension-variables cmds)))
+
+(run-with-idle-timer 60 t #'emulting-extension-get-variables)
+
+(emulting-define-extension "VARIABLE"
+  nil
+
+  (lambda (input)
+    (unless emulting-whole-start
+      (let (variables candidates)
+        (unless emulting-extension-variables
+          (emulting-extension-get-variables))
+        (setq variables emulting-extension-variables)
+        (setq candidates (emulting-input-match input variables))
+        (emulting-change-candidate 'emulting-extension-var-variable candidates))))
+
+  (lambda (candidate)
+    (emulting-exit)
+    (funcall helpful-switch-buffer-function
+             (helpful--buffer (intern candidate) t))
+    (helpful-update)))
 
 ;;; Global keymap init
 (global-set-key (kbd "M-z") #'emulting)
@@ -940,6 +1011,9 @@ COMPLETE-FUNCTION is used to complete the input."
                                 (interactive)
                                 (setq emulting-extension-buffer-kill-mode t)
                                 (emulting 'buffer)))
+(global-set-key (kbd "M-x") (lambda () (interactive) (emulting 'command)))
+(global-set-key (kbd "C-h f") (lambda () (interactive) (emulting 'callable)))
+(global-set-key (kbd "C-h v") (lambda () (interactive) (emulting 'variable)))
 
 (provide 'emulting)
 

@@ -84,11 +84,7 @@
   :config (dashboard-setup-startup-hook))
 
 ;;; Counsel
-(gpack counsel
-  :key (("M-x" . counsel-M-x)
-        ("C-x C-f" . counsel-find-file)
-        ("C-q a" . counsel-linux-app)
-        ("C-' A" . counsel-ag)))
+(gpack counsel)
 
 ;;; Counsel-etags
 (gpack counsel-etags
@@ -208,12 +204,7 @@
 (gpack package-lint)
 
 ;;; Helpful - For more helpful help
-(gpack helpful
-  :key (("C-h f" . helpful-callable)
-        ("C-h F" . helpful-function)
-        ("C-h w" . helpful-command)
-        ("C-h k" . helpful-key)
-        ("C-h v" . helpful-variable)))
+(gpack helpful)
 
 ;;; Subtree
 (gpack dired-subtree
