@@ -137,7 +137,7 @@
   (let ((map (make-sparse-keymap)))
     (define-key map " " #'sniem-minibuffer-keypad-start-or-stop)
     (define-key map (kbd "C-g") #'emulting-exit)
-    (define-key map (kbd "C-k") #'emulting-extension-kill-buffer)
+    (define-key map (kbd "C-k") #'emulting-extension-reverse-command)
     (define-key map (kbd "C-n") #'emulting-next-item)
     (define-key map (kbd "C-p") #'emulting-prev-item)
     (define-key map (kbd "M-n") #'emulting-next-extension)
@@ -754,6 +754,19 @@ COMPLETE-FUNCTION is used to complete the input."
   `(setq ,candidate (append ,candidate (list ,val))))
 
 ;;; Extensions
+
+(defun emulting-extension-reverse-command ()
+  "The reverse command."
+  (interactive)
+  (pcase (if emulting-only-extension
+             (nth emulting-only-extension emulting-extension-alist)
+           (nth emulting-current-extension (emulting-get-extension-has-result)))
+    ('emulting-extension-var-buffer (emulting-extension-kill-buffer))
+    ('emulting-extension-var-file
+     (when emulting-selected-candidate
+       (setq emulting-extension-file-delete-mode t)
+       (emulting-candidate-do)))))
+
 ;;; Prefix
 
 (defun emulting-get-all-extension-prefix ()
@@ -946,8 +959,12 @@ COMPLETE-FUNCTION is used to complete the input."
     (goto-char candidate)))
 
 ;;; File
+
+(defvar emulting-extension-file-delete-mode nil
+  "Delete mode.")
+
 (emulting-define-extension "FILE"
-  nil nil
+  emulting-extension-file-delete-mode nil
 
   (lambda (file)
     (all-the-icons-icon-for-file file))
@@ -971,8 +988,11 @@ COMPLETE-FUNCTION is used to complete the input."
       (emulting-change-candidate 'emulting-extension-var-file candidates)))
 
   (lambda (candidate)
-    (emulting-exit)
-    (find-file candidate))
+    (let ((deletep emulting-extension-file-delete-mode))
+      (emulting-exit)
+      (if deletep
+          (delete-file candidate)
+        (find-file candidate))))
 
   (lambda (input candidate)
     (let (prefix content string-list)
