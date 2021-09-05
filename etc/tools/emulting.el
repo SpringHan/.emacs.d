@@ -1150,7 +1150,8 @@ COMPLETE-FUNCTION is used to complete the input."
 (global-set-key (kbd "C-h f") (lambda () (interactive) (emulting 'callable)))
 (global-set-key (kbd "C-h v") (lambda () (interactive) (emulting 'variable)))
 (sniem-leader-set-key
- "." (lambda () (interactive) (emulting 'definition)))
+ "." (lambda () (interactive) (emulting 'definition))
+ "ff" (lambda () (interactive) (emulting 'file)))
 
 (provide 'emulting)
 

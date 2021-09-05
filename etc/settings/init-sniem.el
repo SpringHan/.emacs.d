@@ -25,7 +25,6 @@
  "h" 'sniem-keypad
  "'" 'sniem-keypad
  ;; File
- "ff" 'find-file
  "fx" 'kill-current-buffer
  ;; Window
  "wx" 'delete-window
