@@ -567,33 +567,6 @@ If it's daytime now,return t.Otherwise return nil."
   (interactive (list (read--expression "Eval: ")))
   (insert (format "%S" (eval command))))
 
-(defun spring/find-definition (&optional symbol fnp)
-  "`find-function' plus `find-variable'.
-SYMBOL is the thing I want to find its definition.
-If FNP is non-nil, the symbol is a function.
-Otherwise it's a variable."
-  (interactive (let ((demo (ignore-errors
-                             (intern (substring-no-properties
-                                      (thing-at-point 'symbol))))))
-                 (cond ((functionp demo)
-                        (list demo t))
-                       ((boundp demo)
-                        (list demo nil))
-                       (t (list nil nil)))))
-  (if symbol
-      (if fnp
-          (find-function symbol)
-        (find-variable symbol))
-    (let ((predicate (lambda (r)
-                       (or (fboundp r)
-                           (boundp r)))))
-      (setq symbol (intern
-                    (completing-read "Find definition: "
-                                     obarray predicate)))
-      (if (fboundp symbol)
-          (find-function symbol)
-        (find-variable symbol)))))
-
 (defun spring/refresh-packages ()
   "Refresh packages if the packages' info had't been updated yet."
   (let ((file-name (locate-user-emacs-file "refresh-package"))

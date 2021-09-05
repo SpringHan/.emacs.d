@@ -875,14 +875,8 @@ COMPLETE-FUNCTION is used to complete the input."
 
   (lambda (input)
     (let (candidates)
-      (catch 'stop
-        (dolist (cmd emulting-extension-command)
-          (when (emulting-input-match input (list cmd))
-            (emulting-filter-append candidates
-                                    (emulting-extension-command-wrap-command-with-key
-                                     cmd)))
-          (when (> (length candidates) 20)
-            (throw 'stop t))))
+      (setq candidates (sniem--nth-utill 0 19
+                                         (emulting-input-match input emulting-extension-command)))
       (emulting-change-candidate 'emulting-extension-var-command candidates)))
 
   (lambda (candidate)
@@ -1079,7 +1073,8 @@ COMPLETE-FUNCTION is used to complete the input."
         (unless emulting-extension-callables
           (emulting-extension-get-callables))
         (setq callables emulting-extension-callables)
-        (setq candidates (emulting-input-match input callables))
+        (setq candidates (sniem--nth-utill 0 39 
+                                           (emulting-input-match input callables)))
         (emulting-change-candidate 'emulting-extension-var-callable candidates))))
 
   (lambda (candidate)
@@ -1108,7 +1103,8 @@ COMPLETE-FUNCTION is used to complete the input."
         (unless emulting-extension-variables
           (emulting-extension-get-variables))
         (setq variables emulting-extension-variables)
-        (setq candidates (emulting-input-match input variables))
+        (setq candidates (sniem--nth-utill 0 39 
+                                           (emulting-input-match input variables)))
         (emulting-change-candidate 'emulting-extension-var-variable candidates))))
 
   (lambda (candidate)
@@ -1116,6 +1112,30 @@ COMPLETE-FUNCTION is used to complete the input."
     (funcall helpful-switch-buffer-function
              (helpful--buffer (intern candidate) nil))
     (helpful-update)))
+
+(emulting-define-extension "DEFINITION"
+  nil
+  (lambda ()
+    (emulting-extension-get-callables)
+    (emulting-extension-get-variables))
+  nil
+
+  (lambda (input)
+    (let (candidates)
+      (setq candidates (sniem--nth-utill 0 39
+                                         (emulting-input-match
+                                          input
+                                          (append emulting-extension-callables
+                                                  emulting-extension-variables))))
+      (emulting-change-candidate 'emulting-extension-var-definition candidates)))
+
+  (lambda (candidate)
+    (emulting-exit)
+    (setq candidate (intern candidate))
+    (cond ((fboundp candidate)
+           (find-function candidate))
+          ((boundp candidate)
+           (find-variable candidate)))))
 
 ;;; Global keymap init
 (global-set-key (kbd "M-z") #'emulting)
@@ -1129,6 +1149,8 @@ COMPLETE-FUNCTION is used to complete the input."
 (global-set-key (kbd "M-x") (lambda () (interactive) (emulting 'command)))
 (global-set-key (kbd "C-h f") (lambda () (interactive) (emulting 'callable)))
 (global-set-key (kbd "C-h v") (lambda () (interactive) (emulting 'variable)))
+(sniem-leader-set-key
+ "." (lambda () (interactive) (emulting 'definition)))
 
 (provide 'emulting)
 
