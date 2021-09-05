@@ -569,8 +569,7 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
   "Run FUNC asynchronously."
   (run-with-idle-timer
    0.15 nil func)
-  (setq emulting-just-refreshed t)
-  (print 'test))
+  (setq emulting-just-refreshed t))
 
 (defun emulting-keep-cursor-visible ()
   "Keep the selected overlay visible."
