@@ -348,7 +348,6 @@
                         (buffer-string)))
       (user-error "[Emulting]: There's no candidate.")
     (when emulting-current-extension
-      ;; BUG: execute function
       (funcall (alist-get 'execute
                           (symbol-value
                            (nth emulting-current-extension
@@ -553,26 +552,29 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
                            emulting-extension-alist))
         (funcall (alist-get 'filter (symbol-value extension)) input)))))
 
-;; BUG: To judge the candidate status from different timer.
 (defun emulting-async-run (func)
   "Run FUNC asynchronously."
   (if (= (length emulting-only-extensions) 1)
       (run-with-idle-timer
        0.15 nil func)
-    (setq emulting-candidate-status (list (with-current-buffer emulting-input-buffer
-                                            (buffer-string))
-                                          emulting-selected-candidate
-                                          emulting-current-extension))
+    ;; (emulting-filter-append emulting-candidate-status
+    ;;                         (list (with-current-buffer emulting-input-buffer
+    ;;                                 (buffer-string))
+    ;;                               emulting-selected-candidate
+    ;;                               emulting-current-extension))
+    ;; (let ((index (1- (length emulting-candidate-status))))
+    ;;   (run-with-idle-timer
+    ;;    3 nil (lambda ()
+    ;;            (let ((status (nth index emulting-candidate-status)))
+    ;;              (when (and emulting-candidate-status
+    ;;                         (string= (with-current-buffer emulting-input-buffer
+    ;;                                    (buffer-string))
+    ;;                                  (car status))
+    ;;                         (string= (nth 1 status) emulting-selected-candidate)
+    ;;                         (= (nth 2 status) emulting-current-extension))
+    ;;                (funcall func))))))
     (run-with-idle-timer
-     3 nil (lambda ()
-             (when (and emulting-candidate-status
-                        (string= (with-current-buffer emulting-input-buffer
-                                   (buffer-string))
-                                 (car emulting-candidate-status))
-                        (string= (nth 1 emulting-candidate-status) emulting-selected-candidate)
-                        (= (nth 2 emulting-candidate-status) emulting-current-extension))
-               (funcall func))
-             (setq emulting-candidate-status nil)))))
+     3 nil func)))
 
 (defun emulting-keep-cursor-visible ()
   "Keep the selected overlay visible."
@@ -615,24 +617,28 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
 (defun emulting-get-extension-has-result ()
   "Get all the extensions that has non-nil result."
   (let (extensions)
-    (dolist (result emulting-extension-result)
-      (catch 'only-stop
+    (if emulting-only-extensions
+        (mapc (lambda (e)
+                (let ((result (assoc e emulting-extension-result)))
+                  (when (cdr-safe result)
+                    (emulting-filter-append extensions (car result)))))
+              emulting-only-extensions)
+      (dolist (result emulting-extension-result)
         (when (cdr-safe result)
-          (when (and emulting-only-extensions
-                     (not (memq (car result) emulting-only-extensions)))
-            (throw 'only-stop nil))
           (setq extensions (append extensions (list (car result)))))))
     extensions))
 
 (defun emulting-get-extension-result ()
   "Get the extension's result which is non-nil."
   (let (results)
-    (dolist (result emulting-extension-result)
-      (catch 'only-stop
+    (if emulting-only-extensions
+        (mapc (lambda (e)
+                (let ((result (assoc e emulting-extension-result)))
+                  (when (cdr-safe result)
+                    (emulting-filter-append results result))))
+              emulting-only-extensions)
+      (dolist (result emulting-extension-result)
         (when (cdr-safe result)
-          (when (and emulting-only-extensions
-                     (not (memq (car result) emulting-only-extensions)))
-            (throw 'only-stop nil))
           (setq results (append results (list result))))))
     results))
 
@@ -891,6 +897,9 @@ COMPLETE-FUNCTION is used to complete the input."
         (when (and (emulting-extension-buffer-not-blacklist-buffer buffer-name)
                    (emulting-input-match input (list buffer-name)))
           (emulting-filter-append result buffer-name)))
+      (unless result
+        (emulting-filter-append result (list (format "New buffer [ %s ]" input)
+                                             input)))
       (emulting-change-candidate 'emulting-extension-var-buffer result)))
 
   (lambda (content)
@@ -1044,7 +1053,9 @@ COMPLETE-FUNCTION is used to complete the input."
     (let ((deletep emulting-extension-file-delete-mode))
       (emulting-exit)
       (if deletep
-          (delete-file candidate)
+          (if (file-directory-p candidate)
+              (delete-directory candidate)
+            (delete-file candidate))
         (find-file candidate))))
 
   (lambda (input candidate)
@@ -1064,6 +1075,51 @@ COMPLETE-FUNCTION is used to complete the input."
             (message "[Emulting]: File delete mode is %S now."
                      emulting-extension-file-delete-mode)))
       input)))
+
+;;; New File
+
+(defun emulting-extension-new-file-operate-path (directory path)
+  "operate the DIRECTORY with PATH."
+  (if (string= path "..")
+      (progn
+        (setq directory (substring directory 0 -1))
+        (while (not (string-suffix-p "/" directory))
+          (setq directory (substring directory 0 -1))))
+    (setq directory (concat directory path "/")))
+  directory)
+
+(emulting-define-extension "NEW FILE"
+  nil nil nil
+
+  (lambda (input)
+    (let (candidates)
+      (emulting-filter-append candidates (list (format "New file [ %s ]" input)
+                                               (concat "f" input)))
+      (emulting-filter-append candidates (list (format "New dir [ %s ]" input)
+                                               (concat "d" input)))
+      (emulting-change-candidate 'emulting-extension-var-new-file candidates)))
+
+  (lambda (candidate)
+    (let* ((filep (if (string= (substring candidate 0 1) "f")
+                      t
+                    nil))
+           (directory emulting-last-directory)
+           (new-func (lambda (new)
+                       (if filep
+                           (make-empty-file new)
+                         (make-directory new)))))
+      (setq candidate (substring candidate 1))
+      (if (string-prefix-p "/" candidate)
+          (funcall new-func candidate)
+        (setq candidate (split-string candidate "/" t))
+        (unless (= (length candidate) 1)
+          (dotimes (i (1- (length candidate)))
+            (setq directory (emulting-extension-new-file-operate-path
+                             directory (nth i candidate)))))
+        (funcall new-func (concat directory (if (= (length candidate) 1)
+                                                (car candidate)
+                                              (nth (1- (length candidate)) candidate)))))
+      (emulting-exit))))
 
 (emulting-define-extension "BOOKMARK"
   nil nil
@@ -1232,8 +1288,8 @@ COMPLETE-FUNCTION is used to complete the input."
 (global-set-key (kbd "C-h f") (lambda () (interactive) (emulting '(callable variable))))
 (global-set-key (kbd "C-h v") (lambda () (interactive) (emulting 'variable)))
 (sniem-leader-set-key
- "." (lambda () (interactive) (emulting 'definition))
- "ff" (lambda () (interactive) (emulting 'file)))
+ "." (lambda () (interactive) (emulting '(definition imenu)))
+ "ff" (lambda () (interactive) (emulting '(file new-file))))
 
 (provide 'emulting)
 
