@@ -103,9 +103,9 @@
   :type 'boolean
   :group 'emulting)
 
-(defcustom emulting-only-extension nil
-  "The only used extension."
-  :type 'number
+(defcustom emulting-only-extensions nil
+  "The only used extensions."
+  :type 'list
   :group 'emulting)
 
 (defcustom emulting-start-prefix nil
@@ -120,11 +120,21 @@
 
 (defcustom emulting-just-refreshed nil
   "If the current extension's result has been refreshed."
-  :type 'boolean
+  :type 'list
   :group 'emulting)
 
 (defcustom emulting-clear-variables nil
   "The variables that need to be set to nil after process."
+  :type 'list
+  :group 'emulting)
+
+(defcustom emulting-input-overlay nil
+  "The overlay for input with only extensions."
+  :type 'overlay
+  :group 'emulting)
+
+(defcustom emulting-candidate-status nil
+  "The candidate status current time."
   :type 'list
   :group 'emulting)
 
@@ -137,7 +147,6 @@
   (let ((map (make-sparse-keymap)))
     (define-key map " " #'sniem-minibuffer-keypad-start-or-stop)
     (define-key map (kbd "C-g") #'emulting-exit)
-    (define-key map (kbd "C-k") #'emulting-extension-reverse-command)
     (define-key map (kbd "C-n") #'emulting-next-item)
     (define-key map (kbd "C-p") #'emulting-prev-item)
     (define-key map (kbd "M-n") #'emulting-next-extension)
@@ -191,9 +200,15 @@
     (if extension
         (with-current-buffer emulting-input-buffer
           (erase-buffer)
-          (insert "#"
-                  (replace-regexp-in-string "-" " " (symbol-name extension))
-                  ":"))
+          (insert "#")
+          (when (symbolp extension)
+            (setq extension (list extension)))
+          (dotimes (i (length extension))
+            (insert (replace-regexp-in-string "-" " " (symbol-name (nth i extension))))
+            (when (and (> (length extension) 1)
+                       (/= (1- (length extension)) i))
+              (insert ",")))
+          (insert ":"))
       (setq emulting-whole-start t))
 
     (setq emulting-input-match-timer (run-with-timer
@@ -222,10 +237,12 @@
         emulting-selected-candidate nil
         emulting-selected-overlay nil
         emulting-selected-candidate-data-list nil
-        emulting-only-extension nil
+        emulting-only-extensions nil
         emulting-last-buffer nil
         emulting-last-directory nil
-        emulting-just-refreshed nil)
+        emulting-just-refreshed nil
+        emulting-candidate-status nil)
+  (emulting-remove-input-overlay)
   (emulting-clear-result)
   (emulting-clear-variable))
 
@@ -245,11 +262,9 @@
   (interactive)
   (with-current-buffer emulting-result-buffer
     (let ((extension (1+ emulting-current-extension)))
-      (when (and (null emulting-only-extension)
-                 (nth extension (emulting-get-extension-has-result)))
+      (when (nth extension (emulting-get-extension-has-result))
         (delete-overlay emulting-selected-overlay)
-        (setq emulting-current-extension extension
-              emulting-just-refreshed nil)
+        (setq emulting-current-extension extension)
         (emulting-goto-extension extension)
         (forward-line)
         (emulting-select-current-candidate)))))
@@ -259,11 +274,9 @@
   (interactive)
   (with-current-buffer emulting-result-buffer
     (let ((extension (1- emulting-current-extension)))
-      (when (and (null emulting-only-extension)
-                 (nth extension (emulting-get-extension-has-result)))
+      (when (nth extension (emulting-get-extension-has-result))
         (delete-overlay emulting-selected-overlay)
-        (setq emulting-current-extension extension
-              emulting-just-refreshed nil)
+        (setq emulting-current-extension extension)
         (emulting-goto-extension extension)
         (forward-line)
         (emulting-select-current-candidate)))))
@@ -272,12 +285,8 @@
   "Select the first item."
   (interactive)
   (with-current-buffer emulting-result-buffer
-    (if emulting-only-extension
-        (progn
-          (goto-char (point-min))
-          (forward-line))
-      (emulting-goto-extension emulting-current-extension)
-      (forward-line))
+    (emulting-goto-extension emulting-current-extension)
+    (forward-line)
     (delete-overlay emulting-selected-overlay)
     (emulting-select-current-candidate)))
 
@@ -285,14 +294,10 @@
   "Select the last item."
   (interactive)
   (with-current-buffer emulting-result-buffer
-    (if emulting-only-extension
-        (progn
-          (goto-char (point-max))
-          (forward-line -2))
-      (emulting-goto-extension emulting-current-extension)
-      (while (not (= (line-beginning-position) (line-end-position)))
-        (forward-line))
-      (forward-line -1))
+    (emulting-goto-extension emulting-current-extension)
+    (while (not (= (line-beginning-position) (line-end-position)))
+      (forward-line))
+    (forward-line -1)
     (delete-overlay emulting-selected-overlay)
     (emulting-select-current-candidate)))
 
@@ -302,8 +307,7 @@
   (with-current-buffer emulting-result-buffer
     (goto-char (point-min))
     (forward-line)
-    (unless emulting-only-extension
-      (setq emulting-current-extension 0))
+    (setq emulting-current-extension 0)
     (delete-overlay emulting-selected-overlay)
     (emulting-select-current-candidate)))
 
@@ -313,8 +317,7 @@
   (with-current-buffer emulting-result-buffer
     (goto-char (point-max))
     (forward-line -2)
-    (unless emulting-only-extension
-      (setq emulting-current-extension (1- (length (emulting-get-extension-has-result)))))
+    (setq emulting-current-extension (1- (length (emulting-get-extension-has-result))))
     (delete-overlay emulting-selected-overlay)
     (emulting-select-current-candidate)))
 
@@ -328,18 +331,11 @@
                emulting-selected-candidate)
       (let* ((candidate (emulting-get-main-candidate emulting-selected-candidate))
              (data (emulting-extension-get-data candidate
-                                                (if emulting-only-extension
-                                                    emulting-only-extension
-                                                  emulting-current-extension)
-                                                (when emulting-only-extension
-                                                  t)))
+                                                emulting-current-extension))
              (func (alist-get 'execute
                               (symbol-value
-                               (if emulting-only-extension
-                                   (nth emulting-only-extension
-                                        emulting-extension-alist)
-                                 (nth emulting-current-extension
-                                      (emulting-get-extension-has-result)))))))
+                               (nth emulting-current-extension
+                                    (emulting-get-extension-has-result))))))
         (when func
           (funcall func (if data
                             data
@@ -352,21 +348,25 @@
                         (buffer-string)))
       (user-error "[Emulting]: There's no candidate.")
     (when emulting-current-extension
+      ;; BUG: execute function
       (funcall (alist-get 'execute
                           (symbol-value
                            (nth emulting-current-extension
                                 (emulting-get-extension-has-result))))
                (emulting-get-input)))))
 
-(defun emulting-complete ()
-  "Complete by the selected candidate."
+(defun emulting-complete (&optional ex-candidate)
+  "Complete by the selected candidate.
+EX-CANDIDATE is the external candidate."
   (interactive)
   (with-current-buffer emulting-input-buffer
     (let ((input (buffer-string))
-          completion prefix content condidate)
+          (condidate ex-candidate)
+          completion prefix content)
       (when (and emulting-current-extension
                  emulting-selected-candidate)
-        (setq condidate (emulting-get-main-candidate emulting-selected-candidate))
+        (unless condidate
+          (setq condidate (emulting-get-main-candidate emulting-selected-candidate)))
         (prog1 (string-match "^#\\(.*\\):\\(.*\\)" input)
           (setq prefix (ignore-errors
                          (concat "#" (match-string 1 input) ":"))
@@ -376,11 +376,8 @@
         (if (setq completion
                   (alist-get
                    'complete
-                   (symbol-value (if emulting-only-extension
-                                     (nth emulting-only-extension
-                                          emulting-extension-alist)
-                                   (nth emulting-current-extension
-                                        (emulting-get-extension-has-result))))))
+                   (symbol-value (nth emulting-current-extension
+                                      (emulting-get-extension-has-result)))))
             (setq input (concat (when content
                                   prefix)
                                 (funcall completion (if content
@@ -449,10 +446,7 @@ When disable-cursor is non-nil, set `cursor-type' to nil."
     (erase-buffer)
     (setq emulting-selected-candidate-data-list nil)
     (let (extension icon)
-      (dolist (result (if emulting-only-extension
-                          (list (nth emulting-only-extension
-                                     emulting-extension-result))
-                        (emulting-get-extension-result)))
+      (dolist (result (emulting-get-extension-result))
         (setq extension (symbol-value (car result))
               icon (alist-get 'icon extension))
         (insert (propertize (alist-get 'name extension)
@@ -484,8 +478,7 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
         (progn
           (goto-char (point-min))
           (forward-line)
-          (setq emulting-current-extension 0
-                emulting-just-refreshed nil)
+          (setq emulting-current-extension 0)
           (emulting-select-current-candidate))
 
       (setq emulting-adjusting-overlay t)
@@ -506,8 +499,7 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
 
                   ((or (= (line-beginning-position) (line-end-position))
                        (emulting-header-title-p))
-                   (if (or emulting-only-extension
-                           (= (length (emulting-get-extension-has-result)) 1))
+                   (if (= (length (emulting-get-extension-has-result)) 1)
                        (progn
                          (if line-arg
                              (forward-line)
@@ -522,8 +514,7 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
 
         (unless (string-empty-p (buffer-string))
           (delete-overlay emulting-selected-overlay)
-          (if (or emulting-only-extension
-                  (= (length (emulting-get-extension-has-result)) 1))
+          (if (= (length (emulting-get-extension-has-result)) 1)
               (goto-char (point-min))
             (emulting-goto-extension emulting-current-extension))
           (forward-line)
@@ -557,19 +548,31 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
                (get-buffer emulting-result-buffer)))
       (emulting-exit)
     (let ((input (emulting-get-input)))
-      (if emulting-only-extension
-          (funcall (alist-get 'filter
-                              (symbol-value (nth emulting-only-extension
-                                                 emulting-extension-alist)))
-                   input)
-        (dolist (extension emulting-extension-alist)
-          (funcall (alist-get 'filter (symbol-value extension)) input))))))
+      (dolist (extension (if emulting-only-extensions
+                             emulting-only-extensions
+                           emulting-extension-alist))
+        (funcall (alist-get 'filter (symbol-value extension)) input)))))
 
+;; BUG: To judge the candidate status from different timer.
 (defun emulting-async-run (func)
   "Run FUNC asynchronously."
-  (run-with-idle-timer
-   0.15 nil func)
-  (setq emulting-just-refreshed t))
+  (if (= (length emulting-only-extensions) 1)
+      (run-with-idle-timer
+       0.15 nil func)
+    (setq emulting-candidate-status (list (with-current-buffer emulting-input-buffer
+                                            (buffer-string))
+                                          emulting-selected-candidate
+                                          emulting-current-extension))
+    (run-with-idle-timer
+     3 nil (lambda ()
+             (when (and emulting-candidate-status
+                        (string= (with-current-buffer emulting-input-buffer
+                                   (buffer-string))
+                                 (car emulting-candidate-status))
+                        (string= (nth 1 emulting-candidate-status) emulting-selected-candidate)
+                        (= (nth 2 emulting-candidate-status) emulting-current-extension))
+               (funcall func))
+             (setq emulting-candidate-status nil)))))
 
 (defun emulting-keep-cursor-visible ()
   "Keep the selected overlay visible."
@@ -607,23 +610,30 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
             (forward-line)))
       (goto-char (point-min))
       (forward-line)
-      (setq emulting-current-extension 0
-            emulting-just-refreshed nil))))
+      (setq emulting-current-extension 0))))
 
 (defun emulting-get-extension-has-result ()
   "Get all the extensions that has non-nil result."
   (let (extensions)
     (dolist (result emulting-extension-result)
-      (when (cdr-safe result)
-        (setq extensions (append extensions (list (car result))))))
+      (catch 'only-stop
+        (when (cdr-safe result)
+          (when (and emulting-only-extensions
+                     (not (memq (car result) emulting-only-extensions)))
+            (throw 'only-stop nil))
+          (setq extensions (append extensions (list (car result)))))))
     extensions))
 
 (defun emulting-get-extension-result ()
   "Get the extension's result which is non-nil."
   (let (results)
     (dolist (result emulting-extension-result)
-      (when (cdr-safe result)
-        (setq results (append results (list result)))))
+      (catch 'only-stop
+        (when (cdr-safe result)
+          (when (and emulting-only-extensions
+                     (not (memq (car result) emulting-only-extensions)))
+            (throw 'only-stop nil))
+          (setq results (append results (list result))))))
     results))
 
 (defun emulting-get-main-candidate (candidate)
@@ -633,6 +643,27 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
           (substring candidate 1)
         (substring candidate 2))
     candidate))
+
+(defun emulting-set-the-input (input)
+  "Set the properties for the INPUT."
+  (with-current-buffer emulting-input-buffer
+    (let ((input-extensions (split-string (substring input 1 -1) "," t))
+          display)
+      (if (and emulting-input-overlay
+               (string= (buffer-substring
+                         (overlay-start emulting-input-overlay)
+                         (overlay-end emulting-input-overlay))
+                        input))
+          nil
+        (mapc (lambda (s)
+                (setq display (concat display
+                                      (when display
+                                        ",")
+                                      (substring s 0 1))))
+              input-extensions)
+        (setq display (concat "#" display ":"))
+        (setq emulting-input-overlay (make-overlay (point-min) (point-max)))
+        (overlay-put emulting-input-overlay 'display display)))))
 
 (defun emulting-get-input ()
   "Get input text."
@@ -645,18 +676,21 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
                 content (ignore-errors
                           (match-string 2 input))))
         (progn
-          (setq prefix (intern (concat "emulting-extension-var-"
-                                       (replace-regexp-in-string
-                                        " " "-" (downcase prefix)))))
-          (when (setq tmp
-                      (spring/get-index prefix emulting-extension-alist))
-            (unless (eq tmp emulting-only-extension)
-              (setq emulting-just-refreshed nil))
-            (setq emulting-only-extension tmp))
+          (mapc (lambda (p)
+                  (setq tmp (append tmp
+                                    (list (intern (concat "emulting-extension-var-"
+                                                          (replace-regexp-in-string
+                                                           " " "-" (downcase p))))))))
+                (split-string prefix "," t))
+          (when tmp
+            (unless (equal tmp emulting-only-extensions)
+              (when (> (length tmp) 1)
+                (emulting-set-the-input input)))
+            (setq emulting-only-extensions tmp))
           content)
-      (when emulting-only-extension
-        (setq emulting-only-extension nil
-              emulting-just-refreshed nil))
+      (when emulting-only-extensions
+        (setq emulting-only-extensions nil)
+        (emulting-remove-input-overlay))
       (when (string-match-p "^#" input)
         (setq emulting-start-prefix t))
       input)))
@@ -668,6 +702,8 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
         (all-the-icons-faicon "html5" :v-adjust 0.01)
       (all-the-icons-icon-for-buffer))))
 
+;; TODO: If there's no need to set `emulting-current-extension' to the
+;; extension index in `emulting-extension-alist', delete the `from-alist' argument.
 (defun emulting-extension-get-data (candidate index &optional from-alist)
   "Get the extension data by its CANDIATE and extension INDEX.
 When FROM-ALIST is non-nil, get the extension from alist."
@@ -680,6 +716,12 @@ When FROM-ALIST is non-nil, get the extension from alist."
           (when (and (string= (car data) candidate)
                      (eq (nth 2 data) extension))
             (throw 'stop (nth 1 data))))))))
+
+(defun emulting-remove-input-overlay ()
+  "Remove the input overlay."
+  (when (overlayp emulting-input-overlay)
+    (delete-overlay emulting-input-overlay)
+    (setq emulting-input-overlay nil)))
 
 ;;; Functional functions for extension
 
@@ -734,15 +776,15 @@ COMPLETE-FUNCTION is used to complete the input."
   "Change EXTENSION's CANDIDATE."
   (let ((index (spring/get-index extension emulting-extension-alist))
         tmp)
+    (when (and (null candidate)
+               (not (memq extension emulting-just-refreshed))
+               (setq tmp (alist-get 'refresh (symbol-value extension)))
+               (eq emulting-current-extension
+                   (spring/get-index extension (emulting-get-extension-has-result))))
+      (emulting-filter-append emulting-just-refreshed extension)
+      (emulting-async-run tmp))
     (unless (equal (cdr (nth index emulting-extension-result))
                    candidate)
-      (when (and (or (eq emulting-current-extension
-                         (spring/get-index extension (emulting-get-extension-has-result)))
-                     (eq index emulting-only-extension))
-                 (null candidate)
-                 (null emulting-just-refreshed)
-                 (setq tmp (alist-get 'refresh (symbol-value extension))))
-        (emulting-async-run tmp))
       (setf (nth index emulting-extension-result)
             (cons extension candidate))
       (emulting-update-result-buffer))))
@@ -753,19 +795,6 @@ COMPLETE-FUNCTION is used to complete the input."
   `(setq ,candidate (append ,candidate (list ,val))))
 
 ;;; Extensions
-
-(defun emulting-extension-reverse-command ()
-  "The reverse command."
-  (interactive)
-  (pcase (if emulting-only-extension
-             (nth emulting-only-extension emulting-extension-alist)
-           (nth emulting-current-extension (emulting-get-extension-has-result)))
-    ('emulting-extension-var-buffer (emulting-extension-kill-buffer))
-    ('emulting-extension-var-file
-     (when emulting-selected-candidate
-       (setq emulting-extension-file-delete-mode t)
-       (emulting-candidate-do)))))
-
 ;;; Prefix
 
 (defun emulting-get-all-extension-prefix ()
@@ -775,7 +804,7 @@ COMPLETE-FUNCTION is used to complete the input."
       (unless (eq extension 'emulting-extension-var-prefix)
         (emulting-filter-append
          result
-         (format "#%s:"
+         (format "#%s"
                  (replace-regexp-in-string
                   "-" " " (progn
                             (string-match "^emulting-extension-var-\\(.*\\)"
@@ -789,14 +818,28 @@ COMPLETE-FUNCTION is used to complete the input."
   (lambda (input)
     (if emulting-start-prefix
         (let ((prefix (emulting-get-all-extension-prefix))
+              (tmp (split-string input ","))
               candidate)
+          (setq input (nth (1- (length tmp)) tmp))
           (setq candidate (emulting-input-match input prefix))
           (unless candidate
             (setq emulting-start-prefix nil))
           (emulting-change-candidate 'emulting-extension-var-prefix candidate))
       (emulting-change-candidate 'emulting-extension-var-prefix nil)))
 
-  nil)
+  (lambda (candidate)
+    (emulting-complete (concat candidate ":")))
+
+  (lambda (input candidate)
+    (let ((has-prefix-p (string-suffix-p "," input))
+          (candidate-do-p (string-suffix-p ":" candidate)))
+      (concat (when has-prefix-p
+                input)
+              (substring candidate (if has-prefix-p
+                                       1
+                                     0))
+              (unless candidate-do-p
+                ",")))))
 
 ;;; Buffer
 (defvar emulting-extension-buffer-blacklist
@@ -855,7 +898,18 @@ COMPLETE-FUNCTION is used to complete the input."
       (emulting-exit)
       (if killp
           (emulting-extension-kill-buffer content)
-        (switch-to-buffer content)))))
+        (switch-to-buffer content))))
+
+  (lambda (input candidate)
+    (when (string= input candidate)
+      (progn
+        (setq emulting-extension-buffer-kill-mode
+              (if emulting-extension-buffer-kill-mode
+                  nil
+                t))
+        (message "[Emulting]: Buffer kill mode is %S now."
+                 emulting-extension-buffer-kill-mode)))
+    candidate))
 
 ;;; Command
 
@@ -994,12 +1048,21 @@ COMPLETE-FUNCTION is used to complete the input."
         (find-file candidate))))
 
   (lambda (input candidate)
-    (let (prefix content string-list)
+    (let ((current-input input)
+          prefix content string-list)
       (setq string-list (split-string input "/"))
       (if (= (length string-list) 1)
           (setq input candidate)
         (setf (nth (1- (length string-list)) string-list) candidate)
         (setq input (mapconcat (lambda (s) s) string-list "/")))
+      (if (string= current-input input)
+          (progn
+            (setq emulting-extension-file-delete-mode
+                  (if emulting-extension-file-delete-mode
+                      nil
+                    t))
+            (message "[Emulting]: File delete mode is %S now."
+                     emulting-extension-file-delete-mode)))
       input)))
 
 (emulting-define-extension "BOOKMARK"
@@ -1166,7 +1229,7 @@ COMPLETE-FUNCTION is used to complete the input."
                                 (setq emulting-extension-buffer-kill-mode t)
                                 (emulting 'buffer)))
 (global-set-key (kbd "M-x") (lambda () (interactive) (emulting 'command)))
-(global-set-key (kbd "C-h f") (lambda () (interactive) (emulting 'callable)))
+(global-set-key (kbd "C-h f") (lambda () (interactive) (emulting '(callable variable))))
 (global-set-key (kbd "C-h v") (lambda () (interactive) (emulting 'variable)))
 (sniem-leader-set-key
  "." (lambda () (interactive) (emulting 'definition))
