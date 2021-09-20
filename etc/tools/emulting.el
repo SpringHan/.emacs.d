@@ -21,10 +21,6 @@
 ;; For a full copy of the GNU General Public License
 ;; see <http://www.gnu.org/licenses/>.
 
-;;; Changelog
-;;; 2021-08-29
-;; 	* etc/tools/emulting.el: Added some daily used extension, next step to add async extension
-
 ;;; Code
 
 ;;; Core
@@ -398,7 +394,7 @@ EX-CANDIDATE is the external candidate."
                  emulting-selected-candidate)
         (unless condidate
           (setq condidate (emulting-get-main-candidate emulting-selected-candidate)))
-        (prog1 (string-match "^#\\(.*\\):\\(.*\\)" input)
+        (prog1 (string-match "^#\\(.*?\\):\\(.*\\)" input)
           (setq prefix (ignore-errors
                          (concat "#" (match-string 1 input) ":"))
                 content (ignore-errors
@@ -421,8 +417,12 @@ EX-CANDIDATE is the external candidate."
                 (setq input (concat prefix content)))
             (setq input condidate)))
         
-        (erase-buffer)
-        (insert input)))))
+        (let (prefix-length)
+          (when (overlayp emulting-input-overlay)
+            (setq prefix-length (overlay-end emulting-input-overlay)))
+          (erase-buffer)
+          (insert input)
+          (emulting-set-the-input input prefix-length))))))
 
 (defun emulting-clear-result ()
   "Clear the match results."
@@ -693,10 +693,14 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
         (substring candidate 2))
     candidate))
 
-(defun emulting-set-the-input (input)
-  "Set the properties for the INPUT."
+(defun emulting-set-the-input (input &optional prefix-length)
+  "Set the properties for the INPUT.
+PREFIX-LENGTH is the last prefix's length."
   (with-current-buffer emulting-input-buffer
-    (let ((input-extensions (split-string (substring input 1 -1) "," t))
+    (let ((input-extensions (split-string (if prefix-length
+                                              (substring input 1 prefix-length)
+                                            (substring input 1 -1))
+                                          "," t))
           display)
       (if (and emulting-input-overlay
                (string= (buffer-substring
@@ -711,7 +715,9 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
                                       (substring s 0 1))))
               input-extensions)
         (setq display (concat "#" display ":"))
-        (setq emulting-input-overlay (make-overlay (point-min) (point-max)))
+        (setq emulting-input-overlay (make-overlay (point-min) (if prefix-length
+                                                                   prefix-length
+                                                                 (point-max))))
         (overlay-put emulting-input-overlay 'display display)))))
 
 (defun emulting-get-input ()
@@ -719,7 +725,7 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
   (let ((input (with-current-buffer emulting-input-buffer
                  (buffer-string)))
         prefix content tmp)
-    (if (prog1 (string-match "^#\\(.*\\):\\(.*\\)" input)
+    (if (prog1 (string-match "^#\\(.*?\\):\\(.*\\)" input)
           (setq prefix (ignore-errors
                          (match-string 1 input))
                 content (ignore-errors
@@ -777,18 +783,19 @@ When FROM-ALIST is non-nil, get the extension from alist."
 (defun emulting-kill-subprocess (name &optional check)
   "Kill subprocess by NAME.
 When CHECK is non-nil, check the subprocess status to decide if killing it."
-  (catch 'stop-kill
-    (let ((process (gethash name emulting-subprocess-alist))
-          command)
-      (when process
-        (when check
-          (setq command (process-command process))
-          (when (string= (nth check command) emulting-last-input)
-            (throw 'stop-kill nil)))
-        (kill-buffer (process-buffer process)))
-      (when (and process
-                 (process-live-p process))
-        (kill-process process)))))
+  (when (catch 'stop-kill
+          (let ((process (gethash name emulting-subprocess-alist))
+                command)
+            (when process
+              (when check
+                (setq command (process-command process))
+                (when (string= (nth check command) emulting-last-input)
+                  (throw 'stop-kill t)))
+              (kill-buffer (process-buffer process)))
+            (when (and process
+                       (process-live-p process))
+              (kill-process process))))
+    (throw 'stop-to-create t)))
 
 (defun emulting-create-subprocess (name input command-function filter-function)
   "Create a subprocess.
@@ -797,37 +804,36 @@ COMMAND-FUNCTION is the function for building command.
 FILTER-FUNCTION is the filter function for extension."
   (let ((command (funcall command-function input))
         input-index)
-    (when command
-      (setq input-index (nth (1- (length command) command)))
-      (setq command (delete input-index command))
-      (emulting-kill-subprocess name input-index)
-      (run-with-idle-timer
-       0.1 nil
-       (lambda ()
-         (when (string= input emulting-last-input)
-           (let ((process-buffer (get-buffer-create (concat " *Emulting-Subprocess-" name))))
-             (with-current-buffer process-buffer
-               (setq-local kill-buffer-query-functions
-                           (remq 'process-kill-buffer-query-function
-                                 kill-buffer-query-functions)))
+    (catch 'stop-to-create
+      (when command
+        (setq input-index (nth (1- (length command)) command))
+        (setq command (delete input-index command))
+        (emulting-kill-subprocess name input-index)
+        (run-with-idle-timer
+         0.1 nil
+         (lambda ()
+           (when (string= input emulting-last-input)
+             (let ((process-buffer (get-buffer-create (concat " *Emulting-Subprocess-" name))))
+               (with-current-buffer process-buffer
+                 (setq-local kill-buffer-query-functions
+                             (remq 'process-kill-buffer-query-function
+                                   kill-buffer-query-functions)))
 
-             (puthash name
-                      (make-process
-                       :name ""
-                       :buffer process-buffer
-                       :command command
-                       :sentinel (lambda (process event)
-                                   (when (string= (substring event 0 -1) "finished")
-                                     (let ((buffer (process-buffer process)))
-                                       (when (get-buffer buffer)
-                                         (with-current-buffer buffer
-                                           (ignore-errors
-                                             (let ((content (split-string (buffer-string) "\n" t)))
-                                               (when content
-                                                 (funcall filter-function content)))))
+               (puthash name
+                        (make-process
+                         :name ""
+                         :buffer process-buffer
+                         :command command
+                         :sentinel (lambda (process event)
+                                     (when (string-match "\\(finished\\|Exiting\\|killed\\|exited\\)" event)
+                                       (let ((buffer (process-buffer process)))
+                                         (when (get-buffer buffer)
+                                           (with-current-buffer buffer
+                                             (let ((content (butlast (split-string (buffer-string) "\n"))))
+                                               (funcall filter-function content)))
 
-                                         (kill-buffer buffer))))))
-                      emulting-subprocess-alist))))))))
+                                           (kill-buffer buffer))))))
+                        emulting-subprocess-alist)))))))))
 
 (defmacro emulting-define-extension (name clear-vars refresh-function icon-function
                                           filter-function execute-function
@@ -842,8 +848,7 @@ EXECUTE-FUNCTION is used to handle the result.
 COMPLETE-FUNCTION is used to complete the input.
 COMMAND-FUNCTION is used to build the command asynchronously."
   (declare (indent defun))
-  (let* ((async (and (eq (car filter-function) 'async)
-                     (setq filter-function (cdr filter-function))))
+  (let* ((async (eq (car filter-function) 'async))
          (extension-symbol-name (replace-regexp-in-string " " "-" (downcase name)))
          (function-name (intern (concat "emulting-extension-"
                                         extension-symbol-name)))
@@ -852,6 +857,8 @@ COMMAND-FUNCTION is used to build the command asynchronously."
     (when (and clear-vars
                (symbolp clear-vars))
       (setq clear-vars (list clear-vars)))
+    (when async
+      (setq filter-function (cdr filter-function)))
 
     `(progn
        (defun ,function-name (content)
@@ -868,7 +875,8 @@ COMMAND-FUNCTION is used to build the command asynchronously."
                (icon . ,icon-function)
                (execute . ,execute-function)
                (complete . ,complete-function)
-               (refresh . ,refresh-function)))
+               (refresh . ,refresh-function)
+               (async . ,async)))
 
        (add-to-list 'emulting-extension-alist ',variable-name t)
        (add-to-list 'emulting-extension-result '(,variable-name) t)
@@ -1378,6 +1386,74 @@ COMMAND-FUNCTION is used to build the command asynchronously."
           ((boundp candidate)
            (find-variable candidate)))))
 
+;;; Ag
+(emulting-define-extension "AG"
+  nil nil nil
+
+  (async
+   .
+   (lambda (candidate-list)
+     (setq candidate-list (sniem--nth-utill 0 34 candidate-list))
+     (emulting-change-candidate 'emulting-extension-var-ag candidate-list)))
+
+  (lambda (candidate)
+    (let ((directory emulting-last-directory))
+      (emulting-exit)
+      (setq candidate (split-string candidate ":" t))
+      (when (> (length candidate) 1)
+        (find-file (concat directory (car candidate)))
+        (with-current-buffer (current-buffer)
+          (goto-char (point-min))
+          (forward-line (1- (string-to-number (second candidate))))
+          (forward-char (1- (string-to-number (third candidate))))))))
+  nil
+
+  (lambda (input)
+    (if (and (null emulting-whole-start)
+             (executable-find "ag")
+             (> (length input) 5))
+        (list "ag" "--vimgrep" input 2)
+      (emulting-change-candidate 'emulting-extension-var-ag nil)
+      nil)))
+
+;;; EAF Browser history
+(emulting-define-extension "EAF BROWSER HISTORY"
+  nil nil
+
+  (lambda (candidate)
+    (all-the-icons-faicon "history" :v-adjust -0.03))
+
+  (async
+   .
+   (lambda (candidate-list)
+     (let (candidates)
+       (catch 'counter-stop
+         (dolist (history candidate-list)
+           (when (string-match "^\\(.+\\)ᛝ\\(.+\\)ᛡ\\(.+\\)$" history)
+             (emulting-filter-append candidates
+                                     (list (format "%s %s"
+                                                   (match-string 1 history)
+                                                   (match-string 2 history))
+                                           (match-string 2 history)))
+             (when (> (length candidates) 20)
+               (throw 'counter-stop nil)))))
+       (emulting-change-candidate 'emulting-extension-var-eaf-browser-history
+                                  candidates))))
+
+  (lambda (candidate)
+    (emulting-exit)
+    (eaf-open-browser candidate))
+  nil
+
+  (lambda (input)
+    (if (and (featurep 'eaf)
+               (executable-find "fzf")
+               (> (length input) 1))
+        (list (concat (file-name-directory (locate-library "emulting")) "eaf-fzf-search.sh")
+              (concat eaf-config-location (file-name-as-directory "browser") (file-name-as-directory "history") "log.txt")
+              input 2)
+      (emulting-change-candidate 'emulting-extension-var-eaf-browser-history nil))))
+
 ;;; Global keymap init
 (global-set-key (kbd "M-z") #'emulting)
 (global-set-key (kbd "C-q c") (lambda () (interactive) (emulting 'config)))
@@ -1390,6 +1466,8 @@ COMMAND-FUNCTION is used to build the command asynchronously."
 (global-set-key (kbd "M-x") (lambda () (interactive) (emulting 'command)))
 (global-set-key (kbd "C-h f") (lambda () (interactive) (emulting '(callable variable))))
 (global-set-key (kbd "C-h v") (lambda () (interactive) (emulting 'variable)))
+(global-set-key (kbd "C-' A") (lambda () (interactive) (emulting 'ag)))
+(global-set-key (kbd "C-q C-w h") (lambda () (interactive) (emulting 'eaf-browser-history)))
 (sniem-leader-set-key
  "." (lambda () (interactive) (emulting '(definition imenu)))
  "ff" (lambda () (interactive) (emulting '(file new-file))))
