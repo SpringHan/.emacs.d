@@ -422,7 +422,9 @@ EX-CANDIDATE is the external candidate."
             (setq prefix-length (overlay-end emulting-input-overlay)))
           (erase-buffer)
           (insert input)
-          (emulting-set-the-input input prefix-length))))))
+          (when (and emulting-only-extensions
+                     (> (length emulting-only-extensions) 1))
+            (emulting-set-the-input input prefix-length)))))))
 
 (defun emulting-clear-result ()
   "Clear the match results."
@@ -1435,7 +1437,7 @@ COMMAND-FUNCTION is used to build the command asynchronously."
                                                    (match-string 1 history)
                                                    (match-string 2 history))
                                            (match-string 2 history)))
-             (when (> (length candidates) 20)
+             (when (> (length candidates) 30)
                (throw 'counter-stop nil)))))
        (emulting-change-candidate 'emulting-extension-var-eaf-browser-history
                                   candidates))))
