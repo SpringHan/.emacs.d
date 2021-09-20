@@ -133,10 +133,19 @@
   :type 'overlay
   :group 'emulting)
 
-(defcustom emulting-candidate-status nil
-  "The candidate status current time."
-  :type 'list
+(defcustom emulting-current-extension-var nil
+  "Current extension var."
+  :type 'symbol
   :group 'emulting)
+
+(defcustom emulting-last-input nil
+  "The last input for subprocess."
+  :type 'string
+  :group 'emulting)
+
+(defvar emulting-subprocess-alist
+  (make-hash-table :test 'equal)
+  "Subprocess alist.")
 
 (defface emulting-header-title-face
   '((t :height 1.5 :inherit awesome-tray-module-location-face))
@@ -232,7 +241,9 @@
     (setq emulting-input-match-timer nil))
   (setq emulting-whole-start nil
         emulting-start-prefix nil
+        emulting-last-input nil
         emulting-current-extension nil
+        emulting-current-extension-var nil
         emulting-adjusting-overlay nil
         emulting-selected-candidate nil
         emulting-selected-overlay nil
@@ -243,6 +254,18 @@
         emulting-just-refreshed nil
         emulting-candidate-status nil)
   (emulting-remove-input-overlay)
+
+  ;; Kill all the async subprocesses.
+  (unless (hash-table-empty-p emulting-subprocess-alist)
+    (maphash (lambda (_name process)
+               (when process
+                 (kill-buffer (process-buffer process)))
+               (when (and process
+                          (process-live-p process))
+                 (kill-process process)))
+             emulting-subprocess-alist)
+    (setq emulting-subprocess-alist (make-hash-table :test 'equal)))
+  
   (emulting-clear-result)
   (emulting-clear-variable))
 
@@ -261,10 +284,13 @@
   "Goto the next extension."
   (interactive)
   (with-current-buffer emulting-result-buffer
-    (let ((extension (1+ emulting-current-extension)))
-      (when (nth extension (emulting-get-extension-has-result))
+    (let ((extension (1+ emulting-current-extension))
+          var)
+      (when (setq var
+                  (nth extension (emulting-get-extension-has-result)))
         (delete-overlay emulting-selected-overlay)
-        (setq emulting-current-extension extension)
+        (setq emulting-current-extension extension
+              emulting-current-extension-var var)
         (emulting-goto-extension extension)
         (forward-line)
         (emulting-select-current-candidate)))))
@@ -273,10 +299,13 @@
   "Goto the prev extension."
   (interactive)
   (with-current-buffer emulting-result-buffer
-    (let ((extension (1- emulting-current-extension)))
-      (when (nth extension (emulting-get-extension-has-result))
+    (let ((extension (1- emulting-current-extension))
+          var)
+      (when (setq var
+                  (nth extension (emulting-get-extension-has-result)))
         (delete-overlay emulting-selected-overlay)
-        (setq emulting-current-extension extension)
+        (setq emulting-current-extension extension
+              emulting-current-extension-var var)
         (emulting-goto-extension extension)
         (forward-line)
         (emulting-select-current-candidate)))))
@@ -307,7 +336,8 @@
   (with-current-buffer emulting-result-buffer
     (goto-char (point-min))
     (forward-line)
-    (setq emulting-current-extension 0)
+    (setq emulting-current-extension 0
+          emulting-current-extension-var (car (emulting-get-extension-has-result)))
     (delete-overlay emulting-selected-overlay)
     (emulting-select-current-candidate)))
 
@@ -317,7 +347,9 @@
   (with-current-buffer emulting-result-buffer
     (goto-char (point-max))
     (forward-line -2)
-    (setq emulting-current-extension (1- (length (emulting-get-extension-has-result))))
+    (setq emulting-current-extension (1- (length (emulting-get-extension-has-result)))
+          emulting-current-extension-var (nth emulting-current-extension
+                                              (emulting-get-extension-has-result)))
     (delete-overlay emulting-selected-overlay)
     (emulting-select-current-candidate)))
 
@@ -477,7 +509,8 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
         (progn
           (goto-char (point-min))
           (forward-line)
-          (setq emulting-current-extension 0)
+          (setq emulting-current-extension 0
+                emulting-current-extension-var (car (emulting-get-extension-has-result)))
           (emulting-select-current-candidate))
 
       (setq emulting-adjusting-overlay t)
@@ -515,6 +548,14 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
           (delete-overlay emulting-selected-overlay)
           (if (= (length (emulting-get-extension-has-result)) 1)
               (goto-char (point-min))
+            (unless (eq (nth emulting-current-extension (emulting-get-extension-has-result))
+                        emulting-current-extension-var)
+              (let* ((extensions (emulting-get-extension-has-result))
+                     (tmp (spring/get-index emulting-current-extension-var extensions)))
+                (if tmp
+                    (setq emulting-current-extension tmp)
+                  (setq emulting-current-extension 0
+                        emulting-current-extension-var (car extensions)))))
             (emulting-goto-extension emulting-current-extension))
           (forward-line)
           (let (temp)
@@ -550,6 +591,8 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
       (dolist (extension (if emulting-only-extensions
                              emulting-only-extensions
                            emulting-extension-alist))
+        (when (alist-get 'async (symbol-value extension))
+          (setq emulting-last-input input))
         (funcall (alist-get 'filter (symbol-value extension)) input)))))
 
 (defun emulting-async-run (func)
@@ -731,9 +774,64 @@ When FROM-ALIST is non-nil, get the extension from alist."
 
 ;;; Functional functions for extension
 
+(defun emulting-kill-subprocess (name &optional check)
+  "Kill subprocess by NAME.
+When CHECK is non-nil, check the subprocess status to decide if killing it."
+  (catch 'stop-kill
+    (let ((process (gethash name emulting-subprocess-alist))
+          command)
+      (when process
+        (when check
+          (setq command (process-command process))
+          (when (string= (nth check command) emulting-last-input)
+            (throw 'stop-kill nil)))
+        (kill-buffer (process-buffer process)))
+      (when (and process
+                 (process-live-p process))
+        (kill-process process)))))
+
+(defun emulting-create-subprocess (name input command-function filter-function)
+  "Create a subprocess.
+NAME is the name of the extension.
+COMMAND-FUNCTION is the function for building command.
+FILTER-FUNCTION is the filter function for extension."
+  (let ((command (funcall command-function input))
+        input-index)
+    (when command
+      (setq input-index (nth (1- (length command) command)))
+      (setq command (delete input-index command))
+      (emulting-kill-subprocess name input-index)
+      (run-with-idle-timer
+       0.1 nil
+       (lambda ()
+         (when (string= input emulting-last-input)
+           (let ((process-buffer (get-buffer-create (concat " *Emulting-Subprocess-" name))))
+             (with-current-buffer process-buffer
+               (setq-local kill-buffer-query-functions
+                           (remq 'process-kill-buffer-query-function
+                                 kill-buffer-query-functions)))
+
+             (puthash name
+                      (make-process
+                       :name ""
+                       :buffer process-buffer
+                       :command command
+                       :sentinel (lambda (process event)
+                                   (when (string= (substring event 0 -1) "finished")
+                                     (let ((buffer (process-buffer process)))
+                                       (when (get-buffer buffer)
+                                         (with-current-buffer buffer
+                                           (ignore-errors
+                                             (let ((content (split-string (buffer-string) "\n" t)))
+                                               (when content
+                                                 (funcall filter-function content)))))
+
+                                         (kill-buffer buffer))))))
+                      emulting-subprocess-alist))))))))
+
 (defmacro emulting-define-extension (name clear-vars refresh-function icon-function
                                           filter-function execute-function
-                                          &optional complete-function)
+                                          &optional complete-function command-function)
   "The macro to define emulting extension.
 NAME is the head-title which show in the result buffer.
 CLEAR-VARS is the variables that needs to be set to nil after process.
@@ -741,9 +839,11 @@ REFRESH-FUNCTION is used for refreshing result when there's no matched item.
 ICON-FUNCTION is used for providing the icon for the result.
 FILTER-FUNCTION is used to filter result.
 EXECUTE-FUNCTION is used to handle the result.
-COMPLETE-FUNCTION is used to complete the input."
+COMPLETE-FUNCTION is used to complete the input.
+COMMAND-FUNCTION is used to build the command asynchronously."
   (declare (indent defun))
-  (let* ((async (eq (car filter-function) 'async))
+  (let* ((async (and (eq (car filter-function) 'async)
+                     (setq filter-function (cdr filter-function))))
          (extension-symbol-name (replace-regexp-in-string " " "-" (downcase name)))
          (function-name (intern (concat "emulting-extension-"
                                         extension-symbol-name)))
@@ -755,7 +855,10 @@ COMPLETE-FUNCTION is used to complete the input."
 
     `(progn
        (defun ,function-name (content)
-         (funcall ,filter-function content))
+         ,(if async
+              `(funcall 'emulting-create-subprocess
+                        ,name content ,command-function ,filter-function)
+            `(funcall ,filter-function content)))
 
        (defvar ,variable-name)
 
