@@ -1179,14 +1179,15 @@ COMMAND-FUNCTION is used to build the command asynchronously."
           (setq input candidate)
         (setf (nth (1- (length string-list)) string-list) candidate)
         (setq input (mapconcat (lambda (s) s) string-list "/")))
-      (if (string= current-input input)
-          (progn
-            (setq emulting-extension-file-delete-mode
-                  (if emulting-extension-file-delete-mode
-                      nil
-                    t))
-            (message "[Emulting]: File delete mode is %S now."
-                     emulting-extension-file-delete-mode)))
+      (when (string= current-input input)
+        (setq emulting-extension-file-delete-mode
+              (if emulting-extension-file-delete-mode
+                  nil
+                t))
+        (message "[Emulting]: File delete mode is %S now."
+                 emulting-extension-file-delete-mode))
+      (when (file-directory-p input)
+        (setq input (concat input "/")))
       input)))
 
 ;;; New File
