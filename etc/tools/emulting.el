@@ -940,9 +940,9 @@ COMMAND-FUNCTION is used to build the command asynchronously."
               (tmp (split-string input ","))
               candidate)
           (setq input (nth (1- (length tmp)) tmp))
-          (setq candidate (emulting-input-match input prefix))
-          (unless candidate
+          (when (string-empty-p input)
             (setq emulting-start-prefix nil))
+          (setq candidate (emulting-input-match input prefix))
           (emulting-change-candidate 'emulting-extension-var-prefix candidate))
       (emulting-change-candidate 'emulting-extension-var-prefix nil)))
 
@@ -1449,8 +1449,8 @@ COMMAND-FUNCTION is used to build the command asynchronously."
 
   (lambda (input)
     (if (and (featurep 'eaf)
-               (executable-find "fzf")
-               (> (length input) 1))
+             (executable-find "fzf")
+             (> (length input) 1))
         (list (concat (file-name-directory (locate-library "emulting")) "eaf-fzf-search.sh")
               (concat eaf-config-location (file-name-as-directory "browser") (file-name-as-directory "history") "log.txt")
               input 2)
