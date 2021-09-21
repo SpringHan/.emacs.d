@@ -1235,6 +1235,24 @@ COMMAND-FUNCTION is used to build the command asynchronously."
                                               (nth (1- (length candidate)) candidate)))))
       (emulting-exit))))
 
+;;; Recentf
+(recentf-mode t)
+
+(emulting-define-extension "RECENTF"
+  nil nil
+
+  (lambda (candidate)
+    (all-the-icons-icon-for-file candidate))
+
+  (lambda (input)
+    (let (candidates)
+      (setq candidates (emulting-input-match input recentf-list))
+      (emulting-change-candidate 'emulting-extension-var-recentf candidates)))
+
+  (lambda (candidate)
+    (emulting-exit)
+    (find-file candidate)))
+
 (emulting-define-extension "BOOKMARK"
   nil nil
 
@@ -1473,7 +1491,7 @@ COMMAND-FUNCTION is used to build the command asynchronously."
 (global-set-key (kbd "C-q C-w h") (lambda () (interactive) (emulting 'eaf-browser-history)))
 (sniem-leader-set-key
  "." (lambda () (interactive) (emulting '(definition imenu)))
- "ff" (lambda () (interactive) (emulting '(file new-file))))
+ "ff" (lambda () (interactive) (emulting '(file recentf new-file))))
 
 (provide 'emulting)
 
