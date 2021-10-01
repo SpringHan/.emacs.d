@@ -1535,7 +1535,7 @@ Otherwise it's a variable."
   (interactive (let ((demo (ignore-errors
                              (intern (substring-no-properties
                                       (thing-at-point 'symbol))))))
-                 (cond ((functionp demo)
+                 (cond ((fboundp demo)
                         (list demo t))
                        ((boundp demo)
                         (list demo nil))
