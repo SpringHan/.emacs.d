@@ -716,7 +716,7 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
   "Set the properties for the INPUT.
 PREFIX-LENGTH is the last prefix's length."
   (with-current-buffer emulting-input-buffer
-    (if (= prefix-length -1)
+    (if (eq prefix-length -1)
         (progn
           (erase-buffer)
           (insert input)
