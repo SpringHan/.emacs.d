@@ -794,14 +794,10 @@ PREFIX-LENGTH is the last prefix's length."
         (all-the-icons-faicon "html5" :v-adjust 0.01)
       (all-the-icons-icon-for-buffer))))
 
-;; TODO: If there's no need to set `emulting-current-extension' to the
-;; extension index in `emulting-extension-alist', delete the `from-alist' argument.
-(defun emulting-extension-get-data (candidate index &optional from-alist)
+(defun emulting-extension-get-data (candidate index)
   "Get the extension data by its CANDIATE and extension INDEX.
 When FROM-ALIST is non-nil, get the extension from alist."
-  (let ((extension (nth index (if from-alist
-                                  emulting-extension-alist
-                                (emulting-get-extension-has-result)))))
+  (let ((extension (nth index (emulting-get-extension-has-result))))
     (when extension
       (catch 'stop
         (dolist (data emulting-selected-candidate-data-list)
