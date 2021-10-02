@@ -1474,10 +1474,14 @@ CHILD is the child property for the extension."
                           (match-string 3 input))))
                 pathp)
             (when (stringp path)
-              (if (string-prefix-p "@" path)
-                  (setq input (replace-regexp-in-string "@@" "@" input))
-                (setq pathp t
-                      input (replace-regexp-in-string "@\\(.*\\)" "" input))))
+              (pcase path
+                ((pred string-empty-p)
+                 (setq input (replace-regexp-in-string "@\\(.*\\)" "" input)))
+                ((pred (string-prefix-p "@"))
+                 (setq input (replace-regexp-in-string "@@" "@" input)))
+                (_
+                 (setq pathp t
+                       input (replace-regexp-in-string "@\\(.*\\)" "" input)))))
             (list "ag" "--vimgrep" input
                   (if pathp
                       path
