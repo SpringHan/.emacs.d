@@ -144,6 +144,11 @@
   :type 'string
   :group 'emulting)
 
+(defcustom emulting-available-extensions nil
+  "The length of current extensions that has result."
+  :type 'number
+  :group 'emulting)
+
 (defvar emulting-subprocess-alist
   (make-hash-table :test 'equal)
   "Subprocess alist.")
@@ -254,7 +259,8 @@
         emulting-last-directory nil
         emulting-just-refreshed nil
         emulting-candidate-status nil
-        emulting-main-extension-input nil)
+        emulting-main-extension-input nil
+        emulting-available-extensions nil)
   (emulting-remove-input-overlay)
 
   ;; Kill all the async subprocesses.
@@ -505,8 +511,9 @@ When disable-cursor is non-nil, set `cursor-type' to nil."
   (with-current-buffer emulting-result-buffer
     (erase-buffer)
     (setq emulting-selected-candidate-data-list nil)
-    (let (extension icon)
-      (dolist (result (emulting-get-extension-result))
+    (let ((results (emulting-get-extension-result))
+          extension icon)
+      (dolist (result results)
         (setq extension (symbol-value (car result))
               icon (alist-get 'icon extension))
         (insert (propertize (alist-get 'name extension)
@@ -526,8 +533,9 @@ When disable-cursor is non-nil, set `cursor-type' to nil."
                                 "")))
                     (insert " " s "\n")))
                 (cdr result))
-        (insert "\n")))
-    (emulting-adjust-selected-overlay)))
+        (insert "\n"))
+      (emulting-adjust-selected-overlay)
+      (setq emulting-available-extensions (length results)))))
 
 (defun emulting-adjust-selected-overlay (&optional moved)
   "Adjust the selected overlay.
@@ -577,14 +585,17 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
           (delete-overlay emulting-selected-overlay)
           (let (not-keep-cand)
             (if (= (length (emulting-get-extension-has-result)) 1)
-                (goto-char (point-min))
+                (progn
+                  (setq not-keep-cand t)
+                  (goto-char (point-min)))
               (unless (eq (nth emulting-current-extension (emulting-get-extension-has-result))
                           emulting-current-extension-var)
                 (let* ((extensions (emulting-get-extension-has-result))
                        (tmp (spring/get-index emulting-current-extension-var extensions)))
                   (if tmp
                       (progn
-                        (when (= tmp emulting-current-extension)
+                        (when (and emulting-available-extensions
+                                   (= (length extensions) emulting-available-extensions))
                           (setq not-keep-cand t))
                         (setq emulting-current-extension tmp))
                     (setq emulting-current-extension 0
