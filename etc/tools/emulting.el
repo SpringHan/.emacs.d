@@ -577,29 +577,28 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
                      (if line-arg
                          (emulting-prev-extension)
                        (emulting-next-extension))))
-
                   
                   (t (emulting-select-current-candidate))))
 
         (unless (string-empty-p (buffer-string))
           (delete-overlay emulting-selected-overlay)
-          (let (not-keep-cand)
-            (if (= (length (emulting-get-extension-has-result)) 1)
+          (let* ((current-extensions (emulting-get-extension-has-result))
+                 (current-extension-length (length current-extensions))
+                 not-keep-cand)
+            (if (= current-extension-length 1)
                 (progn
                   (setq not-keep-cand t)
                   (goto-char (point-min)))
-              (unless (eq (nth emulting-current-extension (emulting-get-extension-has-result))
+              (unless (eq (nth emulting-current-extension current-extensions)
                           emulting-current-extension-var)
-                (let* ((extensions (emulting-get-extension-has-result))
-                       (tmp (spring/get-index emulting-current-extension-var extensions)))
+                (let ((tmp (spring/get-index emulting-current-extension-var current-extensions)))
                   (if tmp
-                      (progn
-                        (when (and emulting-available-extensions
-                                   (= (length extensions) emulting-available-extensions))
-                          (setq not-keep-cand t))
-                        (setq emulting-current-extension tmp))
+                      (setq emulting-current-extension tmp)
                     (setq emulting-current-extension 0
-                          emulting-current-extension-var (car extensions)))))
+                          emulting-current-extension-var (car current-extensions)))))
+              (when (and emulting-available-extensions
+                         (= current-extension-length emulting-available-extensions))
+                (setq not-keep-cand t))
               (emulting-goto-extension emulting-current-extension))
             (forward-line)
             (let (temp)
