@@ -51,7 +51,8 @@
                            (netease-cloud-music)
                          (eaf-open-netease-cloud-music)))))
   :var ((netease-cloud-music-search-limit . 15)
-        (netease-cloud-music-show-lyric . 'all))
+        (netease-cloud-music-show-lyric . 'all)
+        (netease-cloud-music-line-number-relative . t))
   :config (require 'netease-cloud-music-ui))
 
 ;;; Shengci.el

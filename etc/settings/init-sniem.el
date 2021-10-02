@@ -123,5 +123,7 @@
  "M-u" 'move-text-up)
 (sniem-set-quit-insert-key "<C-tab>")
 (global-set-key (kbd "C--") sniem-leader-keymap)
+;;; Third-party
+(setq netease-cloud-music-jump-function 'sniem-digit-argument-get)
 
 (provide 'init-sniem)
