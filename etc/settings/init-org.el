@@ -18,9 +18,12 @@
   :repo "DogLooksGood/org-html-themify"
   :var (org-html-themify-themes . '((dark . nord)
                                     (light . lab-light)))
-  :hook ((org-mode-hook . org-html-themify-mode)
-         (org-html-themify-mode-hook . (lambda ()
-                                         (load-the-theme)))))
+  :hook ((org-html-themify-mode-hook . (lambda ()
+                                         (unless (memq (if (day-or-night)
+                                                           'lab-light
+                                                         'nord)
+                                                       custom-enabled-themes)
+                                           (load-the-theme))))))
 
 ;;; Config
 (setq org-log-mode 'note) ; Set the log mode type

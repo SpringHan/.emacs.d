@@ -1210,7 +1210,8 @@ CHILD is the child property for the extension."
         (when (emulting-input-match input (list file))
           (setq filepath (concat current-directory file))
           (emulting-filter-append candidates (list file filepath))))
-      (emulting-change-candidate 'emulting-extension-var-file candidates)))
+      (emulting-change-candidate 'emulting-extension-var-file
+                                 (sniem--nth-utill 0 34 candidates))))
 
   (lambda (candidate)
     (let ((deletep emulting-extension-file-delete-mode))
