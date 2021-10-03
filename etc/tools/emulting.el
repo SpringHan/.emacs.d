@@ -1285,24 +1285,6 @@ CHILD is the child property for the extension."
                                               (nth (1- (length candidate)) candidate)))))
       (emulting-exit))))
 
-;;; Recentf
-(recentf-mode t)
-
-(emulting-define-extension "RECENTF"
-  nil nil
-
-  (lambda (candidate)
-    (all-the-icons-icon-for-file candidate))
-
-  (lambda (input)
-    (let (candidates)
-      (setq candidates (emulting-input-match input recentf-list))
-      (emulting-change-candidate 'emulting-extension-var-recentf candidates)))
-
-  (lambda (candidate)
-    (emulting-exit)
-    (find-file candidate)))
-
 (emulting-define-extension "BOOKMARK"
   nil nil
 
@@ -1582,7 +1564,7 @@ Otherwise it's a variable."
 (global-set-key (kbd "C-q C-w h") (lambda () (interactive) (emulting 'eaf-browser-history)))
 (sniem-leader-set-key
  "." 'spring/find-definition
- "ff" (lambda () (interactive) (emulting '(file recentf new-file))))
+ "ff" (lambda () (interactive) (emulting '(file new-file))))
 
 (provide 'emulting)
 
