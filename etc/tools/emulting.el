@@ -149,11 +149,6 @@
   :type 'number
   :group 'emulting)
 
-(defcustom emulting-result-window-text-height nil
-  "The text height for result window."
-  :type 'number
-  :group 'emulting)
-
 (defvar emulting-subprocess-alist
   (make-hash-table :test 'equal)
   "Subprocess alist.")
@@ -491,9 +486,11 @@ EX-CANDIDATE is the external candidate."
 (defun emulting-result-buffer-init ()
   "initialize result buffer."
   (unless (get-buffer emulting-result-buffer)
-    (unless emulting-result-window-text-height
-      (setq emulting-result-window-text-height (truncate (* 0.95 (window-height)))))
-    (split-window nil emulting-result-window-text-height 'above)
+    (split-window nil
+                  (* emulting-input-text-scale (line-pixel-height))
+                  nil t)
+    (setq window-size-fixed 'height)
+    (windmove-down)
     (switch-to-buffer emulting-result-buffer))
   (with-current-buffer (get-buffer-create emulting-result-buffer)
     (erase-buffer)
@@ -541,11 +538,7 @@ When disable-cursor is non-nil, set `cursor-type' to nil."
                 (cdr result))
         (insert "\n"))
       (emulting-adjust-selected-overlay)
-      (setq emulting-available-extensions (length results))
-      (let ((window (get-buffer-window emulting-result-buffer)))
-        (when (/= emulting-result-window-text-height
-                  (window-height window))
-          (set-window-text-height window emulting-result-window-text-height))))))
+      (setq emulting-available-extensions (length results)))))
 
 (defun emulting-adjust-selected-overlay (&optional moved)
   "Adjust the selected overlay.
