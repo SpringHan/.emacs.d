@@ -3,4 +3,4 @@
 # name: global-set-key
 # key: gsk
 # --
-(global-set-key (kbd "${1:keymap}") '$0)
+(global-set-key (kbd "${1:keymap}") #'$0)

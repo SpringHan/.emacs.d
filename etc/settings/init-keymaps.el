@@ -62,5 +62,6 @@
 (global-set-key (kbd "<f7>") 'spring/initialize-input-method)
 (global-set-key (kbd "C-:") 'spring/insert-result)
 (global-set-key (kbd "C-x o") 'spring/move-to-window)
+(global-set-key (kbd "C-' M") #'spring/make-or-delete-child-frame)
 
 (provide 'init-keymaps)

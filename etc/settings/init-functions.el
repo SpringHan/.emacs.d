@@ -666,4 +666,13 @@ PACKAGES is the dependences."
     (110 (windmove-left))
     (105 (windmove-right))))
 
+(defun spring/make-or-delete-child-frame ()
+  "New or delete the child frame."
+  (interactive)
+  (if spring/my-child-frame
+      (progn
+        (delete-frame spring/my-child-frame)
+        (setq spring/my-child-frame nil))
+    (setq spring/my-child-frame (make-frame))))
+
 (provide 'init-functions)

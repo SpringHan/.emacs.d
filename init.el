@@ -27,6 +27,9 @@ Otherwise it's nil.")
     "TAGS" "*lsp-log*" "*vc*")
   "The buffers that I don't need.")
 
+(defvar spring/my-child-frame nil
+  "My child frame.")
+
 (load-file "~/.emacs.d/etc/init-config.el")
 
 (put 'narrow-to-region 'disabled nil)
