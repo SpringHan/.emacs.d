@@ -9,7 +9,6 @@
 (global-set-key (kbd "C-q C-i") 'spring/open-erc) ;Open the erc
 (global-set-key (kbd "C-q C-p") 'previous-buffer) ; Goto previous buffer
 (global-set-key (kbd "C-q C-n") 'next-buffer)	  ;Goto Next buffer
-(global-set-key (kbd "C-q m") 'set-mark-command) ; The mark key map
 (global-set-key (kbd "<f12>") 'tab-bar-mode) ; Open or close the tab-bar-mode
 (global-set-key (kbd "C-q C-m w") 'window-move) ; Move the window
 (global-set-key (kbd "C-q C-a") 'set-alpha) ; Set the emacs' alpha
@@ -62,6 +61,6 @@
 (global-set-key (kbd "<f7>") 'spring/initialize-input-method)
 (global-set-key (kbd "C-:") 'spring/insert-result)
 (global-set-key (kbd "C-x o") 'spring/move-to-window)
-(global-set-key (kbd "C-' M") #'spring/make-or-delete-child-frame)
+(global-set-key (kbd "C-q m") #'spring/make-or-delete-child-frame)
 
 (provide 'init-keymaps)

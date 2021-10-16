@@ -1236,6 +1236,9 @@ CHILD is the child property for the extension."
 
 ;;; New File
 
+(defvar emulting-extension-new-file-open-mode nil
+  "Open the file when create it.")
+
 (defun emulting-extension-new-file-operate-path (directory path)
   "operate the DIRECTORY with PATH."
   (if (string= path "..")
@@ -1247,7 +1250,8 @@ CHILD is the child property for the extension."
   directory)
 
 (emulting-define-extension "NEW FILE"
-  nil nil nil
+  emulting-extension-new-file-open-mode
+  nil nil
 
   (lambda (input)
     (let (candidates)
@@ -1277,7 +1281,19 @@ CHILD is the child property for the extension."
         (funcall new-func (concat directory (if (= (length candidate) 1)
                                                 (car candidate)
                                               (nth (1- (length candidate)) candidate)))))
-      (emulting-exit))))
+      (emulting-exit)
+      (find-file (concat directory (if (= (length candidate) 1)
+                                       (car candidate)
+                                     (nth (1- (length candidate)) candidate))))))
+
+  (lambda (input _)
+    (setq emulting-extension-new-file-open-mode
+          (if emulting-extension-new-file-open-mode
+              nil
+            t))
+    (message "[Emulting]: The new file open mode is %S now!"
+             emulting-extension-new-file-open-mode)
+    input))
 
 (emulting-define-extension "BOOKMARK"
   nil nil
