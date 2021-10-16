@@ -62,6 +62,14 @@
                         ("V" . sniem-scroll-down-command)
                         ("/" . swiper))))
 
+;;; Artist-mode
+(gpack artist
+  :hook (artist-mode-hook . (lambda () (display-line-numbers-mode -1)))
+  :config (advice-add 'artist-mode-exit :after
+                      (lambda ()
+                        (unless display-line-numbers-mode
+                          (display-line-numbers-mode t)))))
+
 ;;; Markdown
 (sniem-object-catch-mode-defalist markdown-mode
   ("`" . "`"))
