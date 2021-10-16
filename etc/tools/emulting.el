@@ -1007,22 +1007,26 @@ CHILD is the child property for the extension."
 (defvar emulting-extension-buffer-blacklist
   (list
    emulting-input-buffer
-   emulting-result-buffer
-   " *code-conversion-work*"
-   " *Echo Area "
-   " *Minibuf-"
-   " *Custom-Work*"
-   " *pyim-page-tooltip-posframe-buffer*"
-   " *load"
-   " *server"
-   ))
+   emulting-result-buffer))
+
+(defvar emulting-extension-buffer-optional-buffers
+  '(
+    " *code-conversion-work*"
+    " *Echo Area "
+    " *Minibuf-"
+    " *Custom-Work*"
+    " *pyim-page-tooltip-posframe-buffer*"
+    " *load"
+    " *server"
+    )
+  "The optional buffers.")
 
 (defvar emulting-extension-buffer-kill-mode nil
   "Kill mode for buffer.")
 
-(defun emulting-extension-buffer-not-blacklist-buffer (buf)
+(defun emulting-extension-buffer-not-blacklist-buffer (buf blacklist)
   (catch 'failed
-    (dolist (backlist-buf emulting-extension-buffer-blacklist)
+    (dolist (backlist-buf blacklist)
       (when (string-prefix-p backlist-buf buf)
         (throw 'failed nil)))
     t))
@@ -1047,10 +1051,15 @@ CHILD is the child property for the extension."
     (emulting-extension-buffer-icon content))
 
   (lambda (input)
-    (let (buffer-name result)
+    (let ((blacklist-buffers (if (string-prefix-p " " input)
+                                 emulting-extension-buffer-blacklist
+                               (append emulting-extension-buffer-blacklist
+                                       emulting-extension-buffer-optional-buffers)))
+          buffer-name result)
       (dolist (buf (buffer-list))
         (setq buffer-name (buffer-name buf))
-        (when (and (emulting-extension-buffer-not-blacklist-buffer buffer-name)
+        (when (and (emulting-extension-buffer-not-blacklist-buffer buffer-name
+                                                                   blacklist-buffers)
                    (emulting-input-match input (list buffer-name)))
           (emulting-filter-append result buffer-name)))
       (unless result
