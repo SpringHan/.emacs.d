@@ -72,6 +72,11 @@
 (gpack dired-file-preview
   :repo "SpringHan/dired-file-preview")
 
+;;; Screenshot
+(gpack screenshot
+  ;; This extension needs the require with `imagemagick'
+  :repo "tecosaur/screenshot")
+
 
 ;;; Dashboard
 (gpack dashboard

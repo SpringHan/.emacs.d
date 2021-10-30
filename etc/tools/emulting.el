@@ -227,7 +227,7 @@
       (setq emulting-whole-start t))
 
     (setq emulting-input-match-timer (run-with-timer
-                                      0 0.4 #'emulting-match-input))))
+                                      0 0.2 #'emulting-match-input))))
 
 (defun emulting-exit ()
   "Exit emulting."
@@ -635,13 +635,13 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
   (if (not (or (get-buffer emulting-input-buffer)
                (get-buffer emulting-result-buffer)))
       (emulting-exit)
-    (let ((input (emulting-get-input)))
-      (dolist (extension (if emulting-only-extensions
-                             emulting-only-extensions
-                           emulting-extension-alist))
-        (when (alist-get 'async (symbol-value extension))
-          (setq emulting-last-input input))
-        (funcall (alist-get 'filter (symbol-value extension)) input)))))
+    (catch 'former-input
+      (let ((input (emulting-get-input)))
+        (dolist (extension (if emulting-only-extensions
+                               emulting-only-extensions
+                             emulting-extension-alist))
+          (setq emulting-last-input input)
+          (funcall (alist-get 'filter (symbol-value extension)) input))))))
 
 (defun emulting-async-run (func)
   "Run FUNC asynchronously."
@@ -770,6 +770,8 @@ PREFIX-LENGTH is the last prefix's length."
                 content (ignore-errors
                           (match-string 2 input))))
         (progn
+          (when (string= content emulting-last-input)
+            (throw 'former-input t))
           (mapc (lambda (p)
                   (setq tmp (append tmp
                                     (list (intern (concat "emulting-extension-var-"
@@ -782,6 +784,8 @@ PREFIX-LENGTH is the last prefix's length."
                 (emulting-set-the-input input)))
             (setq emulting-only-extensions tmp))
           content)
+      (when (string= input emulting-last-input)
+        (throw 'former-input t))
       (when emulting-only-extensions
         (setq emulting-only-extensions nil)
         (emulting-remove-input-overlay))
