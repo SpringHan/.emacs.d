@@ -101,7 +101,6 @@
  "Mf" 'mark-defun
  "Mh" 'mark-whole-buffer
  "fr" 'recentf-open-files
- "ft" 'spring/terlat-translate
  "fT" 'spring/terlat-translate-insert
  "fc" 'spring/test-color
  "fC" 'spring/input-char-number

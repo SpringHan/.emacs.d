@@ -1550,6 +1550,25 @@ CHILD is the child property for the extension."
               input 2)
       (emulting-change-candidate 'emulting-extension-var-eaf-browser-history nil))))
 
+(defvar emulting-extension-translation-result nil
+  "Translation result.")
+
+(emulting-define-extension "TRANSLATION"
+  emulting-extension-translation-result nil nil
+
+  (lambda (input)
+    (unless emulting-whole-start
+      (let ((candidates (list (format "Translate [ %s ]"
+                                      input))))
+        (when emulting-extension-translation-result
+          (emulting-filter-append candidates emulting-extension-translation-result))
+        (emulting-change-candidate 'emulting-extension-var-translation candidates))))
+
+  (lambda (candidate)
+    (setq emulting-extension-translation-result
+          (youdao-dictionary--format-result (youdao-dictionary--request candidate)))
+    (funcall 'emulting-extension-translation candidate)))
+
 ;;; Extension functions
 
 (defun spring/find-definition (&optional symbol fnp)
@@ -1587,7 +1606,8 @@ Otherwise it's a variable."
 (global-set-key (kbd "C-q C-w h") (lambda () (interactive) (emulting 'eaf-browser-history)))
 (sniem-leader-set-key
  "." 'spring/find-definition
- "ff" (lambda () (interactive) (emulting '(file new-file))))
+ "ff" (lambda () (interactive) (emulting '(file new-file)))
+ "ft" (lambda () (interactive) (emulting 'translation)))
 
 (provide 'emulting)
 
