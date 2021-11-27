@@ -636,12 +636,17 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
                (get-buffer emulting-result-buffer)))
       (emulting-exit)
     (catch 'former-input
-      (let ((input (emulting-get-input)))
+      (let* ((input (emulting-get-input))
+             (only-prefix (when (consp input)
+                            (setq input (car input))
+                            t)))
         (dolist (extension (if emulting-only-extensions
                                emulting-only-extensions
                              emulting-extension-alist))
           (setq emulting-last-input input)
-          (funcall (alist-get 'filter (symbol-value extension)) input))))))
+          (funcall (alist-get 'filter (symbol-value extension)) input)
+          (when only-prefix
+            (throw 'former-input nil)))))))
 
 (defun emulting-async-run (func)
   "Run FUNC asynchronously."
@@ -780,6 +785,7 @@ PREFIX-LENGTH is the last prefix's length."
                 (split-string prefix "," t))
           (when tmp
             (unless (equal tmp emulting-only-extensions)
+              (emulting-clear-result)
               (when (> (length tmp) 1)
                 (emulting-set-the-input input)))
             (setq emulting-only-extensions tmp))
@@ -790,8 +796,12 @@ PREFIX-LENGTH is the last prefix's length."
         (setq emulting-only-extensions nil)
         (emulting-remove-input-overlay))
       (when (string-match-p "^#" input)
-        (setq emulting-start-prefix t))
-      input)))
+        (setq emulting-start-prefix t)
+        ;; When user is trying to set prefix, claer the results.
+        (emulting-clear-result))
+      (if emulting-start-prefix
+          (list input t)
+        input))))
 
 (defun emulting-extension-buffer-icon (buffer)
   "Icon function for BUFFER."
