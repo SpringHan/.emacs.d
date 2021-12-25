@@ -784,15 +784,17 @@ PREFIX-LENGTH is the last prefix's length."
                                                            " " "-" (downcase p))))))))
                 (split-string prefix "," t))
           (when tmp
+            (setq emulting-only-extensions tmp)
             (unless (equal tmp emulting-only-extensions)
               (emulting-clear-result)
               (when (> (length tmp) 1)
-                (emulting-set-the-input input)))
-            (setq emulting-only-extensions tmp))
+                (emulting-set-the-input input))
+              (emulting-apply-or-lift-hook t)))
           content)
       (when (string= input emulting-last-input)
         (throw 'former-input t))
       (when emulting-only-extensions
+        (emulting-apply-or-lift-hook nil)
         (setq emulting-only-extensions nil)
         (emulting-remove-input-overlay))
       (when (string-match-p "^#" input)
@@ -802,6 +804,14 @@ PREFIX-LENGTH is the last prefix's length."
       (if emulting-start-prefix
           (list input t)
         input))))
+
+(defun emulting-apply-or-lift-hook (apply-p)
+  "Apply or lift hook for current extensions.
+If APPLY-P is t, means to apply; otherwise lifting."
+  (let (hook)
+    (dolist (ex emulting-only-extensions)
+      (when (setq hook (alist-get 'hook (symbol-value ex)))
+        (funcall hook apply-p)))))
 
 (defun emulting-extension-buffer-icon (buffer)
   "Icon function for BUFFER."
@@ -936,6 +946,14 @@ CHILD is the child property for the extension."
          (mapc (lambda (v)
                  (add-to-list 'emulting-clear-variables v t))
                ',clear-vars)))))
+
+(defun emulting-set-extension-hook (extension hook)
+  "Set HOOK for the EXTENSION."
+  (let (index)
+    (if (setq index (spring/get-index 'hook (symbol-value extension) t))
+        (setf (nth index (symbol-value extension)) (cons 'hook hook))
+      (set extension (append (symbol-value extension)
+                             (list (cons 'hook hook)))))))
 
 (defun emulting-input-match (input content)
   "Check if INPUT is matched with CONTENT."

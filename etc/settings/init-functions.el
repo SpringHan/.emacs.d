@@ -1,35 +1,24 @@
 ;;;; This file is used for the useful functions
-(defun spring/get-index (item seq)
-  "Get the earliest index of ITEM in SEQ."
+(defun spring/get-index (item seq &optional listp)
+  "Get the earliest index of ITEM in SEQ.
+Optional argument LISTP means the ITEM is the first element of list."
   (catch 'index
-    (dotimes (i (length seq))
-      (when (equal item (nth i seq))
-        (throw 'index i)))))
+    (when seq
+      (dotimes (i (length seq))
+        (when (equal item
+                     (spring/car-safe (nth i seq) listp))
+          (throw 'index i))))))
+
+(defun spring/car-safe (arg &optional carp)
+  "Like `car-safe', but return arg if arg is not a list.
+When carp is non-nil, return the car if it has."
+  (or (and carp (car-safe arg))
+      arg))
 
 (defun open-config-file ()
   "Open the init.el file."
   (interactive)
   (find-file "~/.emacs.d/init.el"))
-
-;; (defun open-etc-config ()
-;;   "Open the config file in the etc directory."
-;;   (interactive)
-;;   (let (path filename)
-;;     (while (or (null filename)
-;;                (string= filename ".."))
-;;       (setq path (pcase (completing-read
-;;                          "Enter the index of config: "
-;;                          '("settings" "languages" "tools" "init" "third-party"))
-;;                    ("languages" "~/.emacs.d/etc/languages/")
-;;                    ("settings" "~/.emacs.d/etc/settings/")
-;;                    ("tools" "~/.emacs.d/etc/tools/")
-;;                    ("init" "~/.emacs.d/etc/init-config.el")
-;;                    ("third-party" "~/.emacs.d/third-party/")))
-;;       (if (not (string= path "~/.emacs.d/etc/init-config.el"))
-;;           (setq filename (completing-read "Enter the filename: "
-;;                                           (delete "." (directory-files path))))
-;;         (setq filename "")))
-;;     (find-file (concat path filename))))
 
 (defun open-vterm (&optional dir)
   "Open the vterm by DIR"
