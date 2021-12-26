@@ -1,4 +1,4 @@
-;;; emulting.el --- A easy, multi-functional completing tool -*- lexical-binding: t -*-
+;;; emulting.el --- An easy, multi-functional completing tool -*- lexical-binding: t -*-
 
 ;; Author: SpringHan
 ;; Maintainer: SpringHan
