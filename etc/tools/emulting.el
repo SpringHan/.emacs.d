@@ -245,6 +245,9 @@
   (when (timerp emulting-input-match-timer)
     (cancel-timer emulting-input-match-timer)
     (setq emulting-input-match-timer nil))
+  ;; Lift the hooks of `emulting-only-extensions'.
+  (when emulting-only-extensions
+    (emulting-apply-or-lift-hook nil))
   (setq emulting-whole-start nil
         emulting-start-prefix nil
         emulting-last-input nil
@@ -784,12 +787,13 @@ PREFIX-LENGTH is the last prefix's length."
                                                            " " "-" (downcase p))))))))
                 (split-string prefix "," t))
           (when tmp
-            (setq emulting-only-extensions tmp)
             (unless (equal tmp emulting-only-extensions)
               (emulting-clear-result)
               (when (> (length tmp) 1)
                 (emulting-set-the-input input))
-              (emulting-apply-or-lift-hook t)))
+              (emulting-apply-or-lift-hook t tmp))
+            ;; NOTE: Can't move the next part to the top, or it will not work normally.
+            (setq emulting-only-extensions tmp))
           content)
       (when (string= input emulting-last-input)
         (throw 'former-input t))
@@ -805,11 +809,14 @@ PREFIX-LENGTH is the last prefix's length."
           (list input t)
         input))))
 
-(defun emulting-apply-or-lift-hook (apply-p)
+(defun emulting-apply-or-lift-hook (apply-p &optional exts)
   "Apply or lift hook for current extensions.
-If APPLY-P is t, means to apply; otherwise lifting."
+If APPLY-P is t, means to apply; otherwise lifting.
+Optional argument EXTS is the replace for `emulting-only-extensions'."
   (let (hook)
-    (dolist (ex emulting-only-extensions)
+    (dolist (ex (if exts
+                    exts
+                  emulting-only-extensions))
       (when (setq hook (alist-get 'hook (symbol-value ex)))
         (funcall hook apply-p)))))
 
@@ -1578,6 +1585,7 @@ CHILD is the child property for the extension."
               input 2)
       (emulting-change-candidate 'emulting-extension-var-eaf-browser-history nil))))
 
+;;; Translation
 (defvar emulting-extension-translation-result nil
   "Translation result.")
 
@@ -1596,6 +1604,12 @@ CHILD is the child property for the extension."
     (setq emulting-extension-translation-result
           (youdao-dictionary--format-result (youdao-dictionary--request candidate)))
     (funcall 'emulting-extension-translation candidate)))
+;; TODO: Add hook for translation
+;; (emulting-set-extension-hook 'emulting-extension-var-translation
+;;                              (lambda (applyp)
+;;                                (message (if applyp
+;;                                           "Hello"
+;;                                         "Bye"))))
 
 ;;; Extension functions
 
