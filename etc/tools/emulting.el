@@ -767,8 +767,9 @@ PREFIX-LENGTH is the last prefix's length."
                                                                    (point-max))))
           (overlay-put emulting-input-overlay 'display display))))))
 
-(defun emulting-get-input ()
-  "Get input text."
+(defun emulting-get-input (&optional only-get-input)
+  "Get input text.
+Optional argument ONLY-GET-INPUT used for extensions to get input."
   (let ((input (with-current-buffer emulting-input-buffer
                  (buffer-string)))
         prefix content tmp)
@@ -778,33 +779,35 @@ PREFIX-LENGTH is the last prefix's length."
                 content (ignore-errors
                           (match-string 2 input))))
         (progn
-          (when (string= content emulting-last-input)
-            (throw 'former-input t))
-          (mapc (lambda (p)
-                  (setq tmp (append tmp
-                                    (list (intern (concat "emulting-extension-var-"
-                                                          (replace-regexp-in-string
-                                                           " " "-" (downcase p))))))))
-                (split-string prefix "," t))
-          (when tmp
-            (unless (equal tmp emulting-only-extensions)
-              (emulting-clear-result)
-              (when (> (length tmp) 1)
-                (emulting-set-the-input input))
-              (emulting-apply-or-lift-hook t tmp))
-            ;; NOTE: Can't move the next part to the top, or it will not work normally.
-            (setq emulting-only-extensions tmp))
+          (unless only-get-input
+            (when (string= content emulting-last-input)
+              (throw 'former-input t))
+            (mapc (lambda (p)
+                    (setq tmp (append tmp
+                                      (list (intern (concat "emulting-extension-var-"
+                                                            (replace-regexp-in-string
+                                                             " " "-" (downcase p))))))))
+                  (split-string prefix "," t))
+            (when tmp
+              (unless (equal tmp emulting-only-extensions)
+                (emulting-clear-result)
+                (when (> (length tmp) 1)
+                  (emulting-set-the-input input))
+                (emulting-apply-or-lift-hook t tmp))
+              ;; NOTE: Can't move the next part to the top, or it will not work normally.
+              (setq emulting-only-extensions tmp)))
           content)
-      (when (string= input emulting-last-input)
-        (throw 'former-input t))
-      (when emulting-only-extensions
-        (emulting-apply-or-lift-hook nil)
-        (setq emulting-only-extensions nil)
-        (emulting-remove-input-overlay))
-      (when (string-match-p "^#" input)
-        (setq emulting-start-prefix t)
-        ;; When user is trying to set prefix, claer the results.
-        (emulting-clear-result))
+      (unless only-get-input
+        (when (string= input emulting-last-input)
+          (throw 'former-input t))
+        (when emulting-only-extensions
+          (emulting-apply-or-lift-hook nil)
+          (setq emulting-only-extensions nil)
+          (emulting-remove-input-overlay))
+        (when (string-match-p "^#" input)
+          (setq emulting-start-prefix t)
+          ;; When user is trying to set prefix, claer the results.
+          (emulting-clear-result)))
       (if emulting-start-prefix
           (list input t)
         input))))
@@ -1497,6 +1500,11 @@ CHILD is the child property for the extension."
           ((boundp candidate)
            (find-variable candidate)))))
 
+(defcustom emulting-extension-var-ag-last-search nil
+  "The last ag search."
+  :type 'string
+  :group 'emulting)
+
 ;;; Ag
 (emulting-define-extension "AG"
   nil nil nil
@@ -1508,15 +1516,22 @@ CHILD is the child property for the extension."
      (emulting-change-candidate 'emulting-extension-var-ag candidate-list)))
 
   (lambda (candidate)
-    (let ((directory emulting-last-directory))
-      (emulting-exit)
-      (setq candidate (split-string candidate ":" t))
-      (when (> (length candidate) 1)
-        (find-file (concat directory (car candidate)))
-        (with-current-buffer (current-buffer)
-          (goto-char (point-min))
-          (forward-line (1- (string-to-number (second candidate))))
-          (forward-char (1- (string-to-number (third candidate))))))))
+    (if (and (string-equal candidate "Search Last")
+             emulting-extension-var-ag-last-search)
+        (emulting-set-the-input
+         (concat "#ag:" emulting-last-input
+                 emulting-extension-var-ag-last-search)
+         -1)
+      (let ((directory emulting-last-directory))
+        (setq emulting-extension-var-ag-last-search (emulting-get-input t))
+        (emulting-exit)
+        (setq candidate (split-string candidate ":" t))
+        (when (> (length candidate) 1)
+          (find-file (concat directory (car candidate)))
+          (with-current-buffer (current-buffer)
+            (goto-char (point-min))
+            (forward-line (1- (string-to-number (second candidate))))
+            (forward-char (1- (string-to-number (third candidate)))))))))
   nil
 
   (lambda (input)
@@ -1543,7 +1558,7 @@ CHILD is the child property for the extension."
                       path
                     "./")
                   2)))
-      (emulting-change-candidate 'emulting-extension-var-ag nil)
+      (emulting-change-candidate 'emulting-extension-var-ag '("Search Last"))
       nil))
   (("@" . "#file:")))
 

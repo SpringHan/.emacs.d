@@ -11,7 +11,6 @@
       sniem-delete-message nil
       sniem-change-message nil
       sniem-yank-message nil
-      sniem-macro-message nil
       sniem-insert-mode-cursor '(bar . 3)
       sniem-expand-region-message nil
       sniem-object-catch-auto-backward t)

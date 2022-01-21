@@ -660,7 +660,11 @@ PACKAGES is the dependences."
   (interactive)
   (if spring/my-child-frame
       (progn
-        (delete-frame spring/my-child-frame)
+        (if (eq (selected-frame) spring/my-child-frame)
+            (progn
+              (other-frame)
+              (delete-frame (selected-frame)))
+          (delete-frame spring/my-child-frame))
         (setq spring/my-child-frame nil))
     (setq spring/my-child-frame (make-frame))))
 
