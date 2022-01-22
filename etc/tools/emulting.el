@@ -1051,17 +1051,17 @@ CHILD is the child property for the extension."
    emulting-input-buffer
    emulting-result-buffer))
 
-(defvar emulting-extension-buffer-optional-buffers
-  '(
-    " *code-conversion-work*"
-    " *Echo Area "
-    " *Minibuf-"
-    " *Custom-Work*"
-    " *pyim-page-tooltip-posframe-buffer*"
-    " *load"
-    " *server"
-    )
-  "The optional buffers.")
+;; (defvar emulting-extension-buffer-optional-buffers
+;;   '(
+;;     " *code-conversion-work*"
+;;     " *Echo Area "
+;;     " *Minibuf-"
+;;     " *Custom-Work*"
+;;     " *pyim-page-tooltip-posframe-buffer*"
+;;     " *load"
+;;     " *server"
+;;     )
+;;   "The optional buffers.")
 
 (defvar emulting-extension-buffer-kill-mode nil
   "Kill mode for buffer.")
@@ -1096,7 +1096,7 @@ CHILD is the child property for the extension."
     (let ((blacklist-buffers (if (string-prefix-p " " input)
                                  emulting-extension-buffer-blacklist
                                (append emulting-extension-buffer-blacklist
-                                       emulting-extension-buffer-optional-buffers)))
+                                       '(" "))))
           buffer-name result)
       (dolist (buf (buffer-list))
         (setq buffer-name (buffer-name buf))

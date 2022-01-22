@@ -162,10 +162,6 @@
 (gpack treemacs
   :key ("C-' e" . treemacs))
 
-;;; Caps_Lock
-(gpack caps-lock
-  :key ("C-' g" . caps-lock-mode))
-
 ;;; GitHub Explorer
 (gpack github-explorer
   :key ("C-' G" . github-explorer))
