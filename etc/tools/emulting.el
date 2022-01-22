@@ -306,8 +306,9 @@
         (forward-line)
         (emulting-select-current-candidate)))))
 
-(defun emulting-prev-extension ()
-  "Goto the prev extension."
+(defun emulting-prev-extension (&optional move-up)
+  "Goto the prev extension.
+When MOVE-UP is t, move to the end candidate after goto."
   (interactive)
   (with-current-buffer emulting-result-buffer
     (let ((extension (1- emulting-current-extension))
@@ -319,7 +320,9 @@
               emulting-current-extension-var var)
         (emulting-goto-extension extension)
         (forward-line)
-        (emulting-select-current-candidate)))))
+        (emulting-select-current-candidate)
+        (when move-up
+          (emulting-select-last-item))))))
 
 (defun emulting-select-first-item ()
   "Select the first item."
@@ -581,7 +584,8 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
                            (forward-line -1))
                          (emulting-select-current-candidate))
                      (if line-arg
-                         (emulting-prev-extension)
+                         (emulting-prev-extension
+                          (unless (= (line-number-at-pos) 1) t))
                        (emulting-next-extension))))
                   
                   (t (emulting-select-current-candidate))))
@@ -1159,6 +1163,10 @@ CHILD is the child property for the extension."
     (let (candidates)
       (setq candidates (sniem--nth-utill 0 19
                                          (emulting-input-match input emulting-extension-command)))
+      (setq candidates
+            (mapcar (lambda (c)
+                      (emulting-extension-command-wrap-command-with-key c))
+                    candidates))
       (emulting-change-candidate 'emulting-extension-var-command candidates)))
 
   (lambda (candidate)
