@@ -1537,7 +1537,7 @@ CHILD is the child property for the extension."
   (lambda (input)
     (if (and (null emulting-whole-start)
              (executable-find "ag")
-             (> (length input) 5))
+             (> (length input) 4))
         (progn
           (let ((path (progn
                         (string-match "^\\(.*\\)\\(@\\)\\(.*\\)" input)
