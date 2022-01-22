@@ -502,7 +502,10 @@ If it's daytime now,return t.Otherwise return nil."
                       :background awesome-tray-mode-line-inactive-color
                       :height 0.1
                       :box nil
-                      :inherit 'unspecified))
+                      :inherit 'unspecified)
+  (when (timerp spring/calendar-disable-modeline-timer)
+    (cancel-timer spring/calendar-disable-modeline-timer)
+    (setq spring/calendar-disable-modeline-timer nil)))
 
 (defun spring/enable-modeline ()
   "Enable mode-line."

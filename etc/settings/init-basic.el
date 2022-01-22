@@ -32,11 +32,20 @@
 (add-hook 'emacs-lisp-mode-hook #'(lambda () (outline-minor-mode t)))
 (add-hook 'web-mode-hook #'(lambda () (outline-minor-mode t)))
 ;;; Calendar
+(defvar spring/calendar-disable-modeline-timer nil
+  "The timer used to disable modeline.")
 (advice-add 'calendar-exit
             :after
             (lambda (&optional kill)
               "Disable modeline."
               (spring/disable-modeline)))
 (add-hook 'calendar-mode-hook #'spring/enable-modeline)
+(add-hook 'calendar-mode-hook (lambda ()
+                                (setq spring/calendar-disable-modeline-timer
+                                      (run-with-timer
+                                       10 5
+                                       (lambda ()
+                                         (unless (get-buffer "*Calendar*")
+                                           (spring/disable-modeline)))))))
 
 (provide 'init-basic)
