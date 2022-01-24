@@ -18,6 +18,24 @@
 (add-to-list 'sniem-close-mode-alist 'emulting-mode)
 (add-to-list 'sniem-normal-mode-alist 'helpful-mode)
 
+;;; Hook
+(defvar sniem-auto-save-blacklist '("COMMIT_EDITMSG")
+  "The blacklist of buffers to auto save.")
+(add-hook 'sniem-insert-to-normal-hook
+          (lambda ()
+            (run-with-timer
+             6 nil
+             (lambda (current-buf)
+               (when (get-buffer current-buf)
+                 (with-current-buffer current-buf
+                   (when (and (not (derived-mode-p 'special-mode))
+                              (not (memq (buffer-name current-buf)
+                                         sniem-auto-save-blacklist))
+                              (buffer-modified-p)
+                              sniem-normal-mode)
+                     (save-buffer)))))
+             (current-buffer))))
+
 ;;; Keymap settings
 (sniem-leader-set-key
  "q" 'sniem-keypad

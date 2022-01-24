@@ -1165,7 +1165,8 @@ CHILD is the child property for the extension."
                                          (emulting-input-match input emulting-extension-command)))
       (setq candidates
             (mapcar (lambda (c)
-                      (emulting-extension-command-wrap-command-with-key c))
+                      (list (emulting-extension-command-wrap-command-with-key c)
+                            c))
                     candidates))
       (emulting-change-candidate 'emulting-extension-var-command candidates)))
 
