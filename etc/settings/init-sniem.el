@@ -19,22 +19,34 @@
 (add-to-list 'sniem-normal-mode-alist 'helpful-mode)
 
 ;;; Hook
+(defvar spring/sniem-auto-save-timer nil
+  "The timer for auto-save.")
+
 (defvar spring/sniem-auto-save-blacklist '("COMMIT_EDITMSG")
   "The blacklist of buffers to auto save.")
+
 (add-hook 'sniem-insert-to-normal-hook
           (lambda ()
-            (run-with-timer
-             6 nil
-             (lambda (current-buf)
-               (when (get-buffer current-buf)
-                 (with-current-buffer current-buf
-                   (when (and (not (derived-mode-p 'special-mode))
-                              (not (memq current-buf
-                                         spring/sniem-auto-save-blacklist))
-                              (buffer-modified-p)
-                              sniem-normal-mode)
-                     (save-buffer)))))
-             (buffer-name))))
+            (unless (timerp spring/sniem-auto-save-timer)
+              (setq spring/sniem-auto-save-timer
+                    (run-with-timer
+                     6 nil
+                     (lambda (current-buf)
+                       (when (get-buffer current-buf)
+                         (with-current-buffer current-buf
+                           (when (and (not (derived-mode-p 'special-mode))
+                                      (not (memq current-buf
+                                                 spring/sniem-auto-save-blacklist))
+                                      (buffer-modified-p)
+                                      sniem-normal-mode)
+                             (save-buffer))))
+                       (setq spring/sniem-auto-save-timer nil))
+                     (buffer-name))))))
+(add-hook 'sniem-normal-to-insert-hook
+          (lambda ()
+            (when (timerp spring/sniem-auto-save-timer)
+              (cancel-timer spring/sniem-auto-save-timer)
+              (setq spring/sniem-auto-save-timer nil))))
 
 ;;; Keymap settings
 (sniem-leader-set-key
