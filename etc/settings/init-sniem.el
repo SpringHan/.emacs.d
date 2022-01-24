@@ -19,7 +19,7 @@
 (add-to-list 'sniem-normal-mode-alist 'helpful-mode)
 
 ;;; Hook
-(defvar sniem-auto-save-blacklist '("COMMIT_EDITMSG")
+(defvar spring/sniem-auto-save-blacklist '("COMMIT_EDITMSG")
   "The blacklist of buffers to auto save.")
 (add-hook 'sniem-insert-to-normal-hook
           (lambda ()
@@ -29,12 +29,12 @@
                (when (get-buffer current-buf)
                  (with-current-buffer current-buf
                    (when (and (not (derived-mode-p 'special-mode))
-                              (not (memq (buffer-name current-buf)
-                                         sniem-auto-save-blacklist))
+                              (not (memq current-buf
+                                         spring/sniem-auto-save-blacklist))
                               (buffer-modified-p)
                               sniem-normal-mode)
                      (save-buffer)))))
-             (current-buffer))))
+             (buffer-name))))
 
 ;;; Keymap settings
 (sniem-leader-set-key
