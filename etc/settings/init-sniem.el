@@ -32,11 +32,11 @@
                         executing-kbd-macro)
               (setq spring/sniem-auto-save-timer
                     (run-with-timer
-                     4 nil
+                     3 nil
                      (lambda (current-buf)
                        (when (get-buffer current-buf)
                          (with-current-buffer current-buf
-                           (when (and (not (derived-mode-p 'special-mode))
+                           (when (and (buffer-file-name (get-buffer current-buf))
                                       (not (memq current-buf
                                                  spring/sniem-auto-save-blacklist))
                                       (buffer-modified-p)
