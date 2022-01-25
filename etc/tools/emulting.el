@@ -149,6 +149,9 @@
   :type 'number
   :group 'emulting)
 
+(defvar emulting-prefix-arg nil
+  "The `prefix-arg' for emulting.")
+
 (defvar emulting-subprocess-alist
   (make-hash-table :test 'equal)
   "Subprocess alist.")
@@ -192,9 +195,9 @@
   (use-local-map emulting-mode-map))
 
 ;;;###autoload
-(defun emulting (&optional extension)
+(defun emulting (&optional extension pre-arg)
   "Start emulting."
-  (interactive)
+  (interactive (list nil pre-arg))
   (if (or (get-buffer emulting-input-buffer)
           (get-buffer emulting-result-buffer))
       
@@ -226,6 +229,9 @@
           (insert ":"))
       (setq emulting-whole-start t))
 
+    (when pre-arg
+      (setq emulting-prefix-arg pre-arg)
+      (setq prefix-arg nil))
     (setq emulting-input-match-timer (run-with-timer
                                       0 0.2 #'emulting-match-input))))
 
@@ -263,7 +269,8 @@
         emulting-just-refreshed nil
         emulting-candidate-status nil
         emulting-main-extension-input nil
-        emulting-available-extensions nil)
+        emulting-available-extensions nil
+        emulting-prefix-arg nil)
   (emulting-remove-input-overlay)
 
   ;; Kill all the async subprocesses.
@@ -1171,8 +1178,13 @@ CHILD is the child property for the extension."
       (emulting-change-candidate 'emulting-extension-var-command candidates)))
 
   (lambda (candidate)
-    (emulting-exit)
-    (call-interactively (intern candidate))))
+    (let ((pre-arg emulting-prefix-arg)
+          (cmd (intern candidate)))
+      (emulting-exit)
+      (setq prefix-arg pre-arg)
+      (setq this-command cmd)
+      (setq real-this-command cmd)
+      (command-execute cmd 'record))))
 
 ;;; Imenu
 (defvar emulting-extension-imenu-cached-candidates nil)
@@ -1657,19 +1669,25 @@ Otherwise it's a variable."
     (emulting '(definition imenu))))
 
 ;;; Global keymap init
+(defun emulting-extension-bind (key extension)
+  "The binding for EXTENSION to KEY."
+  (global-set-key (kbd key) (lambda (pre-arg)
+                              (interactive "P")
+                              (emulting extension pre-arg))))
+
 (global-set-key (kbd "M-z") #'emulting)
-(global-set-key (kbd "C-q c") (lambda () (interactive) (emulting 'config)))
-(global-set-key (kbd "C-q C-m b") (lambda () (interactive) (emulting 'bookmark)))
-(global-set-key (kbd "C-x b") (lambda () (interactive) (emulting 'buffer)))
-(global-set-key (kbd "C-x k") (lambda ()
-                                (interactive)
+(emulting-extension-bind "C-q c" 'config)
+(emulting-extension-bind "C-q C-m b" 'bookmark)
+(emulting-extension-bind "C-x b" 'buffer)
+(global-set-key (kbd "C-x k") (lambda (pre-arg)
+                                (interactive "P")
                                 (setq emulting-extension-buffer-kill-mode t)
-                                (emulting 'buffer)))
-(global-set-key (kbd "M-x") (lambda () (interactive) (emulting 'command)))
-(global-set-key (kbd "C-h f") (lambda () (interactive) (emulting '(callable variable))))
-(global-set-key (kbd "C-h v") (lambda () (interactive) (emulting 'variable)))
-(global-set-key (kbd "C-' A") (lambda () (interactive) (emulting 'ag)))
-(global-set-key (kbd "C-q C-w h") (lambda () (interactive) (emulting 'eaf-browser-history)))
+                                (emulting 'buffer pre-arg)))
+(emulting-extension-bind "M-x" 'command)
+(emulting-extension-bind "C-h f" '(callable variable))
+(emulting-extension-bind "C-h v" 'variable)
+(emulting-extension-bind "C-' A" 'ag)
+(emulting-extension-bind "C-q C-w h" 'eaf-browser-history)
 (sniem-leader-set-key
  "." 'spring/find-definition
  "ff" (lambda () (interactive) (emulting '(file new-file)))

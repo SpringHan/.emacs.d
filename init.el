@@ -24,7 +24,7 @@ Otherwise it's nil.")
 
 (defvar spring/unwanted-buffer
   '("*dashboard*" "notes.org" "tasks.org" "user-init.el" "*Help*" "*Backtrace*" "*Compile-Log*"
-    "TAGS" "*lsp-log*" "*vc*")
+    "TAGS" "*lsp-log*" "*vc*" "*Calendar*")
   "The buffers that I don't need.")
 
 (defvar spring/my-child-frame nil

@@ -27,10 +27,12 @@
 
 (add-hook 'sniem-insert-to-normal-hook
           (lambda ()
-            (unless (timerp spring/sniem-auto-save-timer)
+            (unless (or (timerp spring/sniem-auto-save-timer)
+                        defining-kbd-macro
+                        executing-kbd-macro)
               (setq spring/sniem-auto-save-timer
                     (run-with-timer
-                     6 nil
+                     4 nil
                      (lambda (current-buf)
                        (when (get-buffer current-buf)
                          (with-current-buffer current-buf
