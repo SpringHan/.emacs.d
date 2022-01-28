@@ -669,6 +669,8 @@ PACKAGES is the dependences."
               (delete-frame (selected-frame)))
           (delete-frame spring/my-child-frame))
         (setq spring/my-child-frame nil))
-    (setq spring/my-child-frame (make-frame))))
+    (setq spring/my-child-frame (make-frame))
+    (with-selected-frame spring/my-child-frame
+      (spring/open-scratch))))
 
 (provide 'init-functions)
