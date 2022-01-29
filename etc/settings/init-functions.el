@@ -658,19 +658,22 @@ PACKAGES is the dependences."
     (110 (windmove-left))
     (105 (windmove-right))))
 
-(defun spring/make-or-delete-child-frame ()
-  "New or delete the child frame."
+(defun spring/child-frame ()
+  "The function to operate child frame."
   (interactive)
-  (if spring/my-child-frame
-      (progn
-        (if (eq (selected-frame) spring/my-child-frame)
-            (progn
-              (other-frame)
-              (delete-frame (selected-frame)))
-          (delete-frame spring/my-child-frame))
-        (setq spring/my-child-frame nil))
-    (setq spring/my-child-frame (make-frame))
-    (with-selected-frame spring/my-child-frame
-      (spring/open-scratch))))
+  (pcase (read-char)
+    (?t (let ((current-frame (selected-frame))
+              (frame (make-frame)))
+          (with-selected-frame frame
+            (spring/open-scratch))
+          (when (and (frame-parameter current-frame 'fullscreen)
+                     (with-selected-frame frame
+                       (yes-or-no-p "Picture in picture?")))
+            (toggle-frame-fullscreen))))
+    (?1 (dolist (frame (remq (selected-frame) (visible-frame-list)))
+          (delete-frame frame))
+        (unless (frame-parameter nil 'fullscreen)
+          (toggle-frame-fullscreen)))
+    (?0 (delete-frame))))
 
 (provide 'init-functions)

@@ -1421,8 +1421,8 @@ CHILD is the child property for the extension."
       (if (= (length candidate-list) 1)
           (if (string= candidate "init")
               (progn
-                (find-file "~/.emacs.d/etc/init-config.el")
-                (emulting-exit))
+                (emulting-exit)
+                (find-file "~/.emacs.d/etc/init-config.el"))
             (emulting-complete))
         (emulting-exit)
         (find-file candidate))))
