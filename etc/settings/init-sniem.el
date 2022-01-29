@@ -37,8 +37,8 @@
                        (when (get-buffer current-buf)
                          (with-current-buffer current-buf
                            (when (and (buffer-file-name (get-buffer current-buf))
-                                      (not (memq current-buf
-                                                 spring/sniem-auto-save-blacklist))
+                                      (not (sniem--mems current-buf
+                                                        spring/sniem-auto-save-blacklist))
                                       (buffer-modified-p)
                                       sniem-normal-mode)
                              (save-buffer))))
