@@ -663,18 +663,18 @@ PACKAGES is the dependences."
   (interactive)
   (pcase (read-char)
     (?t (let ((current-frame (selected-frame))
-              (frame (make-frame))
-              current-buffer)
+              frame current-buffer)
           (if (and (frame-parameter current-frame 'fullscreen)
-                   (with-selected-frame frame
-                     (yes-or-no-p "Picture in picture?")))
+                   (yes-or-no-p "Picture in picture?"))
               (progn
                 (toggle-frame-fullscreen)
+                (setq frame (make-frame '((minibuffer . nil))))
                 (setq current-buffer (current-buffer))
                 (with-selected-frame frame
                   (switch-to-buffer current-buffer))
                 (with-selected-frame current-frame
                   (spring/open-scratch)))
+            (setq frame (make-frame))
             (with-selected-frame frame
               (spring/open-scratch)))))
     (?1 (dolist (frame (remq (selected-frame) (visible-frame-list)))
