@@ -673,14 +673,57 @@ PACKAGES is the dependences."
                 (with-selected-frame frame
                   (switch-to-buffer current-buffer))
                 (with-selected-frame current-frame
-                  (spring/open-scratch)))
+                  (spring/open-scratch))
+                ;; Add video parameter for main frame.
+                ;; To avoid switching the video buffer in main frame to avoid influencing the video buffer.
+                (set-frame-parameter current-frame 'video frame)
+                (set-frame-parameter frame 'video-parent current-frame))
             (setq frame (make-frame))
             (with-selected-frame frame
               (spring/open-scratch)))))
     (?1 (dolist (frame (remq (selected-frame) (visible-frame-list)))
           (delete-frame frame))
         (unless (frame-parameter nil 'fullscreen)
-          (toggle-frame-fullscreen)))
-    (?0 (delete-frame))))
+          (toggle-frame-fullscreen))
+        (when (frame-parameter nil 'video)
+          (set-frame-parameter nil 'video nil))
+        (when (frame-parameter nil 'video-parent)
+          (set-frame-parameter nil 'video-parent nil)))
+    (?0 (let ((video-parent (frame-parameter nil 'video-parent)))
+          (when video-parent
+            (set-frame-parameter video-parent 'video nil))
+          (delete-frame)))))
+
+;;; Advice
+(defvar spring/switch-video-goto-scratch-p nil
+  "If the current situation is the user switched video buffer
+in the main frame.")
+
+;;; For `spring/child-frame'
+(advice-add 'set-window-point :around
+            (lambda (orig window pos)
+              (when spring/switch-video-goto-scratch-p
+                (setq spring/switch-video-goto-scratch-p nil)
+                (setq pos (point-max)))
+              (apply orig window (list pos))))
+
+(advice-add 'set-window-buffer :around
+            (lambda (orig window buffer-or-name &optional keep-margins)
+              (let ((video-frame (frame-parameter nil 'video))
+                    video-buffer tmp)
+                (when video-frame
+                  (with-selected-frame video-frame
+                    (setq video-buffer (current-buffer)))
+                  (when (and (eq video-buffer (get-buffer buffer-or-name))
+                             (with-current-buffer video-buffer
+                               (eq major-mode 'eaf-mode)))
+                    (setq buffer-or-name "*scratch*")
+                    (setq tmp t)))
+                (apply orig window buffer-or-name keep-margins)
+                (when tmp
+                  (setq spring/switch-video-goto-scratch-p t)
+                  (ignore-errors
+                    ;; Not change the original return value
+                    (throw 'found nil))))))
 
 (provide 'init-functions)
