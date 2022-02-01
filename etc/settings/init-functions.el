@@ -694,6 +694,20 @@ PACKAGES is the dependences."
             (set-frame-parameter video-parent 'video nil))
           (delete-frame)))))
 
+(defun spring/kill-space-line-content ()
+  "Find the line filled with space and kill its content."
+  (interactive)
+  (with-current-buffer (current-buffer)
+    (save-excursion
+      (goto-char (point-min))
+      (while (not (eobp))
+        (unless (remq 32 (string-to-list
+                          (buffer-substring (line-beginning-position)
+                                            (line-end-position))))
+          (delete-region (line-beginning-position) (line-end-position)))
+        (forward-line))
+      (save-buffer))))
+
 ;;; Advice
 (defvar spring/switch-video-goto-scratch-p nil
   "If the current situation is the user switched video buffer

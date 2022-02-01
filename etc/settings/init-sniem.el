@@ -11,8 +11,9 @@
       sniem-delete-message nil
       sniem-change-message nil
       sniem-yank-message nil
-      sniem-insert-mode-cursor '(bar . 3)
+      sniem-pair-message nil
       sniem-expand-region-message nil
+      sniem-insert-mode-cursor '(bar . 3)
       sniem-object-catch-auto-backward t)
 (add-to-list 'sniem-close-mode-alist 'eaf-mode)
 (add-to-list 'sniem-close-mode-alist 'emulting-mode)
@@ -150,7 +151,8 @@
  "?" 'swiper
  ;; move-text
  "M-e" 'move-text-down
- "M-u" 'move-text-up)
+ "M-u" 'move-text-up
+ "=" 'spring/kill-space-line-content)
 (sniem-set-quit-insert-key "<C-tab>")
 (global-set-key (kbd "C--") sniem-leader-keymap)
 ;;; Third-party
