@@ -1472,7 +1472,7 @@ CHILD is the child property for the extension."
 (defun emulting-extension-get-variables ()
   "Get callables."
   (let (cmds)
-    (mapatoms (lambda (a) (when (helpful--variable-p a) (push (symbol-name a) cmds))))
+    (mapatoms (lambda (a) (when (boundp a) (push (symbol-name a) cmds))))
     (setq emulting-extension-variables cmds)))
 
 (run-with-idle-timer 60 t #'emulting-extension-get-variables)
