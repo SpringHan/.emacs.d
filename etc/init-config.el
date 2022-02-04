@@ -28,6 +28,10 @@
 (require 'init-macros)
 (setq sniem-macro-file (locate-library "init-macros"))
 
+(let ((private-file "~/.emacs.d/etc/init-private.el"))
+  (when (file-exists-p private-file)
+    (load-file private-file)))
+
 ;;; Todo gets
 (add-hook 'after-init-hook #'spring/todo-undo-p)
 (add-hook 'after-init-hook #'spring/refresh-packages)

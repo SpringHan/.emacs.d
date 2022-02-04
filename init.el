@@ -1,11 +1,14 @@
 ;;;;; SpringHan's Emacs Configuration
 ;;; Mirror Config
 (require 'package)
+(require 'comp)
 (require 'cl-lib) ; Common Lisp
 ;;; Package Require
 (setq package-archives '(("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
                          ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")))
 
+;;; Native comp
+(setq native-comp-async-report-warnings-errors nil)
 (add-to-list 'load-path "~/.emacs.d/third-party/gpack")
 (require 'gpack)
 

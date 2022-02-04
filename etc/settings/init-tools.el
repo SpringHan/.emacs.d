@@ -30,16 +30,6 @@
     (require 'eaf-file-browser)
     (require 'eaf-netease-cloud-music)))
 
-;;; English Teacher
-(gpack english-teacher
-  :disable
-  :repo "loyalpartner/english-teacher.el"
-  :key (("C-' C-l" . english-teacher-smart-translation)
-        ("C-' T" . english-teacher-follow-mode))
-  :var ((english-teacher-backend . 'baidu)
-        (english-teacher-show-result-function . 'english-teacher-eldoc-show-result-function))
-  :hook ((Info-mode-hook eww-mode-hook help-mode-hook helpful-mode-hook) . english-teacher-follow-mode))
-
 ;;; Netease Cloud Music
 (gpack request)
 (gpack netease-cloud-music
@@ -206,9 +196,6 @@
 
 ;;; Package-Lint
 (gpack package-lint)
-
-;;; Helpful - For more helpful help
-(gpack helpful)
 
 ;;; Subtree
 (gpack dired-subtree

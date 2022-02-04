@@ -7,3 +7,5 @@ gtd
 third-party
 TAGS
 transient
+etc/init-private.el
+eln-cache/

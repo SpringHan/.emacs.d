@@ -161,8 +161,7 @@ If it's daytime now,return t.Otherwise return nil."
                     (funcall add-clients
                              (format "*%s*" (match-string 1 buffer-name)))))
                 (string-match-p "^\\*Flycheck\\(.*\\)\\*" buffer-name)
-                (string-match-p "^\\*\\(.*\\)doc\\(.*\\)" buffer-name)
-                (string-match-p "^\\*helpful\\(.*\\)\\*" buffer-name))
+                (string-match-p "^\\*\\(.*\\)doc\\(.*\\)" buffer-name))
         (kill-buffer buffer)))
     (when (and lsp-client-list
                (listp lsp-client-list))
@@ -709,35 +708,17 @@ PACKAGES is the dependences."
       (save-buffer))))
 
 ;;; Advice
-(defvar spring/switch-video-goto-scratch-p nil
-  "If the current situation is the user switched video buffer
-in the main frame.")
-
-;;; For `spring/child-frame'
-(advice-add 'set-window-point :around
-            (lambda (orig window pos)
-              (when spring/switch-video-goto-scratch-p
-                (setq spring/switch-video-goto-scratch-p nil)
-                (setq pos (point-max)))
-              (apply orig window (list pos))))
-
 (advice-add 'set-window-buffer :around
             (lambda (orig window buffer-or-name &optional keep-margins)
               (let ((video-frame (frame-parameter nil 'video))
-                    video-buffer tmp)
+                    video-buffer)
                 (when video-frame
                   (with-selected-frame video-frame
                     (setq video-buffer (current-buffer)))
                   (when (and (eq video-buffer (get-buffer buffer-or-name))
                              (with-current-buffer video-buffer
                                (eq major-mode 'eaf-mode)))
-                    (setq buffer-or-name "*scratch*")
-                    (setq tmp t)))
-                (apply orig window buffer-or-name keep-margins)
-                (when tmp
-                  (setq spring/switch-video-goto-scratch-p t)
-                  (ignore-errors
-                    ;; Not change the original return value
-                    (throw 'found nil))))))
+                    (setq buffer-or-name "*scratch*")))
+                (apply orig window buffer-or-name keep-margins))))
 
 (provide 'init-functions)

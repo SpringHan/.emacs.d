@@ -31,25 +31,25 @@
             (unless (or (timerp spring/sniem-auto-save-timer)
                         defining-kbd-macro
                         executing-kbd-macro)
-              (setq spring/sniem-auto-save-timer
-                    (run-with-timer
-                     3 nil
-                     (lambda (current-buf)
-                       (when (get-buffer current-buf)
-                         (with-current-buffer current-buf
-                           (when (and (buffer-file-name (get-buffer current-buf))
-                                      (not (sniem--mems current-buf
-                                                        spring/sniem-auto-save-blacklist))
-                                      (buffer-modified-p)
-                                      sniem-normal-mode)
-                             (save-buffer))))
-                       (setq spring/sniem-auto-save-timer nil))
-                     (buffer-name))))))
+              (setq-local spring/sniem-auto-save-timer
+                          (run-with-timer
+                           3 nil
+                           (lambda (current-buf)
+                             (when (get-buffer current-buf)
+                               (with-current-buffer current-buf
+                                 (when (and (buffer-file-name (get-buffer current-buf))
+                                            (not (sniem--mems current-buf
+                                                              spring/sniem-auto-save-blacklist))
+                                            (buffer-modified-p)
+                                            sniem-normal-mode)
+                                   (save-buffer))))
+                             (setq spring/sniem-auto-save-timer nil))
+                           (buffer-name))))))
 (add-hook 'sniem-normal-to-insert-hook
           (lambda ()
             (when (timerp spring/sniem-auto-save-timer)
               (cancel-timer spring/sniem-auto-save-timer)
-              (setq spring/sniem-auto-save-timer nil))))
+              (setq-local spring/sniem-auto-save-timer nil))))
 
 ;;; Keymap settings
 (sniem-leader-set-key

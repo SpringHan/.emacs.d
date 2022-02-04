@@ -1463,9 +1463,8 @@ CHILD is the child property for the extension."
 
   (lambda (candidate)
     (emulting-exit)
-    (funcall helpful-switch-buffer-function
-             (helpful--buffer (intern candidate) t))
-    (helpful-update)))
+    (funcall #'describe-function (intern candidate))
+    (select-window (get-buffer-window (help-buffer)))))
 
 ;;; variable
 (defvar emulting-extension-variables nil)
@@ -1493,9 +1492,8 @@ CHILD is the child property for the extension."
 
   (lambda (candidate)
     (emulting-exit)
-    (funcall helpful-switch-buffer-function
-             (helpful--buffer (intern candidate) nil))
-    (helpful-update)))
+    (funcall #'describe-variable (intern candidate))
+    (select-window (get-buffer-window (help-buffer)))))
 
 (emulting-define-extension "DEFINITION"
   nil
