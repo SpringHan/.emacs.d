@@ -23,6 +23,12 @@
 
 ;;; Code
 
+(require 'all-the-icons)
+(require 'sniem)
+(require 'company)
+(require 'ivy)
+(require 'init-functions)
+
 ;;; Core
 
 (defgroup emulting nil
@@ -708,6 +714,10 @@ If MOVED is non-nil, it'll not change the overlay to `emulting-selected-candidat
       (forward-line)
       (setq emulting-current-extension 0))))
 
+(defmacro emulting-filter-append (candidate val)
+  "Add VAL to CANDIDATE."
+  `(setq ,candidate (append ,candidate (list ,val))))
+
 (defun emulting-get-extension-has-result ()
   "Get all the extensions that has non-nil result."
   (let (extensions)
@@ -978,11 +988,10 @@ CHILD is the child property for the extension."
 
 (defun emulting-input-match (input content)
   "Check if INPUT is matched with CONTENT."
-  (let ((result (ivy--re-filter (ivy--regex input) content))
-        same)
+  (let ((result (ivy--re-filter (ivy--regex input) content)))
     (when (and (not (string-empty-p input))
                result
-               (setq same (sniem--mems input result)))
+               (sniem--mems input result))
       (setq result (delete input result))
       (setq result (append (list input) result)))
     result))
@@ -1003,11 +1012,6 @@ CHILD is the child property for the extension."
       (setf (nth index emulting-extension-result)
             (cons extension candidate))
       (emulting-update-result-buffer))))
-
-(defmacro emulting-filter-append (candidate val)
-  "Add VAL to CANDIDATE."
-  (declare ((debug t)))
-  `(setq ,candidate (append ,candidate (list ,val))))
 
 ;;; Extensions
 ;;; Prefix
@@ -1187,6 +1191,8 @@ CHILD is the child property for the extension."
       (command-execute cmd 'record))))
 
 ;;; Imenu
+(require 'imenu)
+
 (defvar emulting-extension-imenu-cached-candidates nil)
 
 (defvar emulting-extension-imenu-cached-buffer nil)
@@ -1366,6 +1372,9 @@ CHILD is the child property for the extension."
     (message "[Emulting]: The new file open mode is %S now!"
              emulting-extension-new-file-open-mode)
     input))
+
+;;; Bookmark
+(require 'bookmark)
 
 (emulting-define-extension "BOOKMARK"
   nil nil
@@ -1582,6 +1591,8 @@ CHILD is the child property for the extension."
   (("@" . "#file:")))
 
 ;;; EAF Browser history
+(require 'eaf)
+
 (emulting-define-extension "EAF BROWSER HISTORY"
   nil nil
 
