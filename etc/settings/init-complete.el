@@ -35,9 +35,9 @@
                                        (append '(company-web-html company-web-jade company-web-slim)
                                                company-backends)))))
 
-(gpack company-tabnine
-  :hook ((python-mode-hook go-mode-hook) . (lambda ()
-                                             (setq-local company-backends
-                                                         (append '(company-tabnine) company-backends)))))
+;; (gpack company-tabnine
+;;   :hook ((python-mode-hook go-mode-hook) . (lambda ()
+;;                                              (setq-local company-backends
+;;                                                          (append '(company-tabnine) company-backends)))))
 
 (provide 'init-complete)

@@ -10,8 +10,7 @@
   :var ((eaf-browser-remember-history . t)
         (eaf-browser-default-zoom . 1.1)
         (eaf-terminal-font-family . "Source Code Pro")
-        (eaf-terminal-font-size . 25)
-        (eaf-kill-process-after-last-buffer-closed . t))
+        (eaf-terminal-font-size . 25))
   :hook (eaf-mode-hook . (lambda ()
                            (setq-local awesome-tray-active-modules
                                        '("netease-current-song" "input-method" "mode-name" "date"))))
@@ -46,6 +45,9 @@
   :config (progn
             (require 'netease-cloud-music-ui)
             (require 'netease-cloud-music-comment)))
+
+(spring/extra-add-to-list
+ "~/.emacs.d/third-party/netease-cloud-music.el/netease-cloud-music")
 
 ;;; Shengci.el
 (gpack shengci

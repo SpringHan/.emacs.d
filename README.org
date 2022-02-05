@@ -1,6 +1,6 @@
 * My Emacs Configuration
 
-This is my emacs configuration repository.
+This is my emacs configuration repository. My Emacs version is 28 with native compilation. So If your Emacs version is lower, you'll not use my configuration successfully.
 
 [[./demo.png]]
 

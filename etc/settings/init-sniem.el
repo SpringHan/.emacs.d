@@ -5,6 +5,8 @@
   :repo "SpringHan/sniem"
   :hook (after-init-hook . global-sniem-mode))
 
+(spring/extra-add-to-list "~/.emacs.d/third-party/sniem/sniem")
+
 ;;; Vars
 (setq sniem-center-message nil
       sniem-mark-message nil
@@ -33,7 +35,7 @@
                         executing-kbd-macro)
               (setq-local spring/sniem-auto-save-timer
                           (run-with-timer
-                           3 nil
+                           2 nil
                            (lambda (current-buf)
                              (when (get-buffer current-buf)
                                (with-current-buffer current-buf

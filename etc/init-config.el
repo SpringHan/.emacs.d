@@ -24,6 +24,7 @@
 ;;; Tools
 (require 'task-reminder)
 (require 'emulting)
+(spring/extra-add-to-list "~/.emacs.d/etc/tools/emulting.el")
 (require 'run-code)
 (require 'init-macros)
 (setq sniem-macro-file (locate-library "init-macros"))
@@ -37,9 +38,9 @@
 (add-hook 'after-init-hook #'spring/refresh-packages)
 
 ;;; Natively Compile
-(native-compile-async "~/.emacs.d/etc/tools/emulting.el" 2 t)
-(native-compile-async '("~/.emacs.d/third-party/sniem/"
-                        "~/.emacs.d/third-party/netease-cloud-music.el")
-                      5 t)
+(add-hook 'after-init-hook (lambda ()
+                             (dolist (file spring/extra-native-compile-items)
+                               (spring/native-compile-or-load file))
+                             (setq spring/extra-items-compiled t)))
 
 (provide 'init-config)

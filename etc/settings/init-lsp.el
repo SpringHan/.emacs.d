@@ -5,8 +5,9 @@
 ;; (gpack nox
 ;;   :repo "manateelazycat/nox"
 ;;   :var (nox-optimization-p . nil)
-;;   :key (("C-' D" . nox-show-doc))
-;;   :config)
+;;   :key (("C-' D" . nox-show-doc)))
+
+;; (spring/extra-add-to-list "~/.emacs.d/third-party/nox/nox")
 
 ;; (gpack flycheck)
 

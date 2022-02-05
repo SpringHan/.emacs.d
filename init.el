@@ -33,6 +33,12 @@ Otherwise it's nil.")
 (defvar spring/my-child-frame nil
   "My child frame.")
 
+(defvar spring/extra-native-compile-items nil
+  "The items need extra natively compilation.")
+
+(defvar spring/extra-items-compiled nil
+  "If the extra items compiled.")
+
 (load-file "~/.emacs.d/etc/init-config.el")
 
 (put 'narrow-to-region 'disabled nil)
