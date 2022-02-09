@@ -5,6 +5,8 @@
   :repo "manateelazycat/awesome-tray"
   :hook (after-init-hook . awesome-tray-mode))
 
+(spring/extra-add-to-list "~/.emacs.d/third-party/awesome-tray/awesome-tray")
+
 (defun awesome-tray-module-input-method-info ()
   (pcase current-input-method
     ('nil "EN")

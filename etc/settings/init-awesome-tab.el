@@ -6,6 +6,8 @@
   :hook (after-init-hook . awesome-tab-mode)
   :var (awesome-tab-height . 150))
 
+(spring/extra-add-to-list "~/.emacs.d/third-party/awesome-tab/awesome-tab")
+
 (defhydra awesome-fast-switch (:hint nil)
   "
  ^^^^Fast Move             ^^^^Tab                    ^^Search            ^^Misc

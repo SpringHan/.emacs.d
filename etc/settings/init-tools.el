@@ -53,11 +53,6 @@
 (gpack shengci
   :repo "EvanMeek/shengci.el")
 
-;;; Snails
-(gpack snails
-  :disable
-  :repo "manateelazycat/snails")
-
 ;;; Move-text
 (gpack move-text
   :repo "manateelazycat/move-text")
@@ -66,10 +61,14 @@
 (gpack dired-file-preview
   :repo "SpringHan/dired-file-preview")
 
+(spring/extra-add-to-list "~/.emacs.d/third-party/dired-file-preview/dired-file-preview")
+
 ;;; Screenshot
 (gpack screenshot
   ;; This extension needs the require with `imagemagick'
   :repo "tecosaur/screenshot")
+
+(spring/extra-add-to-list "~/.emacs.d/third-party/screenshot/screenshot")
 
 
 ;;; Dashboard

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: complex-comment
+# key: Cmt
+# --
+/* $0 */

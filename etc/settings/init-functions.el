@@ -715,14 +715,15 @@ Otherwise compile it natively."
   (let (eln-file real-file-name)
     (unless (string-suffix-p ".el" file)
       (setq real-file-name (concat file ".el")))
-    (setq eln-file (comp-el-to-eln-filename (if real-file-name
-                                                real-file-name
-                                              file)))
-    (if (file-exists-p eln-file)
-        (native-elisp-load eln-file)
-      (native-compile-async
-       (if real-file-name (file-name-directory file) file)
-       5 t))))
+    (when (file-exists-p (or real-file-name file))
+      (setq eln-file (comp-el-to-eln-filename (if real-file-name
+                                                  real-file-name
+                                                file)))
+      (if (file-exists-p eln-file)
+          (native-elisp-load eln-file)
+        (native-compile-async
+         (if real-file-name (file-name-directory file) file)
+         5 t)))))
 
 (defun spring/extra-add-to-list (item)
   "If `spring/extra-items-compiled' is nil, add ITEM to

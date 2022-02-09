@@ -23,8 +23,7 @@
               (define-key company-active-map (kbd "C-n") #'company-select-next)
               (define-key company-active-map (kbd "C-p") #'company-select-previous)
               (setq company-backends
-                    '((company-dabbrev-code company-dabbrev company-keywords company-files company-capf)))))
-  :key ("C-' i" . company-yasnippet))
+                    '((company-dabbrev-code company-dabbrev company-keywords company-files company-capf))))))
 
 (gpack company-box
   :hook (company-mode-hook . company-box-mode))

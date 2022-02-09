@@ -34,7 +34,8 @@
      citre-prompt-language-for-ctags-command t)))
 
 (gpack lsp-mode
-  :key ("C-' F" . lsp-format-buffer)
+  :key (("C-' F" . lsp-format-buffer)
+        ("C-' i" . lsp-treemacs-errors-list))
   :var ((lsp-idle-delay . 0.2)
         (lsp-enable-indentation . t)
         (lsp-keep-workspace-alive . nil)
