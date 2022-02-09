@@ -2,12 +2,12 @@
 
 ;;; Packages
 ;;; Lsp-mode
-;; (gpack nox
-;;   :repo "manateelazycat/nox"
-;;   :var (nox-optimization-p . nil)
-;;   :key (("C-' D" . nox-show-doc)))
+(gpack nox
+  :repo "manateelazycat/nox"
+  :var (nox-optimization-p . nil)
+  :key (("C-' D" . nox-show-doc)))
 
-;; (spring/extra-add-to-list "~/.emacs.d/third-party/nox/nox")
+(spring/extra-add-to-list "~/.emacs.d/third-party/nox/nox" t)
 
 ;; (gpack flycheck)
 

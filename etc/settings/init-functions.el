@@ -709,9 +709,10 @@ PACKAGES is the dependences."
 
 ;;; Native Compilation
 
-(defun spring/native-compile-or-load (file)
+(defun spring/native-compile-or-load (file o3)
   "If FILE's eln file is exists, load it.
-Otherwise compile it natively."
+Otherwise compile it natively.
+When O3 is non-nil, use it as compile speed."
   (let (eln-file real-file-name)
     (unless (string-suffix-p ".el" file)
       (setq real-file-name (concat file ".el")))
@@ -721,16 +722,20 @@ Otherwise compile it natively."
                                                 file)))
       (if (file-exists-p eln-file)
           (native-elisp-load eln-file)
-        (native-compile-async
-         (if real-file-name (file-name-directory file) file)
-         5 t)))))
+        (let ((native-comp-speed (if o3
+                                     3
+                                   2)))
+          (native-compile-async
+           (if real-file-name (file-name-directory file) file)
+           5 t))))))
 
-(defun spring/extra-add-to-list (item)
+(defun spring/extra-add-to-list (item &optional o3p)
   "If `spring/extra-items-compiled' is nil, add ITEM to
 `spring/extra-native-compile-items'.
-Otherwise compile item natively."
+Otherwise compile item natively.
+When O3P is non-nil, use o3 as its compile speed."
   (if spring/extra-items-compiled
-      (spring/native-compile-or-load item)
+      (spring/native-compile-or-load item o3p)
     (add-to-list 'spring/extra-native-compile-items item)))
 
 ;;; Advice

@@ -19,6 +19,7 @@
 (require 'spring-js)
 (require 'spring-dart)
 (require 'spring-clojure)
+(require 'spring-rust)
 
 ;;; Other settings
 ;;; Tools

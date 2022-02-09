@@ -124,8 +124,8 @@
  "nN" 'netease-cloud-music-random-play
  "n/" 'netease-cloud-music-ask-play
 
- ;; TabNine
- "Nk" 'company-tabnine-kill-process
+ ;; Nox
+ "Nk" 'nox-shutdown
 
  ;; Awesome-Tab
  "j" 'awesome-tab-ace-jump
