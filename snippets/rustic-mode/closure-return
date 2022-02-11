@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: closure-return
+# key: csr
+# --
+|$1| -> ${2:return} {
+     $0
+}

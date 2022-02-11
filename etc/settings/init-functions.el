@@ -709,7 +709,7 @@ PACKAGES is the dependences."
 
 ;;; Native Compilation
 
-(defun spring/native-compile-or-load (file o3)
+(defun spring/native-compile-or-load (file &optional o3)
   "If FILE's eln file is exists, load it.
 Otherwise compile it natively.
 When O3 is non-nil, use it as compile speed."

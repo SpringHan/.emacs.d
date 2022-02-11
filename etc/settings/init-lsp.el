@@ -5,7 +5,8 @@
 (gpack nox
   :repo "manateelazycat/nox"
   :var (nox-optimization-p . nil)
-  :key (("C-' D" . nox-show-doc)))
+  :key (("C-' D" . nox-show-doc))
+  :config (setf (car nox-server-programs) '(rust-mode nox-rls "rust-analyzer")))
 
 (spring/extra-add-to-list "~/.emacs.d/third-party/nox/nox" t)
 

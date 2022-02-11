@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: closure
+# key: cs
+# --
+|$1| {
+     $0
+}
