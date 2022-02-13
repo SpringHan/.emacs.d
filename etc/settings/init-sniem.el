@@ -76,6 +76,7 @@
  "fe" 'eshell
  "fi" 'indent-region
  "ze" 'spring/edit-snippets
+ "zE" 'spring/insert-license
  "zo" 'open-the-dir
  "zO" 'spring/open-scratch
  "zc" (lambda () (interactive) (emulting 'config))

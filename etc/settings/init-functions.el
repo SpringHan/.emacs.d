@@ -376,8 +376,11 @@ If it's daytime now,return t.Otherwise return nil."
 (defun spring/edit-snippets (type)
   "Edit the snippets in current mode."
   (interactive (list (completing-read "Enter the edit type: "
-                                      '("add" "edit" "delete"))))
-  (let ((path (format "~/.emacs.d/snippets/%S/" major-mode))
+                                      '("add" "edit" "delete"
+                                        "add_license" "edit_license"))))
+  (let ((path (format "~/.emacs.d/snippets/%s/" (if (string-suffix-p "license" type)
+                                                    "license-mode"
+                                                  major-mode)))
         snippet-name)
     (if (string= type "add")
         (setq snippet-name (read-string "Snippet name: "))
@@ -386,12 +389,26 @@ If it's daytime now,return t.Otherwise return nil."
                                                   (delete ".."
                                                           (directory-files path))))))
     (pcase type
-      ("add"
+      ((pred (string-prefix-p "add"))
        (find-file (concat path snippet-name)))
-      ("edit"
+      ((pred (string-prefix-p "edit"))
        (find-file (concat path snippet-name)))
       ("delete"
        (delete-file (concat path snippet-name))))))
+
+(defun spring/insert-license ()
+  "Insert LICENSE."
+  (interactive)
+  (let* ((license-dir "~/.emacs.d/snippets/license-mode/")
+         (license (completing-read "License: "
+                                  (delete "." (delete ".."
+                                                      (directory-files license-dir)))
+                                  nil t))
+         (content (with-temp-buffer
+                    (insert-file-contents (concat license-dir license))
+                    (buffer-string))))
+    (save-excursion
+      (insert content))))
 
 (defun spring/change-indent-type (type)
   "Change the indent type."

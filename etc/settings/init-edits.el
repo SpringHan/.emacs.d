@@ -7,8 +7,12 @@
   :hook (after-init-hook . yas-global-mode)
   :config (progn
             (gpack yasnippet-snippets)
-            (setq yas-snippet-dirs '("~/.emacs.d/snippets"
-                                     "~/.emacs.d/elpa/yasnippet-snippets-20200802.1658/snippets"))))
+            (gpack license-snippets
+              :un-require)
+            (setq yas-snippet-dirs
+                  `("~/.emacs.d/snippets"
+                    ,(concat (file-name-directory (locate-library "yasnippet-snippets"))
+                             "snippets")))))
 
 ;;; isolate-mode
 (gpack isolate
