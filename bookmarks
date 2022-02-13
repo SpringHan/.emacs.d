@@ -1,8 +1,20 @@
-;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8 -*-
+;;;; Emacs Bookmark Format Version 1;;;; -*- coding: utf-8; mode: lisp-data -*-
 ;;; This format is meant to be slightly human-readable;
 ;;; nevertheless, you probably don't want to edit it.
 ;;; -*- End Of Bookmark File Format Version Stamp -*-
-(("MyGitHub"
+(("Rust Forum"
+ (handler . eaf--bookmark-restore)
+ (eaf-app . "browser")
+ (filename . "https://users.rust-lang.org/"))
+("Rust Doc"
+ (handler . eaf--bookmark-restore)
+ (eaf-app . "browser")
+ (filename . "https://kaisery.github.io/trpl-zh-cn/ch01-03-hello-cargo.html"))
+("API"
+ (handler . eaf--bookmark-restore)
+ (eaf-app . "browser")
+ (filename . "https://blog.csdn.net/oNew_Lifeo/article/details/111599916"))
+("MyGitHub"
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")
  (filename . "https://github.com/SpringHan"))
@@ -24,9 +36,9 @@
  (filename . "https://bz.zzzmh.cn/#anime"))
 ("org-capture-last-stored"
  (filename . "~/.emacs.d/gtd/tasks.org")
- (front-context-string . "*** STUDY <2020-")
- (rear-context-string . "	看C Primer Plus\n")
- (position . 1830))
+ (front-context-string . "*** STUDY <2022-")
+ (rear-context-string . " 20:42]\n* Study\n")
+ (position . 7033))
 ("nbnhhsh"
  (handler . eaf--bookmark-restore)
  (eaf-app . "browser")
