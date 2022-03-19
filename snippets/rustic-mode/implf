@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: implf
+# key: implf
+# --
+impl<${1:T}> ${2:struct}<${3:T}> {
+             $0
+}
