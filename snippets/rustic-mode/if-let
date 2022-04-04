@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: if-let
+# key: il
+# --
+if let ${1:pattern} = ${2:value} {
+   $0
+}
