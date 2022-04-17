@@ -16,9 +16,7 @@
                                        '("netease-current-song" "input-method" "mode-name" "date"))))
   :config
   (progn
-    (require 'eaf-terminal)
     (require 'eaf-image-viewer)
-    (require 'eaf-js-video-player)
     (require 'eaf-video-player)
     (require 'eaf-markdown-previewer)
     (require 'eaf-pdf-viewer)
@@ -27,6 +25,7 @@
     (require 'eaf-org-previewer)
     (require 'eaf-airshare)
     (require 'eaf-file-browser)
+		(require 'eaf-git)
     (require 'eaf-netease-cloud-music)))
 
 ;;; Netease Cloud Music
