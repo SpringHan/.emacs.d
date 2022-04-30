@@ -1390,7 +1390,10 @@ CHILD is the child property for the extension."
 
   (lambda (candidate)
     (emulting-exit)
-    (bookmark-jump candidate)))
+    (condition-case err
+        (let ((bookmark (bookmark-get-bookmark candidate)))
+          (eaf--bookmark-restore bookmark))
+      nil)))
 
 (emulting-define-extension "CONFIG"
   nil nil nil

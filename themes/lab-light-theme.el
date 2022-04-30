@@ -86,6 +86,7 @@
    `(font-lock-type-face ((t (:foreground ,color-dark-green))))
    `(font-lock-variable-name-face ((t (:foreground ,color-dark-blue))))
    `(font-lock-warning-face ((t (:foreground ,color-dark-red))))
+   `(font-lock-negation-char-face ((t (:inherit 'bold :foreground ,color-cyan))))
 
    `(isearch ((t (:background ,color-middle
                   :foreground ,color-bg))))

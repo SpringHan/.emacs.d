@@ -82,8 +82,8 @@
  "zc" (lambda () (interactive) (emulting 'config))
 
  ;; Plugins Keymap
- ;; Magit
- "g" 'magit-status
+ ;; EAF-git
+ "g" 'eaf-open-git
  ;; Quickrun
  "r" 'spring-run-code
  ;; evil-nerd-commenter
@@ -145,6 +145,7 @@
  ",h" 'spring/hugo
  ", SPC" 'sniem-digit-argument-or-fn
  ",t" 'spring/compile-test
+ ",g" 'magit-status
  "RET" 'sniem-object-catch
  "e" 'er/expand-region
  "B" 'spring/vue-build)
