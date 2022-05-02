@@ -34,7 +34,7 @@ When carp is non-nil, return the car if it has."
   (interactive (list
                 (completing-read "The directory's name: "
                                  '("emacs" "git" "gtd" "C" "python" "go"
-                                   "clojure" "blog"))))
+                                   "clojure" "var"))))
   (find-file (pcase dir-name
                ("gtd" "~/.emacs.d/gtd")
                ("git" "~/Github")
@@ -43,7 +43,7 @@ When carp is non-nil, return the car if it has."
                ("python" "~/Code/python")
                ("go" "~/go")
                ("clojure" "~/Code/clojure")
-               ("blog" "~/Github/Blog"))))
+               ("var" "~/.emacs.d/var"))))
 
 (defun set-alpha ()
   "Set the backgroud alpha by VAR."
