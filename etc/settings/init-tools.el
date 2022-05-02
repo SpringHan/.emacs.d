@@ -123,12 +123,6 @@
 (gpack iedit
   :key ("C-' C-e" . iedit-mode))
 
-;;; hungry-delete
-(gpack hungry-delete
-  :key (("C-' C-h" . hungry-delete-mode)
-        ("C-' DEL" . hungry-delete-backward))
-  :hook ((emacs-lisp-mode-hook lisp-mode-hook) . hungry-delete-mode))
-
 (gpack highlight-indent-guides
   :hook ((prog-mode-hook text-mode-hook) . highlight-indent-guides-mode)
   :var ((highlight-indent-guides-method . 'character)
