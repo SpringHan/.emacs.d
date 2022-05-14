@@ -1,14 +1,28 @@
 ;;;; This is the lsp-mode settings file
 
-;;; Packages
-;;; Lsp-mode
-(gpack nox
-  :repo "manateelazycat/nox"
-  :var (nox-optimization-p . nil)
-  :key (("C-' D" . nox-show-doc))
-  :config (setf (car nox-server-programs) '(rust-mode nox-rls "rust-analyzer")))
+;; ;;; Packages
+;; ;;; Lsp-mode
+;; (gpack nox
+;;   :repo "manateelazycat/nox"
+;;   :var (nox-optimization-p . nil)
+;;   :key (("C-' D" . nox-show-doc))
+;;   :config (setf (car nox-server-programs) '(rust-mode nox-rls "rust-analyzer")))
 
-(spring/extra-add-to-list "~/.emacs.d/third-party/nox/nox" t)
+;; (spring/extra-add-to-list "~/.emacs.d/third-party/nox/nox" t)
+
+(gpack lsp-bridge
+  :repo "manateelazycat/lsp-bridge"
+  :config
+  (progn
+    (require 'lsp-bridge-orderless)
+    (require 'lsp-bridge-icon)
+    (defun spring/lsp-bridge ()
+      "Start lsp-bridge."
+      (interactive)
+      (with-current-buffer (current-buffer)
+        (setq-local corfu-auto nil)
+        (lsp-bridge-mode 1)))
+    (global-set-key (kbd "<f3>") #'spring/lsp-bridge)))
 
 ;; (gpack flycheck)
 
@@ -34,23 +48,23 @@
      citre-use-project-root-when-creating-tags t
      citre-prompt-language-for-ctags-command t)))
 
-(gpack lsp-mode
-  :key (("C-' F" . lsp-format-buffer)
-        ("C-' i" . lsp-treemacs-errors-list))
-  :var ((lsp-idle-delay . 0.2)
-        (lsp-enable-indentation . t)
-        (lsp-keep-workspace-alive . nil)
-        (lsp-auto-guess-root . nil)
-        (lsp-file-watch-threshold . 1000)
-        (lsp-eldoc-hook . nil)
-        (lsp-log-io . nil)
-        (lsp-enable-folding . nil)
-        (lsp-enable-snippet . t)
-        (lsp-prefer-flymake . :none)
-        (lsp-completion-provider . :capf)))
+;; (gpack lsp-mode
+;;   :key (("C-' F" . lsp-format-buffer)
+;;         ("C-' i" . lsp-treemacs-errors-list))
+;;   :var ((lsp-idle-delay . 0.2)
+;;         (lsp-enable-indentation . t)
+;;         (lsp-keep-workspace-alive . nil)
+;;         (lsp-auto-guess-root . nil)
+;;         (lsp-file-watch-threshold . 1000)
+;;         (lsp-eldoc-hook . nil)
+;;         (lsp-log-io . nil)
+;;         (lsp-enable-folding . nil)
+;;         (lsp-enable-snippet . t)
+;;         (lsp-prefer-flymake . :none)
+;;         (lsp-completion-provider . :capf)))
 
-(gpack lsp-ui
-  :var (lsp-ui-doc-show-with-mouse . nil))
+;; (gpack lsp-ui
+;;   :var (lsp-ui-doc-show-with-mouse . nil))
 
 ;;; Dap-mode
 (gpack dap-mode
