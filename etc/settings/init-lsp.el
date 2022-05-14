@@ -12,6 +12,9 @@
 
 (gpack lsp-bridge
   :repo "manateelazycat/lsp-bridge"
+  :key (("C-x C-l" . nil)
+        ("C-x C-l g" . lsp-bridge-find-def-other-window)
+        ("C-x C-l d" . lsp-bridge-lookup-documentation))
   :config
   (progn
     (require 'lsp-bridge-orderless)
