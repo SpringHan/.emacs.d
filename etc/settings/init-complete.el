@@ -56,4 +56,52 @@
 ;;                                              (setq-local company-backends
 ;;                                                          (append '(company-tabnine) company-backends)))))
 
+;;; Redefinition
+
+(defun corfu--update ()
+  "Refresh Corfu UI."
+  (pcase-let* ((`(,beg ,end ,table ,pred) completion-in-region--data)
+               (pt (- (point) beg))
+               (str (buffer-substring-no-properties beg end))
+               (initializing (not corfu--input)))
+    (corfu--echo-refresh)
+    (cond
+     ;; XXX Guard against errors during candidate generation.
+     ;; Turn off completion immediately if there are errors
+     ;; For example dabbrev throws error "No dynamic expansion ... found".
+     ;; TODO Report this as a bug? Are completion tables supposed to throw errors?
+     ((condition-case err
+          ;; Only recompute when input changed
+          (unless (equal corfu--input (cons str pt))
+            (corfu--update-candidates str pt table pred)
+            nil)
+        (error (corfu-quit))))
+     ;; 1) Initializing, no candidates => Quit. Happens during auto completion.
+     ((and initializing (not corfu--candidates))
+      (corfu-quit))
+     ;; 2) Single exactly matching candidate and no further completion is possible.
+     ((and (not (equal str ""))
+           (equal (car corfu--candidates) str) (not (cdr corfu--candidates))
+           (not (consp (completion-try-completion str table pred pt corfu--metadata)))
+           (or initializing corfu-on-exact-match))
+      ;; Quit directly when initializing. This happens during auto completion.
+      (if (or initializing (eq corfu-on-exact-match 'quit))
+          (corfu-quit)
+        (corfu--done str 'finished)))
+     ;; 3) There exist candidates => Show candidates popup.
+     (corfu--candidates
+      (corfu--candidates-popup beg)
+      (corfu--preview-current beg end)
+      (corfu--echo-documentation)
+      (redisplay 'force)) ;; XXX HACK Ensure that popup is redisplayed
+     ;; 4) There are no candidates & corfu-quit-no-match => Confirmation popup.
+     ((and (not corfu--candidates)
+           (pcase-exhaustive corfu-quit-no-match
+             ('t nil)
+             ('nil t)
+             ('separator (seq-contains-p (car corfu--input) corfu-separator))))
+      (corfu--popup-show beg 0 8 '(#("No match" 0 8 (face italic))))
+      (redisplay 'force)) ;; XXX HACK Ensure that popup is redisplayed
+     (t (corfu-quit)))))
+
 (provide 'init-complete)

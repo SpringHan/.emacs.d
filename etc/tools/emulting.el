@@ -197,7 +197,7 @@
   (kill-all-local-variables)
   (setq major-mode 'emulting-mode)
   (setq mode-name "Emulting-Mode")
-  (company-mode -1)
+  (corfu-mode -1)
   (use-local-map emulting-mode-map))
 
 ;;;###autoload
