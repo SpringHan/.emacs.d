@@ -184,6 +184,7 @@
     (define-key map (kbd "TAB") #'emulting-complete)
     (define-key map (kbd "C-i") #'emulting-complete)
     (define-key map (kbd "<C-return>") #'emulting-immediate-do)
+    (define-key map (kbd "M-w") #'emulting-copy)
     map)
   "keymap for emulting-mode."
   :type 'keymap
@@ -292,6 +293,14 @@
   
   (emulting-clear-result)
   (emulting-clear-variable))
+
+(defun emulting-copy ()
+  "Copy the current candidate."
+  (interactive)
+  (when emulting-selected-candidate
+    (setq kill-ring (append (list emulting-selected-candidate)
+                            kill-ring))
+    (message "[Emulting]: Copyed.")))
 
 (defun emulting-next-item ()
   "Select the next item."

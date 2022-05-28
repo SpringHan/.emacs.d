@@ -14,9 +14,13 @@
   :repo "manateelazycat/lsp-bridge"
   :key (("C-x C-l" . nil)
         ("C-x C-l g" . lsp-bridge-find-def-other-window)
-        ("C-x C-l d" . lsp-bridge-lookup-documentation))
+        ("C-x C-l d" . lsp-bridge-lookup-documentation)
+        ("C-x C-l n" .  lsp-bridge-jump-to-next-diagnostic)
+        ("C-x C-l p" .  lsp-bridge-jump-to-prev-diagnostic))
   :config
   (progn
+    (setq lsp-bridge-completion-provider 'corfu)
+    (require 'corfu-info)
     (require 'lsp-bridge-orderless)
     (require 'lsp-bridge-icon)
     (defun spring/lsp-bridge ()
@@ -25,9 +29,8 @@
       (with-current-buffer (current-buffer)
         (setq-local corfu-auto nil)
         (lsp-bridge-mode 1)))
+    (corfu-history-mode t)
     (global-set-key (kbd "<f3>") #'spring/lsp-bridge)))
-
-;; (gpack flycheck)
 
 (gpack citre
   :key (("C-x c j" . citre-jump)
