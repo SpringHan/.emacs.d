@@ -10,6 +10,7 @@
 
 ;; (spring/extra-add-to-list "~/.emacs.d/third-party/nox/nox" t)
 
+(gpack cape)
 (gpack lsp-bridge
   :repo "manateelazycat/lsp-bridge"
   :key (("C-x C-l" . nil)
@@ -17,20 +18,18 @@
         ("C-x C-l d" . lsp-bridge-lookup-documentation)
         ("C-x C-l n" .  lsp-bridge-jump-to-next-diagnostic)
         ("C-x C-l p" .  lsp-bridge-jump-to-prev-diagnostic))
-  :config
-  (progn
-    (setq lsp-bridge-completion-provider 'corfu)
-    (require 'corfu-info)
-    (require 'lsp-bridge-orderless)
-    (require 'lsp-bridge-icon)
-    (defun spring/lsp-bridge ()
-      "Start lsp-bridge."
-      (interactive)
-      (with-current-buffer (current-buffer)
-        (setq-local corfu-auto nil)
-        (lsp-bridge-mode 1)))
-    (corfu-history-mode t)
-    (global-set-key (kbd "<f3>") #'spring/lsp-bridge)))
+  :hook (after-init-hook . global-lsp-bridge-mode)
+  ;; :config
+  ;; (progn
+  ;;   (defun spring/lsp-bridge ()
+  ;;     "Start lsp-bridge."
+  ;;     (interactive)
+  ;;     (with-current-buffer (current-buffer)
+  ;;       (setq-local corfu-auto nil)
+  ;;       (lsp-bridge-mode 1)))
+  ;;   (global-set-key (kbd "<f3>") #'spring/lsp-bridge)
+  ;;   )
+  )
 
 (gpack citre
   :key (("C-x c j" . citre-jump)
