@@ -28,7 +28,9 @@
         ('go-mode
          (setq command (concat "go run " (buffer-name))))
         ('rustic-mode
-         (call-interactively #'rustic-cargo-run)
+         (call-interactively (if (y-or-n-p "Build?")
+                                 #'rustic-cargo-build
+                               #'rustic-cargo-run))
          (throw 'run-out t))
         (_ (message "There're no running way for current filetype.")
            (setq unknow-mode t)))

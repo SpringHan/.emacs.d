@@ -6,6 +6,6 @@
 ;;; Completing
 (gpack python-mode)
 
-(gpack live-py-mode)
+; (gpack live-py-mode)
 
 (provide 'spring-python)

@@ -4,6 +4,9 @@
 (add-to-list 'load-path "~/.emacs.d/etc/settings")
 (add-to-list 'load-path "~/.emacs.d/etc/languages")
 
+;;; Init the empty lsp-mode.
+(require 'lsp-mode)
+
 ;;; Main Settings
 (require 'init-basic)
 (require 'init-ui)

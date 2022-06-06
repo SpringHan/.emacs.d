@@ -3,8 +3,8 @@
 ;;; Highlighting
 (gpack dart-mode)
 
-(gpack lsp-dart
-  :disable
-  :hook (dart-mode-hook . (lambda () (require 'lsp-dart) (lsp-deferred))))
+; (gpack lsp-dart
+  ; :disable
+  ; :hook (dart-mode-hook . (lambda () (require 'lsp-dart) (lsp-deferred))))
 
 (provide 'spring-dart)

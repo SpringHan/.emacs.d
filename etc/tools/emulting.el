@@ -25,7 +25,6 @@
 
 (require 'all-the-icons)
 (require 'sniem)
-(require 'company)
 (require 'ivy)
 (require 'init-functions)
 
@@ -198,7 +197,6 @@
   (kill-all-local-variables)
   (setq major-mode 'emulting-mode)
   (setq mode-name "Emulting-Mode")
-  (corfu-mode -1)
   (use-local-map emulting-mode-map))
 
 ;;;###autoload

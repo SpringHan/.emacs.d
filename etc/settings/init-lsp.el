@@ -19,7 +19,8 @@
         ("C-x C-l n" .  lsp-bridge-jump-to-next-diagnostic)
         ("C-x C-l p" .  lsp-bridge-jump-to-prev-diagnostic))
   :hook (after-init-hook . global-lsp-bridge-mode)
-  ;; :config
+  :config
+  (setq acm-enable-dabbrev t)
   ;; (progn
   ;;   (defun spring/lsp-bridge ()
   ;;     "Start lsp-bridge."
@@ -72,7 +73,7 @@
 ;;   :var (lsp-ui-doc-show-with-mouse . nil))
 
 ;;; Dap-mode
-(gpack dap-mode
-  :key ("C-' d" . dap-debug))
+; (gpack dap-mode
+  ; :key ("C-' d" . dap-debug))
 
 (provide 'init-lsp)
