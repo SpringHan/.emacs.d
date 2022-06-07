@@ -17,7 +17,9 @@
         ("C-x C-l g" . lsp-bridge-find-def-other-window)
         ("C-x C-l d" . lsp-bridge-lookup-documentation)
         ("C-x C-l n" .  lsp-bridge-jump-to-next-diagnostic)
-        ("C-x C-l p" .  lsp-bridge-jump-to-prev-diagnostic))
+        ("C-x C-l p" .  lsp-bridge-jump-to-prev-diagnostic)
+        ("C-x C-l j" . lsp-bridge-find-def)
+        ("C-x C-l e" . lsp-bridge-toggle-english-helper))
   :hook (after-init-hook . global-lsp-bridge-mode)
   :config
   (setq acm-enable-dabbrev t)
