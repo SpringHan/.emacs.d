@@ -21,32 +21,32 @@
     (require 'eaf-markdown-previewer)
     (require 'eaf-pdf-viewer)
     (require 'eaf-browser)
-    (require 'eaf-file-sender)
+    ; (require 'eaf-file-sender)
     (require 'eaf-org-previewer)
-    (require 'eaf-airshare)
-    (require 'eaf-file-browser)
+    ; (require 'eaf-airshare)
+    ; (require 'eaf-file-browser)
 		(require 'eaf-git)
     (require 'eaf-netease-cloud-music)))
 
 ;;; Netease Cloud Music
-(gpack request)
-(gpack netease-cloud-music
-  :repo "SpringHan/netease-cloud-music.el"
-  :key (("C-' n q" . netease-cloud-music-quit)
-        ("C-' n t" . (lambda ()
-                       (interactive)
-                       (if (get-buffer netease-cloud-music-buffer-name)
-                           (netease-cloud-music)
-                         (eaf-open-netease-cloud-music)))))
-  :var ((netease-cloud-music-search-limit . 15)
-        (netease-cloud-music-show-lyric . 'all)
-        (netease-cloud-music-line-number-relative . t))
-  :config (progn
-            (require 'netease-cloud-music-ui)
-            (require 'netease-cloud-music-comment)))
+;; (gpack request)
+;; (gpack netease-cloud-music
+;;   :repo "SpringHan/netease-cloud-music.el"
+;;   :key (("C-' n q" . netease-cloud-music-quit)
+;;         ("C-' n t" . (lambda ()
+;;                        (interactive)
+;;                        (if (get-buffer netease-cloud-music-buffer-name)
+;;                            (netease-cloud-music)
+;;                          (eaf-open-netease-cloud-music)))))
+;;   :var ((netease-cloud-music-search-limit . 15)
+;;         (netease-cloud-music-show-lyric . 'all)
+;;         (netease-cloud-music-line-number-relative . t))
+;;   :config (progn
+;;             (require 'netease-cloud-music-ui)
+;;             (require 'netease-cloud-music-comment)))
 
-(spring/extra-add-to-list
- "~/.emacs.d/third-party/netease-cloud-music.el/netease-cloud-music")
+;; (spring/extra-add-to-list
+;;  "~/.emacs.d/third-party/netease-cloud-music.el/netease-cloud-music")
 
 ;;; Shengci.el
 (gpack shengci
