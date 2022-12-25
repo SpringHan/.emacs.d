@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: temp
+# key: temp
+# --
+<template>
+</template>
+
+<script>
+</script>
+
+<style>
+</style>$0
