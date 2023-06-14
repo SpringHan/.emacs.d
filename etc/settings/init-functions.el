@@ -195,16 +195,20 @@ If it's daytime now,return t.Otherwise return nil."
     (insert initial-scratch-message)
     (message "Open the scratch action done.")))
 
-(defun spring/scratch-erase-contents ()
-  "Erase all the contents of *scratch* buffer."
+(defun spring/erase-contents ()
+  "Erase all the contents of specific buffer."
   (interactive)
-  (with-current-buffer "*scratch*"
-    (let ((content  (buffer-string)))
-      (unless (string= content initial-scratch-message)
-        (erase-buffer)
-        (insert initial-scratch-message)
-        (message "Erased contents in *scratch* buffer.")
-        (end-of-buffer)))))
+  (if (string-equal (buffer-name (current-buffer))
+                    "*scratch*")
+      (with-current-buffer "*scratch*"
+           (let ((content  (buffer-string)))
+             (unless (string= content initial-scratch-message)
+               (erase-buffer)
+               (insert initial-scratch-message)
+               (message "Erased contents in *scratch* buffer.")
+               (end-of-buffer))))
+    (with-current-buffer (current-buffer)
+      (erase-buffer))))
 
 (defun spring/use-space-indent ()
   "Use the space indent in org-mode."

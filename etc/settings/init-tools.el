@@ -16,17 +16,18 @@
                                        '("netease-current-song" "input-method" "mode-name" "date"))))
   :config
   (progn
-    (require 'eaf-image-viewer)
-    (require 'eaf-video-player)
-    (require 'eaf-markdown-previewer)
-    (require 'eaf-pdf-viewer)
+    (require 'eaf-mindmap)
+    (require 'eaf-rss-reader)
     (require 'eaf-browser)
-    ; (require 'eaf-file-sender)
+    (require 'eaf-file-browser)
+    (require 'eaf-markdown-previewer)
     (require 'eaf-org-previewer)
-    ; (require 'eaf-airshare)
-    ; (require 'eaf-file-browser)
-		(require 'eaf-git)
-    (require 'eaf-netease-cloud-music)))
+    (require 'eaf-image-viewer)
+    ;; (require 'eaf-netease-cloud-music)
+    (require 'eaf-pdf-viewer)
+    (require 'eaf-video-player)
+    (require 'eaf-git)
+    (require 'eaf-file-sender)))
 
 ;;; Netease Cloud Music
 ;; (gpack request)

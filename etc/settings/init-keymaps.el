@@ -32,7 +32,7 @@
 (global-set-key (kbd "C-q C-d") 'delete-char) ; Delete the char
 (global-set-key (kbd "C-q C-r") 'revert-buffer) ; Revert current buffer
 (global-set-key (kbd "C-q M-c") 'spring/downcase-word-first-letter) ; Downcase the first letter in the word at point
-(global-set-key (kbd "C-q O") 'spring/scratch-erase-contents) ; Erase all the contents of *scratch* buffer
+(global-set-key (kbd "C-q O") 'spring/erase-contents) ; Erase all the contents of *scratch* buffer
 (global-set-key (kbd "C-q P") 'list-processes) ; Show the processes buffer
 (global-set-key (kbd "C-q C-v u") 'spring/up-5-volume) ; Up 5 volume
 (global-set-key (kbd "C-q C-v d") 'spring/down-5-volume) ; Down 5 volume
