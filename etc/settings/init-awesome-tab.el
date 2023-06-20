@@ -43,4 +43,31 @@
   ("C-S-k" awesome-tab-kill-other-buffers-in-current-group)
   ("q" nil "quit"))
 
+(defun spring/awesome-tab-adjust-color-with-theme (orig)
+  (let* ((bg-mode (frame-parameter nil 'background-mode))
+         (select-tab-background (awesome-tab-get-select-background-color))
+         (unselect-tab-background (awesome-tab-get-unslect-background-color)))
+    (when (display-graphic-p)
+      (setq awesome-tab-active-bar (awesome-tab-make-xpm awesome-tab-active-bar-width awesome-tab-active-bar-height)))
+
+    (set-face-attribute awesome-tab-display-line nil :height awesome-tab-height)
+
+    (set-face-attribute 'awesome-tab-selected-face nil
+                        :background select-tab-background)
+    (set-face-attribute 'awesome-tab-unselected-face nil
+                        :background unselect-tab-background)
+
+    (set-face-attribute 'awesome-tab-selected-ace-face nil
+                        :background select-tab-background)
+    (set-face-attribute 'awesome-tab-unselected-ace-face nil
+                        :background unselect-tab-background)
+
+    (set-face-attribute 'awesome-tab-selected-index-face nil
+                        :background select-tab-background)
+    (set-face-attribute 'awesome-tab-unselected-index-face nil
+                        :background unselect-tab-background)))
+
+(advice-add #'awesome-tab-adjust-color-with-theme :around
+            #'spring/awesome-tab-adjust-color-with-theme)
+
 (provide 'init-awesome-tab)

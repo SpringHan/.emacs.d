@@ -8,7 +8,9 @@
                          ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")))
 
 ;;; Native comp
-(setq native-comp-async-report-warnings-errors nil)
+(setq native-comp-async-report-warnings-errors nil
+      native-comp-eln-load-path '("~/.emacs.d/eln-cache/"
+                                  "/usr/local/lib/emacs/29.0.91/native-lisp/"))
 (add-to-list 'load-path "~/.emacs.d/third-party/gpack")
 (require 'gpack)
 

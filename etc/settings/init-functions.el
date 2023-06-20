@@ -118,7 +118,7 @@ If it's daytime now,return t.Otherwise return nil."
            (setq time-result (day-or-night))))
     (if time-result
         (progn
-          (load-the-theme--enable-theme 'lab-light)
+          (load-the-theme--enable-theme 'storybook)
           (when (string= spring/time-block "night")
             ;; (eaf-browser-set "day")
             (spring/disable-modeline))
