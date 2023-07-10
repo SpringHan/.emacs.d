@@ -112,24 +112,18 @@
  "o SPC" 'org-timer-pause-or-continue
 
  ;; Netease-Cloud-Music
- "nt" 'netease-cloud-music
- "nT" 'eaf-open-netease-cloud-music
- "nr" 'netease-cloud-music-change-repeat-mode
- "na" 'netease-cloud-music-add-header-lyrics
- "nd" 'netease-cloud-music-delete-header-lyrics
- "n<" 'netease-cloud-music-seek-backward
- "n>" 'netease-cloud-music-seek-forward
- "n SPC" 'netease-cloud-music-pause-or-continue
- "nn" 'netease-cloud-music-play-next-song
- "np" 'netease-cloud-music-play-previous-song
- "nN" 'netease-cloud-music-random-play
- "n/" 'netease-cloud-music-ask-play
-
- ;; Nox
- "Nk" 'nox-shutdown
-
- ;; Awesome-Tab
- "j" 'awesome-tab-ace-jump
+ ;; "nt" 'netease-cloud-music
+ ;; "nT" 'eaf-open-netease-cloud-music
+ ;; "nr" 'netease-cloud-music-change-repeat-mode
+ ;; "na" 'netease-cloud-music-add-header-lyrics
+ ;; "nd" 'netease-cloud-music-delete-header-lyrics
+ ;; "n<" 'netease-cloud-music-seek-backward
+ ;; "n>" 'netease-cloud-music-seek-forward
+ ;; "n SPC" 'netease-cloud-music-pause-or-continue
+ ;; "nn" 'netease-cloud-music-play-next-song
+ ;; "np" 'netease-cloud-music-play-previous-song
+ ;; "nN" 'netease-cloud-music-random-play
+ ;; "n/" 'netease-cloud-music-ask-play
 
  ;; Other functions
  "dc" 'spring/copy-directory-path
@@ -160,6 +154,6 @@
 (sniem-set-quit-insert-key "<C-tab>")
 (global-set-key (kbd "C--") sniem-leader-keymap)
 ;;; Third-party
-(setq netease-cloud-music-jump-function 'sniem-digit-argument-get)
+;; (setq netease-cloud-music-jump-function 'sniem-digit-argument-get)
 
 (provide 'init-sniem)
