@@ -52,11 +52,10 @@
 (global-set-key (kbd "C-q U") 'spring/copy-current-url)	;Copy current website url
 (global-set-key (kbd "C-q F") 'spring/format-commit) ;Format Commit
 (global-set-key (kbd "C-\\") 'nil)
-(global-set-key (kbd "C-\\ j") '(lambda () (interactive) (spring/change-input-method 'japanese)))
-(global-set-key (kbd "C-\\ c") '(lambda () (interactive) (spring/change-input-method 'pyim)))
-(global-set-key (kbd "C-\\ C-\\") '(lambda () (interactive) (spring/change-input-method 0)))
+(global-set-key (kbd "C-\\ j") (lambda () (interactive) (spring/change-input-method 'japanese)))
+(global-set-key (kbd "C-\\ c") (lambda () (interactive) (spring/change-input-method 'pyim)))
+(global-set-key (kbd "C-\\ C-\\") (lambda () (interactive) (spring/change-input-method 0)))
 (global-set-key (kbd "M-f") 'toggle-input-method)
-(global-set-key (kbd "<f5>") 'spring/use-colemak-keyboard)
 (global-set-key (kbd "<f6>") 'spring/disable-modeline)
 (global-set-key (kbd "<f7>") 'spring/initialize-input-method)
 (global-set-key (kbd "C-:") 'spring/insert-result)

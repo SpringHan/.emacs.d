@@ -505,13 +505,6 @@ If it's daytime now,return t.Otherwise return nil."
   (set-input-method 'pyim)
   (spring/change-input-method 0))
 
-(defun spring/use-colemak-keyboard ()
-  "Run shell to use colemak keyboard."
-  (interactive)
-  (shell-command "setxkbmap us colemak -option -option ctrl:nocaps" "*Colemak*")
-  (when (get-buffer "*Colemak*")
-    (kill-buffer "*Colemak*")))
-
 (defun spring/disable-modeline ()
   "The function to disable the modeline."
   (interactive)
