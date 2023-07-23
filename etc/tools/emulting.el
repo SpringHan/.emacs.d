@@ -1694,7 +1694,7 @@ Otherwise it's a variable."
                               (interactive "P")
                               (emulting extension pre-arg))))
 
-(global-set-key (kbd "M-z") #'emulting)
+(emulting-extension-bind "M-z" nil)
 (emulting-extension-bind "C-q c" 'config)
 (emulting-extension-bind "C-q C-m b" 'bookmark)
 (emulting-extension-bind "C-x b" 'buffer)

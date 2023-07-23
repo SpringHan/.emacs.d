@@ -726,10 +726,11 @@ PACKAGES is the dependences."
 
 ;;; Native Compilation
 
-(defun spring/native-compile-or-load (file &optional o3)
+(defun spring/native-compile-or-load (file &optional o3 force)
   "If FILE's eln file is exists, load it.
 Otherwise compile it natively.
-When O3 is non-nil, use it as compile speed."
+When O3 is non-nil, use it as compile speed.
+When FROCE is non-nil, compiling FILE forcely."
   (let (eln-file real-file-name)
     (unless (string-suffix-p ".el" file)
       (setq real-file-name (concat file ".el")))
@@ -737,7 +738,8 @@ When O3 is non-nil, use it as compile speed."
       (setq eln-file (comp-el-to-eln-filename (if real-file-name
                                                   real-file-name
                                                 file)))
-      (if (file-exists-p eln-file)
+      (if (and (file-exists-p eln-file)
+               (null force))
           (native-elisp-load eln-file)
         (let ((native-comp-speed (if o3
                                      3
