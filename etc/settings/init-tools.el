@@ -2,32 +2,33 @@
 
 ;;; Third-party
 ;;; Emacs Application Framework
-; (gpack eaf
-  ; :load-path "~/.emacs.d/third-party/emacs-application-framework"
-  ; :key (("C-q C-w l" . eaf-open-browser)
-        ; ("C-q C-w h" . eaf-open-browser-with-history)
-        ; ("C-q C-m t" . eaf-open-terminal))
-  ; :var ((eaf-browser-remember-history . t)
-        ; (eaf-browser-default-zoom . 1.1)
-        ; (eaf-terminal-font-family . "Source Code Pro")
-        ; (eaf-terminal-font-size . 25))
-  ; :hook (eaf-mode-hook . (lambda ()
-                           ; (setq-local awesome-tray-active-modules
-                                       ; '("netease-current-song" "input-method" "mode-name" "date"))))
-  ; :config
-  ; (progn
-    ; (require 'eaf-mindmap)
-    ; (require 'eaf-rss-reader)
-    ; (require 'eaf-browser)
-    ; (require 'eaf-file-browser)
-    ; (require 'eaf-markdown-previewer)
-    ; (require 'eaf-org-previewer)
-    ; (require 'eaf-image-viewer)
-		; (require 'eaf-netease-cloud-music)
-    ; (require 'eaf-pdf-viewer)
-    ; (require 'eaf-video-player)
-    ; (require 'eaf-git)
-    ; (require 'eaf-file-sender)))
+(gpack eaf
+	:load-path "~/.emacs.d/third-party/emacs-application-framework"
+  ;; :key (("C-q C-w l" . eaf-open-browser)
+  ;;       ("C-q C-w h" . eaf-open-browser-with-history)
+  ;;       ("C-q C-m t" . eaf-open-terminal))
+  ;; :var ((eaf-browser-remember-history . t)
+  ;;       (eaf-browser-default-zoom . 1.1)
+  ;;       (eaf-terminal-font-family . "Source Code Pro")
+  ;;       (eaf-terminal-font-size . 25))
+  ;; :hook (eaf-mode-hook . (lambda ()
+  ;;                          (setq-local awesome-tray-active-modules
+  ;;                                      '("netease-current-song" "input-method" "mode-name" "date"))))
+  ;; :config
+  ;; (progn
+  ;;   (require 'eaf-mindmap)
+  ;;   (require 'eaf-rss-reader)
+  ;;   (require 'eaf-browser)
+  ;;   (require 'eaf-file-browser)
+  ;;   (require 'eaf-markdown-previewer)
+  ;;   (require 'eaf-org-previewer)
+  ;;   (require 'eaf-image-viewer)
+  ;;   (require 'eaf-netease-cloud-music)
+  ;;   (require 'eaf-pdf-viewer)
+  ;;   (require 'eaf-video-player)
+  ;;   (require 'eaf-git)
+  ;;   (require 'eaf-file-sender))
+	)
 
 ;;; Netease Cloud Music
 ;; (gpack request)
