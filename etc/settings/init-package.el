@@ -12,7 +12,6 @@
 (require 'init-lsp)
 (require 'init-tools)
 (require 'init-awesome-tray)
-;; (require 'init-sort-tab)
 (require 'init-sniem)
 (require 'init-git)
 (require 'init-modes)

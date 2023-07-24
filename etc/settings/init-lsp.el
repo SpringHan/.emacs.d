@@ -35,6 +35,8 @@
   ;;   )
   )
 
+(spring/extra-add-to-list "~/.emacs.d/third-party/lsp-bridge/lsp-bridge" t)
+
 (gpack citre
   :key (("C-x c j" . citre-jump)
         ("C-x c J" . citre-jump-back)
