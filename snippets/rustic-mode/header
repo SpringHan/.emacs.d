@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: header
+# key: header
+# --
+// ${1:file}
+// Author: ${2:SpringHan}
+// Version: ${3:1.0}
+
+$0

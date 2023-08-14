@@ -4,7 +4,6 @@
 (global-set-key (kbd "C-q") 'ctl-z-map)		 ; Set the ctl-z-map
 (global-set-key (kbd "C-=") 'more-functions)
 (global-set-key (kbd "C-q i") 'open-config-file) ; Open the init.el
-(global-set-key (kbd "C-q p") 'package-list-packages) ; Open the package interface
 (global-set-key (kbd "C-q C-b") 'buffer-menu) ; Open the buffer menu
 (global-set-key (kbd "C-q C-i") 'spring/open-erc) ;Open the erc
 (global-set-key (kbd "C-q C-p") 'previous-buffer) ; Goto previous buffer
