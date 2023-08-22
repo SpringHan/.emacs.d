@@ -136,7 +136,6 @@
  "fS" 'spring/set-value-at-point
  "fp" 'spring/char-to-string-output
  "fE" 'spring/eval-expression
- ",h" 'spring/hugo
  ", SPC" 'sniem-digit-argument-or-fn
  ",t" 'spring/compile-test
  ",g" 'magit-status

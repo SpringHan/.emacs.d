@@ -11,6 +11,7 @@
 ;; (spring/extra-add-to-list "~/.emacs.d/third-party/nox/nox" t)
 
 (gpack cape)
+(gpack markdown-mode)
 (gpack lsp-bridge
   :repo "manateelazycat/lsp-bridge"
   :key (("C-x C-l" . nil)

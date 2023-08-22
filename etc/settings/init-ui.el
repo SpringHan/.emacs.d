@@ -15,7 +15,7 @@
 (setq inhibit-splash-screen t) ; Close the start flash
 (set-face-attribute
  'default nil
- :height 160
+ :height 140
  :family "Source Code Pro"
  :weight 'normal
  :width 'normal) ; Set the font size

@@ -15,13 +15,13 @@
                              "snippets")))))
 
 ;;; isolate-mode
-(gpack isolate
-  :key (("C-' C-a s" . isolate-quick-add)
-        ("C-' C-a S" . isolate-long-add)
-        ("C-' C-a d" . isolate-quick-delete)
-        ("C-' C-a D" . isolate-long-delete)
-        ("C-' C-a c" . isolate-quick-change)
-        ("C-' C-a C" . isolate-long-change)))
+;(gpack isolate
+;  :key (("C-' C-a s" . isolate-quick-add)
+;        ("C-' C-a S" . isolate-long-add)
+;        ("C-' C-a d" . isolate-quick-delete)
+;        ("C-' C-a D" . isolate-long-delete)
+;        ("C-' C-a c" . isolate-quick-change)
+;        ("C-' C-a C" . isolate-long-change)))
 
 ;;; paredit mode
 (gpack paredit
@@ -44,5 +44,8 @@
         ("C-' a w" . avy-goto-word-1)
         ("C-' a W" . avy-goto-word-0)
         ("C-' a r" . avy-resume)))
+
+;;; Evil nerd commenter
+(gpack evil-nerd-commenter)
 
 (provide 'init-edits)

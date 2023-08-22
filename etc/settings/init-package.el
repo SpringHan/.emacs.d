@@ -3,8 +3,6 @@
 (define-prefix-command 'plugin-key)
 (global-set-key (kbd "C-'") 'plugin-key)
 
-;;;; Themes
-(load-the-theme)
 
 ;;; Packages
 (require 'init-complete)
@@ -17,6 +15,8 @@
 (require 'init-modes)
 (require 'init-org)
 
+;;;; Themes
+(load-the-theme)
 (package-initialize)
 
 (provide 'init-package)

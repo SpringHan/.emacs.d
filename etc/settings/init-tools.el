@@ -51,6 +51,7 @@
 ;;  "~/.emacs.d/third-party/netease-cloud-music.el/netease-cloud-music")
 
 ;;; Shengci.el
+(gpack f)
 (gpack shengci
   :repo "EvanMeek/shengci.el")
 
@@ -155,7 +156,6 @@
   :key ("C-' G" . github-explorer))
 
 ;;; Input Method
-(gpack pyim-basedict)
 (gpack pyim
   :config (progn
             (pyim-basedict-enable)
@@ -167,9 +167,9 @@
         (pyim-page-style . 'one-line)
         (pyim-punctuation-translate . '(auto yes no)))
   :key ("M-j" . pyim-convert-string-at-point))
+(gpack pyim-basedict)
 
 ;;; Arch Package Manager
-(gpack arch-packer)
 
 ;;; Command Shower
 (gpack command-log-mode
