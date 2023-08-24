@@ -21,20 +21,12 @@
         ("C-x C-l p" .   lsp-bridge-diagnostic-jump-prev)
         ("C-x C-l j" . lsp-bridge-find-def)
         ("C-x C-l e" . lsp-bridge-toggle-sdcv-helper)
-        ("C-x C-l l" .  lsp-bridge-diagnostic-list))
+        ("C-x C-l l" .  lsp-bridge-diagnostic-list)
+        ("M-n" . lsp-bridge-popup-documentation-scroll-up)
+        ("M-p" . lsp-bridge-popup-documentation-scroll-down))
   :hook (after-init-hook . global-lsp-bridge-mode)
   :config
-  (setq acm-enable-dabbrev t)
-  ;; (progn
-  ;;   (defun spring/lsp-bridge ()
-  ;;     "Start lsp-bridge."
-  ;;     (interactive)
-  ;;     (with-current-buffer (current-buffer)
-  ;;       (setq-local corfu-auto nil)
-  ;;       (lsp-bridge-mode 1)))
-  ;;   (global-set-key (kbd "<f3>") #'spring/lsp-bridge)
-  ;;   )
-  )
+  (setq acm-enable-dabbrev t))
 
 (spring/extra-add-to-list "~/.emacs.d/third-party/lsp-bridge/lsp-bridge" t)
 
