@@ -9,7 +9,8 @@
   :key ("C-q C-c C-i" . spring/use-space-indent)
   :config (progn
             (setq org-src-fontify-natively t))
-  :hook (org-mode-hook . (lambda () (define-key org-mode-map (kbd "C-'") nil))))
+  :hook (org-mode-hook . ((lambda () (define-key org-mode-map (kbd "C-'") nil))
+                          org-indent-mode)))
 ;;; Custom theme for org to html
 (gpack hexrgb
   :repo "emacsmirror/hexrgb")
