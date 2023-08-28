@@ -28,9 +28,10 @@
         ('go-mode
          (setq command (concat "go run " (buffer-name))))
         ('rustic-mode
-         (call-interactively (if (y-or-n-p "Build?")
-                                 #'rustic-cargo-build
-                               #'rustic-cargo-run))
+         (call-interactively (pcase (read-char "[1]Run [2]Test [3]Build")
+                               (49 #'rustic-cargo-run)
+                               (50 #'rustic-cargo-test)
+                               (51 #'rustic-cargo-build)))
          (throw 'run-out t))
         (_ (message "There're no running way for current filetype.")
            (setq unknow-mode t)))
