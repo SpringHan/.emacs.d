@@ -16,6 +16,7 @@
 (setq initial-scratch-message
       ";; Spring Emacs
 ;; This is the scratch buffer for you.
+(eaf-stop-process)
 
 ")
 (setq-default tab-width 2) ; The tab width

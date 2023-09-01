@@ -25,8 +25,7 @@
         ("M-n" . lsp-bridge-popup-documentation-scroll-up)
         ("M-p" . lsp-bridge-popup-documentation-scroll-down))
   :hook (after-init-hook . global-lsp-bridge-mode)
-  :config
-  (setq acm-enable-dabbrev t))
+  :var (acm-enable-yas . nil))
 
 (spring/extra-add-to-list "~/.emacs.d/third-party/lsp-bridge/lsp-bridge" t)
 

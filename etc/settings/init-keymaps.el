@@ -14,7 +14,8 @@
 (global-set-key (kbd "C-q C-o") 'open-the-dir) ; Open the gtd/github directory
 (global-set-key (kbd "C-q r") 'undo-redo) ; Redo
 (global-set-key (kbd "C-q t") 'make-empty-file) ; Touch file
-(global-set-key (kbd "C-q s") '(lambda () (interactive) (multi-term)))
+(global-set-key (kbd "C-q s") #'(lambda () (interactive)
+                                 (ignore-errors (async-shell-command "st"))))
 (global-set-key (kbd "C-q w") 'write-scratch) ; New a write scratch buffer
 (global-set-key (kbd "C-q f") 'mark-defun) ; Mark the function SAME LIKE C-M-h
 (global-set-key (kbd "C-q e") 'eshell) ; Open eshell
