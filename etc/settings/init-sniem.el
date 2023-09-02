@@ -15,6 +15,7 @@
       sniem-yank-message nil
       sniem-pair-message nil
       sniem-expand-region-message nil
+      sniem-paste-message ""
       sniem-insert-mode-cursor '(bar . 3)
       sniem-object-catch-auto-backward t)
 (add-to-list 'sniem-close-mode-alist 'eaf-mode)
