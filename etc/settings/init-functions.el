@@ -724,6 +724,12 @@ PACKAGES is the dependences."
         (forward-line))
       (save-buffer))))
 
+(defun spring/reopen-file (file)
+  "Reopen current file."
+  (interactive (list (buffer-file-name (current-buffer))))
+  (kill-current-buffer)
+  (find-file file))
+
 ;;; Native Compilation
 
 (defun spring/native-compile-or-load (file &optional o3 force)

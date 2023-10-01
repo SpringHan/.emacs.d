@@ -5,7 +5,6 @@
 (tab-bar-mode -1) ; Set tab bar not display
 (blink-cursor-mode -1) ; Close cursor blink
 (setq tab-bar-show nil) ; Always not display tab bar
-;; (global-linum-mode -1) ; Show the line number
 ;;; Set the line number as the relative style
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)

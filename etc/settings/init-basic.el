@@ -15,10 +15,7 @@
       )
 (setq initial-scratch-message
       ";; Spring Emacs
-;; This is the scratch buffer for you.
-(eaf-stop-process)
-
-")
+;; This is the scratch buffer for you.\n\n")
 (setq-default tab-width 2) ; The tab width
 (setq-default indent-tabs-mode nil) ; Use tab indent
 (setq-default css-indent-offset 2) ; Set css indent width

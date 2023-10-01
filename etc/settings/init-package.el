@@ -2,6 +2,7 @@
 ;;; Set the plugin keybinding
 (define-prefix-command 'plugin-key)
 (global-set-key (kbd "C-'") 'plugin-key)
+(global-set-key (kbd "C-' R") #'spring/reopen-file)
 
 
 ;;; Packages
