@@ -49,9 +49,20 @@
 ;;  "~/.emacs.d/third-party/netease-cloud-music.el/netease-cloud-music")
 
 ;;; Shengci.el
-(gpack f)
-(gpack shengci
-  :repo "EvanMeek/shengci.el")
+;; (gpack f)
+;; (gpack shengci
+;;   :repo "EvanMeek/shengci.el")
+
+;;; Popweb
+(gpack popweb
+  :repo "manateelazycat/popweb"
+  :var (popweb-zoom-factor . 2.13)
+  :key (("C-q C-m h" . popweb-dict-bing-pointer)
+        ("C-q C-m i" . popweb-dict-bing-input))
+  :config
+  (progn
+    (add-to-list 'load-path "~/.emacs.d/third-party/popweb/extension/dict")
+    (require 'popweb-dict)))
 
 ;;; Move-text
 (gpack move-text
