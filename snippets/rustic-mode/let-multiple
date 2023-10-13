@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: let-multiple
+# key: letu
+# --
+let ($1) = ($0);

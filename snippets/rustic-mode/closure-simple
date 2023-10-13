@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: closure-simple
+# key: css
+# --
+|$1| $0
