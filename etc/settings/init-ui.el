@@ -15,7 +15,7 @@
 (set-face-attribute
  'default nil
  :height 140
- :family "Source Code Pro"
+ :family "Monego"
  :weight 'normal
  :width 'normal) ; Set the font size
 ;; Set backgroup alpha

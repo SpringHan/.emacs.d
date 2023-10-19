@@ -1,4 +1,4 @@
-;;;; This file is the tools of my configuration.
+;;;; This file is the tools of my configuration.d
 
 ;;; Third-party
 ;;; Emacs Application Framework
@@ -10,7 +10,7 @@
   :var ((eaf-webengine-default-zoom . 2.15)
         (eaf-browser-remember-history . t)
         (eaf-pyqterminal-font-size . 40)
-        (eaf-pyqterminal-font-family . "Source Code Pro"))
+        (eaf-pyqterminal-font-family . "Monego"))
   :hook (eaf-mode-hook . (lambda ()
                            (setq-local awesome-tray-active-modules
                                        '("netease-current-song" "input-method" "mode-name" "date"))))
@@ -82,17 +82,6 @@
 (spring/extra-add-to-list "~/.emacs.d/third-party/screenshot/screenshot")
 
 
-;;; Dashboard
-(gpack dashboard
-  :disable
-  :var ((dashboard-banner-logo-title . "Live in Emacs!")
-        (dashboard-startup-banner . 'logo)
-        (dashboard-center-content . t)
-        (dashboard-set-heading-icons . t)
-        (dashboard-set-navigator . t)
-        (dashboard-init-info . "SpringHan Emacs"))
-  :config (dashboard-setup-startup-hook))
-
 ;;; Counsel
 (gpack counsel)
 
@@ -138,7 +127,8 @@
 (gpack highlight-indent-guides
   :hook ((prog-mode-hook text-mode-hook) . highlight-indent-guides-mode)
   :var ((highlight-indent-guides-method . 'character)
-        (highlight-indent-guides-delay . 0))
+        (highlight-indent-guides-delay . 0)
+        (highlight-indent-guides-character . 9478))
   :key ("C-' r" . (lambda ()
                     (interactive)
                     (highlight-indent-guides-mode -1)

@@ -1538,30 +1538,30 @@ CHILD is the child property for the extension."
           ((boundp candidate)
            (find-variable candidate)))))
 
-(defcustom emulting-extension-var-ag-last-search nil
+(defcustom emulting-extension-var-rg-last-search nil
   "The last ag search."
   :type 'string
   :group 'emulting)
 
-;;; Ag
-(emulting-define-extension "AG"
+;;; Rg
+(emulting-define-extension "RG"
   nil nil nil
 
   (async
    .
    (lambda (candidate-list)
-     (setq candidate-list (sniem--nth-utill 0 34 candidate-list))
-     (emulting-change-candidate 'emulting-extension-var-ag candidate-list)))
+     ;; (setq candidate-list (sniem--nth-utill 0 100 candidate-list))
+     (emulting-change-candidate 'emulting-extension-var-rg candidate-list)))
 
   (lambda (candidate)
     (if (and (string-equal candidate "Search Last")
-             emulting-extension-var-ag-last-search)
+             emulting-extension-var-rg-last-search)
         (emulting-set-the-input
-         (concat "#ag:" emulting-last-input
-                 emulting-extension-var-ag-last-search)
+         (concat "#rg:" emulting-last-input
+                 emulting-extension-var-rg-last-search)
          -1)
       (let ((directory emulting-last-directory))
-        (setq emulting-extension-var-ag-last-search (emulting-get-input t))
+        (setq emulting-extension-var-rg-last-search (emulting-get-input t))
         (emulting-exit)
         (setq candidate (split-string candidate ":" t))
         (when (> (length candidate) 1)
@@ -1574,7 +1574,7 @@ CHILD is the child property for the extension."
 
   (lambda (input)
     (if (and (null emulting-whole-start)
-             (executable-find "ag")
+             (executable-find "rg")
              (> (length input) 3))
         (progn
           (let ((path (progn
@@ -1591,12 +1591,12 @@ CHILD is the child property for the extension."
                 (_
                  (setq pathp t
                        input (replace-regexp-in-string "@\\(.*\\)" "" input)))))
-            (list "ag" "--vimgrep" input
+            (list "rg" "-S" "--no-heading" "--column" "--max-columns" "100" input
                   (if pathp
                       path
                     "./")
                   2)))
-      (emulting-change-candidate 'emulting-extension-var-ag '("Search Last"))
+      (emulting-change-candidate 'emulting-extension-var-rg '("Search Last"))
       nil))
   (("@" . "#file:")))
 
@@ -1640,32 +1640,6 @@ CHILD is the child property for the extension."
               input 2)
       (emulting-change-candidate 'emulting-extension-var-eaf-browser-history nil))))
 
-;;; Translation
-(defvar emulting-extension-translation-result nil
-  "Translation result.")
-
-(emulting-define-extension "TRANSLATION"
-  emulting-extension-translation-result nil nil
-
-  (lambda (input)
-    (unless emulting-whole-start
-      (let ((candidates (list (format "Translate [ %s ]"
-                                      input))))
-        (when emulting-extension-translation-result
-          (emulting-filter-append candidates emulting-extension-translation-result))
-        (emulting-change-candidate 'emulting-extension-var-translation candidates))))
-
-  (lambda (candidate)
-    (setq emulting-extension-translation-result
-          (youdao-dictionary--format-result (youdao-dictionary--request candidate)))
-    (funcall 'emulting-extension-translation candidate)))
-;; TODO: Add hook for translation
-;; (emulting-set-extension-hook 'emulting-extension-var-translation
-;;                              (lambda (applyp)
-;;                                (message (if applyp
-;;                                           "Hello"
-;;                                         "Bye"))))
-
 ;;; Extension functions
 
 (defun spring/find-definition (&optional symbol fnp)
@@ -1705,12 +1679,11 @@ Otherwise it's a variable."
 (emulting-extension-bind "M-x" 'command)
 (emulting-extension-bind "C-h f" '(callable variable))
 (emulting-extension-bind "C-h v" 'variable)
-(emulting-extension-bind "C-' A" 'ag)
+(emulting-extension-bind "C-' A" 'rg)
 (emulting-extension-bind "C-q C-w h" 'eaf-browser-history)
 (sniem-leader-set-key
  "." 'spring/find-definition
- "ff" (lambda () (interactive) (emulting '(file new-file)))
- "ft" (lambda () (interactive) (emulting 'translation)))
+ "ff" (lambda () (interactive) (emulting '(file new-file))))
 
 (provide 'emulting)
 
