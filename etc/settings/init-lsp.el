@@ -1,14 +1,6 @@
 ;;;; This is the lsp-mode settings file
 
 ;; ;;; Packages
-;; ;;; Lsp-mode
-;; (gpack nox
-;;   :repo "manateelazycat/nox"
-;;   :var (nox-optimization-p . nil)
-;;   :key (("C-' D" . nox-show-doc))
-;;   :config (setf (car nox-server-programs) '(rust-mode nox-rls "rust-analyzer")))
-
-;; (spring/extra-add-to-list "~/.emacs.d/third-party/nox/nox" t)
 
 (gpack cape)
 (gpack markdown-mode)
@@ -69,8 +61,8 @@
 ;; (gpack lsp-ui
 ;;   :var (lsp-ui-doc-show-with-mouse . nil))
 
-;;; Dap-mode
-; (gpack dap-mode
-  ; :key ("C-' d" . dap-debug))
+;;; Voyager
+(gpack voyager
+  :repo "manateelazycat/voyager")
 
 (provide 'init-lsp)
