@@ -33,16 +33,20 @@ When carp is non-nil, return the car if it has."
   "Open some directory by the DIR-NAME."
   (interactive (list
                 (completing-read "The directory's name: "
-                                 '("emacs" "git" "gtd" "C" "python" "go"
-                                   "clojure" "var"))))
+                                 '("emacs" "git" "gtd"
+                                   ;; "C" "python" "go"
+                                   ;; "clojure"
+                                   "rust" "algorithm" "var"))))
   (find-file (pcase dir-name
                ("gtd" "~/.emacs.d/gtd")
                ("git" "~/Github")
                ("emacs" "~/.emacs.d")
-               ("C" "~/Code/C/src/Study")
-               ("python" "~/Code/python")
-               ("go" "~/go")
-               ("clojure" "~/Code/clojure")
+               ;; ("C" "~/Code/C/src/Study")
+               ;; ("python" "~/Code/python")
+               ;; ("go" "~/go")
+               ;; ("clojure" "~/Code/clojure")
+               ("rust" "~/Rust")
+               ("algorithm" "~/Rust/algorithm")
                ("var" "~/.emacs.d/var"))))
 
 (defun set-alpha ()
