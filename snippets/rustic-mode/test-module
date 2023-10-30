@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: test-module
+# key: test_mdl
+# --
+#[cfg(test)]
+mod test {
+    use super::*;
+    $0
+}

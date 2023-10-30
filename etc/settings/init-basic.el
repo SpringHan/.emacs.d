@@ -23,6 +23,13 @@
 (setq backward-delete-char-untabify-method nil) ; Delete the tab by once
 (setq user-emacs-directory "~/.emacs.d/var/")
 (setq user-init-file "~/.emacs.d/var/user-init.el")
+(setq-default bidi-paragraph-direction 'left-to-right)
+(setq-default bidi-display-reordering nil)
+(setq bidi-inhibit-bpa t
+      long-line-threshold 1000
+      large-hscroll-threshold 1000
+      syntax-wholeline-max 1000)
+
 (add-hook 'markdown-mode-hook #'(lambda ()
                                   (define-key markdown-mode-map (kbd "C-c C-c TAB") 'markdown-table-align))) ; Add the markdown table align keymap
 (add-hook 'erc-mode-hook #'(lambda () (linum-mode -1))) ; Close the line number in the erc mode

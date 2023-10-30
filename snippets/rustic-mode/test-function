@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: test-function
+# key: tfn
+# --
+#[test]
+fn ${1:name} {
+   $0
+}

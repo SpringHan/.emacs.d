@@ -43,26 +43,32 @@
      citre-use-project-root-when-creating-tags t
      citre-prompt-language-for-ctags-command t)))
 
-;; (gpack lsp-mode
-;;   :key (("C-' F" . lsp-format-buffer)
-;;         ("C-' i" . lsp-treemacs-errors-list))
-;;   :var ((lsp-idle-delay . 0.2)
-;;         (lsp-enable-indentation . t)
-;;         (lsp-keep-workspace-alive . nil)
-;;         (lsp-auto-guess-root . nil)
-;;         (lsp-file-watch-threshold . 1000)
-;;         (lsp-eldoc-hook . nil)
-;;         (lsp-log-io . nil)
-;;         (lsp-enable-folding . nil)
-;;         (lsp-enable-snippet . t)
-;;         (lsp-prefer-flymake . :none)
-;;         (lsp-completion-provider . :capf)))
-
-;; (gpack lsp-ui
-;;   :var (lsp-ui-doc-show-with-mouse . nil))
-
 ;;; Voyager
-(gpack voyager
-  :repo "manateelazycat/voyager")
+;; (gpack voyager
+;;   :repo "manateelazycat/voyager")
+
+;;; Dape
+(gpack company)
+(gpack dape
+  :repo "svaante/dape"
+  :config (progn
+            (add-to-list 'dape-configs
+                         '(codelldb
+                           modes (c-mode c-ts-mode
+                                         c++-mode c++-ts-mode
+                                         rustic-mode
+                                         ;; rust-mode rust-ts-mode
+                                         )
+                           ;; Replace vadimcn.vscode-lldb with the vsix directory you just extracted
+                           command "~/.emacs.d/third-party/dape/codelldb/adapter/codelldb"
+                           host "localhost"
+                           port 5818
+                           command-args ("--port" "5818")
+                           :type "lldb"
+                           :request "launch"
+                           :cwd dape-cwd-fn
+                           :program dape-find-file))))
+(spring/extra-add-to-list "~/.emacs.d/third-party/dape/dape" t)
+;; (spring/native-compile-or-load "~/.emacs.d/third-party/dape/dape" nil t)
 
 (provide 'init-lsp)

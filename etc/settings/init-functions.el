@@ -48,12 +48,12 @@ When carp is non-nil, return the car if it has."
 (defun set-alpha ()
   "Set the backgroud alpha by VAR."
   (interactive)
-  (let ((var (when (or (null (frame-parameter nil 'alpha))
-                       (eq (car (frame-parameter nil 'alpha)) 100))
+  (let ((var (when (or (null (frame-parameter nil 'alpha-background))
+                       (eq (frame-parameter nil 'alpha-background) 100))
                t)))
     (if var
-        (set-frame-parameter nil 'alpha '(80 . 100))
-      (set-frame-parameter nil 'alpha '(100 . 100)))))
+        (set-frame-parameter nil 'alpha-background 70)
+      (set-frame-parameter nil 'alpha-background 100))))
 
 (defun window-move (way)
   "Move the buffer window position by WAY."
@@ -189,11 +189,7 @@ If it's daytime now,return t.Otherwise return nil."
 (defun spring/open-scratch ()
   "Open the scratch buffer after closing it."
   (interactive)
-  (if (get-buffer "*scratch*")
-      (switch-to-buffer "*scratch*")
-    (switch-to-buffer "*scratch*")
-    (insert initial-scratch-message)
-    (message "Open the scratch action done.")))
+  (switch-to-buffer "*scratch*"))
 
 (defun spring/erase-contents ()
   "Erase all the contents of specific buffer."

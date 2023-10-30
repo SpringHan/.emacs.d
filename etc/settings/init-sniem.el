@@ -6,6 +6,7 @@
   :hook (after-init-hook . global-sniem-mode))
 
 (spring/extra-add-to-list "~/.emacs.d/third-party/sniem/sniem")
+;; (spring/native-compile-or-load "~/.emacs.d/third-party/sniem/sniem" nil t)
 
 ;;; Vars
 (setq sniem-center-message nil
@@ -142,7 +143,8 @@
  ",g" 'magit-status
  "RET" 'sniem-object-catch
  "e" 'er/expand-region
- "B" 'spring/vue-build)
+ "B" 'spring/vue-build
+ "~" (lambda () (interactive) (sniem-change-mode 'normal)))
 (sniem-set-keyboard-layout 'colemak)
 (sniem-normal-set-key
  "/" 'swiper
@@ -150,7 +152,8 @@
  ;; move-text
  "M-e" 'move-text-down
  "M-u" 'move-text-up
- "=" 'spring/kill-space-line-content)
+ "=" 'spring/kill-space-line-content
+ "~" (lambda () (interactive) (sniem-change-mode 'motion)))
 (sniem-set-quit-insert-key "<C-tab>")
 (global-set-key (kbd "C--") sniem-leader-keymap)
 ;;; Third-party
