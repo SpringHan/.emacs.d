@@ -42,6 +42,9 @@ Otherwise it's nil.")
 (defvar spring/extra-items-compiled nil
   "If the extra items compiled.")
 
+(defvar spring/projects-in-use nil
+  "The projects in use.")
+
 (load-file "~/.emacs.d/etc/init-config.el")
 
 (put 'narrow-to-region 'disabled nil)

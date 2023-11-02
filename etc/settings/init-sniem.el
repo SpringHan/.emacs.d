@@ -152,8 +152,13 @@
  ;; move-text
  "M-e" 'move-text-down
  "M-u" 'move-text-up
+
+ ;; Nice key
  "=" 'spring/kill-space-line-content
- "~" (lambda () (interactive) (sniem-change-mode 'motion)))
+ "~" (lambda () (interactive) (sniem-change-mode 'motion))
+ "+" 'spring/add-to-using-projects
+ "(" 'spring/jump-to-project
+ ")" 'spring/remove-project-from-alist)
 (sniem-set-quit-insert-key "<C-tab>")
 (global-set-key (kbd "C--") sniem-leader-keymap)
 ;;; Third-party
