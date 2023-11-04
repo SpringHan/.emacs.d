@@ -25,7 +25,6 @@
 
 ;;; Other settings
 ;;; Tools
-(require 'task-reminder)
 (require 'emulting)
 (spring/extra-add-to-list "~/.emacs.d/etc/tools/emulting.el")
 (require 'run-code)

@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: c-function
+# key: cfn
+# --
+#[no_mangle]
+pub extern "C" fn ${1:name}($2) {
+    $0
+}

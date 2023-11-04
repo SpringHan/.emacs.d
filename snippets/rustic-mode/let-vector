@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: let-vector
+# key: letv
+# --
+let ${1:mut }${2:name}: Vec<$3> = ${4:Vec::new()};$0
