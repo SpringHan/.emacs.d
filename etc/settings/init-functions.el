@@ -747,6 +747,14 @@ PACKAGES is the dependences."
   (interactive (list (completing-read "Jump to:" spring/projects-in-use)))
   (dired project))
 
+(defun spring/enter-with-semicolon ()
+  "Enter the new line with semicolon."
+  (interactive)
+  (save-mark-and-excursion
+    (goto-char (line-end-position))
+    (insert ";"))
+  (call-interactively (key-binding (kbd "RET"))))
+
 ;;; Native Compilation
 
 (defun spring/native-compile-or-load (file &optional o3 force)
