@@ -328,9 +328,10 @@ If it's daytime now,return t.Otherwise return nil."
 (defun spring/search (content)
   "Open search page."
   (interactive "MEnter the search content: ")
-  (let* ((basic-engine "https://cn.bing.com/search?q=")
+  (let* ((basic-engine "https://google.com/search?q=")
          (engine (pcase (substring content 0 2)
-                   ("bg" basic-engine)
+                   ("go" basic-engine)
+                   ("bg" "https://cn.bing.com/search?q=")
                    ("bi" "https://search.bilibili.com/all?keyword=")
                    ("gh" "https://github.com/search?q=")
                    ("gt" "https://search.gitee.com/?type=repository&q=")

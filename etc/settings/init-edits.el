@@ -14,19 +14,13 @@
                     ,(concat (file-name-directory (locate-library "yasnippet-snippets"))
                              "snippets")))))
 
-;;; isolate-mode
-;(gpack isolate
-;  :key (("C-' C-a s" . isolate-quick-add)
-;        ("C-' C-a S" . isolate-long-add)
-;        ("C-' C-a d" . isolate-quick-delete)
-;        ("C-' C-a D" . isolate-long-delete)
-;        ("C-' C-a c" . isolate-quick-change)
-;        ("C-' C-a C" . isolate-long-change)))
-
 ;;; paredit mode
 (gpack paredit
   :hook ((lisp-mode-hook emacs-lisp-mode-hook eshell-mode-hook lisp-interaction-mode-hook clojure-mode-hook) . paredit-mode)
-  :key ("C-' f" . paredit-focus-on-defun))
+  :key ("C-' f" . paredit-focus-on-defun)
+  :config (advice-add #'paredit-RET :around
+                      (lambda (orig)
+                        (call-interactively #'paredit-newline))))
 
 ;;; multiple cursor
 (gpack multiple-cursors
