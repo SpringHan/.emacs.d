@@ -4,7 +4,8 @@
 (setq-default python-indent-offset 2)
 
 ;;; Completing
-(gpack python-mode)
+(gpack python-mode
+  :hook (python-mode-hook . electric-indent-local-mode))
 
 ; (gpack live-py-mode)
 

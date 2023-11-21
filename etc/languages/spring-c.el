@@ -5,6 +5,7 @@
                                 (other . "linux"))
               c-basic-offset 2)
 
-(add-hook 'c-mode-hook #'(lambda () (outline-minor-mode t)))
+(add-hook 'c-mode-hook #'(lambda () (outline-minor-mode t)
+                           (electric-indent-local-mode t)))
 
 (provide 'spring-c)

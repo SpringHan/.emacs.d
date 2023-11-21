@@ -16,11 +16,9 @@
 
 ;;; paredit mode
 (gpack paredit
-  :hook ((lisp-mode-hook emacs-lisp-mode-hook eshell-mode-hook lisp-interaction-mode-hook clojure-mode-hook) . paredit-mode)
-  :key ("C-' f" . paredit-focus-on-defun)
-  :config (advice-add #'paredit-RET :around
-                      (lambda (orig)
-                        (call-interactively #'paredit-newline))))
+  :hook (((lisp-mode-hook emacs-lisp-mode-hook eshell-mode-hook lisp-interaction-mode-hook clojure-mode-hook) . paredit-mode)
+         (paredit-mode-hook . electric-indent-local-mode))
+  :key ("C-' f" . paredit-focus-on-defun))
 
 ;;; multiple cursor
 (gpack multiple-cursors
