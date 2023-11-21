@@ -17,16 +17,14 @@
   :config
   (progn
     (require 'eaf-browser)
-    (require 'eaf-file-browser)
     (require 'eaf-markdown-previewer)
     (require 'eaf-org-previewer)
     (require 'eaf-image-viewer)
     (require 'eaf-pdf-viewer)
-    (require 'eaf-video-player)
-    (require 'eaf-file-sender)
+    (require 'eaf-js-video-player)
     (require 'eaf-pyqterminal)
     (require 'eaf-mindmap)
-    (require 'eaf-airshare)))
+    (require 'eaf-rss-reader)))
 
 ;;; Netease Cloud Music
 ;; (gpack request)

@@ -193,7 +193,8 @@ If it's daytime now,return t.Otherwise return nil."
 (defun spring/open-scratch ()
   "Open the scratch buffer after closing it."
   (interactive)
-  (switch-to-buffer "*scratch*"))
+  (switch-to-buffer "*scratch*")
+  (goto-char (point-max)))
 
 (defun spring/erase-contents ()
   "Erase all the contents of specific buffer."
