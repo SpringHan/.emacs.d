@@ -30,6 +30,8 @@
       large-hscroll-threshold 1000
       syntax-wholeline-max 1000)
 
+(add-to-list 'display-buffer-alist '("*Async Shell Command*" display-buffer-no-window (nil)))
+
 (add-hook 'markdown-mode-hook #'(lambda ()
                                   (define-key markdown-mode-map (kbd "C-c C-c TAB") 'markdown-table-align))) ; Add the markdown table align keymap
 (add-hook 'erc-mode-hook #'(lambda () (linum-mode -1))) ; Close the line number in the erc mode
