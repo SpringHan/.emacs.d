@@ -45,6 +45,9 @@ Otherwise it's nil.")
 (defvar spring/projects-in-use nil
   "The projects in use.")
 
+(defvar spring/diff-update nil
+  "Wether updating diff-hl.")
+
 (load-file "~/.emacs.d/etc/init-config.el")
 
 (put 'narrow-to-region 'disabled nil)
