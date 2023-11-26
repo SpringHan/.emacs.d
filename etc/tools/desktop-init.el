@@ -26,15 +26,24 @@
 (defun desktop-init-save-directory ()
   "Save current project directory."
   (let ((cache-file (locate-user-emacs-file "desktop-cache"))
-        root-dir)
+        save-dirs tmp)
     (if (yes-or-no-p "Save current directory?")
-        (with-current-buffer (current-buffer)
-          (setq root-dir (citre-project-root))
+        (progn
+          (dolist (buffer (buffer-list))
+            (with-current-buffer buffer
+              (when (and (not (string-prefix-p " " (buffer-name buffer)))
+                         (or (and (buffer-file-name buffer)
+                                  (setq tmp (citre-project-root)))
+                             (and (eq major-mode 'dired-mode)
+                                  (setq tmp default-directory))))
+                (add-to-list 'save-dirs tmp))))
           (unless (file-exists-p cache-file)
             (make-empty-file cache-file))
           (with-temp-file cache-file
             (goto-char (point-min))
-            (insert root-dir "\n")
+            (when save-dirs
+              (dolist (dir save-dirs)
+                (insert dir "\n")))
             (when spring/projects-in-use
               (dolist (project spring/projects-in-use)
                 (insert project "\n")))))
