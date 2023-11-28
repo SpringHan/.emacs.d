@@ -40,7 +40,6 @@
 (global-set-key (kbd "C-q 0") 'spring/no-volume) ; Set the volume to 0
 (global-set-key (kbd "C-q l") 'spring/show-packages-required) ; Show all the packages have required
 (global-set-key (kbd "C-q C-m s") 'spring/search) ; Open search page
-(global-set-key (kbd "C-q K") 'spring/kill-all-else-buffers) ; Kill all the buffers without *scratch*, *Messages* and *eaf*
 (global-set-key (kbd "C-q S") 'sudo-save)
 (global-set-key (kbd "C-q E") 'spring/edit-snippets) ; Edit the snippets
 (global-set-key (kbd "C-= SPC") 'spring/change-indent-type) ; Change indent type

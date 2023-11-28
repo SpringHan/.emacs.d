@@ -150,27 +150,7 @@ If it's daytime now,return t.Otherwise return nil."
   (interactive)
   (dolist (buffer spring/unwanted-buffer)
     (when (get-buffer buffer)
-      (kill-buffer buffer)))
-  (let* ((lsp-client-list nil)
-         (add-clients (lambda (c)
-                        (when (buffer-live-p (get-buffer c))
-                          (setq lsp-client-list
-                                (append lsp-client-list
-                                        (list c))))))
-         buffer-name)
-    (dolist (buffer (buffer-list))
-      (setq buffer-name (buffer-name buffer))
-      (when (or (prog1 (string-match "^\\*\\(.*\\)\\:\\:stderr\\*" buffer-name)
-                  (ignore-errors
-                    (funcall add-clients
-                             (format "*%s*" (match-string 1 buffer-name)))))
-                (string-match-p "^\\*Flycheck\\(.*\\)\\*" buffer-name)
-                (string-match-p "^\\*\\(.*\\)doc\\(.*\\)" buffer-name))
-        (kill-buffer buffer)))
-    (when (and lsp-client-list
-               (listp lsp-client-list))
-      (dolist (buffer lsp-client-list)
-        (kill-buffer buffer)))))
+      (kill-buffer buffer))))
 
 (defun tab-bar-new-with-buffer (buffer-name)
   "Create a new tab then select a buffer."
@@ -352,17 +332,6 @@ If it's daytime now,return t.Otherwise return nil."
           (delete-window))
       (quit-window)
       (other-window 1))))
-
-(defun spring/kill-all-else-buffers (&optional type)
-  "Kill the buffers without *scratch*, *Message* and *eaf*."
-  (interactive "P")
-  (let ((wanted-buffer '("*scratch*" "*Messages*" "*eaf*")))
-    (dolist (buffer (buffer-list))
-      (unless (or (spring/get-index (buffer-name buffer) wanted-buffer)
-                  (string= (cl-subseq (buffer-name buffer) 0 1) " "))
-        (if (and type (equal buffer (current-buffer)))
-            nil
-          (kill-buffer buffer))))))
 
 (defun spring/shell-clear ()
   "Clear the shell buffer."

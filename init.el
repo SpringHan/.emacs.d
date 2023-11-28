@@ -30,7 +30,8 @@ Otherwise it's nil.")
 (defvar spring/unwanted-buffer
   '("notes.org" "tasks.org" "user-init.el" "*Help*" "*Backtrace*" "*Compile-Log*"
     "*Async Shell Command*" "TAGS" "*lsp-log*" "*vc*" "*Calendar*" "*cargo-run*"
-    "*cargo-test*" "*cargo-build*" "*Shell Command Output*" "*Async-native-compile-log*")
+    "*cargo-test*" "*cargo-build*" "*Shell Command Output*" "*Async-native-compile-log*"
+    "*Disabled Command*" "*rustic-compilation*")
   "The buffers that I don't need.")
 
 (defvar spring/my-child-frame nil
