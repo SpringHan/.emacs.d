@@ -729,44 +729,34 @@ PACKAGES is the dependences."
 (defun spring/update-diff ()
   "Update diff."
   (interactive)
-  (setq spring/diff-update t)
-  (message "Ready to update diff!"))
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (when (and (buffer-file-name buffer)
+                 (citre-project-root))
+        (diff-hl-update)))))
 
-;;; Redefinition
+(defun spring/kill-project-buffers (only-current)
+  "Kill files belong to the same directory.
+When only-current is non-nil, only kill buffers related to current buffer."
+  (interactive (list (y-or-n-p "Only current?")))
+  (let (roots temp-name temp-root)
+    (add-to-list 'roots (citre-project-root))
+    (when (null roots)
+      (user-error "Invalid project root!"))
+    (kill-current-buffer)
 
-(defun Buffer-menu-execute ()
-  "Save and/or delete marked buffers in the Buffer Menu.
-Buffers marked with \\<Buffer-menu-mode-map>`\\[Buffer-menu-save]' are saved.
-Buffers marked with \\<Buffer-menu-mode-map>`\\[Buffer-menu-delete]' are deleted."
-  (interactive nil Buffer-menu-mode)
-  (save-excursion
-    (Buffer-menu-beginning)
-    (while (not (eobp))
-      (let ((buffer (tabulated-list-get-id))
-	          (entry  (tabulated-list-get-entry)))
-	      (cond ((null entry)
-	             (forward-line 1))
-	            ((not (buffer-live-p buffer))
-	             (tabulated-list-delete-entry))
-	            (t
-	             (let ((delete (eq (char-after) ?D)))
-		             (when (equal (aref entry 2) "S")
-		               (condition-case nil
-		                   (progn
-			                   (with-current-buffer buffer
-			                     (save-buffer))
-			                   (tabulated-list-set-col 2 " " t))
-		                 (error (warn "Error saving %s" buffer))))
-                 (when spring/diff-update
-                   (with-current-buffer buffer
-                     (diff-hl-update)))
-		             (if (and delete
-			                    (not (eq buffer (current-buffer)))
-                          (not spring/diff-update)
-                          (kill-buffer buffer))
-                     (tabulated-list-delete-entry)
-		               (forward-line 1)))))))
-    (setq spring/diff-update nil)))
+    (dolist (buffer (buffer-list))
+      (when (and (setq temp-name (buffer-file-name buffer))
+                 (setq temp-root (with-current-buffer buffer
+                                   (citre-project-root))))
+        (if only-current
+            (and (member temp-root roots)
+                 (kill-buffer buffer))
+          (add-to-list 'roots temp-root)
+          (kill-buffer buffer))))
+
+    (dolist (dir roots)
+      (add-to-list 'spring/projects-in-use dir))))
 
 ;;; Native Compilation
 
