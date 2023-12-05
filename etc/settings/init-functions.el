@@ -741,9 +741,12 @@ When only-current is non-nil, only kill buffers related to current buffer."
   (interactive (list (y-or-n-p "Only current?")))
   (let (roots temp-name temp-root)
     (add-to-list 'roots (citre-project-root))
-    (when (null roots)
-      (user-error "Invalid project root!"))
-    (kill-current-buffer)
+    (if (memq nil roots)
+        (progn
+          (when only-current
+            (keyboard-quit))
+          (setq roots nil))
+      (kill-current-buffer))
 
     (dolist (buffer (buffer-list))
       (when (and (setq temp-name (buffer-file-name buffer))
