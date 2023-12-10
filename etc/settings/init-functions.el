@@ -761,6 +761,12 @@ When only-current is non-nil, only kill buffers related to current buffer."
     (dolist (dir roots)
       (add-to-list 'spring/projects-in-use dir))))
 
+(defun spring/notepad ()
+  "Open notepad."
+  (interactive)
+  (let ((notepad (locate-user-emacs-file "spring-notepad")))
+    (find-file notepad)))
+
 ;;; Native Compilation
 
 (defun spring/native-compile-or-load (file &optional o3 force)

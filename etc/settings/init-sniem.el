@@ -144,7 +144,8 @@
  "RET" 'sniem-object-catch
  "e" 'er/expand-region
  "B" 'spring/vue-build
- "~" (lambda () (interactive) (sniem-change-mode 'normal)))
+ "~" (lambda () (interactive) (sniem-change-mode 'normal))
+ "np" 'spring/notepad)
 (sniem-set-keyboard-layout 'colemak)
 (sniem-normal-set-key
  "/" 'swiper
