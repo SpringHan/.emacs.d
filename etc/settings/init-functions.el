@@ -739,7 +739,7 @@ PACKAGES is the dependences."
   "Kill files belong to the same directory.
 When only-current is non-nil, only kill buffers related to current buffer."
   (interactive (list (y-or-n-p "Only current?")))
-  (let (roots temp-name temp-root)
+  (let (roots temp-root)
     (add-to-list 'roots (citre-project-root))
     (if (memq nil roots)
         (progn
@@ -749,7 +749,9 @@ When only-current is non-nil, only kill buffers related to current buffer."
       (kill-current-buffer))
 
     (dolist (buffer (buffer-list))
-      (when (and (setq temp-name (buffer-file-name buffer))
+      (when (and (or (buffer-file-name buffer)
+                     (with-current-buffer buffer
+                       (eq major-mode 'dired-mode)))
                  (setq temp-root (with-current-buffer buffer
                                    (citre-project-root))))
         (if only-current
