@@ -1580,7 +1580,7 @@ CHILD is the child property for the extension."
           (let ((path (progn
                         (string-match "^\\(.*\\)\\(@\\)\\(.*\\)" input)
                         (ignore-errors
-                          (match-string 3 input))))
+                          (file-truename (match-string 3 input)))))
                 pathp)
             (when (stringp path)
               (pcase path
