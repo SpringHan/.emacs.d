@@ -23,6 +23,4 @@
          (expand-file-name (locate-user-emacs-file "not-alpha")))
   (set-frame-parameter nil 'alpha-background 75))
 
-(setq-default truncate-lines t)
-
 (provide 'init-ui)

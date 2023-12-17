@@ -769,6 +769,18 @@ When only-current is non-nil, only kill buffers related to current buffer."
   (let ((notepad (locate-user-emacs-file "spring-notepad")))
     (find-file notepad)))
 
+(defun spring/toggle-truncate-lines ()
+  "Make windows in current tab truncate lines or not."
+  (interactive)
+  (if (> (length (window-list)) 1)
+      (dolist (window (window-list))
+        (with-current-buffer (window-buffer window)
+          (toggle-truncate-lines t)))
+    (dolist (buffer (buffer-list))
+      (when (buffer-file-name buffer)
+        (with-current-buffer buffer
+          (toggle-truncate-lines -1))))))
+
 ;;; Native Compilation
 
 (defun spring/native-compile-or-load (file &optional o3 force)
