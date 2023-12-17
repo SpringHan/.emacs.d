@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: full-let
+# key: flet
+# --
+let${1: mut} ${2:name}: ${3:type} = ${4:value};$0
