@@ -29,25 +29,55 @@ When carp is non-nil, return the car if it has."
     (linum-mode -1)
     (kill-buffer current-buffer-name)))
 
-(defun open-the-dir (dir-name)
+(defun open-the-dir ()
   "Open some directory by the DIR-NAME."
-  (interactive (list
-                (completing-read "The directory's name: "
-                                 '("emacs" "git" "gtd"
-                                   ;; "C" "python" "go"
-                                   ;; "clojure"
-                                   "rust" "algorithm" "var"))))
-  (find-file (pcase dir-name
-               ("gtd" "~/.emacs.d/gtd")
-               ("git" "~/Github")
-               ("emacs" "~/.emacs.d")
-               ;; ("C" "~/Code/C/src/Study")
-               ;; ("python" "~/Code/python")
-               ;; ("go" "~/go")
-               ;; ("clojure" "~/Code/clojure")
-               ("rust" "~/Rust")
-               ("algorithm" "~/Rust/algorithm")
-               ("var" "~/.emacs.d/var"))))
+  (interactive)
+  (let ((dir-file (locate-user-emacs-file "dir-path"))
+        dir-name path-map path-string tmp)
+    (unless (file-exists-p dir-file)
+      (make-empty-file dir-file)
+      (open-the-dir--init-dirs))
+    (setq tmp (open-the-dir--get-path))
+    (setq path-map (car tmp))
+    (setq path-string (nth 1 tmp))
+    (setq dir-name (completing-read "The directory's name:"
+                                    (append (list "Add")
+                                            path-string)))
+    (if (string-equal dir-name "Add")
+        (let ((name (read-string "Enter the dir name:"))
+              (path (read-file-name "Enter the dir path:"))
+              (file-content (with-temp-buffer
+                              (insert-file-contents dir-file)
+                              (buffer-string))))
+          (with-temp-file dir-file
+            (insert file-content)
+            (insert (format "(%s %s)\n" name path))))
+      (find-file (alist-get dir-name path-map nil nil #'string-equal)))))
+
+(defun open-the-dir--get-path ()
+  "Get path from dir-files."
+  (catch 'stop
+    (with-temp-buffer
+      (insert-file-contents (locate-user-emacs-file "dir-path"))
+      (goto-char (point-min))
+      (let ((start t) path-map path-string tmp)
+        (when (eq (point-min) (point-max))
+          (throw 'stop t))
+        (while (not (= (line-beginning-position) (line-end-position)))
+          (setq tmp (buffer-substring (line-beginning-position)
+                                      (line-end-position)))
+          (string-match "^(\\(.*\\) \\(.*\\))$" tmp)
+          (add-to-list 'path-map
+                       (cons (match-string 1 tmp) (match-string 2 tmp))
+                       t)
+          (add-to-list 'path-string (match-string 1 tmp) t)
+          (forward-line))
+        (list path-map path-string)))))
+
+(defun open-the-dir--init-dirs ()
+  "Initialize the dir file."
+  (with-temp-file (locate-user-emacs-file "dir-path")
+    (insert "(emacs ~/.emacs.d)\n(gtd ~/.emacs.d/gtd)\n(var ~/.emacs.d/var)\n(git ~/Github)\n")))
 
 (defun set-alpha ()
   "Set the backgroud alpha by VAR."
