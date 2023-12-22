@@ -207,4 +207,7 @@
 ;;; Projectile
 (gpack projectile)
 
+;;; Interactive Align
+(gpack ialign)
+
 (provide 'init-tools)

@@ -128,6 +128,9 @@
  ;; "nN" 'netease-cloud-music-random-play
  ;; "n/" 'netease-cloud-music-ask-play
 
+ ;; IAlign
+ "i" 'ialign
+
  ;; Other functions
  "dc" 'spring/copy-directory-path
  "Mf" 'mark-defun
