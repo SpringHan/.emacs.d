@@ -22,6 +22,7 @@
 (require 'spring-dart)
 (require 'spring-clojure)
 (require 'spring-rust)
+(require 'spring-haskell)
 
 ;;; Other settings
 ;;; Tools

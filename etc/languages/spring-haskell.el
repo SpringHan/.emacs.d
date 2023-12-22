@@ -1,0 +1,3 @@
+;;; Haskell
+
+(gpack haskell-mode)
