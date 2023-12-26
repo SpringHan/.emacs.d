@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: list
+# key: list
+# --
+[ $1 | $2 <- $0 ]
