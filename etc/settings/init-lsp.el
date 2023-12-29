@@ -15,7 +15,8 @@
         ("C-x C-l e" . lsp-bridge-toggle-sdcv-helper)
         ("C-x C-l l" .  lsp-bridge-diagnostic-list)
         ("M-n" . lsp-bridge-popup-documentation-scroll-up)
-        ("M-p" . lsp-bridge-popup-documentation-scroll-down))
+        ("M-p" . lsp-bridge-popup-documentation-scroll-down)
+        ("C-' R" . lsp-bridge-restart-process))
   :hook (after-init-hook . global-lsp-bridge-mode)
   :var (acm-enable-yas . nil))
 
