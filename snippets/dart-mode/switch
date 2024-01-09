@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: switch
+# key: swi
+# --
+switch (${1:val}) {
+       $0
+}

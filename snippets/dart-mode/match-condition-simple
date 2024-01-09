@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: match-condition-simple
+# key: mcs
+# --
+${1:condition} => $0

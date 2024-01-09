@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: case
+# key: case
+# --
+case $1:
+     $0
