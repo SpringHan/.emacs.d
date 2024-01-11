@@ -756,6 +756,14 @@ PACKAGES is the dependences."
     (insert ";"))
   (call-interactively (key-binding (kbd "RET"))))
 
+(defun spring/enter-with-comma ()
+  "Enter the new line with comma."
+  (interactive)
+  (save-mark-and-excursion
+    (goto-char (line-end-position))
+    (insert ","))
+  (call-interactively (key-binding (kbd "RET"))))
+
 (defun spring/update-diff ()
   "Update diff."
   (interactive)

@@ -60,5 +60,6 @@
 (global-set-key (kbd "C-x o") 'spring/move-to-window)
 (global-set-key (kbd "C-q m") #'spring/child-frame)
 (global-set-key (kbd "C-<return>") #'spring/enter-with-semicolon)
+(global-set-key (kbd "C-,") #'spring/enter-with-comma)
 
 (provide 'init-keymaps)

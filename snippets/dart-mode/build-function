@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: build-function
+# key: buildf
+# --
+@override
+Widget build(BuildContext context) {
+       $0
+}

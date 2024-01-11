@@ -23,6 +23,7 @@
 (add-to-list 'sniem-close-mode-alist 'eaf-mode)
 (add-to-list 'sniem-close-mode-alist 'emulting-mode)
 (add-to-list 'sniem-normal-mode-alist 'helpful-mode)
+(add-to-list 'sniem-close-mode-alist 'lsp-bridge-call-hierarchy-mode)
 
 ;;; Hook
 (defvar spring/sniem-auto-save-timer nil

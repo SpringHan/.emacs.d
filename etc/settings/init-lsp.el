@@ -14,13 +14,12 @@
         ("C-x C-l j" . lsp-bridge-find-def)
         ("C-x C-l e" . lsp-bridge-toggle-sdcv-helper)
         ("C-x C-l l" .  lsp-bridge-diagnostic-list)
+        ("C-x C-l a" . lsp-bridge-code-action)
         ("M-n" . lsp-bridge-popup-documentation-scroll-up)
         ("M-p" . lsp-bridge-popup-documentation-scroll-down)
         ("C-' R" . lsp-bridge-restart-process))
   :hook (after-init-hook . global-lsp-bridge-mode)
   :var (acm-enable-yas . nil))
-
-(spring/extra-add-to-list "~/.emacs.d/third-party/lsp-bridge/lsp-bridge" t)
 
 (gpack citre
   :key (("C-x c j" . citre-jump)
