@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: import-material
+# key: imm
+# --
+import 'package:flutter/material.dart';$0

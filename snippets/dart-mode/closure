@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: closure-complex
+# key: clx
+# --
+(${1:args}) {
+            $0
+}

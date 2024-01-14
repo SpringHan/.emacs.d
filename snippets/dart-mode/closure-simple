@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: closure-simple
+# key: cle
+# --
+(${1:args}) => $0

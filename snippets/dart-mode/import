@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: import
+# key: imp
+# --
+import '$1';$0

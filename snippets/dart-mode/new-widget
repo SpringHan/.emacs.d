@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: new-widget
+# key: nw
+# --
+class ${1:name} extends ${2:StatelessWidget} {
+      const $1({super.key});
+
+      $0
+}

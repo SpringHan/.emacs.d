@@ -5,6 +5,7 @@
 (require 'dired-x) ; Use dired-x to add the `C-x C-j` keymap
 (define-key dired-mode-map "q" 'kill-current-buffer)
 (define-key dired-mode-map ")" 'dired-file-preview-mode)
+(define-key dired-mode-map "_" 'dired-create-empty-file)
 (put 'dired-find-alternate-file 'disabled nil) ; Don't let dired-mode create a new buffer for the dir
 (with-eval-after-load 'dired
   (define-key dired-mode-map (kbd "RET") 'dired-find-alternate-file))
