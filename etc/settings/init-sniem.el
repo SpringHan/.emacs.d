@@ -100,8 +100,6 @@
  ;; Treemacs
  "tt" 'treemacs
  "ts" 'treemacs-select-window
- ;; Avy
- "ac" 'avy-goto-char
  ;; Diff
  "d" 'nil
  "dp" 'diff-hl-previous-hunk
@@ -150,7 +148,8 @@
  "e" 'er/expand-region
  "B" 'spring/vue-build
  "~" (lambda () (interactive) (sniem-change-mode 'normal))
- "np" 'spring/notepad)
+ "np" 'spring/notepad
+ "$" 'spring/set-st-working-dir)
 (sniem-set-keyboard-layout 'colemak)
 (sniem-normal-set-key
  "/" 'swiper
@@ -164,7 +163,8 @@
  "~" (lambda () (interactive) (sniem-change-mode 'motion))
  "+" 'spring/add-to-using-projects
  "(" 'spring/jump-to-project
- ")" 'spring/remove-project-from-alist)
+ ")" 'spring/remove-project-from-alist
+ "$" 'spring/set-st-working-dir)
 (sniem-set-quit-insert-key "<C-tab>")
 (global-set-key (kbd "C--") sniem-leader-keymap)
 ;;; Third-party

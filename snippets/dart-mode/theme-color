@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: theme-color
+# key: theme
+# --
+Theme.of(${1:context})$0

@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: colorscheme
+# key: colorsc
+# --
+Theme.of(${1:context}).colorScheme$0

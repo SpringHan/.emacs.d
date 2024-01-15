@@ -819,6 +819,15 @@ When only-current is non-nil, only kill buffers related to current buffer."
         (with-current-buffer buffer
           (toggle-truncate-lines -1))))))
 
+(defun spring/set-st-working-dir ()
+  "Set current working directory for st."
+  (interactive)
+  (let ((target-file (locate-user-emacs-file "st-working-dir")))
+    (unless (file-exists-p target-file)
+      (make-empty-file target-file))
+    (with-temp-file target-file
+      (insert (file-truename default-directory)))))
+
 ;;; Native Compilation
 
 (defun spring/native-compile-or-load (file &optional o3 force)

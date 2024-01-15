@@ -15,7 +15,7 @@
 (global-set-key (kbd "C-q r") 'undo-redo) ; Redo
 (global-set-key (kbd "C-q t") 'spring/toggle-truncate-lines) ; Touch file
 (global-set-key (kbd "C-q s") #'(lambda () (interactive)
-                                  (ignore-errors (async-shell-command "st"))))
+                                  (start-process "Simple Terminal" nil "st")))
 (global-set-key (kbd "C-q w") 'write-scratch) ; New a write scratch buffer
 (global-set-key (kbd "C-q f") 'mark-defun) ; Mark the function SAME LIKE C-M-h
 (global-set-key (kbd "C-q e") 'eshell) ; Open eshell
@@ -61,5 +61,6 @@
 (global-set-key (kbd "C-q m") #'spring/child-frame)
 (global-set-key (kbd "C-<return>") #'spring/enter-with-semicolon)
 (global-set-key (kbd "C-,") #'spring/enter-with-comma)
+
 
 (provide 'init-keymaps)
