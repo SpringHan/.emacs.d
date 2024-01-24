@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: import-package
+# key: impp
+# --
+import 'package:$1/$1.dart';$0

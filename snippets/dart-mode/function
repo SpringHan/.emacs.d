@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: function
+# key: fn
+# --
+${1:void} ${2:name}(${3:args}) {
+          $0
+}

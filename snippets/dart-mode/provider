@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: provider
+# key: provider
+# --
+context.${1:read}<${2:provider}>()$0

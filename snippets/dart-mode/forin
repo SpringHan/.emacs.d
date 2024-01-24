@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: for-in
+# key: forin
+# --
+for (${1:final} ${2:var} in $3) {
+    $0
+}

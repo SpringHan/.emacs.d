@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: widget-state
+# key: wstate
+# --
+class ${1:name} extends State<${2:widget}> {
+      $0
+}

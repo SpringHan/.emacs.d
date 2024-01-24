@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: state-build-function
+# key: statef
+# --
+@override
+State<${1:widget}> createState() => ${2:func};$0

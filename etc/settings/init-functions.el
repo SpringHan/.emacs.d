@@ -822,7 +822,7 @@ When only-current is non-nil, only kill buffers related to current buffer."
 (defun spring/set-st-working-dir ()
   "Set current working directory for st."
   (interactive)
-  (let ((target-file (locate-user-emacs-file "st-working-dir")))
+  (let ((target-file "~/.cache/st-working-directory"))
     (unless (file-exists-p target-file)
       (make-empty-file target-file))
     (with-temp-file target-file

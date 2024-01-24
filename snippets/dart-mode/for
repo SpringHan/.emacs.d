@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: for
+# key: for
+# --
+for (${1:var i = 0}; ${2:condition}; ${3:i++}) {
+    $0
+}

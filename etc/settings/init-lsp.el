@@ -15,6 +15,7 @@
         ("C-x C-l e" . lsp-bridge-toggle-sdcv-helper)
         ("C-x C-l l" .  lsp-bridge-diagnostic-list)
         ("C-x C-l a" . lsp-bridge-code-action)
+        ("C-x C-l f" . lsp-bridge-code-format)
         ("M-n" . lsp-bridge-popup-documentation-scroll-up)
         ("M-p" . lsp-bridge-popup-documentation-scroll-down)
         ("C-' R" . lsp-bridge-restart-process))
