@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: async-function
+# key: afn
+# --
+${1:Future}<${2:void}> ${3:name}(${4:args}) async$5 {
+                       $0
+}
