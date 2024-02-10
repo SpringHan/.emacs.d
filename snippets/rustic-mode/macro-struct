@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: macro-struct
+# key: mstruct
+# --
+#[${1:derive}${2:()}]
+struct ${3:name} {
+       $0
+}

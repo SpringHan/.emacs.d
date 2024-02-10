@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: import-normal
+# key: impn
+# --
+import 'package:$1/$2.dart'
