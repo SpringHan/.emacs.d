@@ -20,7 +20,8 @@
         ("M-p" . lsp-bridge-popup-documentation-scroll-down)
         ("C-' R" . lsp-bridge-restart-process))
   :hook (after-init-hook . global-lsp-bridge-mode)
-  :var (acm-enable-yas . nil))
+  :var ((acm-enable-yas . nil)
+        (acm-enable-quick-access . t)))
 
 (gpack citre
   :key (("C-x c j" . citre-jump)
