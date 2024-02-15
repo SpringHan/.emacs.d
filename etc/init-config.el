@@ -28,6 +28,7 @@
 ;;; Tools
 (require 'emulting)
 (spring/extra-add-to-list "~/.emacs.d/etc/tools/emulting.el")
+;; (spring/native-compile-or-load "~/.emacs.d/etc/tools/emulting.el" t t)
 (require 'run-code)
 (require 'init-macros)
 (require 'desktop-init)

@@ -27,6 +27,8 @@
 (require 'sniem)
 (require 'ivy)
 (require 'init-functions)
+(require 'fuz)
+(require 'fuz-core)
 
 ;;; Core
 
@@ -995,13 +997,20 @@ CHILD is the child property for the extension."
 
 (defun emulting-input-match (input content)
   "Check if INPUT is matched with CONTENT."
-  (let ((result (ivy--re-filter (ivy--regex input) content)))
-    (when (and (not (string-empty-p input))
-               result
-               (sniem--mems input result))
-      (setq result (delete input result))
-      (setq result (append (list input) result)))
-    result))
+  (if (string-empty-p input)
+      content
+    (let ((candidates-map (mapcan (lambda (e)
+                                    (let ((score (fuz-calc-score-clangd input e)))
+                                      (when score
+                                        (list (cons score e)))))
+                                  content))
+          ;; (rebuilt-input (ivy--regex input))
+          )
+      ;; (ivy--sort rebuilt-input (ivy--re-filter rebuilt-input content))
+      (setq candidates-map (sort candidates-map
+                                 (lambda (e1 e2)
+                                   (> (car e1) (car e2)))))
+      (mapcar #'cdr candidates-map))))
 
 (defun emulting-change-candidate (extension candidate)
   "Change EXTENSION's CANDIDATE."

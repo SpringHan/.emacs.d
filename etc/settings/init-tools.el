@@ -79,6 +79,12 @@
 
 (spring/extra-add-to-list "~/.emacs.d/third-party/screenshot/screenshot")
 
+;;; Fuz.el
+(gpack fuz
+  :repo "rustify-emacs/fuz.el"
+  :config (unless (require 'fuz-core nil t)
+            (fuz-build-and-load-dymod)))
+
 
 ;;; Counsel
 (gpack counsel)
