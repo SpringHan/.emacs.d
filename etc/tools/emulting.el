@@ -999,18 +999,22 @@ CHILD is the child property for the extension."
   "Check if INPUT is matched with CONTENT."
   (if (string-empty-p input)
       content
-    (let ((candidates-map (mapcan (lambda (e)
-                                    (let ((score (fuz-calc-score-clangd input e)))
-                                      (when score
-                                        (list (cons score e)))))
-                                  content))
-          ;; (rebuilt-input (ivy--regex input))
-          )
-      ;; (ivy--sort rebuilt-input (ivy--re-filter rebuilt-input content))
-      (setq candidates-map (sort candidates-map
-                                 (lambda (e1 e2)
-                                   (> (car e1) (car e2)))))
-      (mapcar #'cdr candidates-map))))
+    (if (or (string-prefix-p "^" input)
+            (string-suffix-p "$" input))
+        (ivy--re-filter (ivy--regex input) content)
+      (emulting--fuzzy-match input content))))
+
+(defun emulting--fuzzy-match (input content)
+  "Fuzzy match with INPUT for CONTENT."
+  (let ((candidates-map (mapcan (lambda (e)
+                                  (let ((score (fuz-calc-score-clangd input e)))
+                                    (when score
+                                      (list (cons score e)))))
+                                content)))
+    (setq candidates-map (sort candidates-map
+                               (lambda (e1 e2)
+                                 (> (car e1) (car e2)))))
+    (mapcar #'cdr candidates-map)))
 
 (defun emulting-change-candidate (extension candidate)
   "Change EXTENSION's CANDIDATE."
