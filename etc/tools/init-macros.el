@@ -1,3 +1,5 @@
+(defalias 'add-explain-for-comment
+   (kmacro "b b t h ( C-<tab>"))
 (fset 'replace-next-placeholder
       (kmacro-lambda-form [?, ?f ?E ?\( ?s ?e ?a ?r ?c ?h ?- ?f ?o ?r ?w ?a ?r ?d ?  ?\" ?< ?+ ?+ ?+ ?> return return ?  ?c] 0 "%d"))
 (fset 'insert-placeholder
