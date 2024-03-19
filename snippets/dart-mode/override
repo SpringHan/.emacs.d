@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: override
+# key: orr
+# --
+@override
+  $0

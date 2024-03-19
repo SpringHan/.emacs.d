@@ -3,4 +3,4 @@
 # name: import-normal
 # key: impn
 # --
-import 'package:$1/$2.dart'
+import 'package:$1/$2.dart';
