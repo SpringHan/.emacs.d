@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: enum
+# key: enum
+# --
+enum ${1:name} {
+     $0
+}
