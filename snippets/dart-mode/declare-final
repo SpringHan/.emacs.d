@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: declare-final
+# key: dfinal
+# --
+final ${1:type} ${2:name};$0
