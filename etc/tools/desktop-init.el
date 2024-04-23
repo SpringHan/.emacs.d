@@ -23,47 +23,44 @@
 
 ;;; Code:
 
-(defun desktop-init-save-directory ()
-  "Save current project directory."
+(defun desktop-init-save-buffers ()
+  "Save current opening files."
   (let ((cache-file (locate-user-emacs-file "desktop-cache"))
-        save-dirs tmp)
-    (if (yes-or-no-p "Save current directory?")
+        files tmp)
+    (if (yes-or-no-p "Save current buffers?")
         (progn
           (dolist (buffer (buffer-list))
             (with-current-buffer buffer
               (when (and (not (string-prefix-p " " (buffer-name buffer)))
-                         (or (and (buffer-file-name buffer)
-                                  (setq tmp (citre-project-root)))
+                         (or (setq tmp (buffer-file-name buffer))
                              (and (eq major-mode 'dired-mode)
                                   (setq tmp default-directory))))
-                (add-to-list 'save-dirs tmp))))
+                (add-to-list 'files tmp))))
           (unless (file-exists-p cache-file)
             (make-empty-file cache-file))
           (with-temp-file cache-file
             (goto-char (point-min))
-            (when save-dirs
-              (dolist (dir save-dirs)
-                (insert dir "\n")))
-            (when spring/projects-in-use
-              (dolist (project spring/projects-in-use)
-                (insert project "\n")))))
+            (when files
+              (dolist (path files)
+                (insert path "\n")))))
       (with-temp-file cache-file))))
 
-(defun desktop-init-goto-directory ()
-  "Goto the newest directory in the cache file."
+(defun desktop-init-reopen-files ()
+  "Reopen files opened in previous time."
   (let ((cache-file (locate-user-emacs-file "desktop-cache"))
-        target-dirs)
+        files)
     (when (file-exists-p cache-file)
-      (setq target-dirs (with-temp-buffer
-                         (insert-file-contents cache-file)
-                         (buffer-substring-no-properties
-                          (point-min) (point-max))))
-      (unless (string-empty-p target-dirs)
-        (dolist (dir (split-string target-dirs "\n"))
-          (dired dir))))))
+      (setq files (with-temp-buffer
+                    (insert-file-contents cache-file)
+                    (buffer-substring-no-properties
+                     (point-min) (point-max))))
+      (unless (string-empty-p files)
+        (dolist (path (split-string files "\n"))
+          (unless (string-empty-p path)
+            (find-file path)))))))
 
-(add-hook 'kill-emacs-hook #'desktop-init-save-directory)
-(add-hook 'after-init-hook #'desktop-init-goto-directory)
+(add-hook 'kill-emacs-hook #'desktop-init-save-buffers)
+(add-hook 'after-init-hook #'desktop-init-reopen-files)
 
 (provide 'desktop-init)
 
