@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: class
+# key: clas
+# --
+class ${1:name}
+{
+      $0
+public:
+  $1() {}
+  ${2:virtual } ~$1() {}
+};

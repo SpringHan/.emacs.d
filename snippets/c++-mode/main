@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: main
+# key: fmain
+# --
+int main(${1:args}) {
+    $0
+    return 0;
+}
