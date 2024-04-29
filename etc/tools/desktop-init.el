@@ -23,6 +23,10 @@
 
 ;;; Code:
 
+(defcustom desktop-init-files nil
+  "The desktop files need to be saved."
+  :type 'list)
+
 (defun desktop-init-save-buffers ()
   "Save current opening files."
   (let ((cache-file (locate-user-emacs-file "desktop-cache"))
@@ -36,6 +40,8 @@
                              (and (eq major-mode 'dired-mode)
                                   (setq tmp default-directory))))
                 (add-to-list 'files tmp))))
+          (setq files (append files desktop-init-files))
+
           (unless (file-exists-p cache-file)
             (make-empty-file cache-file))
           (with-temp-file cache-file
@@ -45,22 +51,43 @@
                 (insert path "\n")))))
       (with-temp-file cache-file))))
 
-(defun desktop-init-reopen-files ()
-  "Reopen files opened in previous time."
+(defun desktop-init-reopen-files (&optional use-var-p)
+  "Reopen files opened in previous time.
+When USE-VAR-P is non-nil, reopen files in `desktop-init-files'.
+Otherwise reopen files in the file `desktop-cache'."
+  (interactive)
   (let ((cache-file (locate-user-emacs-file "desktop-cache"))
-        files)
-    (when (file-exists-p cache-file)
-      (setq files (with-temp-buffer
-                    (insert-file-contents cache-file)
-                    (buffer-substring-no-properties
-                     (point-min) (point-max))))
-      (unless (string-empty-p files)
-        (dolist (path (split-string files "\n"))
-          (unless (string-empty-p path)
-            (find-file path)))))))
+        files-string)
+    (if (and (not use-var-p)
+             (file-exists-p cache-file))
+        (progn
+          (setq files-string (with-temp-buffer
+                               (insert-file-contents cache-file)
+                               (buffer-substring-no-properties
+                                (point-min) (point-max))))
+          
+          (unless (string-empty-p files-string)
+            (dolist (path (split-string files-string "\n"))
+              (unless (string-empty-p path)
+                (find-file path)))))
+      (dolist (file desktop-init-files)
+        (find-file file)))))
+
+(defun desktop-init-kill-all-files ()
+  "Kill all opened files."
+  (interactive)
+  (let (temp)
+    (setq desktop-init-files nil)
+    (dolist (buffer (buffer-list))
+      (when (and (not (string-prefix-p " " (buffer-name buffer)))
+                 (or (setq temp (buffer-file-name buffer))
+                     (and (eq major-mode 'dired-mode)
+                          (setq temp default-directory))))
+        (kill-buffer buffer)
+        (add-to-list 'desktop-init-files temp t 'string-equal)))))
 
 (add-hook 'kill-emacs-hook #'desktop-init-save-buffers)
-(add-hook 'after-init-hook #'desktop-init-reopen-files)
+(add-hook 'emacs-startup-hook #'desktop-init-reopen-files)
 
 (provide 'desktop-init)
 

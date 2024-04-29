@@ -731,23 +731,6 @@ PACKAGES is the dependences."
   (kill-current-buffer)
   (find-file file))
 
-(defun spring/add-to-using-projects (project)
-  "Add current PROJECT to using projects."
-  (interactive (list (read-string "Add with:" default-directory)))
-  (add-to-list 'spring/projects-in-use project)
-  (message "Added successfully."))
-
-(defun spring/remove-project-from-alist (project)
-  "Remove PROJECT from alist."
-  (interactive (list (completing-read "Remove:" spring/projects-in-use)))
-  (setq spring/projects-in-use (delete project spring/projects-in-use))
-  (message "Deleted successfully."))
-
-(defun spring/jump-to-project (project)
-  "Jump to PROJECT."
-  (interactive (list (completing-read "Jump to:" spring/projects-in-use)))
-  (dired project))
-
 (defun spring/enter-with-semicolon ()
   "Enter the new line with semicolon."
   (interactive)
