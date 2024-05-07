@@ -13,6 +13,7 @@
 (require 'init-sniem)
 (require 'init-git)
 (require 'init-modes)
+(require 'init-treesit)
 (require 'init-org)
 
 ;;;; Themes
