@@ -161,8 +161,9 @@
  ;; Nice key
  "=" 'spring/kill-space-line-content
  "~" (lambda () (interactive) (sniem-change-mode 'motion))
- "(" (lambda () (interactive) (desktop-init-reopen-files t))
- ")" 'desktop-init-kill-all-files
+ ;; "(" (lambda () (interactive) (desktop-init-reopen-files t))
+ ;; ")" 'desktop-init-kill-all-files
+ ;; "-" 'desktop-init-clear-stored-files
  "$" 'spring/set-st-working-dir)
 (sniem-set-quit-insert-key "<C-tab>")
 (global-set-key (kbd "C--") sniem-leader-keymap)

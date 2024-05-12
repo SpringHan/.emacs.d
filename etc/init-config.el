@@ -31,7 +31,6 @@
 ;; (spring/native-compile-or-load "~/.emacs.d/etc/tools/emulting.el" t t)
 (require 'run-code)
 (require 'init-macros)
-(require 'desktop-init)
 (setq sniem-macro-file (locate-library "init-macros"))
 
 (let ((private-file "~/.emacs.d/etc/init-private.el"))
