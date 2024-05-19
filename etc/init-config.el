@@ -41,6 +41,10 @@
 (add-hook 'after-init-hook #'spring/todo-undo-p)
 (add-hook 'after-init-hook #'spring/refresh-packages)
 
+;;; Desktop save & restore.
+(add-hook 'kill-emacs-hook (lambda () (desktop-save "~/.emacs.d/var/")))
+(add-hook 'emacs-startup-hook (lambda () (desktop-read "~/.emacs.d/var/")))
+
 ;;; Natively Compile
 (add-hook 'after-init-hook (lambda ()
                              (dolist (file spring/extra-native-compile-items)
