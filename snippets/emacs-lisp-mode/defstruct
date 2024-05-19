@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: defstruct
+# key: defstruct
+# --
+(cl-defstruct ${1:name}
+              "${2:doc}"
+              $0)

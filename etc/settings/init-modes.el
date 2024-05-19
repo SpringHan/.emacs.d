@@ -28,7 +28,8 @@
 ;;; emmet-mode
 (gpack emmet-mode
   :hook (web-mode-hook . emmet-mode)
-  :var (emmet-self-closing-tag-style . " /"))
+  :var (emmet-self-closing-tag-style . " /")
+  :config (define-key web-mode-map (kbd "C-/") #'emmet-expand-line))
 
 ;; Abbrev-mode
 (setq-default abbrev-mode t) ; Open abbrev-mode
