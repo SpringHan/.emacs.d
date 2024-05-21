@@ -44,6 +44,7 @@
 ;;; Desktop save & restore.
 (add-hook 'kill-emacs-hook (lambda () (desktop-save "~/.emacs.d/var/")))
 (add-hook 'emacs-startup-hook (lambda () (desktop-read "~/.emacs.d/var/")))
+(add-hook 'desktop-after-read-hook #'load-the-theme)
 
 ;;; Natively Compile
 (add-hook 'after-init-hook (lambda ()

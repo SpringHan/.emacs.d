@@ -16,8 +16,6 @@
 (require 'init-treesit)
 (require 'init-org)
 
-;;;; Themes
-(load-the-theme)
 (package-initialize)
 
 (provide 'init-package)
