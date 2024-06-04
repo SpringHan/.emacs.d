@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: function-declare
+# key: fd
+# --
+${1:void} ${2:name}(${3:args});$0

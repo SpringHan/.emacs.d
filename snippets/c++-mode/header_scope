@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: header-scope
+# key: hd
+# --
+#ifndef ${1:macro}
+#define $1
+
+$0
+
+#endif
