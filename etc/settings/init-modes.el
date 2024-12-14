@@ -32,12 +32,12 @@
   :config (define-key web-mode-map (kbd "C-/") #'emmet-expand-line))
 
 ;; Abbrev-mode
-(setq-default abbrev-mode t) ; Open abbrev-mode
-(define-abbrev-table
-  'global-abbrev-table
-  '(("MyName" "SpringHan")
-    ("MyEmail" "<springchohaku@qq.com>")
-    ("Copyright" "Copyright (C) <+++> SpringHan")))
+;; (setq-default abbrev-mode t) ; Open abbrev-mode
+;; (define-abbrev-table
+;;   'global-abbrev-table
+;;   '(("MyName" "SpringHan")
+;;     ("MyEmail" "<springchohaku@qq.com>")
+;;     ("Copyright" "Copyright (C) <+++> SpringHan")))
 
 ;;; Term-mode
 (gpack term

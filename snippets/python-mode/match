@@ -1,7 +1,7 @@
 # -*- mode: snippet -*-
 # contributor: SpringHan
-# name: if
-# key: if
+# name: match
+# key: match
 # --
-if ${1:cond}:
+match ${1:var}:
     $0

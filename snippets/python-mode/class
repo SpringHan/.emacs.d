@@ -4,6 +4,5 @@
 # key: class
 # --
 class ${1:name}:
-  """ ${2:DOC} """
-  def __init__(${3:self}):
-    $0
+      def __init__(${2:self}):
+          ${0:pass}

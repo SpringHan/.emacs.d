@@ -22,7 +22,8 @@
   :hook (after-init-hook . global-lsp-bridge-mode)
   :var ((acm-enable-yas . nil)
         (acm-enable-quick-access . t)
-        (lsp-bridge-enable-inlay-hint . nil)))
+        (lsp-bridge-enable-inlay-hint . nil)
+        (lsp-bridge-python-lsp-server . 'pyright)))
 
 (gpack citre
   :key (("C-x c j" . citre-jump)

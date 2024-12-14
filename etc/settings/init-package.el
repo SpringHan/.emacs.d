@@ -14,6 +14,7 @@
 (require 'init-git)
 (require 'init-modes)
 (require 'init-treesit)
+(require 'init-telega)
 (require 'init-org)
 
 (package-initialize)

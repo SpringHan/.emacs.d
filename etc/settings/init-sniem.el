@@ -22,6 +22,8 @@
       sniem-object-catch-auto-backward t)
 (add-to-list 'sniem-close-mode-alist 'eaf-mode)
 (add-to-list 'sniem-close-mode-alist 'emulting-mode)
+(add-to-list 'sniem-close-mode-alist 'telega-root-mode)
+(add-to-list 'sniem-close-mode-alist 'telega-chat-mode)
 (add-to-list 'sniem-normal-mode-alist 'helpful-mode)
 (add-to-list 'sniem-close-mode-alist 'lsp-bridge-call-hierarchy-mode)
 
