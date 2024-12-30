@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: qt-debug
+# key: qdb
+# --
+qDebug() << $0;

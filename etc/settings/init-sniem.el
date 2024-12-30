@@ -26,6 +26,8 @@
 (add-to-list 'sniem-close-mode-alist 'telega-chat-mode)
 (add-to-list 'sniem-normal-mode-alist 'helpful-mode)
 (add-to-list 'sniem-close-mode-alist 'lsp-bridge-call-hierarchy-mode)
+(add-to-list 'sniem-close-mode-alist 'copilot-chat-mode)
+(add-to-list 'sniem-close-mode-alist 'copilot-chat-prompt-mode)
 
 ;;; Hook
 (defvar spring/sniem-auto-save-timer nil
@@ -163,9 +165,10 @@
  ;; Nice key
  "=" 'spring/kill-space-line-content
  "~" (lambda () (interactive) (sniem-change-mode 'motion))
+ "\\" 'spring/copilot-chat-display
  ;; "(" (lambda () (interactive) (desktop-init-reopen-files t))
  ;; ")" 'desktop-init-kill-all-files
- ;; "-" 'desktop-init-clear-stored-files
+ "-" 'copilot-chat-list
  "$" 'spring/set-st-working-dir)
 (sniem-set-quit-insert-key "<C-tab>")
 (global-set-key (kbd "C--") sniem-leader-keymap)

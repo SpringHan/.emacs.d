@@ -85,6 +85,14 @@
   :config (unless (require 'fuz-core nil t)
             (fuz-build-and-load-dymod)))
 
+;;; Copilot
+(gpack copilot-chat
+  :config (defun spring/copilot-chat-display ()
+            (interactive)
+            (copilot-chat-display)
+            (delete-other-windows)
+            (switch-to-buffer (car (copilot-chat--prepare-buffers)))))
+
 
 ;;; Counsel
 (gpack counsel)
