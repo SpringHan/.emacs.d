@@ -98,7 +98,6 @@
  "Ci" 'evilnc-comment-or-uncomment-lines
  "Cl" 'evilnc-quick-comment-or-uncomment-to-the-line
  "Cc" 'evilnc-copy-and-comment-lines
- "Cp" 'evilnc-comment-or-uncomment-paragraphs
  ;; Dired-mode
  "D" 'dired-jump
  ;; Treemacs
@@ -134,6 +133,12 @@
  ;; IAlign
  "i" 'ialign
 
+ ;; Copilot
+ "Cd" 'spring/copilot-chat-display
+ "Ce" 'copilot-chat-explain
+ "Cf" 'copilot-chat-fix
+ "Cr" 'copilot-chat-reset
+
  ;; Other functions
  "dc" 'spring/copy-directory-path
  "Mf" 'mark-defun
@@ -165,7 +170,6 @@
  ;; Nice key
  "=" 'spring/kill-space-line-content
  "~" (lambda () (interactive) (sniem-change-mode 'motion))
- "\\" 'spring/copilot-chat-display
  ;; "(" (lambda () (interactive) (desktop-init-reopen-files t))
  ;; ")" 'desktop-init-kill-all-files
  "-" 'copilot-chat-list
