@@ -16,6 +16,8 @@
         ("C-x C-l l" .  lsp-bridge-diagnostic-list)
         ("C-x C-l a" . lsp-bridge-code-action)
         ("C-x C-l f" . lsp-bridge-code-format)
+        ("C-x C-l r" . lsp-bridge-find-references)
+        ("C-x C-l P" . lsp-bridge-peek)
         ("M-n" . lsp-bridge-popup-documentation-scroll-up)
         ("M-p" . lsp-bridge-popup-documentation-scroll-down)
         ("C-' R" . lsp-bridge-restart-process))
@@ -23,7 +25,8 @@
   :var ((acm-enable-yas . nil)
         (acm-enable-quick-access . t)
         (lsp-bridge-enable-inlay-hint . nil)
-        (lsp-bridge-python-lsp-server . 'pyright)))
+        (lsp-bridge-python-lsp-server . 'pyright))
+  :config (define-key lsp-bridge-peek-keymap (kbd "M-l t") #'lsp-bridge-peek-through))
 
 (gpack citre
   :key (("C-x c j" . citre-jump)

@@ -101,8 +101,9 @@
  ;; Dired-mode
  "D" 'dired-jump
  ;; Treemacs
- "tt" 'treemacs
- "ts" 'treemacs-select-window
+ ;; "tt" 'treemacs
+ ;; "ts" 'treemacs-select-window
+ "t" 'treemacs
  ;; Diff
  "d" 'nil
  "dp" 'diff-hl-previous-hunk

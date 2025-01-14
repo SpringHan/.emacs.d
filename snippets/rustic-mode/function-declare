@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: function-declare
+# key: fd
+# --
+fn ${1:name}(${2:parameters}) $3;$0
