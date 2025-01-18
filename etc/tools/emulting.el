@@ -1276,11 +1276,8 @@ CHILD is the child property for the extension."
 
 ;;; File
 
-(defvar emulting-extension-file-delete-mode nil
-  "Delete mode.")
-
 (emulting-define-extension "FILE"
-  emulting-extension-file-delete-mode nil
+  nil nil
 
   (lambda (file)
     (all-the-icons-icon-for-file file))
@@ -1305,13 +1302,8 @@ CHILD is the child property for the extension."
                                  (sniem--nth-utill 0 34 candidates))))
 
   (lambda (candidate)
-    (let ((deletep emulting-extension-file-delete-mode))
-      (emulting-exit)
-      (if deletep
-          (if (file-directory-p candidate)
-              (delete-directory candidate)
-            (delete-file candidate))
-        (find-file candidate))))
+    (emulting-exit)
+    (find-file candidate))
 
   (lambda (input candidate)
     (let ((current-input input)
@@ -1321,13 +1313,6 @@ CHILD is the child property for the extension."
           (setq input candidate)
         (setf (nth (1- (length string-list)) string-list) candidate)
         (setq input (mapconcat (lambda (s) s) string-list "/")))
-      (when (string= current-input input)
-        (setq emulting-extension-file-delete-mode
-              (if emulting-extension-file-delete-mode
-                  nil
-                t))
-        (message "[Emulting]: File delete mode is %S now."
-                 emulting-extension-file-delete-mode))
       (when (file-directory-p input)
         (setq input (concat input "/")))
       input)))
