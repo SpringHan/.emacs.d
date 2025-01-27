@@ -16,6 +16,7 @@
 (require 'init-treesit)
 (require 'init-telega)
 (require 'init-org)
+(require 'init-aider)
 
 (package-initialize)
 

@@ -3,7 +3,8 @@
 ;;; Sniem
 (gpack sniem
   :repo "SpringHan/sniem"
-  :hook (after-init-hook . global-sniem-mode))
+  :hook ((after-init-hook . global-sniem-mode)
+         (desktop-after-read-hook . sniem--restore-tagged-overlays)))
 
 (spring/extra-add-to-list "~/.emacs.d/third-party/sniem/sniem")
 ;; (spring/native-compile-or-load "~/.emacs.d/third-party/sniem/sniem" nil t)
