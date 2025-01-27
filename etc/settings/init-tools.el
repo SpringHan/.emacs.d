@@ -26,31 +26,6 @@
     (require 'eaf-mindmap)
     (require 'eaf-rss-reader)))
 
-;;; Netease Cloud Music
-;; (gpack request)
-;; (gpack netease-cloud-music
-;;   :repo "SpringHan/netease-cloud-music.el"
-;;   :key (("C-' n q" . netease-cloud-music-quit)
-;;         ("C-' n t" . (lambda ()
-;;                        (interactive)
-;;                        (if (get-buffer netease-cloud-music-buffer-name)
-;;                            (netease-cloud-music)
-;;                          (eaf-open-netease-cloud-music)))))
-;;   :var ((netease-cloud-music-search-limit . 15)
-;;         (netease-cloud-music-show-lyric . 'all)
-;;         (netease-cloud-music-line-number-relative . t))
-;;   :config (progn
-;;             (require 'netease-cloud-music-ui)
-;;             (require 'netease-cloud-music-comment)))
-
-;; (spring/extra-add-to-list
-;;  "~/.emacs.d/third-party/netease-cloud-music.el/netease-cloud-music")
-
-;;; Shengci.el
-;; (gpack f)
-;; (gpack shengci
-;;   :repo "EvanMeek/shengci.el")
-
 ;;; Popweb
 (gpack popweb
   :repo "manateelazycat/popweb"
@@ -179,8 +154,6 @@
         (pyim-punctuation-translate . '(auto yes no)))
   :key ("M-j" . pyim-convert-string-at-point))
 (gpack pyim-basedict)
-
-;;; Arch Package Manager
 
 ;;; Command Shower
 (gpack command-log-mode
