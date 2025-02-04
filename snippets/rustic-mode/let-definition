@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: let-definition
+# key: letd
+# --
+let ${1:name}: ${2:type};$0

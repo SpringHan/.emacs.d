@@ -6,4 +6,6 @@
   :config
   (add-hook 'rustic-mode-hook (lambda () (treesit-parser-create 'rust))))
 
+(gpack toml-mode)
+
 (provide 'spring-rust)
