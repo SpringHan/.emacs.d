@@ -138,32 +138,27 @@ If it's daytime now,return t.Otherwise return nil."
         t
       nil)))
 
-(defun load-the-theme (&optional time)
+(defun load-the-theme (&optional time-or-theme)
   "Load the theme by time."
   (interactive (list (completing-read "Enter the theme type: "
-                                      '("day" "night"))))
-  (let (time-result)
-    (cond (time
-           (setq time-result
-                 (pcase time
-                   ("day" t)
-                   ("night" nil))))
-          ((null time)
-           (setq time-result (day-or-night))))
-    (if time-result
-        (progn
-          (load-the-theme--enable-theme 'storybook)
-          (when (string= spring/time-block "night")
-            ;; (eaf-browser-set "day")
-            (spring/disable-modeline))
-          (setq spring/time-block "daytime"))
-      (load-the-theme--enable-theme 'nord)
-      (when (string= spring/time-block "daytime")
-        ;; (eaf-browser-set "night")
-        (spring/disable-modeline))
-      (setq spring/time-block "night"))
+                                      '("day" "night" "storybook" "nord" "deus"))))
+  (let (time-result load-with-name)
+    (if (stringp time-or-theme)
+        (if (not (member time-or-theme '("day" "night")))
+            (setq load-with-name t)
+          (setq time-result (string-equal time-or-theme "day")))
+      (setq time-result (day-or-night)))
+
+    (if load-with-name
+        (load-the-theme--enable-theme (intern time-or-theme))
+      (load-the-theme--enable-theme
+       (spring/default-theme (if time-result
+                                 'day
+                               'night))))
     (spring/disable-modeline)
-    (posframe-delete-all)))
+    (posframe-delete-all)
+    (when (featurep 'acm)
+      (acm-reset-colors))))
 
 (defun load-the-theme--enable-theme (current-theme)
   "Delete all the other themes."
@@ -173,6 +168,43 @@ If it's daytime now,return t.Otherwise return nil."
     (dolist (theme custom-enabled-themes)
       (unless (eq theme current-theme)
         (disable-theme theme)))))
+
+(defun spring/default-theme (&optional time)
+  "Get default theme from cache file.
+When time is nil, return all.
+When time is 'day, return the one for day.
+When time is 'night, return the one for night."
+  (let ((path (locate-user-emacs-file "default-theme"))
+        default-theme)
+    (if (not (file-exists-p path))
+        (progn
+          (make-empty-file path)
+          (with-temp-file path
+            (insert "storybook\nnord"))
+          '(storybook nord))
+      (with-temp-buffer
+        (insert-file-contents path)
+        (setq default-theme (split-string (buffer-string) "\n")))
+      (setq default-theme (list (intern (car default-theme))
+                                (intern (nth 1 default-theme))))
+
+      (pcase time
+        ('day (car default-theme))
+        ('night (nth 1 default-theme))
+        (_ default-theme)))))
+
+(defun spring/set-default-theme ()
+  "Set default theme for day & dark."
+  (interactive)
+  (let ((for-day (yes-or-no-p "Set default theme for day?"))
+        (theme (intern (completing-read "Enter the theme:"
+                                        '("storybook" "nord" "deus"))))
+        (default-theme (spring/default-theme)))
+    (if for-day
+        (setf (car default-theme) theme)
+      (setf (nth 1 default-theme) theme))
+    (with-temp-file (locate-user-emacs-file "default-theme")
+      (insert (format "%S\n%S" (car default-theme) (nth 1 default-theme))))))
 
 (defun kill-unwanted-buffer ()
   "Kill the unwanted buffers."
