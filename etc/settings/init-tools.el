@@ -151,8 +151,8 @@
         (pyim-page-tooltip . 'posframe)
         (pyim-page-length  . 8)
         (pyim-page-style . 'one-line)
-        (pyim-punctuation-translate . '(auto yes no)))
-  :key ("M-j" . pyim-convert-string-at-point))
+        (pyim-punctuation-translate . '(auto yes no))
+        (pyim-indicator-cursor-color . '("green"))))
 (gpack pyim-basedict)
 
 ;;; Command Shower
