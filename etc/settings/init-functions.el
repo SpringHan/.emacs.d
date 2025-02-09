@@ -158,7 +158,10 @@ If it's daytime now,return t.Otherwise return nil."
     (spring/disable-modeline)
     (posframe-delete-all)
     (when (featurep 'acm)
-      (acm-reset-colors))))
+      (acm-reset-colors))
+    (when (featurep 'pyim)
+      (setq pyim-indicator--original-cursor-color
+            (frame-parameter nil 'cursor-color)))))
 
 (defun load-the-theme--enable-theme (current-theme)
   "Delete all the other themes."
