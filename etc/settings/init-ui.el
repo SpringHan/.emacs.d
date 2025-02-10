@@ -13,7 +13,7 @@
 (setq inhibit-splash-screen t) ; Close the start flash
 (set-face-attribute
  'default nil
- :height 125
+ :height 120
  :family "Monego"
  :weight 'normal
  :width 'normal) ; Set the font size

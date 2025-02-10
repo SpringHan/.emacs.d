@@ -18,6 +18,7 @@
         ("C-x C-l f" . lsp-bridge-code-format)
         ("C-x C-l r" . lsp-bridge-find-references)
         ("C-x C-l P" . lsp-bridge-peek)
+        ("C-x C-l r" . lsp-bridge-rename)
         ("M-n" . lsp-bridge-popup-documentation-scroll-up)
         ("M-p" . lsp-bridge-popup-documentation-scroll-down)
         ("C-' R" . lsp-bridge-restart-process))
