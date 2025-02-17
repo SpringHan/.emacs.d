@@ -90,6 +90,8 @@
  "zO" 'spring/open-scratch
  "zc" (lambda () (interactive) (emulting 'config))
 
+ "a" 'align-regexp
+
  ;; Plugins Keymap
  ;; EAF-git
  "g" 'eaf-open-git
