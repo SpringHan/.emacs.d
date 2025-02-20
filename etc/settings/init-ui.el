@@ -1,9 +1,10 @@
 ;;;; This file is used for emacs UI
-(menu-bar-mode -1) ; Close the menu bar
-(tool-bar-mode -1) ; Close the tool bar
-(scroll-bar-mode -1) ; Close Scroll bar
-(tab-bar-mode -1) ; Set tab bar not display
+(menu-bar-mode -1)     ; Close the menu bar
+(tool-bar-mode -1)     ; Close the tool bar
+(scroll-bar-mode -1)   ; Close Scroll bar
+(tab-bar-mode -1)      ; Set tab bar not display
 (blink-cursor-mode -1) ; Close cursor blink
+(pixel-scroll-mode)
 (setq tab-bar-show nil) ; Always not display tab bar
 ;;; Set the line number as the relative style
 (setq display-line-numbers-type 'relative)

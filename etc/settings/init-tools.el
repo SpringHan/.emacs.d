@@ -114,7 +114,7 @@
 (gpack highlight-indent-guides
   :hook ((prog-mode-hook text-mode-hook) . highlight-indent-guides-mode)
   :var ((highlight-indent-guides-method . 'character)
-        (highlight-indent-guides-delay . 0)
+        (highlight-indent-guides-delay . 0.1)
         (highlight-indent-guides-character . 9478))
   :key ("C-' r" . (lambda ()
                     (interactive)
