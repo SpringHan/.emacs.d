@@ -9,7 +9,7 @@
 
 ;;; Native comp
 (setq native-comp-async-report-warnings-errors nil)
-(add-to-list 'native-comp-eln-load-path "/home/spring/.emacs.d/eln-cache/" nil #'string-equal)
+(add-to-list 'native-comp-eln-load-path "~/.emacs.d/eln-cache/" nil #'string-equal)
 
 ;;; Gpack
 (add-to-list 'load-path "~/.emacs.d/third-party/gpack")
