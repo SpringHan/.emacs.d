@@ -21,7 +21,6 @@
       sniem-macro-message nil
       sniem-insert-mode-cursor '(bar . 3)
       sniem-object-catch-auto-backward t)
-(add-to-list 'sniem-close-mode-alist 'eaf-mode)
 (add-to-list 'sniem-close-mode-alist 'emulting-mode)
 (add-to-list 'sniem-close-mode-alist 'telega-root-mode)
 (add-to-list 'sniem-close-mode-alist 'telega-chat-mode)
@@ -93,8 +92,6 @@
  "a" 'align-regexp
 
  ;; Plugins Keymap
- ;; EAF-git
- "g" 'eaf-open-git
  ;; Quickrun
  "r" 'spring-run-code
  ;; evil-nerd-commenter
@@ -104,8 +101,6 @@
  ;; Dired-mode
  "D" 'dired-jump
  ;; Treemacs
- ;; "tt" 'treemacs
- ;; "ts" 'treemacs-select-window
  "t" 'treemacs
  ;; Diff
  "d" 'nil
@@ -119,20 +114,6 @@
  "oS" 'org-timer-set-timer
  "oe" 'org-timer-stop
  "o SPC" 'org-timer-pause-or-continue
-
- ;; Netease-Cloud-Music
- ;; "nt" 'netease-cloud-music
- ;; "nT" 'eaf-open-netease-cloud-music
- ;; "nr" 'netease-cloud-music-change-repeat-mode
- ;; "na" 'netease-cloud-music-add-header-lyrics
- ;; "nd" 'netease-cloud-music-delete-header-lyrics
- ;; "n<" 'netease-cloud-music-seek-backward
- ;; "n>" 'netease-cloud-music-seek-forward
- ;; "n SPC" 'netease-cloud-music-pause-or-continue
- ;; "nn" 'netease-cloud-music-play-next-song
- ;; "np" 'netease-cloud-music-play-previous-song
- ;; "nN" 'netease-cloud-music-random-play
- ;; "n/" 'netease-cloud-music-ask-play
 
  ;; IAlign
  "i" 'ialign

@@ -856,9 +856,7 @@ Optional argument EXTS is the replace for `emulting-only-extensions'."
 (defun emulting-extension-buffer-icon (buffer)
   "Icon function for BUFFER."
   (with-current-buffer buffer
-    (if (derived-mode-p buffer 'eaf-mode)
-        (all-the-icons-faicon "html5" :v-adjust 0.01)
-      (all-the-icons-icon-for-buffer))))
+    (all-the-icons-icon-for-buffer)))
 
 (defun emulting-extension-get-data (candidate index)
   "Get the extension data by its CANDIATE and extension INDEX.
@@ -1378,28 +1376,7 @@ CHILD is the child property for the extension."
              emulting-extension-new-file-open-mode)
     input))
 
-;;; Bookmark
-(require 'bookmark)
-
-(emulting-define-extension "BOOKMARK"
-  nil nil
-
-  (lambda (candidate)
-    (all-the-icons-faicon "bookmark" :v-adjust -0.03))
-
-  (lambda (input)
-    (let ((bookmarks (bookmark-all-names))
-          candidates)
-      (setq candidates (emulting-input-match input bookmarks))
-      (emulting-change-candidate 'emulting-extension-var-bookmark candidates)))
-
-  (lambda (candidate)
-    (emulting-exit)
-    (condition-case err
-        (let ((bookmark (bookmark-get-bookmark candidate)))
-          (eaf--bookmark-restore bookmark))
-      nil)))
-
+;;; Config
 (emulting-define-extension "CONFIG"
   nil nil nil
 
@@ -1598,46 +1575,6 @@ CHILD is the child property for the extension."
       nil))
   (("@" . "#file:")))
 
-;;; EAF Browser history
-(require 'eaf)
-
-(emulting-define-extension "EAF BROWSER HISTORY"
-  nil nil
-
-  (lambda (candidate)
-    (all-the-icons-faicon "history" :v-adjust -0.03))
-
-  (async
-   .
-   (lambda (candidate-list)
-     (let (candidates)
-       (catch 'counter-stop
-         (dolist (history candidate-list)
-           (when (string-match "^\\(.+\\)ᛝ\\(.+\\)ᛡ\\(.+\\)$" history)
-             (emulting-filter-append candidates
-                                     (list (format "%s %s"
-                                                   (match-string 1 history)
-                                                   (match-string 2 history))
-                                           (match-string 2 history)))
-             (when (> (length candidates) 30)
-               (throw 'counter-stop nil)))))
-       (emulting-change-candidate 'emulting-extension-var-eaf-browser-history
-                                  candidates))))
-
-  (lambda (candidate)
-    (emulting-exit)
-    (eaf-open-browser candidate))
-  nil
-
-  (lambda (input)
-    (if (and (featurep 'eaf)
-             (executable-find "fzf")
-             (> (length input) 1))
-        (list (concat (file-name-directory (locate-library "emulting")) "eaf-fzf-search.sh")
-              (concat eaf-config-location (file-name-as-directory "browser") (file-name-as-directory "history") "log.txt")
-              input 2)
-      (emulting-change-candidate 'emulting-extension-var-eaf-browser-history nil))))
-
 ;;; Extension functions
 
 (defun spring/find-definition (&optional symbol fnp)
@@ -1668,7 +1605,6 @@ Otherwise it's a variable."
 
 (emulting-extension-bind "M-z" nil)
 (emulting-extension-bind "C-q c" 'config)
-(emulting-extension-bind "C-q C-m b" 'bookmark)
 (emulting-extension-bind "C-x b" 'buffer)
 (global-set-key (kbd "C-x k") (lambda (pre-arg)
                                 (interactive "P")
@@ -1678,7 +1614,6 @@ Otherwise it's a variable."
 (emulting-extension-bind "C-h f" '(callable variable))
 (emulting-extension-bind "C-h v" 'variable)
 (emulting-extension-bind "C-' A" 'rg)
-(emulting-extension-bind "C-q C-w h" 'eaf-browser-history)
 (sniem-leader-set-key
  "." 'spring/find-definition
  "ff" (lambda () (interactive) (emulting '(file new-file))))

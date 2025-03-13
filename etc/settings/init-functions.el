@@ -369,23 +369,6 @@ When time is 'night, return the one for night."
   (message "[Spring Emacs]: Now Emacs has required %d packages."
            (length package-activated-list)))
 
-(defun spring/search (content)
-  "Open search page."
-  (interactive "MEnter the search content: ")
-  (let* ((basic-engine "https://google.com/search?q=")
-         (engine (pcase (substring content 0 2)
-                   ("go" basic-engine)
-                   ("bg" "https://cn.bing.com/search?q=")
-                   ("bi" "https://search.bilibili.com/all?keyword=")
-                   ("gh" "https://github.com/search?q=")
-                   ("gt" "https://search.gitee.com/?type=repository&q=")
-                   ("ec" "https://emacs-china.org/search?expanded=true&q=")
-                   ("zh" "https://www.zhihu.com/search?utm_content=search_history&type=content&q="))))
-    (if engine
-        (setq content (substring content 2))
-      (setq engine basic-engine))
-    (eaf-open-browser (concat engine content))))
-
 (defun spring/kill-magit ()
   "Kill the magit buffers."
   (interactive)
@@ -459,20 +442,6 @@ When time is 'night, return the one for night."
   (pcase type
     ("tab" (setq-local indent-tabs-mode t))
     ("space" (setq-local indent-tabs-mode nil))))
-
-(defun spring/show-current-url ()
-  "The function to show the url at current buffer."
-  (interactive)
-  (message eaf--buffer-url)
-  eaf--buffer-url)
-
-(defun spring/copy-current-url ()
-  "Copy the current buffer's url."
-  (interactive)
-  (let ((url (spring/show-current-url)))
-    (with-temp-buffer
-      (insert url)
-      (kill-ring-save (line-beginning-position) (line-end-position)))))
 
 (defun spring/terlat-translate (&optional type)
   "The function to translate the CONTENT by terlat."
@@ -886,9 +855,7 @@ When O3P is non-nil, use o3 as its compile speed."
                 (when video-frame
                   (with-selected-frame video-frame
                     (setq video-buffer (current-buffer)))
-                  (when (and (eq video-buffer (get-buffer buffer-or-name))
-                             (with-current-buffer video-buffer
-                               (eq major-mode 'eaf-mode)))
+                  (when (eq video-buffer (get-buffer buffer-or-name))
                     (setq buffer-or-name "*scratch*")))
                 (apply orig window buffer-or-name keep-margins))))
 

@@ -1,31 +1,6 @@
 ;;;; This file is the tools of my configuration.d
 
 ;;; Third-party
-;;; Emacs Application Framework
-(gpack eaf
-	:load-path "~/.emacs.d/third-party/emacs-application-framework"
-  :key (("C-q C-w l" . eaf-open-browser)
-        ("C-q C-w h" . eaf-open-browser-with-history)
-        ("C-q C-m t" . eaf-open-pyqterminal))
-  :var ((eaf-webengine-default-zoom . 2.15)
-        (eaf-browser-remember-history . t)
-        (eaf-pyqterminal-font-size . 40)
-        (eaf-pyqterminal-font-family . "Monego"))
-  :hook (eaf-mode-hook . (lambda ()
-                           (setq-local awesome-tray-active-modules
-                                       '("netease-current-song" "input-method" "mode-name" "date"))))
-  :config
-  (progn
-    (require 'eaf-browser)
-    (require 'eaf-markdown-previewer)
-    (require 'eaf-org-previewer)
-    (require 'eaf-image-viewer)
-    (require 'eaf-pdf-viewer)
-    (require 'eaf-js-video-player)
-    (require 'eaf-pyqterminal)
-    (require 'eaf-mindmap)
-    (require 'eaf-rss-reader)))
-
 ;;; Popweb
 (gpack popweb
   :repo "manateelazycat/popweb"

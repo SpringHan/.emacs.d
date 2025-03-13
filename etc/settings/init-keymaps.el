@@ -39,15 +39,12 @@
 (global-set-key (kbd "C-q V") 'spring/show-volume) ; Show current volume
 (global-set-key (kbd "C-q 0") 'spring/no-volume) ; Set the volume to 0
 (global-set-key (kbd "C-q l") 'spring/show-packages-required) ; Show all the packages have required
-(global-set-key (kbd "C-q C-m s") 'spring/search) ; Open search page
 (global-set-key (kbd "C-q S") 'sudo-save)
 (global-set-key (kbd "C-q E") 'spring/edit-snippets) ; Edit the snippets
 (global-set-key (kbd "C-= SPC") 'spring/change-indent-type) ; Change indent type
 (global-set-key (kbd "C-= f") 'recentf-open-files) ; Open recentf files
 (global-set-key (kbd "C-x K") 'kill-current-buffer)	; Kill the current buffer
-(global-set-key (kbd "C-q u") 'spring/show-current-url) ;Show the current website url
 (global-set-key (kbd "C-q T") 'spring/terlat-translate)	;Translate the content
-(global-set-key (kbd "C-q U") 'spring/copy-current-url)	;Copy current website url
 (global-set-key (kbd "C-q F") 'spring/format-commit) ;Format Commit
 (global-set-key (kbd "C-\\") 'nil)
 (global-set-key (kbd "C-\\ j") (lambda () (interactive) (spring/change-input-method 'japanese)))
