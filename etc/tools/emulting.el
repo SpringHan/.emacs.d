@@ -1613,7 +1613,7 @@ Otherwise it's a variable."
 (emulting-extension-bind "M-x" 'command)
 (emulting-extension-bind "C-h f" '(callable variable))
 (emulting-extension-bind "C-h v" 'variable)
-(emulting-extension-bind "C-' A" 'rg)
+;; (emulting-extension-bind "C-' A" 'rg)
 (sniem-leader-set-key
  "." 'spring/find-definition
  "ff" (lambda () (interactive) (emulting '(file new-file))))
