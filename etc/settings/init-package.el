@@ -12,6 +12,7 @@
 (require 'init-awesome-tray)
 (require 'init-sniem)
 (require 'init-eee)
+(require 'init-aider)
 (require 'init-git)
 (require 'init-modes)
 (require 'init-treesit)

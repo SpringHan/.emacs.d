@@ -22,6 +22,7 @@
       sniem-insert-mode-cursor '(bar . 3)
       sniem-object-catch-auto-backward t)
 (add-to-list 'sniem-close-mode-alist 'emulting-mode)
+(add-to-list 'sniem-close-mode-alist 'comint-mode)
 (add-to-list 'sniem-close-mode-alist 'telega-root-mode)
 (add-to-list 'sniem-close-mode-alist 'telega-chat-mode)
 (add-to-list 'sniem-normal-mode-alist 'helpful-mode)
