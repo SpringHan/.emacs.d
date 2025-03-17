@@ -29,7 +29,7 @@
     "*Async Shell Command*" "TAGS" "*lsp-log*" "*vc*" "*Calendar*" "*cargo-run*"
     "*cargo-test*" "*cargo-build*" "*Shell Command Output*" "*Async-native-compile-log*"
     "*Disabled Command*" "*rustic-compilation*" "spring-notepad" "*lsp-bridge-code-action-preview*"
-    "*Buffer List*")
+    "*Buffer List*" "*Native-compile-log*" "*Ediff Registry*")
   "The buffers that I don't need.")
 
 (defvar spring/my-child-frame nil
