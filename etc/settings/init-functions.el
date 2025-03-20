@@ -757,7 +757,8 @@ PACKAGES is the dependences."
     (with-current-buffer buffer
       (when (and (buffer-file-name buffer)
                  (citre-project-root))
-        (diff-hl-update)))))
+        (diff-hl-mode -1)
+        (diff-hl-mode t)))))
 
 (defun spring/kill-project-buffers (only-current)
   "Kill files belong to the same directory.
