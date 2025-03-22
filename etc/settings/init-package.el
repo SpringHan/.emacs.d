@@ -5,7 +5,7 @@
 
 
 ;;; Packages
-(require 'init-complete)
+(require 'init-company)
 (require 'init-edits)
 (require 'init-lsp)
 (require 'init-tools)

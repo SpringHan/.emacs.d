@@ -20,23 +20,6 @@
          (paredit-mode-hook . electric-indent-local-mode))
   :key ("C-' f" . paredit-focus-on-defun))
 
-;;; multiple cursor
-(gpack multiple-cursors
-  :disable
-  :key (("C-M-l" . mc/edit-lines)
-        ("C->" . mc/mark-next-like-this)
-        ("C-<" . mc/mark-previous-like-this)
-        ("M-m" . newline)))
-
-;;; avy-mode
-;; (gpack avy
-;;   :key (("C-' a c" . avy-goto-char)
-;;         ("C-' a C" . avy-goto-char-2)
-;;         ("C-' a l" . avy-goto-line)
-;;         ("C-' a w" . avy-goto-word-1)
-;;         ("C-' a W" . avy-goto-word-0)
-;;         ("C-' a r" . avy-resume)))
-
 ;;; Evil nerd commenter
 (gpack evil-nerd-commenter)
 

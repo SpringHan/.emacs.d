@@ -22,7 +22,8 @@
         ("M-n" . lsp-bridge-popup-documentation-scroll-up)
         ("M-p" . lsp-bridge-popup-documentation-scroll-down)
         ("C-' R" . lsp-bridge-restart-process))
-  :hook (after-init-hook . global-lsp-bridge-mode)
+  :hook ((after-init-hook . global-lsp-bridge-mode)
+         (emacs-lisp-mode-hook . (lambda () (lsp-bridge-mode -1))))
   :var ((acm-enable-yas . nil)
         (acm-enable-quick-access . t)
         (lsp-bridge-enable-inlay-hint . nil)
@@ -50,10 +51,6 @@
      ;; See the "Create tags file" section above to know these options
      citre-use-project-root-when-creating-tags t
      citre-prompt-language-for-ctags-command t)))
-
-;;; Voyager
-;; (gpack voyager
-;;   :repo "manateelazycat/voyager")
 
 ;;; Dape
 (gpack company)

@@ -109,12 +109,7 @@
   :key ("C-' t" . youdao-dictionary-search-at-point))
 
 ;;; Treemacs : File explore
-(gpack treemacs
-  :key ("C-' e" . treemacs))
-
-;;; GitHub Explorer
-(gpack github-explorer
-  :key ("C-' G" . github-explorer))
+(gpack treemacs)
 
 ;;; Input Method
 (gpack pyim
@@ -124,7 +119,7 @@
   :var ((default-input-method . "pyim")
         (pyim-default-scheme . 'quanpin)
         (pyim-page-tooltip . 'posframe)
-        (pyim-page-length  . 8)
+        (pyim-page-length . 8)
         (pyim-page-style . 'one-line)
         (pyim-punctuation-translate . '(auto yes no))
         (pyim-indicator-cursor-color . '("green"))))
@@ -143,9 +138,6 @@
 ;;; Transient
 (gpack transient)
 
-;;; License
-(gpack license-templates)
-
 ;;; Restart
 (gpack restart-emacs)
 
@@ -160,11 +152,6 @@
 
 ;;; Expand region
 (gpack expand-region)
-
-;;; MUtil-Term
-(gpack multi-term
-  :repo "manateelazycat/multi-term"
-  :var (multi-term-program . "/bin/zsh"))
 
 ;;; Projectile
 (gpack projectile)
