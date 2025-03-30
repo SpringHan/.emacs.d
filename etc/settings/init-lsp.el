@@ -1,6 +1,6 @@
 ;;;; This is the lsp-mode settings file
 
-;; ;;; Packages
+;;; Packages
 
 (gpack cape)
 (gpack markdown-mode)
@@ -27,7 +27,10 @@
   :var ((acm-enable-yas . nil)
         (acm-enable-quick-access . t)
         (lsp-bridge-enable-inlay-hint . nil)
-        (lsp-bridge-python-lsp-server . 'pyright))
+        (lsp-bridge-python-lsp-server . 'pyright)
+        ;; (lsp-bridge-enable-diagnostics . nil)
+        (lsp-bridge-diagnostic-fetch-idle . 0.25)
+        )
   :config (define-key lsp-bridge-peek-keymap (kbd "M-l t") #'lsp-bridge-peek-through))
 
 (gpack citre
@@ -51,6 +54,17 @@
      ;; See the "Create tags file" section above to know these options
      citre-use-project-root-when-creating-tags t
      citre-prompt-language-for-ctags-command t)))
+
+;; (gpack flycheck
+;;   :key (("C-x C-l p" . flycheck-previous-error)
+;;         ("C-x C-l n" . flycheck-next-error)
+;;         ("C-x C-l l" . flycheck-list-errors))
+;;   :var (flycheck-auto-display-errors-after-checking . nil)
+;;   :config (progn
+;;             (add-to-list 'flycheck-checkers 'rustic-clippy)))
+;; (gpack flycheck-rust
+;;   :config (with-eval-after-load 'rust-mode
+;;             (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)))
 
 ;;; Dape
 (gpack company)
