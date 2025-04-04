@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: impl-lifetime
+# key: impll
+# --
+impl<'a> ${1:struct}<'a> {
+         $0
+}
