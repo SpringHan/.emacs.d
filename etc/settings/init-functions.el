@@ -791,7 +791,7 @@ When only-current is non-nil, only kill buffers related to current buffer."
 (defun spring/notepad ()
   "Open notepad."
   (interactive)
-  (let ((notepad (locate-user-emacs-file "spring-notepad")))
+  (let ((notepad "~/Github/dev_private/spring-notepad"))
     (find-file notepad)))
 
 (defun spring/toggle-truncate-lines ()
