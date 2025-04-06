@@ -2,6 +2,15 @@
 
 ;;; Packages
 
+(defun spring/kill-lsp-error ()
+  "Insert a `.' sign to avoid unreal error caused by lsp-brideg."
+  (interactive)
+  (with-current-buffer (current-buffer)
+    (when (stringp (buffer-file-name (current-buffer)))
+      (goto-char (line-end-position))
+      (insert ".")
+      (save-buffer))))
+
 (gpack cape)
 (gpack markdown-mode)
 (gpack lsp-bridge

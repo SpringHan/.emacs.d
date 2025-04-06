@@ -152,6 +152,8 @@
  ;; move-text
  "M-e" 'move-text-down
  "M-u" 'move-text-up
+ ;; Lsp-Bridge
+ "C-." 'spring/kill-lsp-error
 
  ;; Nice key
  "=" 'spring/kill-space-line-content
