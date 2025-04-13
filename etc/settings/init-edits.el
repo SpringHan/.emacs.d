@@ -2,25 +2,24 @@
 
 ;;; Packages
 ;;; Snippet
-(gpack yasnippet
-  :key ("C-' C-y" . yas-expand-from-trigger-key)
+(use-package yasnippet
+  :bind ("C-' C-y" . yas-expand-from-trigger-key)
   :hook (after-init-hook . yas-global-mode)
-  :config (progn
-            (gpack yasnippet-snippets)
-            (gpack license-snippets
-              :un-require)
-            (setq yas-snippet-dirs
-                  `("~/.emacs.d/snippets"
-                    ,(concat (file-name-directory (locate-library "yasnippet-snippets"))
-                             "snippets")))))
+  :config
+  (use-package yasnippet-snippets)
+  (setq yas-snippet-dirs
+        `("~/.emacs.d/snippets"
+          ,(concat (file-name-directory (locate-library "yasnippet-snippets"))
+                   "snippets"))))
 
 ;;; paredit mode
-(gpack paredit
-  :hook (((lisp-mode-hook emacs-lisp-mode-hook eshell-mode-hook lisp-interaction-mode-hook clojure-mode-hook) . paredit-mode)
-         (paredit-mode-hook . electric-indent-local-mode))
-  :key ("C-' f" . paredit-focus-on-defun))
+(use-package paredit
+  :bind ("C-' f" . paredit-focus-on-defun)
+  :hook
+  ((lisp-mode emacs-lisp-mode eshell-mode lisp-interaction-mode clojure-mode) . paredit-mode)
+  (paredit-mode . electric-indent-local-mode))
 
 ;;; Evil nerd commenter
-(gpack evil-nerd-commenter)
+(use-package evil-nerd-commenter)
 
 (provide 'init-edits)

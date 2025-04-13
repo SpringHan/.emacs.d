@@ -8,6 +8,7 @@
 (require 'lsp-mode)
 
 ;;; Main Settings
+(require 'git-download)
 (require 'init-basic)
 (require 'init-ui)
 (require 'init-keymaps)
@@ -26,8 +27,9 @@
 
 ;;; Other settings
 ;;; Tools
-(require 'emulting)
-(spring/extra-add-to-list "~/.emacs.d/etc/tools/emulting.el")
+(with-eval-after-load 'sniem
+  (require 'emulting)
+  (spring/extra-add-to-list "~/.emacs.d/etc/tools/emulting.el"))
 ;; (spring/native-compile-or-load "~/.emacs.d/etc/tools/emulting.el" t t)
 (require 'run-code)
 (require 'init-macros)
@@ -37,11 +39,8 @@
   (when (file-exists-p private-file)
     (load-file private-file)))
 
-;;; Todo gets
-(add-hook 'after-init-hook #'spring/todo-undo-p)
-(add-hook 'after-init-hook #'spring/refresh-packages)
-
 ;;; Desktop save & restore.
+(require 'desktop)
 (add-hook 'kill-emacs-hook (lambda () (desktop-save "~/.emacs.d/var/")))
 (add-hook 'emacs-startup-hook (lambda () (desktop-read "~/.emacs.d/var/")))
 (add-hook 'desktop-after-read-hook #'load-the-theme)

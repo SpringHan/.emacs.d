@@ -1,11 +1,10 @@
 ;;; This is the file for rust.
 
-(defvar rustic-lsp-setup-p nil)
-(gpack rustic
-  :hook (rustic-mode-hook . electric-indent-local-mode)
+(use-package rustic
+  :init (defvar rustic-lsp-setup-p nil)
+  :hook (rustic-mode . electric-indent-local-mode)
   :config
+  (use-package toml-mode)
   (add-hook 'rustic-mode-hook (lambda () (treesit-parser-create 'rust))))
-
-(gpack toml-mode)
 
 (provide 'spring-rust)

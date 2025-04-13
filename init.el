@@ -1,4 +1,5 @@
-;;;;; SpringHan's Emacs Configuration
+;;; SpringHan's Emacs Configuration
+
 ;;; Mirror Config
 (require 'package)
 (require 'comp)
@@ -11,17 +12,12 @@
 (setq native-comp-async-report-warnings-errors nil)
 (add-to-list 'native-comp-eln-load-path "~/.emacs.d/eln-cache/" nil #'string-equal)
 
-;;; Gpack
-(add-to-list 'load-path "~/.emacs.d/third-party/gpack")
-(require 'gpack)
 
 ;;; Theme
-(gpack my-themes
-  :load-path ("~/.emacs.d/themes" . custom-theme-load-path)
-  :un-require)
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
 ;; GC
-(setq gc-cons-threshold (* 50 1024 1024))
+(setq gc-cons-threshold most-positive-fixnum)
 
 ;;; Variables
 (defvar spring/unwanted-buffer

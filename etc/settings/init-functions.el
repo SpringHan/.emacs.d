@@ -551,51 +551,10 @@ When time is 'night, return the one for night."
       (insert dir)
       (kill-ring-save (point-min) (point-max)))))
 
-(defun spring/todo-undo-p ()
-  "If there're todos have not been donw."
-  (interactive)
-  (when org-agenda-files
-    (let ((files (delete "." (delete ".." (directory-files (car-safe org-agenda-files)))))
-          (undo-regexp "\\* \\(TODO\\|STUDY\\|WAIT\\|BUG\\|KNOWN\\)")
-          undo)
-      (catch 'stop
-        (dolist (file files)
-          (if undo
-              (throw 'stop t)
-            (with-temp-buffer
-              (insert-file-contents (concat (car-safe org-agenda-files)
-                                            "/"
-                                            file))
-              (goto-char (point-min))
-              (when (let ((case-fold-search nil))
-                      (re-search-forward undo-regexp nil t))
-                (setq undo t))))))
-      (when undo
-        (with-current-buffer "*scratch*"
-          (insert ";; [Spring Emacs]: There're todos haven't been done.\n\n"))))))
-
 (defun spring/insert-result (command)
   "Insert COMMAND's result."
   (interactive (list (read--expression "Eval: ")))
   (insert (format "%S" (eval command))))
-
-(defun spring/refresh-packages ()
-  "Refresh packages if the packages' info had't been updated yet."
-  (let ((file-name (locate-user-emacs-file "refresh-package"))
-        (date (substring (current-time-string) 9 11))
-        last-refresh)
-    (unless (file-exists-p file-name)
-      (make-empty-file file-name))
-    (setq last-refresh (with-temp-buffer
-                         (insert-file-contents file-name)
-                         (buffer-string)))
-    (when (or (string= "" last-refresh)
-              (not (string= last-refresh date)))
-      (with-temp-file file-name
-        (erase-buffer)
-        (insert date))
-      (package-refresh-contents)
-      (message "[Spring Emacs]: Package refreshed."))))
 
 (defun spring/vue-build ()
   "Build vue project at current directory."

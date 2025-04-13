@@ -1,6 +1,6 @@
 ;;;; This file is the c configuration.
 
-(gpack cmake-mode)
+(use-package cmake-mode)
 
 (setq-default c-default-style '((java-mode . "java")
                                 (awk-mode . "awk")
