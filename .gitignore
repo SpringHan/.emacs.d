@@ -10,3 +10,4 @@ transient
 etc/init-private.el
 eln-cache/
 url/
+.aider*

@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 
-cat /dev/null > /tmp/hire.tmp
-hire --start-from $1 --output-file /tmp/hire.tmp
+hire --start-from $1 -q
 cat /tmp/hire.tmp

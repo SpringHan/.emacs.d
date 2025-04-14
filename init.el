@@ -17,7 +17,7 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
 
 ;; GC
-(setq gc-cons-threshold most-positive-fixnum)
+(setq gc-cons-threshold (* 60 1024 1024))
 
 ;;; Variables
 (defvar spring/unwanted-buffer

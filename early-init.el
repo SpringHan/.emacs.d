@@ -16,7 +16,7 @@
 ;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 ;;; GC
-(setq gc-cons-threshold most-positive-fixnum)
+(setq gc-cons-threshold (* 60 1024 1024))
 
 (setq package-enable-at-startup nil)
 
