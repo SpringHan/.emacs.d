@@ -170,7 +170,8 @@
 (use-package expand-region)
 
 ;;; Projectile
-(use-package projectile)
+(use-package projectile
+  :autoload projectile-project-root)
 
 ;;; Interactive Align
 (use-package ialign

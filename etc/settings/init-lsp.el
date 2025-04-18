@@ -48,10 +48,11 @@
       (save-buffer)))))
 
 (use-package citre
+  :autoload citre-project-root
   :bind (("C-x c j" . citre-jump)
-        ("C-x c J" . citre-jump-back)
-        ("C-x c p" . citre-ace-peek)
-        ("C-x c u" . citre-update-this-tags-file))
+         ("C-x c J" . citre-jump-back)
+         ("C-x c p" . citre-ace-peek)
+         ("C-x c u" . citre-update-this-tags-file))
   :config
   (citre-auto-enable-citre-mode)
   (require 'citre-config)
