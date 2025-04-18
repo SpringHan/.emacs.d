@@ -12,14 +12,8 @@
 
 ;;; Web-mode
 (use-package web-mode
-  :hook (web-mode . (lambda ()
-                      (when (string-match-p "\\(.*\\).vue$" (buffer-name))
-                        (lsp-deferred))))
+  :mode "\\.\\(phtml\\|php\\|[gj]sp\\|as[cp]x\\|erb\\|djhtml\\|html?\\|hbs\\|ejs\\|jade\\|swig\\|tm?pl\\|vue\\)$"
   :config
-  (setq auto-mode-alist
-        (append '(("\\.html\\'" . web-mode)
-                  ("\\.vue\\'" . web-mode))
-                auto-mode-alist))
   (setq-default web-mode-markup-indent-offset 2 ; Indent of HTML
                 web-mode-css-indent-offset 2
                 web-mode-code-indent-offset 2) ; Indent of JavaScript in HTML
@@ -27,9 +21,10 @@
 
 ;;; emmet-mode
 (use-package emmet-mode
-  :init (setq emmet-self-closing-tag-style " /")
   :hook (web-mode . emmet-mode)
-  :config (define-key web-mode-map (kbd "C-/") #'emmet-expand-line))
+  :config
+  (setq emmet-self-closing-tag-style " /")
+  (define-key web-mode-map (kbd "C-/") #'emmet-expand-line))
 
 ;;; Term-mode
 (use-package term

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: simple-closure
+# key: css
+# --
+(${1:parameter}) => {
+                 $0
+}

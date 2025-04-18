@@ -24,6 +24,7 @@
 (require 'spring-clojure)
 (require 'spring-rust)
 (require 'spring-haskell)
+(require 'spring-ts)
 
 ;;; Other settings
 ;;; Tools
