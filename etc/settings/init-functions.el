@@ -774,6 +774,32 @@ When only-current is non-nil, only kill buffers related to current buffer."
     (with-temp-file target-file
       (insert (file-truename default-directory)))))
 
+(defun spring/replace-lines-by-length ()
+  "Sort and replace marked lines by their length."
+  (interactive)
+  (when (region-active-p)
+    (with-current-buffer (current-buffer)
+      (let* ((lines (buffer-substring (region-beginning) (region-end)))
+             (end-with-newline (string-suffix-p "\n" lines))
+             (lines-list (split-string lines "\n"))
+             (asc-p (y-or-n-p "Sort it ascending?"))
+             sort-cons)
+        (dolist (line lines-list)
+          (unless (= 0 (length line))
+            (setq sort-cons (append sort-cons
+                                    (list (cons line (length line)))))))
+
+        (sort sort-cons (lambda (a b)
+                          (if asc-p
+                              (< (cdr a) (cdr b))
+                            (> (cdr a) (cdr b)))))
+        (delete-region (region-beginning) (region-end))
+        (dolist (line sort-cons)
+          (insert (car line) "\n"))
+        (deactivate-mark)
+        (unless end-with-newline
+          (backward-delete-char 1))))))
+
 ;;; Native Compilation
 
 (defun spring/native-compile-or-load (file &optional o3 force)

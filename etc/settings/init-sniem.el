@@ -121,6 +121,9 @@
    ;; IAlign
    "i" 'ialign
 
+   ;; Sort lines
+   "s" 'spring/replace-lines-by-length
+
    ;; Copilot
    "Cd" 'spring/copilot-chat-display
    "Ce" 'copilot-chat-explain
