@@ -20,11 +20,6 @@
 
 (setq package-enable-at-startup nil)
 
-;;; Avoid flash of light in dark environment
-(let ((hour-now (string-to-number (format-time-string "%H"))))
-  (if (>= hour-now 20)
-      (add-to-list 'default-frame-alist '(background-color . "black"))))
-
 (push '(menu-bar-lines . 0) default-frame-alist)
 (push '(tool-bar-lines . 0) default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
