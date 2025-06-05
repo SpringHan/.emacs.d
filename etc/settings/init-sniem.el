@@ -124,6 +124,11 @@
    ;; Sort lines
    "s" 'spring/replace-lines-by-length
 
+   ;; Save project file
+   "S" 'project-file-save
+   "pc" 'project-file-open-cache
+   "po" 'project-file-open-list
+
    ;; Copilot
    "Cd" 'spring/copilot-chat-display
    "Ce" 'copilot-chat-explain
