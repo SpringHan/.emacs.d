@@ -79,15 +79,23 @@ When carp is non-nil, return the car if it has."
   (with-temp-file (locate-user-emacs-file "dir-path")
     (insert "(emacs ~/.emacs.d)\n(gtd ~/.emacs.d/gtd)\n(var ~/.emacs.d/var)\n(git ~/Github)\n")))
 
-(defun set-alpha ()
-  "Set the backgroud alpha by VAR."
-  (interactive)
-  (let ((var (when (or (null (frame-parameter nil 'alpha-background))
-                       (eq (frame-parameter nil 'alpha-background) 100))
-               t)))
-    (if var
-        (set-frame-parameter nil 'alpha-background 70)
-      (set-frame-parameter nil 'alpha-background 100))))
+(defun set-alpha (case)
+  "Set the backgroud alpha by NUM."
+  (interactive (list (completing-read "Enter the transparent:"
+                                      '("Reverse" "Higher" "Max" "Min"))))
+  (let ((non-alpha (when (or (null (frame-parameter nil 'alpha-background))
+                             (eq (frame-parameter nil 'alpha-background) 100))
+                     t)))
+    (catch 'stop
+      (set-frame-parameter
+       nil
+       'alpha-background
+       (pcase case
+         ("Reverse" (if non-alpha 75 100))
+         ("Higher" 85)
+         ("Max" 100)
+         ("Min" 75)
+         (_ (throw 'stop nil)))))))
 
 (defun window-move (way)
   "Move the buffer window position by WAY."
