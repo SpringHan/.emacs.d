@@ -128,7 +128,8 @@
 
 ;;; Input Method
 (use-package pyim
-  :defer nil
+  :disabled
+  ;; :defer nil
   :config
   (use-package pyim-basedict)
 
@@ -176,5 +177,9 @@
 ;;; Interactive Align
 (use-package ialign
   :defer nil)
+
+(use-package rime
+  :config
+  (setq rime-show-candidate 'posframe))
 
 (provide 'init-tools)

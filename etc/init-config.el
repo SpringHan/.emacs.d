@@ -36,6 +36,7 @@
 (require 'project-file)
 (require 'init-macros)
 (setq sniem-macro-file (locate-library "init-macros"))
+(setq default-input-method "rime")
 
 (let ((private-file "~/.emacs.d/etc/init-private.el"))
   (when (file-exists-p private-file)
