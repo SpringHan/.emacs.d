@@ -44,12 +44,14 @@
 
 ;;; Desktop save & restore.
 (require 'desktop)
+(setq desktop-restore-frames nil)
 (add-hook 'kill-emacs-hook (lambda () (desktop-save "~/.emacs.d/var/")))
 (add-hook 'emacs-startup-hook (lambda () (desktop-read "~/.emacs.d/var/")))
 (add-hook 'desktop-after-read-hook #'load-the-theme)
 (add-hook 'desktop-after-read-hook (lambda ()
                                      (setq kill-ring nil
-                                           regexp-search-ring nil)))
+                                           regexp-search-ring nil)
+                                     (set-frame-parameter (selected-frame) 'undecorated t)))
 
 ;;; Natively Compile
 (add-hook 'after-init-hook (lambda ()
