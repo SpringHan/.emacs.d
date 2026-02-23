@@ -31,6 +31,7 @@
   :config
   (setq acm-enable-yas nil
         acm-enable-quick-access t
+        lsp-bridge-python-command "uv"
         lsp-bridge-enable-inlay-hint nil
         lsp-bridge-python-lsp-server 'pyright
         ;; (lsp-bridge-enable-diagnostics nil)
