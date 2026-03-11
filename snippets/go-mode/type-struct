@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: type-struct
+# key: struct
+# --
+type ${1:Name} struct {
+     $0
+}

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: interface
+# key: interface
+# --
+type ${1:Name} interface {
+     $0
+}

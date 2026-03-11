@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: channel-sentence
+# key: chann
+# --
+${1:name} <- $0

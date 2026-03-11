@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: switch
+# key: switch
+# --
+switch ${1:var} {
+case ${2:value}:
+     $0
+}

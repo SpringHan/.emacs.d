@@ -4,6 +4,7 @@
 (delete-selection-mode t) ; Delete the seleceted text
 (show-paren-mode t) ; Highlight the ()
 (electric-pair-mode t) ; Auto complete the ()
+(auto-revert-mode t) ; Auto revert buffer
 (setq electric-pair-pairs
       '((?\" . ?\")
         (?\( . ?\))

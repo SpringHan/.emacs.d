@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: closure
+# key: css
+# --
+func() {$0}

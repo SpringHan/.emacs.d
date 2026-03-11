@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: for-range
+# key: frr
+# --
+for ${1:name} := range ${2:list} {
+    $0
+}
