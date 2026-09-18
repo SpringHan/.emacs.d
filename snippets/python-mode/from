@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# contributor: SpringHan
+# name: from
+# key: from
+# --
+from ${1:module} import ${0}
