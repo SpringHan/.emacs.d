@@ -222,7 +222,14 @@ When time is 'night, return the one for night."
   (interactive)
   (dolist (buffer spring/unwanted-buffer)
     (when (get-buffer buffer)
-      (kill-buffer buffer))))
+      (kill-buffer buffer)))
+
+  ;; Kill dsh bufufers.
+  (when (and (featurep 'dsh-emacs)
+             (null dsh-emacs--server-process))
+    (dolist (buf (buffer-list))
+      (when (string-match-p "\\*dsh-\\(.*\\)\\*" (buffer-name buf))
+        (kill-buffer buf)))))
 
 (defun tab-bar-new-with-buffer (buffer-name)
   "Create a new tab then select a buffer."

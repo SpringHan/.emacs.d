@@ -35,7 +35,9 @@
         lsp-bridge-enable-inlay-hint nil
         lsp-bridge-python-lsp-server 'pyright
         ;; (lsp-bridge-enable-diagnostics nil)
-        lsp-bridge-diagnostic-fetch-idle 0.25)
+        lsp-bridge-diagnostic-fetch-idle 0.25
+        lsp-bridge-semantic-tokens t)
+  (setq-default lsp-bridge-semantic-tokens-ignore-modifier-limit-types ["variable"])
 
   (define-key lsp-bridge-peek-keymap (kbd "M-l t") #'lsp-bridge-peek-through)
 

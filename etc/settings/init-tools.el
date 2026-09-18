@@ -1,13 +1,22 @@
 ;;;; This file is the tools of my configuration.d
 
 ;;; Third-party
+;;; Deepseek Harness
+(use-package dsh-emacs
+  :init
+  (git-download-ensure "dsh-emacs" "vritser/dsh-emacs" 1)
+  :load-path "~/.emacs.d/third-party/dsh-emacs"
+  :bind ("C-q C-d" . dsh-emacs)
+  :config
+  (setq dsh-emacs-server-auto-start nil))
+
 ;;; Popweb
 (use-package popweb
   :init
   (git-download-ensure "popweb" "manateelazycat/popweb" 1)
   :load-path "~/.emacs.d/third-party/popweb"
   :bind (("C-q C-m h" . popweb-dict-bing-pointer)
-        ("C-q C-m i" . popweb-dict-bing-input))
+         ("C-q C-m i" . popweb-dict-bing-input))
   :config
   (setq popweb-zoom-factor 2.13)
   (add-to-list 'load-path "~/.emacs.d/third-party/popweb/extension/dict")
