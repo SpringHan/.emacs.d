@@ -6,7 +6,8 @@
   :init
   (git-download-ensure "dsh-emacs" "vritser/dsh-emacs" 1)
   :load-path "~/.emacs.d/third-party/dsh-emacs"
-  :bind ("C-q C-d" . dsh-emacs)
+  :bind (("C-q C-d" . dsh-emacs)
+         ("C-q C-q" . dsh-emacs-server-stop))
   :config
   (setq dsh-emacs-server-auto-start nil))
 
