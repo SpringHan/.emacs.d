@@ -37,6 +37,7 @@
   (add-to-list 'sniem-close-mode-alist 'lsp-bridge-call-hierarchy-mode)
   (add-to-list 'sniem-close-mode-alist 'copilot-chat-mode)
   (add-to-list 'sniem-close-mode-alist 'copilot-chat-prompt-mode)
+  (add-to-list 'sniem-insert-mode-alist 'dsh-emacs-mode)
 
   (add-hook 'sniem-insert-to-normal-hook
             (lambda ()
