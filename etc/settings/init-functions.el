@@ -736,7 +736,7 @@ PACKAGES is the dependences."
 
 (defun spring/kill-project-buffers (only-current)
   "Kill files belong to the same directory.
-When only-current is non-nil, only kill buffers related to current buffer."
+When only-current is non-nil, only kill buffers belong to current project."
   (interactive (list (y-or-n-p "Only current?")))
   (let (roots temp-root)
     (add-to-list 'roots (citre-project-root))
@@ -757,10 +757,7 @@ When only-current is non-nil, only kill buffers related to current buffer."
             (and (member temp-root roots)
                  (kill-buffer buffer))
           (add-to-list 'roots temp-root)
-          (kill-buffer buffer))))
-
-    (dolist (dir roots)
-      (add-to-list 'spring/projects-in-use dir))))
+          (kill-buffer buffer))))))
 
 (defun spring/notepad ()
   "Open notepad."
