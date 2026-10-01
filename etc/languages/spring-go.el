@@ -1,4 +1,4 @@
-;;;; The go setup for my emacs.
+;;;; The go setup for my emacs.  -*- lexical-binding: t; -*-
 
 (use-package go-mode
   :hook (go-mode . (lambda () (setq-local indent-tabs-mode nil)

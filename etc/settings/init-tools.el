@@ -1,4 +1,4 @@
-;;;; This file is the tools of my configuration.d
+;;;; This file is the tools of my configuration.d  -*- lexical-binding: t; -*-
 
 ;;; Third-party
 ;;; Deepseek Harness
@@ -7,6 +7,7 @@
   (git-download-ensure "dsh-emacs" "vritser/dsh-emacs" 1)
   :load-path "~/.emacs.d/third-party/dsh-emacs"
   :bind (("C-q C-d" . dsh-emacs)
+         ("C-q C-s" . dsh-emacs-server-start)
          ("C-q C-q" . dsh-emacs-server-stop))
   :config
   (setq dsh-emacs-server-auto-start nil))

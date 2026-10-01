@@ -1,4 +1,4 @@
-;;; Haskell
+;;; Haskell  -*- lexical-binding: t; -*-
 
 (use-package haskell-mode
   :config

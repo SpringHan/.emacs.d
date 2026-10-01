@@ -1,4 +1,5 @@
-;;;; This file is used for emacs UI
+;;;; This file is used for emacs UI  -*- lexical-binding: t; -*-
+
 (tab-bar-mode -1)      ; Set tab bar not display
 (blink-cursor-mode -1) ; Close cursor blink
 (pixel-scroll-mode)

@@ -1,4 +1,4 @@
-;;; This file is used to config the dart.
+;;; This file is used to config the dart.  -*- lexical-binding: t; -*-
 
 ;;; Highlighting
 (use-package dart-mode

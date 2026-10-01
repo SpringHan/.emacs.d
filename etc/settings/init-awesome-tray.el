@@ -1,4 +1,4 @@
-;;;; This is the awesome-tray settings for my emacs configuration.
+;;;; This is the awesome-tray settings for my emacs configuration.  -*- lexical-binding: t; -*-
 
 ;;; awesome-tray
 (use-package awesome-tray

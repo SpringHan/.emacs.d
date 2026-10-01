@@ -1,4 +1,4 @@
-;;; SpringHan's Emacs Configuration
+;;; SpringHan's Emacs Configuration  -*- lexical-binding: t; -*-
 
 ;;; Mirror Config
 (require 'package)

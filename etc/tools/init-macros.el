@@ -1,3 +1,5 @@
+;; -*- lexical-binding: t; -*-
+
 (defalias 'add-explain-for-comment
    (kmacro "b b t h ( C-<tab>"))
 (fset 'replace-next-placeholder

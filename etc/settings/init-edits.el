@@ -1,4 +1,4 @@
-;;;; This file is the edit packages or other things for my configuration.
+;;;; This file is the edit packages or other things for my configuration.  -*- lexical-binding: t; -*-
 
 ;;; Packages
 ;;; Snippet

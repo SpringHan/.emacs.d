@@ -1,4 +1,4 @@
-;;; Eee.el
+;;; Eee.el  -*- lexical-binding: t; -*-
 
 (use-package eee
   :init (git-download-ensure "eee.el" "SpringHan/eee.el" 1)

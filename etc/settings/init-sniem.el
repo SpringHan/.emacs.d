@@ -1,4 +1,4 @@
-;;;; This is the sniem config
+;;;; This is the sniem config  -*- lexical-binding: t; -*-
 
 ;;; Sniem
 (use-package sniem

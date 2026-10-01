@@ -1,4 +1,5 @@
-;;;; This file is used for the useful functions
+;;;; This file is used for the useful functions  -*- lexical-binding: t; -*-
+
 (defun spring/get-index (item seq &optional listp)
   "Get the earliest index of ITEM in SEQ.
 Optional argument LISTP means the ITEM is the first element of list."

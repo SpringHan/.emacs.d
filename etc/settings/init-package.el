@@ -1,4 +1,4 @@
-;;;; This file is used for packages configuration and more
+;;;; This file is used for packages configuration and more  -*- lexical-binding: t; -*-
 ;;; Set the plugin keybinding
 (define-prefix-command 'plugin-key)
 (global-set-key (kbd "C-'") 'plugin-key)

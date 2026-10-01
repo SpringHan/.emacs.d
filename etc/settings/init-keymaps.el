@@ -1,4 +1,5 @@
-;;;; This file is used for the keybindings
+;;;; This file is used for the keybindings  -*- lexical-binding: t; -*-
+
 (define-prefix-command 'ctl-z-map)		 ; Create the C-z map
 (define-prefix-command 'more-functions)
 (global-set-key (kbd "C-q") 'ctl-z-map)		 ; Set the ctl-z-map

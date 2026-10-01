@@ -1,4 +1,4 @@
-;;;; This file is the c configuration.
+;;;; This file is the c configuration.  -*- lexical-binding: t; -*-
 
 (use-package cmake-mode)
 

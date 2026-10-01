@@ -1,4 +1,4 @@
-;;; This file is used for code running.
+;;; This file is used for code running.  -*- lexical-binding: t; -*-
 
 (defun spring-run-code-get-file-name (buffer-name suffix)
   "The function to get the file name without file suffix and return it."

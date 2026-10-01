@@ -1,4 +1,4 @@
-;;; Aider
+;;; Aider  -*- lexical-binding: t; -*-
 
 (use-package aidermacs
   :init

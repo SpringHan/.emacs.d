@@ -1,4 +1,4 @@
-;;;; This file is used for other modes
+;;;; This file is used for other modes  -*- lexical-binding: t; -*-
 
 ;;; Packages
 ;;; Dired-mode

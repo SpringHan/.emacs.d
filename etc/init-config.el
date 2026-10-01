@@ -1,4 +1,4 @@
-;;;; The main config file for my configuration.
+;;;; The main config file for my configuration.  -*- lexical-binding: t; -*-
 
 (add-to-list 'load-path "~/.emacs.d/etc/tools")
 (add-to-list 'load-path "~/.emacs.d/etc/settings")

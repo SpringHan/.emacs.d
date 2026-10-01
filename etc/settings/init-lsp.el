@@ -1,4 +1,4 @@
-;;;; This is the lsp-mode settings file
+;;;; This is the lsp-mode settings file  -*- lexical-binding: t; -*-
 
 ;;; Packages
 (use-package lsp-bridge

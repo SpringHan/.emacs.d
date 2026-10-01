@@ -1,4 +1,4 @@
-;;;; This file is about org-mode settings
+;;;; This file is about org-mode settings  -*- lexical-binding: t; -*-
 
 ;;; Package
 ;;; Org

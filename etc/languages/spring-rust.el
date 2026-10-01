@@ -1,4 +1,4 @@
-;;; This is the file for rust.
+;;; This is the file for rust.  -*- lexical-binding: t; -*-
 
 (use-package rustic
   :init (setq rustic-lsp-setup-p nil)

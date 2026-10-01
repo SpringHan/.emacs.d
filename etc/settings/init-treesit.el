@@ -1,4 +1,4 @@
-;;; Treesit settings,
+;;; Treesit settings,  -*- lexical-binding: t; -*-
 
 (require 'treesit)
 

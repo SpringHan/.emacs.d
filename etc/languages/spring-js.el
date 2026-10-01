@@ -1,4 +1,4 @@
-;;;; The file for js.
+;;;; The file for js.  -*- lexical-binding: t; -*-
 
 ;;; js2-mode
 (use-package js2-mode

@@ -1,4 +1,4 @@
-;;;; This is the git config file for my configuration.
+;;;; This is the git config file for my configuration.  -*- lexical-binding: t; -*-
 
 ;;; Git Sign
 (use-package diff-hl

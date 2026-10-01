@@ -1,4 +1,4 @@
-;;;; This is the basic settings for my configuration.
+;;;; This is the basic settings for my configuration.  -*- lexical-binding: t; -*-
 
 (fset 'yes-or-no-p 'y-or-n-p) ; Change the asking's answer way
 (delete-selection-mode t) ; Delete the seleceted text

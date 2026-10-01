@@ -1,4 +1,4 @@
-;;; This is the clojure file.
+;;; This is the clojure file.  -*- lexical-binding: t; -*-
 
 (use-package clojure-mode
   :init

@@ -1,4 +1,4 @@
-;;;; This is the auto complete file for my configuration.
+;;;; This is the auto complete file for my configuration.  -*- lexical-binding: t; -*-
 
 (use-package company
   :hook (emacs-lisp-mode . company-mode)
