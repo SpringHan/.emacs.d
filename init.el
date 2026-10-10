@@ -39,6 +39,11 @@
 
 (load-file "~/.emacs.d/etc/init-config.el")
 
+;;; Run emacs server.
+(require 'server)
+(unless (server-running-p)
+  (server-start))
+
 (put 'narrow-to-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
