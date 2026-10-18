@@ -25,6 +25,7 @@
 (require 'spring-rust)
 (require 'spring-haskell)
 (require 'spring-ts)
+(require 'spring-markdown)
 
 ;;; Other settings
 ;;; Tools
