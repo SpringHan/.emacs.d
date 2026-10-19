@@ -12,6 +12,7 @@
         (python . ("https://github.com/tree-sitter/tree-sitter-python"))
         (elisp . ("https://github.com/Wilfred/tree-sitter-elisp"))
         (toml . ("https://github.com/tree-sitter-grammars/tree-sitter-toml"))
+        (yaml . ("https://github.com/ikatyang/tree-sitter-yaml"))
         (markdown . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown/src"))
         (markdown-inline . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown-inline/src")))
       major-mode-remap-alist
