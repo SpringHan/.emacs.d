@@ -229,7 +229,7 @@ When time is 'night, return the one for night."
   (when (and (featurep 'dsh-emacs)
              (null dsh-emacs--server-process))
     (dolist (buf (buffer-list))
-      (when (and (string-match-p "dsh-\\(.*\\)" (buffer-name buf))
+      (when (and (string-match-p "\\*dsh-\\(.*\\)\\*\\|dsh: \\(.*\\)" (buffer-name buf))
                  (null (buffer-file-name buf)))
         (kill-buffer buf)))))
 
