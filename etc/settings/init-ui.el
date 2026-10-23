@@ -2,7 +2,7 @@
 
 (tab-bar-mode -1)      ; Set tab bar not display
 (blink-cursor-mode -1) ; Close cursor blink
-(pixel-scroll-mode)
+(pixel-scroll-mode -1)
 (setq tab-bar-show nil) ; Always not display tab bar
 (setq inhibit-splash-screen t) ; Close the start flash
 
@@ -10,6 +10,12 @@
 (setq display-line-numbers-type 'relative)
 (global-display-line-numbers-mode t)
 (global-hl-line-mode -1) ; Highlight the current line
+
+;;; Mouse Scroll
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1))) ;; one line at a time
+(setq mouse-wheel-progressive-speed nil) ;; don't accelerate scrolling
+(setq mouse-wheel-follow-mouse 't) ;; scroll window under mouse
+(setq scroll-step 2) ;; keyboard scroll one line at a time
 
 ;;; Cursor shape
 (setq cursor-type 'box)
