@@ -136,7 +136,7 @@ When carp is non-nil, return the car if it has."
 If it's daytime now,return t.Otherwise return nil."
   (let* ((now-time
           (string-to-number (substring (current-time-string) 11 13)))
-         (mounth
+         (month
           (pcase (substring (current-time-string) 4 7)
             ("Jan" 1) ("Feb" 2) ("Mar" 3) ("Apr" 4) ("May" 5) ("Jun" 6) ("Jul" 7)
             ("Aug" 8) ("Sep" 9) ("Oct" 10) ("Nov" 11) ("Dec" 12))))
