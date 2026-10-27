@@ -139,13 +139,10 @@ If it's daytime now,return t.Otherwise return nil."
          (mounth
           (pcase (substring (current-time-string) 4 7)
             ("Jan" 1) ("Feb" 2) ("Mar" 3) ("Apr" 4) ("May" 5) ("Jun" 6) ("Jul" 7)
-            ("Aug" 8) ("Sep" 9) ("Oct" 10) ("Nov" 11) ("Dec" 12)))
-         (dark-start (if (and (>= mounth 4) (< mounth 11))
-                         19
-                       17)))
-    (if (and (>= now-time 6) (< now-time dark-start))
-        t
-      nil)))
+            ("Aug" 8) ("Sep" 9) ("Oct" 10) ("Nov" 11) ("Dec" 12))))
+    (if (and (> month 10) (< month 3))
+        (and (> now-time 6) (< now-time 17))
+      (and (> now-time 5) (< now-time 18)))))
 
 (defun load-the-theme (&optional time-or-theme)
   "Load the theme by time."
