@@ -14,7 +14,9 @@
         (toml . ("https://github.com/tree-sitter-grammars/tree-sitter-toml"))
         (yaml . ("https://github.com/ikatyang/tree-sitter-yaml"))
         (markdown . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown/src"))
-        (markdown-inline . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown-inline/src")))
+        (markdown-inline . ("https://github.com/tree-sitter-grammars/tree-sitter-markdown" "split_parser" "tree-sitter-markdown-inline/src"))
+        (javascript . ("https://github.com/tree-sitter/tree-sitter-javascript"))
+        (jsdoc . ("https://github.com/tree-sitter/tree-sitter-jsdoc")))
       major-mode-remap-alist
       (append major-mode-remap-alist
               '((js-json-mode . json-ts-mode))))
