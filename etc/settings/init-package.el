@@ -39,6 +39,7 @@
 (require 'init-modes)
 (require 'init-treesit)
 (require 'init-telega)
+(require 'init-dsh)
 (require 'init-org)
 
 (provide 'init-package)
