@@ -51,7 +51,7 @@
 (global-set-key (kbd "C-\\ j") (lambda () (interactive) (spring/change-input-method 'japanese)))
 (global-set-key (kbd "C-\\ c") (lambda () (interactive) (spring/change-input-method 'rime)))
 (global-set-key (kbd "C-\\ C-\\") (lambda () (interactive) (spring/change-input-method 0)))
-(global-set-key (kbd "M-f") 'toggle-input-method)
+(global-set-key (kbd "C-SPC") 'toggle-input-method)
 (global-set-key (kbd "<f6>") 'spring/disable-modeline)
 (global-set-key (kbd "<f7>") 'spring/initialize-input-method)
 (global-set-key (kbd "C-:") 'spring/insert-result)

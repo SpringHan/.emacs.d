@@ -44,6 +44,12 @@
 (unless (server-running-p)
   (server-start))
 
+;;; Disable system Input Method
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (when (featurep 'pgtk)
+              (pgtk-use-im-context nil))))
+
 (put 'narrow-to-region 'disabled nil)
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
