@@ -46,14 +46,6 @@
             (fuz-build-and-load-dymod)))
 
 
-;;; Copilot
-(use-package copilot-chat
-  :config (defun spring/copilot-chat-display ()
-            (interactive)
-            (copilot-chat-display)
-            (delete-other-windows)
-            (switch-to-buffer (car (copilot-chat--prepare-buffers)))))
-
 ;;; Counsel
 (use-package counsel)
 

@@ -35,8 +35,6 @@
   (add-to-list 'sniem-close-mode-alist 'telega-chat-mode)
   (add-to-list 'sniem-normal-mode-alist 'helpful-mode)
   (add-to-list 'sniem-close-mode-alist 'lsp-bridge-call-hierarchy-mode)
-  (add-to-list 'sniem-close-mode-alist 'copilot-chat-mode)
-  (add-to-list 'sniem-close-mode-alist 'copilot-chat-prompt-mode)
   (add-to-list 'sniem-insert-mode-alist 'dsh-emacs-mode)
 
   (add-hook 'sniem-insert-to-normal-hook
@@ -130,12 +128,6 @@
    "pc" 'project-file-open-cache
    "po" 'project-file-open-list
 
-   ;; Copilot
-   "Cd" 'spring/copilot-chat-display
-   "Ce" 'copilot-chat-explain
-   "Cf" 'copilot-chat-fix
-   "Cr" 'copilot-chat-reset
-
    ;; Other functions
    "dc" 'spring/copy-directory-path
    "Mf" 'mark-defun
@@ -172,7 +164,6 @@
    "~" (lambda () (interactive) (sniem-change-mode 'motion))
    ;; "(" (lambda () (interactive) (desktop-init-reopen-files t))
    ;; ")" 'desktop-init-kill-all-files
-   "-" 'copilot-chat-list
    "$" 'spring/set-st-working-dir)
   (sniem-set-quit-insert-key "<C-tab>")
   (global-set-key (kbd "C--") sniem-leader-keymap))
