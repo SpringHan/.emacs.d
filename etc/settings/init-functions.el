@@ -254,21 +254,6 @@ When time is 'night, return the one for night."
   (switch-to-buffer "*scratch*")
   (goto-char (point-max)))
 
-(defun spring/erase-contents ()
-  "Erase all the contents of specific buffer."
-  (interactive)
-  (if (string-equal (buffer-name (current-buffer))
-                    "*scratch*")
-      (with-current-buffer "*scratch*"
-           (let ((content  (buffer-string)))
-             (unless (string= content initial-scratch-message)
-               (erase-buffer)
-               (insert initial-scratch-message)
-               (message "Erased contents in *scratch* buffer.")
-               (end-of-buffer))))
-    (with-current-buffer (current-buffer)
-      (erase-buffer))))
-
 (defun spring/use-space-indent ()
   "Use the space indent in org-mode."
   (interactive)
@@ -307,75 +292,6 @@ When time is 'night, return the one for night."
               (insert (format "%s\n" user-name))
               (insert (format "%s" user-password))))
           (erc :nick user-name :password user-password))))))
-
-(defun spring/downcase-word-first-letter ()
-  "Downcase the first letter in the word at point."
-  (interactive)
-  (let ((letter (cl-subseq (thing-at-point 'word t) 0 1)))
-    (delete-char 1)
-    (insert (downcase letter))))
-
-(defun spring/set-volume (mode &optional changes)
-  "Change the volume."
-  (interactive (list (completing-read "Enter the set mode: "
-                                      '("set" "up" "down"))))
-  (let (volume)
-    (pcase mode
-      ("set"
-       (setq volume (format "%s%%"
-                            (read-string "Enter the volume you want: "))))
-      ("up"
-       (setq volume (format "+%s%%"
-                            (read-string "Enter the volume you want to add: "))))
-      ("down"
-       (setq volume (format "-%s%%"
-                            (read-string "Enter the volume you want to reduce: "))))
-      ("ups"
-       (setq volume (format "+%d%%" changes)))
-      ("downs"
-       (setq volume (format "-%d%%" changes)))
-      ("0"
-       (setq volume "0%")))
-    ;; TODO: Need new function to get the audio card
-    (shell-command (concat "pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo " volume) "*Volume Set*")
-    (when (get-buffer "*Volume Set*")
-      (kill-buffer "*Volume Set*"))
-    (message "[Spring Emacs]: The current volume: %s" (spring/get-volume))))
-
-(defun spring/up-5-volume (&optional times)
-  "Up 5 volume."
-  (interactive "P")
-  (if times
-      (spring/set-volume "ups" (* 5 times))
-    (spring/set-volume "ups" 5)))
-
-(defun spring/down-5-volume (&optional times)
-  "Down 5 volume."
-  (interactive "P")
-  (if times
-      (spring/set-volume "downs" (* 5 times))
-    (spring/set-volume "downs" 5)))
-
-(defun spring/no-volume ()
-  "Set the volume to 0."
-  (interactive)
-  (spring/set-volume "0"))
-
-(defun spring/get-volume ()
-  "Get the volume and return it."
-  (let (volume)
-    (shell-command "amixer get Master | tail -n1 | sed -r \"s/.*\\[(.*)%\\].*/\\1/\""
-                   "*Volume Value*")
-    (when (get-buffer "*Volume Value*")
-      (with-current-buffer "*Volume Value*"
-        (setq volume (car (split-string (buffer-string) "\n" t))))
-      (kill-buffer "*Volume Value*"))
-    volume))
-
-(defun spring/show-volume ()
-  "Show the volume."
-  (interactive)
-  (message "[Spring Emacs]: Current Volume is: %s" (spring/get-volume)))
 
 (defun spring/show-packages-required ()
   "Show all the packages required."
@@ -457,24 +373,6 @@ When time is 'night, return the one for night."
     ("tab" (setq-local indent-tabs-mode t))
     ("space" (setq-local indent-tabs-mode nil))))
 
-(defun spring/terlat-translate (&optional type)
-  "The function to translate the CONTENT by terlat."
-  (interactive)
-  (let ((content (read-string "Enter the content you want to translate: "))
-        result)
-    (shell-command (concat "terlat " "\"" content "\"") " *Spring-Translate*")
-    (setq result (with-current-buffer " *Spring-Translate*"
-                   (buffer-string)))
-    (if type
-        (insert (car-safe (split-string result "\n" t)))
-      (message (concat "[Spring-Translate:Result]: " result)))
-    (kill-buffer " *Spring-Translate*")))
-
-(defun spring/terlat-translate-insert ()
-  "The function to insert the translate result."
-  (interactive)
-  (spring/terlat-translate t))
-
 (defun spring/test-color ()
   "Test color by input color."
   (interactive)
@@ -516,12 +414,6 @@ When time is 'night, return the one for night."
     (toggle-input-method))
   (when (get-buffer "*Quail Completions*")
     (kill-buffer "*Quail Completions*")))
-
-(defun spring/initialize-input-method ()
-  "Initialize input method."
-  (interactive)
-  (set-input-method 'pyim)
-  (spring/change-input-method 0))
 
 (defun spring/disable-modeline ()
   "The function to disable the modeline."
