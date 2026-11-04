@@ -67,8 +67,8 @@
 The archive set has no unary RPC: it arrives in the `workspace/follow'
 baseline.  Reuse the live session-list connection when present, or open a
 hidden one for the baseline and tear it down again."
-  (let* ((existing (get-buffer dsh-emacs-sessions-buffer))
-         (buffer (or existing (get-buffer-create dsh-emacs-sessions-buffer)))
+  (let* ((existing (get-buffer dsh-emacs--sessions-buffer))
+         (buffer (or existing (get-buffer-create dsh-emacs--sessions-buffer)))
          (created (null existing))
          (previous dsh-emacs--archived-sessions)
          (deadline (+ (float-time) 10)))
