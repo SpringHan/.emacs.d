@@ -129,7 +129,7 @@
    "po" 'project-file-open-list
 
    ;; Other functions
-   "dc" 'spring/copy-directory-path
+   "dc" 'spring/copy-file-path
    "Mf" 'mark-defun
    "Mh" 'mark-whole-buffer
    "fr" 'recentf-open-files

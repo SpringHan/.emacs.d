@@ -449,14 +449,6 @@ When time is 'night, return the one for night."
                       :box (nth 7 awesome-tray-mode-line-colors)
                       :height awesome-tray-mode-line-default-height))
 
-(defun spring/copy-directory-path ()
-  "Copy the current directory path."
-  (interactive)
-  (let ((dir default-directory))
-    (with-temp-buffer
-      (insert dir)
-      (kill-ring-save (point-min) (point-max)))))
-
 (defun spring/insert-result (command)
   "Insert COMMAND's result."
   (interactive (list (read--expression "Eval: ")))
@@ -702,6 +694,14 @@ When only-current is non-nil, only kill buffers belong to current project."
         (deactivate-mark)
         (unless end-with-newline
           (backward-delete-char 1))))))
+
+(defun spring/copy-file-path ()
+  "Copy file path of current buffer."
+  (interactive)
+  (let ((dir (buffer-file-name)))
+    (with-temp-buffer
+      (insert dir)
+      (kill-ring-save (point-min) (point-max)))))
 
 ;;; Native Compilation
 
