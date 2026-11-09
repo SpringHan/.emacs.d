@@ -6,7 +6,8 @@
 (require 'cl-lib) ; Common Lisp
 ;;; Package Require
 (setq package-archives '(("gnu" . "http://mirrors.ustc.edu.cn/elpa/gnu/")
-                         ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")))
+                         ("melpa" . "http://mirrors.ustc.edu.cn/elpa/melpa/")
+                         ("etaf" . "https://etaf.top/packages/")))
 
 ;;; Native comp
 (setq native-comp-async-report-warnings-errors nil)
@@ -25,7 +26,7 @@
     "*Async Shell Command*" "TAGS" "*lsp-log*" "*vc*" "*Calendar*" "*cargo-run*"
     "*cargo-test*" "*cargo-build*" "*Shell Command Output*" "*Async-native-compile-log*"
     "*Disabled Command*" "*rustic-compilation*" "spring-notepad" "*lsp-bridge-code-action-preview*"
-    "*Buffer List*" "*Native-compile-log*" "*Ediff Registry*")
+    "*Buffer List*" "*Native-compile-log*" "*Ediff Registry*" "*Process List*")
   "The buffers that I don't need.")
 
 (defvar spring/my-child-frame nil

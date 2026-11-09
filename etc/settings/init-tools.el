@@ -175,4 +175,8 @@
   :config
   (setq rime-show-candidate 'posframe))
 
+;;; Etaf
+(use-package etaf-install
+  :commands (etaf-install))
+
 (provide 'init-tools)
