@@ -40,7 +40,7 @@
 (global-set-key (kbd "<f6>") 'spring/disable-modeline)
 (global-set-key (kbd "C-:") 'spring/insert-result)
 (global-set-key (kbd "C-x o") 'spring/move-to-window)
-(global-set-key (kbd "C-q f") #'spring/child-frame)
+(global-set-key (kbd "C-x f") #'spring/child-frame)
 (global-set-key (kbd "C-<return>") #'spring/enter-with-semicolon)
 (global-set-key (kbd "C-,") #'spring/enter-with-comma)
 
