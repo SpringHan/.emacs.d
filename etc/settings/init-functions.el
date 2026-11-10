@@ -541,35 +541,13 @@ PACKAGES is the dependences."
   (pcase (read-char)
     (?t (let ((current-frame (selected-frame))
               frame current-buffer)
-          (if (and (frame-parameter current-frame 'fullscreen)
-                   (yes-or-no-p "Picture in picture?"))
-              (progn
-                (toggle-frame-fullscreen)
-                (setq frame (make-frame '((minibuffer . nil))))
-                (setq current-buffer (current-buffer))
-                (with-selected-frame frame
-                  (switch-to-buffer current-buffer))
-                (with-selected-frame current-frame
-                  (spring/open-scratch))
-                ;; Add video parameter for main frame.
-                ;; To avoid switching the video buffer in main frame to avoid influencing the video buffer.
-                (set-frame-parameter current-frame 'video frame)
-                (set-frame-parameter frame 'video-parent current-frame))
-            (setq frame (make-frame))
-            (with-selected-frame frame
-              (spring/open-scratch)))))
+          (setq frame (make-frame))
+          (set-frame-parameter frame 'alpha-background 0.7)
+          (with-selected-frame frame
+            (spring/open-scratch))))
     (?1 (dolist (frame (remq (selected-frame) (visible-frame-list)))
-          (delete-frame frame))
-        (unless (frame-parameter nil 'fullscreen)
-          (toggle-frame-fullscreen))
-        (when (frame-parameter nil 'video)
-          (set-frame-parameter nil 'video nil))
-        (when (frame-parameter nil 'video-parent)
-          (set-frame-parameter nil 'video-parent nil)))
-    (?0 (let ((video-parent (frame-parameter nil 'video-parent)))
-          (when video-parent
-            (set-frame-parameter video-parent 'video nil))
-          (delete-frame)))))
+          (delete-frame frame)))
+    (?0 (delete-frame))))
 
 (defun spring/kill-space-line-content ()
   "Find the line filled with space and kill its content."

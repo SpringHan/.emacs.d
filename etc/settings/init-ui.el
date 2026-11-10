@@ -33,4 +33,7 @@
          (expand-file-name (locate-user-emacs-file "not-alpha")))
   (set-frame-parameter nil 'alpha-background 75))
 
+;;; Frame default settings
+(add-to-list 'default-frame-alist '(undecorated . t))
+
 (provide 'init-ui)
