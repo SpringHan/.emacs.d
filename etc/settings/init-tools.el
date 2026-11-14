@@ -25,6 +25,16 @@
   :config (unless (require 'fuz-core nil t)
             (fuz-build-and-load-dymod)))
 
+;;; Jieba
+(use-package emacs-jieba-rs
+  :defer nil
+  :init
+  (git-download-ensure "emacs-jieba-rs" "SpringHan/emacs-jieba-rs" nil t)
+  (spring/extra-add-to-list "~/.emacs.d/third-party/emacs-jieba-rs/emacs-jieba-rs" nil t)
+
+  :load-path "~/.emacs.d/third-party/emacs-jieba-rs"
+  :hook (after-init-hook . emacs-jieba-rs-mode))
+
 
 ;;; Counsel
 (use-package counsel)
