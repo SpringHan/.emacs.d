@@ -1,33 +1,11 @@
 ;;;; This file is the tools of my configuration.d  -*- lexical-binding: t; -*-
 
 ;;; Third-party
-
-;;; Popweb
-(use-package popweb
-  :init
-  (git-download-ensure "popweb" "manateelazycat/popweb" 1)
-  :load-path "~/.emacs.d/third-party/popweb"
-  :bind (("C-q C-m h" . popweb-dict-bing-pointer)
-         ("C-q C-m i" . popweb-dict-bing-input))
-  :config
-  (setq popweb-zoom-factor 2.13)
-  (add-to-list 'load-path "~/.emacs.d/third-party/popweb/extension/dict")
-  (require 'popweb-dict))
-
 ;;; Move-text
 (use-package move-text
   :defer nil
   :init (git-download-ensure "move-text" "manateelazycat/move-text" 1)
   :load-path "~/.emacs.d/third-party/move-text")
-
-;;; Dired-File-Preview
-(use-package dired-file-preview
-  :init (git-download-ensure "dired-file-preview"
-          "SpringHan/dired-file-preview"
-          1)
-  :load-path "~/.emacs.d/third-party/dired-file-preview"
-  :config
-  (spring/extra-add-to-list "~/.emacs.d/third-party/dired-file-preview/dired-file-preview"))
 
 ;;; Screenshot
 (use-package screenshot
