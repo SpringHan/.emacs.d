@@ -87,6 +87,5 @@
 ;; (use-package company)
 (use-package dape)
 ;; (spring/extra-add-to-list "~/.emacs.d/third-party/dape/dape" t)
-;; (spring/native-compile-or-load "~/.emacs.d/third-party/dape/dape" nil t)
 
 (provide 'init-lsp)

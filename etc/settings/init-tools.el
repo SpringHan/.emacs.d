@@ -10,10 +10,12 @@
 ;;; Screenshot
 (use-package screenshot
   ;; This extension needs the require with `imagemagick'
-  :init (git-download-ensure "screenshot" "tecosaur/screenshot" 1)
+  :init
+  (git-download-ensure "screenshot" "tecosaur/screenshot" 1 t)
+  (spring/extra-add-to-list "~/.emacs.d/third-party/screenshot/screenshot")
+
   :load-path "~/.emacs.d/third-party/screenshot"
-  :config
-  (spring/extra-add-to-list "~/.emacs.d/third-party/screenshot/screenshot"))
+  :commands (screenshot))
 
 ;;; Fuz.el
 (use-package fuz

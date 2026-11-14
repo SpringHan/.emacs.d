@@ -40,13 +40,16 @@
 (defconst git-download-clone-output-buffer "*GitDownload-Clone-Output*"
   "The buffer name of clone output.")
 
-(defun git-download-ensure (name url &optional depth)
+(defun git-download-ensure (name url &optional depth byte-comp)
   "Check whether the package with its NAME is downloaded, if not download it."
   (let ((package-path (expand-file-name name git-download-store-path)))
     (unless (file-exists-p package-path)
       (git-download--clone (git-download--handle-url url)
                            package-path
-                           depth))))
+                           depth))
+    (when (and byte-comp (file-directory-p package-path))
+      (ignore-errors
+        (byte-recompile-directory package-path 0)))))
 
 (defun git-download--handle-url (url)
   "Handle the URL for repository."

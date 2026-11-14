@@ -4,7 +4,8 @@
 (use-package sniem
   :defer nil
   :init
-  (git-download-ensure "sniem" "SpringHan/sniem")
+  (git-download-ensure "sniem" "SpringHan/sniem" nil t)
+  (spring/extra-add-to-list "~/.emacs.d/third-party/sniem/sniem" nil t)
 
   ;; Auto save
   (defvar spring/sniem-auto-save-timer nil
@@ -167,8 +168,5 @@
    "$" 'spring/set-st-working-dir)
   (sniem-set-quit-insert-key "<C-tab>")
   (global-set-key (kbd "C--") sniem-leader-keymap))
-
-(spring/extra-add-to-list "~/.emacs.d/third-party/sniem/sniem")
-;; (spring/native-compile-or-load "~/.emacs.d/third-party/sniem/sniem" nil t)
 
 (provide 'init-sniem)

@@ -683,11 +683,12 @@ When only-current is non-nil, only kill buffers belong to current project."
 
 ;;; Native Compilation
 
-(defun spring/native-compile-or-load (file &optional o3 force)
+(defun spring/native-compile-or-load (file &optional o3 force load)
   "If FILE's eln file is exists, load it.
 Otherwise compile it natively.
 When O3 is non-nil, use it as compile speed.
-When FROCE is non-nil, compiling FILE forcely."
+When FROCE is non-nil, compiling FILE forcely.
+When LOAD is non-nil, load the module after compile it."
   (let (eln-file real-file-name)
     (unless (string-suffix-p ".el" file)
       (setq real-file-name (concat file ".el")))
@@ -695,24 +696,25 @@ When FROCE is non-nil, compiling FILE forcely."
       (setq eln-file (comp-el-to-eln-filename (if real-file-name
                                                   real-file-name
                                                 file)))
-      (if (and (file-exists-p eln-file)
-               (null force))
-          (native-elisp-load eln-file)
-        (let ((native-comp-speed (if o3
-                                     3
-                                   2)))
-          (native-compile-async
-           (if real-file-name (file-name-directory file) file)
-           5 t))))))
+      (if (or force (not (file-exists-p eln-file)))
+          (let ((native-comp-speed (if o3
+                                       3
+                                     2)))
+            (native-compile-async
+             (if real-file-name (file-name-directory file) file)
+             5 load))
+        (when load
+          (native-elisp-load eln-file))))))
 
-(defun spring/extra-add-to-list (item &optional o3p)
+(defun spring/extra-add-to-list (item &optional o3p load)
   "If `spring/extra-items-compiled' is nil, add ITEM to
 `spring/extra-native-compile-items'.
 Otherwise compile item natively.
-When O3P is non-nil, use o3 as its compile speed."
+When O3P is non-nil, use o3 as its compile speed.
+When LOAD is non-nil, load the module after compile it."
   (if spring/extra-items-compiled
-      (spring/native-compile-or-load item o3p)
-    (add-to-list 'spring/extra-native-compile-items item)))
+      (spring/native-compile-or-load item o3p nil load)
+    (add-to-list 'spring/extra-native-compile-items (list item o3p load))))
 
 ;;; Advice
 (advice-add 'set-window-buffer :around

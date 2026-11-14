@@ -31,8 +31,7 @@
 ;;; Tools
 (with-eval-after-load 'sniem
   (require 'emulting)
-  (spring/extra-add-to-list "~/.emacs.d/etc/tools/emulting.el"))
-;; (spring/native-compile-or-load "~/.emacs.d/etc/tools/emulting.el" t t)
+  (spring/extra-add-to-list "~/.emacs.d/etc/tools/emulting.el" nil t))
 (require 'run-code)
 (require 'project-file)
 (require 'init-macros)
@@ -56,8 +55,8 @@
 
 ;;; Natively Compile
 (add-hook 'after-init-hook (lambda ()
-                             (dolist (file spring/extra-native-compile-items)
-                               (spring/native-compile-or-load file))
+                             (dolist (item spring/extra-native-compile-items)
+                               (spring/native-compile-or-load (car item) (nth 1 item) nil (nth 2 item)))
                              (setq spring/extra-items-compiled t)))
 
 (provide 'init-config)
