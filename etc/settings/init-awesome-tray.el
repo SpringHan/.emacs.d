@@ -10,8 +10,8 @@
   :config
   (defun awesome-tray-module-input-method-info ()
     (pcase current-input-method
-      ('nil "EN")
-      ("pyim" "ZN")
+      ('nil "")
+      ("rime" "ZH")
       ("japanese" "JA")))
 
   (defun awesome-tray-read-only ()
