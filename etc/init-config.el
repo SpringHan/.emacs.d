@@ -33,6 +33,7 @@
   (require 'emulting)
   (spring/extra-add-to-list "~/.emacs.d/etc/tools/emulting.el" nil t))
 (require 'run-code)
+(require 'pory-translate)
 (require 'project-file)
 (require 'init-macros)
 (setq sniem-macro-file (locate-library "init-macros"))

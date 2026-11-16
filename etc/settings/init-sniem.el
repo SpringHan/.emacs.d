@@ -103,6 +103,11 @@
    "Cc" 'evilnc-copy-and-comment-lines
    ;; Dired-mode
    "D" 'dired-jump
+   ;; Pory Translate
+   "t" 'nil
+   "ti" 'pory-translate-insert
+   "tr" 'pory-translate-range
+   "tc" 'pory-translate-change-default-target
    ;; Diff
    "d" 'nil
    "dp" 'diff-hl-previous-hunk
