@@ -102,30 +102,8 @@
          ("C-b" . windresize-left)
          ("C-f" . windresize-right)))
 
-;;; youdao translate
-(use-package youdao-dictionary
-  :bind ("C-' t" . youdao-dictionary-search-at-point))
-
 ;;; Treemacs : File explore
 (use-package treemacs)
-
-;;; Input Method
-(use-package pyim
-  :disabled
-  ;; :defer nil
-  :config
-  (use-package pyim-basedict)
-
-  (pyim-basedict-enable)
-  (pyim-isearch-mode t)
-  (setq default-input-method "pyim"
-        pyim-default-scheme 'quanpin
-        pyim-page-tooltip 'posframe
-        pyim-page-length 8
-        pyim-page-style 'one-line
-        pyim-punctuation-translate '(auto yes no)
-        pyim-indicator-cursor-color '("green")))
-
 
 ;;; Command Shower
 (use-package command-log-mode

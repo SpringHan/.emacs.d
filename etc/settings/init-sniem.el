@@ -103,8 +103,6 @@
    "Cc" 'evilnc-copy-and-comment-lines
    ;; Dired-mode
    "D" 'dired-jump
-   ;; Treemacs
-   "t" 'treemacs
    ;; Diff
    "d" 'nil
    "dp" 'diff-hl-previous-hunk
@@ -134,7 +132,6 @@
    "Mf" 'mark-defun
    "Mh" 'mark-whole-buffer
    "fr" 'recentf-open-files
-   "fT" 'spring/terlat-translate-insert
    "fc" 'spring/test-color
    "fC" 'spring/input-char-number
    "fS" 'spring/set-value-at-point
