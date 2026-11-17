@@ -681,6 +681,12 @@ When only-current is non-nil, only kill buffers belong to current project."
       (insert dir)
       (kill-ring-save (point-min) (point-max)))))
 
+(defun spring/open-agents-template ()
+  "Open the agents template file."
+  (interactive)
+  (with-current-buffer (find-file "~/Github/config/create_docs.sh")
+    (goto-line 53)))
+
 ;;; Native Compilation
 
 (defun spring/native-compile-or-load (file &optional o3 force load)

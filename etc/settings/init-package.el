@@ -2,6 +2,7 @@
 ;;; Set the plugin keybinding
 (define-prefix-command 'plugin-key)
 (global-set-key (kbd "C-'") 'plugin-key)
+(global-set-key (kbd "C-' t") #'spring/open-agents-template)
 
 ;;; Package manager
 (require 'use-package)
