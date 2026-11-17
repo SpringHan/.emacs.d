@@ -3,7 +3,9 @@
 ;;; awesome-tray
 (use-package awesome-tray
   :defer nil
-  :init (git-download-ensure "awesome-tray" "manateelazycat/awesome-tray" 1)
+  :init
+  (git-download-ensure "awesome-tray" "manateelazycat/awesome-tray" 1 t)
+  (spring/extra-add-to-list "~/.emacs.d/third-party/awesome-tray/awesome-tray" nil t)
   :load-path "~/.emacs.d/third-party/awesome-tray"
   :hook (after-init-hook . awesome-tray-mode)
 
@@ -35,8 +37,6 @@
   (add-to-list 'awesome-tray-module-alist '("buffer-name" . (buffer-name awesome-tray-module-location-face)))
 
   (setq awesome-tray-active-modules '("sniem-state" "input-method" "buffer-read-only"
-                                      "buffer-modified-p" "git" "buffer-name" "mode-name" "date")))
-
-(spring/extra-add-to-list "~/.emacs.d/third-party/awesome-tray/awesome-tray")
+                                      "buffer-modified-p" "git" "buffer-name" "mode-name")))
 
 (provide 'init-awesome-tray)
