@@ -147,7 +147,7 @@ If it's daytime now,return t.Otherwise return nil."
 (defun load-the-theme (&optional time-or-theme)
   "Load the theme by time."
   (interactive (list (completing-read "Enter the theme type: "
-                                      '("day" "night" "storybook" "nord" "deus"))))
+                                      '("day" "night" "storybook" "deus"))))
   (let (time-result load-with-name)
     (if (stringp time-or-theme)
         (if (not (member time-or-theme '("day" "night")))
@@ -164,10 +164,7 @@ If it's daytime now,return t.Otherwise return nil."
     (spring/disable-modeline)
     (posframe-delete-all)
     (when (featurep 'acm)
-      (acm-reset-colors))
-    (when (featurep 'pyim)
-      (setq pyim-indicator--original-cursor-color
-            (frame-parameter nil 'cursor-color)))))
+      (acm-reset-colors))))
 
 (defun load-the-theme--enable-theme (current-theme)
   "Delete all the other themes."
@@ -189,7 +186,7 @@ When time is 'night, return the one for night."
         (progn
           (make-empty-file path)
           (with-temp-file path
-            (insert "storybook\nnord"))
+            (insert "storybook\ndeus"))
           '(storybook nord))
       (with-temp-buffer
         (insert-file-contents path)
@@ -207,7 +204,7 @@ When time is 'night, return the one for night."
   (interactive)
   (let ((for-day (yes-or-no-p "Set default theme for day?"))
         (theme (intern (completing-read "Enter the theme:"
-                                        '("storybook" "nord" "deus"))))
+                                        '("storybook" "deus"))))
         (default-theme (spring/default-theme)))
     (if for-day
         (setf (car default-theme) theme)
