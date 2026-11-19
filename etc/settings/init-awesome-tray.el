@@ -32,9 +32,25 @@
               (car netease-cloud-music-current-song)
               (nth 1 netease-cloud-music-current-song))))
 
+  (defun awesome-tray-buffer-name ()
+    "Return current buffer name.
+Return the parent path of it when it's a file. Otherwise
+only return the buffer name."
+    (let ((file (buffer-file-name (current-buffer)))
+          root)
+      (if (null file)
+          (buffer-name (current-buffer))
+        (setq root (vc-root-dir))
+
+        (if root
+            (file-relative-name file root)
+          (if (string-prefix-p (getenv "HOME") file)
+              (file-relative-name file "~")
+            (buffer-name (current-buffer)))))))
+
   (add-to-list 'awesome-tray-module-alist '("buffer-read-only" . (awesome-tray-read-only awesome-tray-module-parent-dir-face)))
   (add-to-list 'awesome-tray-module-alist '("buffer-modified-p" . (awesome-tray-buffer-modified awesome-tray-module-date-face)))
-  (add-to-list 'awesome-tray-module-alist '("buffer-name" . (buffer-name awesome-tray-module-location-face)))
+  (add-to-list 'awesome-tray-module-alist '("buffer-name" . (awesome-tray-buffer-name awesome-tray-module-location-face)))
 
   (setq awesome-tray-active-modules '("sniem-state" "input-method" "buffer-read-only"
                                       "buffer-modified-p" "git" "buffer-name" "mode-name")))
