@@ -83,6 +83,7 @@
    "w SPC" 'spring/move-to-window
    ;; Configs
    "zi" 'open-config-file
+   "zt" 'spring/insert-agent-rule
    "zmw" 'window-move
    "fe" 'eshell
    "fi" 'indent-region

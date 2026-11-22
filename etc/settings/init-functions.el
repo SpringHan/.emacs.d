@@ -678,11 +678,37 @@ When only-current is non-nil, only kill buffers belong to current project."
       (insert dir)
       (kill-ring-save (point-min) (point-max)))))
 
-(defun spring/open-agents-template ()
-  "Open the agents template file."
-  (interactive)
-  (with-current-buffer (find-file "~/Github/config/create_docs.sh")
-    (goto-line 53)))
+(defun spring/open-agents-template (file)
+  "Open the agents template FILE."
+  (interactive (list (completing-read "Enter the template file: "
+                                      '("en" "zh"))))
+  (find-file (pcase file
+               ("en" "~/Github/config/agent_templates/AGENTS.en.md")
+               ("zh" "~/Github/config/agent_templates/AGENTS.zh.md")
+               (_ (user-error "Unknow agent template file!")))))
+
+(defun spring/insert-agent-rule (file)
+  "Insert agent rule from FILE."
+  (interactive (list (completing-read "Enter the template file:"
+                                      '("en" "zh"))))
+  (let ((agent-file (pcase file
+                      ("en" "~/Github/config/agent_templates/AGENTS.en.md")
+                      ("zh" "~/Github/config/agent_templates/AGENTS.zh.md")
+                      (_ (user-error "Unknow agent template file!"))))
+        rules)
+    (with-temp-buffer
+      (insert-file-contents agent-file)
+      (goto-char (point-max))
+      (previous-line)
+      (goto-char (line-beginning-position))
+
+      (while (not (= (line-beginning-position) (line-end-position)))
+        (setq rules (append (list (buffer-substring-no-properties (line-beginning-position)
+                                                                  (line-end-position)))
+                            rules))
+        (previous-line)
+        (goto-char (line-beginning-position))))
+    (insert (completing-read "Insert with: " rules))))
 
 ;;; Native Compilation
 
