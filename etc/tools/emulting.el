@@ -1615,8 +1615,7 @@ Otherwise it's a variable."
 (emulting-extension-bind "C-h v" 'variable)
 ;; (emulting-extension-bind "C-' A" 'rg)
 (sniem-leader-set-key
- "." 'spring/find-definition
- "ff" (lambda () (interactive) (emulting '(file new-file))))
+ "." 'spring/find-definition)
 
 (provide 'emulting)
 

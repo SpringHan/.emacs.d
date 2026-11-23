@@ -5,20 +5,20 @@
   :load-path "~/.emacs.d/third-party/eee.el"
   :bind (("C-' a" . ee-rg)
          ("C-' l" . ee-lazygit)
-         ("C-' h" . ee-hire)
          ("C-' '" . spring/output-path))
 
   :config
   (setq ee-terminal-command "kitty")
-  (defun ee-hire ()
+  (defun ee-find-file ()
     (interactive)
-    (ee-message "Hire")
-    (ee-start-process-shell-command-in-terminal
-     "ee-hire"
-     (format "%s %s"
-             (expand-file-name "~/.emacs.d/scripts/hire.sh")
-             default-directory)
-     nil))
+    (if (display-graphic-p)
+        (call-process-shell-command
+         (format
+          "niri-scratchpad target --spawn \"kitty --title scratch_emacs_hire hire --start-from %s --quit-after-output\" --as-float title scratch_emacs_hire"
+          default-directory)
+         nil
+         0)
+      (emulting '(file new-file))))
 
   (defun spring/output-path ()
     "Output `default-directory' to '/tmp/hire.tmp'."
