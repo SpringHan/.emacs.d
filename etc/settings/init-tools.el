@@ -147,4 +147,8 @@
 (use-package etaf-install
   :commands (etaf-install))
 
+;;; Kdl-mode
+(use-package kdl-mode
+  :mode "\\.kdl\\'")
+
 (provide 'init-tools)
