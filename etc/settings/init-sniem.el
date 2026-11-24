@@ -71,7 +71,7 @@
    "'" 'sniem-keypad
    ;; File
    "fx" 'kill-current-buffer
-   "ff" 'ee-find-file
+   "ff" 'spring/find-file
    ;; Window
    "wx" 'delete-window
    "wo" 'delete-other-windows

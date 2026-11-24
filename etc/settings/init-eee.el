@@ -9,17 +9,6 @@
 
   :config
   (setq ee-terminal-command "kitty")
-  (defun ee-find-file ()
-    (interactive)
-    (if (display-graphic-p)
-        (call-process-shell-command
-         (format
-          "niri-scratchpad target --spawn \"kitty --title scratch_emacs_hire hire --start-from %s --quit-after-output\" --as-float title scratch_emacs_hire"
-          default-directory)
-         nil
-         0)
-      (emulting '(file new-file))))
-
   (defun spring/output-path ()
     "Output `default-directory' to '/tmp/hire.tmp'."
     (interactive)

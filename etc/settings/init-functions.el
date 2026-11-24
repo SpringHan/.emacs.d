@@ -710,6 +710,17 @@ When only-current is non-nil, only kill buffers belong to current project."
         (goto-char (line-beginning-position))))
     (insert (completing-read "Insert with: " rules))))
 
+(defun spring/find-file ()
+  (interactive)
+  (if (display-graphic-p)
+      (call-process-shell-command
+       (format
+        "niri-scratchpad target --spawn \"kitty --title scratch_emacs_hire hire --start-from %s --quit-after-output\" --as-float title scratch_emacs_hire"
+        default-directory)
+       nil
+       0)
+    (emulting '(file new-file))))
+
 ;;; Native Compilation
 
 (defun spring/native-compile-or-load (file &optional o3 force load)
