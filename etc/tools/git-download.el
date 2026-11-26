@@ -57,28 +57,23 @@
       url
     (format "https://github.com/%s.git" url)))
 
-(defun git-download--clone (url path depth)
+(defun git-download--clone (url path depth branch)
   "Clone the repository from URL.
 Argument PATH is the repository's PATH.
-Argument DEPTH is the depth for cloning."
+Argument DEPTH is the depth for cloning.
+Argument BRANCH is the target branch to be cloned."
   (split-window nil nil 'above)
   (switch-to-buffer git-download-clone-output-buffer)
-  (if depth
-      (setq git-download-clone-process
-            (start-process "Git-Download-Clone"
-                           git-download-clone-output-buffer
-                           "git"
-                           "clone"
-                           url
-                           path
-                           (format "--depth=%d" depth)))
+  (let ((clone-arguments (append
+                          (list "clone" url path)
+                          (when depth (list (format "--depth=%d" depth)))
+                          (when branch (list (format "--branch=%s" branch))))))
     (setq git-download-clone-process
-          (start-process "Git-Download-Clone"
-                         git-download-clone-output-buffer
-                         "git"
-                         "clone"
-                         url
-                         path)))
+          (apply #'start-process
+                 "Git-Download-Clone"
+                 git-download-clone-output-buffer
+                 "git"
+                 clone-arguments)))
   (set-process-sentinel git-download-clone-process
                         #'git-download--sentinel)
   (while (process-live-p git-download-clone-process)
@@ -94,7 +89,7 @@ Argument DEPTH is the depth for cloning."
             (kill-buffer-and-window)
           (kill-current-buffer)))
 
-      (message "[Gpack]: Clone finished.Press any key to confirm.")
+      (message "[Git-Download]: Clone finished.Press any key to confirm.")
       (setq git-download-clone-process nil))))
 
 ;;; Check
